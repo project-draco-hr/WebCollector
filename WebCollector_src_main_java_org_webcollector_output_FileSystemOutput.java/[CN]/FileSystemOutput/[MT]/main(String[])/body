@@ -1,0 +1,4 @@
+{
+  URL _URL=new URL("http://www.zhihu.com/");
+  System.out.println(_URL.getProtocol() + "://" + _URL.getHost());
+}

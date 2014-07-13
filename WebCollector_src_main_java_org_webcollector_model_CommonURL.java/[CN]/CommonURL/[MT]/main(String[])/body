@@ -1,0 +1,4 @@
+{
+  CommonURL commonurl=new CommonURL("http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_detail.shtml?id=20859&test=xxx");
+  commonurl.print();
+}

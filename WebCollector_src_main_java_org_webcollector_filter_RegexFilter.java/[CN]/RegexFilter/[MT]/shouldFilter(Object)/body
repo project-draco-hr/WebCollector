@@ -1,0 +1,4 @@
+{
+  String url=(String)object;
+  return !(Pattern.matches(regex,url));
+}

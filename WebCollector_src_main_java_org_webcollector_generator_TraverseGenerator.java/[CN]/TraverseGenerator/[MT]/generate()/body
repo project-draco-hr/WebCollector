@@ -1,0 +1,10 @@
+{
+  if (seeds.size() == 0) {
+    System.out.println("Please use TraverseGenerator.addSeed to add at least one seed");
+    return;
+  }
+  workqueue=new WorkQueue(threads);
+  for (  String seed : seeds) {
+    workqueue.execute(new TraverseRunnable(seed));
+  }
+}

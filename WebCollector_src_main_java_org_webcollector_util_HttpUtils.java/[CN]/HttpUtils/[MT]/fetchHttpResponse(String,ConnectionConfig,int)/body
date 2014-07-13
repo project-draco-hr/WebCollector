@@ -1,0 +1,4 @@
+{
+  HttpRetry httpretry=new HttpRetry(url,conconfig);
+  return httpretry.getResult(count);
+}

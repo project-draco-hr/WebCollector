@@ -1,0 +1,6 @@
+{
+synchronized (queue) {
+    queue.addLast(r);
+    queue.notify();
+  }
+}

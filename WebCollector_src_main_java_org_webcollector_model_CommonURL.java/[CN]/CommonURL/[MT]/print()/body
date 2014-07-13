@@ -1,0 +1,6 @@
+{
+  System.out.println("baseurl:" + baseurl);
+  for (  Entry<String,String> entry : params_map.entrySet()) {
+    System.out.println(entry.getKey() + ":" + entry.getValue());
+  }
+}

@@ -1,0 +1,21 @@
+{
+  try {
+    URL _URL=new URL(page.url);
+    String query="";
+    if (_URL.getQuery() != null) {
+      query="_" + _URL.getQuery();
+    }
+    String path=_URL.getPath();
+    if (path.charAt(path.length() - 1) == '/') {
+      path=path + "index.html";
+    }
+    path+=query;
+    File domain_path=new File(root,_URL.getHost());
+    File f=new File(domain_path,path);
+    System.out.println("output:" + f.getAbsolutePath());
+    FileUtils.writeFileWithParent(f,page.content);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

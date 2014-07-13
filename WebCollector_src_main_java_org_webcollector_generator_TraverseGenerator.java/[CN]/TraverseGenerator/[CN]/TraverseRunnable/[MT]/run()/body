@@ -1,0 +1,34 @@
+{
+  Page page=new Page();
+  page.url=this.url;
+  if (shouldFilter(page)) {
+    return;
+  }
+  if (uniquefilter.shouldFilter(this.url)) {
+    return;
+  }
+  page=HttpUtils.fetchHttpResponse(url,conconfig,3);
+  try {
+    if (page.headers.containsKey("Content-Type")) {
+      if (page.headers.get("Content-Type").toString().contains("text/html")) {
+        String charset=CharsetDetector.guessEncoding(page.content);
+        System.out.println("charset=" + charset);
+        page.html=new String(page.content,charset);
+        page.doc=Jsoup.parse(page.html);
+        page.doc.setBaseUri(page.url);
+        ArrayList<String> outlinks=LinkParser.getAll(page);
+        for (        String link : outlinks) {
+          workqueue.execute(new TraverseRunnable(link));
+        }
+      }
+ else {
+      }
+    }
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+  Message msg=new Message();
+  msg.obj=page;
+  handler.sendMessage(msg);
+}

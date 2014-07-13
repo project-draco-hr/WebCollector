@@ -1,0 +1,6 @@
+{
+  BasicCrawler crawler=new BasicCrawler();
+  crawler.addSeed("http://xautlinux.net/blog/");
+  crawler.setRoot("/home/hu/data/xaut");
+  crawler.start(30);
+}

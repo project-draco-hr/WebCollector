@@ -1,0 +1,10 @@
+{
+  ArrayList<String> outlinks=new ArrayList<String>();
+  Elements links=doc.select("link");
+  for (  Element link : links) {
+    if (link.hasAttr("href")) {
+      outlinks.add(link.attr("abs:href"));
+    }
+  }
+  return outlinks;
+}

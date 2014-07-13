@@ -1,0 +1,40 @@
+{
+  if (regexs.size() == 0) {
+    autoRegex();
+  }
+  conconfig=new ConnectionConfig(){
+    @Override public void config(    HttpURLConnection con){
+      super.config(con);
+      configCon(con);
+    }
+  }
+;
+  Handler gene_handler=new Handler(){
+    @Override public void handleMessage(    Message msg){
+      Page p=(Page)msg.obj;
+      visit(p);
+    }
+  }
+;
+  generator=new TraverseGenerator(gene_handler){
+    @Override public boolean shouldFilter(    Page page){
+      for (      String regex : regexs) {
+        RegexFilter regexfilter=new RegexFilter(regex);
+        if (regexfilter.shouldFilter(page.url)) {
+          return true;
+        }
+ else {
+          continue;
+        }
+      }
+      return false;
+    }
+  }
+;
+  for (  String seed : seeds) {
+    generator.addSeed(seed);
+  }
+  generator.setConconfig(conconfig);
+  generator.setThreads(threads);
+  generator.generate();
+}

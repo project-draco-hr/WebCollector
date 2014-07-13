@@ -1,0 +1,13 @@
+{
+  while (count > 0) {
+    try {
+      return (T)run();
+    }
+ catch (    Exception e) {
+      System.out.println("retry:");
+      e.printStackTrace();
+      count--;
+    }
+  }
+  return null;
+}

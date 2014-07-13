@@ -1,0 +1,20 @@
+{
+  Runnable r;
+  while (true) {
+synchronized (queue) {
+      while (queue.isEmpty()) {
+        try {
+          queue.wait();
+        }
+ catch (        InterruptedException ignored) {
+        }
+      }
+      r=(Runnable)queue.removeFirst();
+    }
+    try {
+      r.run();
+    }
+ catch (    RuntimeException e) {
+    }
+  }
+}

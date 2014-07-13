@@ -1,0 +1,5 @@
+{
+  FileSystemOutput fsoutput=new FileSystemOutput(root);
+  System.out.println("visit:" + page.url);
+  fsoutput.output(page);
+}
