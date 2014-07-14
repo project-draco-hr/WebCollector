@@ -1,0 +1,16 @@
+{
+  if (rule.length() == 0) {
+    return;
+  }
+  char pn=rule.charAt(0);
+  String realrule=rule.substring(1);
+  if (pn == '+') {
+    addPositive(realrule);
+  }
+ else   if (pn == '-') {
+    addNegative(realrule);
+  }
+ else {
+    addPositive(rule);
+  }
+}
