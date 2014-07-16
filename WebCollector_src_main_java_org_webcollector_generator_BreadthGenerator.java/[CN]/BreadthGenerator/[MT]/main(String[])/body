@@ -2,8 +2,12 @@
   String crawl_path="/home/hu/data/crawl_test";
   BreadthGenerator bg=new BreadthGenerator(null){
     @Override public boolean shouldFilter(    Page page){
-      if (Pattern.matches("http://news.xinhuanet.com/world/.*",page.url))       return false;
- else       return true;
+      if (Pattern.matches("http://news.xinhuanet.com/world/.*",page.url)) {
+        return false;
+      }
+ else {
+        return true;
+      }
     }
   }
 ;

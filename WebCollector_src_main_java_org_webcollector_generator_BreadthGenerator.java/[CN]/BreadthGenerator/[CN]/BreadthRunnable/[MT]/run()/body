@@ -34,6 +34,7 @@
             i--;
             continue;
           }
+          uniquefilter.addUrl(outlinks.get(i));
         }
         int maxlink=-1;
         if (topN == null) {
@@ -41,7 +42,9 @@
         }
  else {
           maxlink=topN;
-          if (maxlink > outlinks.size())           maxlink=outlinks.size();
+          if (maxlink > outlinks.size()) {
+            maxlink=outlinks.size();
+          }
         }
         for (int i=0; i < maxlink; i++) {
           String link=outlinks.get(i);
@@ -51,7 +54,6 @@
 synchronized (oldinfo) {
             oldinfo.put(jo_link);
           }
-          uniquefilter.addUrl(link);
         }
       }
  else {

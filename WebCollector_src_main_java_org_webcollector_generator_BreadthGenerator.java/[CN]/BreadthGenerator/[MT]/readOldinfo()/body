@@ -2,7 +2,7 @@
   String oldinfostr=new String(FileUtils.readFile(new File(crawl_path,Config.old_info_path)),"utf-8");
   oldinfo=new JSONArray(oldinfostr);
   oldlength=oldinfo.length();
-  for (int i=0; i < oldinfo.length(); i++) {
+  for (int i=0; i < oldlength; i++) {
     uniquefilter.addUrl(oldinfo.getJSONObject(i).getString("url"));
   }
 }
