@@ -4,7 +4,6 @@
     return true;
   }
  else {
-    hashset.add(url);
     return false;
   }
 }

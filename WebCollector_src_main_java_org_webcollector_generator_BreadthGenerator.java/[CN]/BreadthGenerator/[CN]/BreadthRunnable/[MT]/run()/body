@@ -1,0 +1,67 @@
+{
+  JSONObject page_object=oldinfo.getJSONObject(index);
+  if (page_object.getInt("status") == Page.FETCHED) {
+    return;
+  }
+  Page page=new Page();
+  page.url=page_object.getString("url");
+  page=HttpUtils.fetchHttpResponse(page.url,conconfig,3);
+  page_object.put("status",Page.FETCHED);
+  page.fecthtime=System.currentTimeMillis();
+  page_object.put("fetchtime",page.fecthtime);
+  Log.Info("fetch:" + page.url);
+  try {
+    if (page.headers.containsKey("Content-Type")) {
+      String contenttype=page.headers.get("Content-Type").toString();
+      page_object.put("contenttype",contenttype);
+      if (contenttype.contains("text/html")) {
+        String charset=CharsetDetector.guessEncoding(page.content);
+        page_object.put("charset",charset);
+        page.html=new String(page.content,charset);
+        page.doc=Jsoup.parse(page.html);
+        page.doc.setBaseUri(page.url);
+        ArrayList<String> outlinks=LinkParser.getLinks(page);
+        for (int i=0; i < outlinks.size(); i++) {
+          if (uniquefilter.shouldFilter(outlinks.get(i))) {
+            outlinks.remove(i);
+            i--;
+            continue;
+          }
+          Page tempp=new Page();
+          tempp.url=outlinks.get(i);
+          if (shouldFilter(tempp)) {
+            outlinks.remove(i);
+            i--;
+            continue;
+          }
+        }
+        int maxlink=-1;
+        if (topN == null) {
+          maxlink=outlinks.size();
+        }
+ else {
+          maxlink=topN;
+          if (maxlink > outlinks.size())           maxlink=outlinks.size();
+        }
+        for (int i=0; i < maxlink; i++) {
+          String link=outlinks.get(i);
+          JSONObject jo_link=new JSONObject();
+          jo_link.put("url",link);
+          jo_link.put("status",Page.UNFETCHED);
+synchronized (oldinfo) {
+            oldinfo.put(jo_link);
+          }
+          uniquefilter.addUrl(link);
+        }
+      }
+ else {
+      }
+    }
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+  Message msg=new Message();
+  msg.obj=page;
+  handler.sendMessage(msg);
+}

@@ -1,0 +1,13 @@
+{
+  JSONArray ja=new JSONArray();
+  for (  String url : urls) {
+    JSONObject jo=new JSONObject();
+    jo.put("url",url);
+    jo.put("status",Page.UNFETCHED);
+    ja.put(jo);
+  }
+  byte[] content=ja.toString().getBytes("utf-8");
+  String info_path=Config.current_info_path;
+  File inject_file=new File(crawl_path,info_path);
+  FileUtils.writeFileWithParent(inject_file,content);
+}

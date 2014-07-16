@@ -1,0 +1,22 @@
+{
+  try {
+    readOldinfo();
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+  workqueue=new WorkQueue(threads);
+  for (int i=0; i < oldlength; i++) {
+    BreadthRunnable breathrunnable=new BreadthRunnable(i);
+    workqueue.execute(breathrunnable);
+  }
+  try {
+    while (workqueue.isAlive()) {
+      Thread.sleep(5000);
+    }
+    stop();
+  }
+ catch (  InterruptedException ex) {
+    ex.printStackTrace();
+  }
+}

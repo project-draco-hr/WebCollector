@@ -10,11 +10,15 @@ synchronized (queue) {
         }
       }
       r=(Runnable)queue.removeFirst();
+      status=1;
     }
     try {
       r.run();
     }
  catch (    RuntimeException e) {
+    }
+ finally {
+      status=0;
     }
   }
 }
