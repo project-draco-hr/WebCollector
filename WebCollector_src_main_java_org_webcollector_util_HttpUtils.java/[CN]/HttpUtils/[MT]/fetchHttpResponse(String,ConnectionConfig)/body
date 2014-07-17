@@ -1,22 +1,3 @@
 {
-  URL _URL=new URL(url);
-  HttpURLConnection con=(HttpURLConnection)_URL.openConnection();
-  con.setDoInput(true);
-  con.setDoOutput(true);
-  if (conconfig != null) {
-    conconfig.config(con);
-  }
-  InputStream is=con.getInputStream();
-  byte[] buf=new byte[2048];
-  int read;
-  ByteArrayOutputStream bos=new ByteArrayOutputStream();
-  while ((read=is.read(buf)) != -1) {
-    bos.write(buf,0,read);
-  }
-  is.close();
-  Page page=new Page();
-  page.content=bos.toByteArray();
-  page.url=url;
-  page.headers=con.getHeaderFields();
-  return page;
+  return fetchHttpResponseWithSize(url,conconfig,Config.maxsize);
 }
