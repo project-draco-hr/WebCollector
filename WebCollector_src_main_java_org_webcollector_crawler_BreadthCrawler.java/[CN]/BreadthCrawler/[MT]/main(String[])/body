@@ -1,26 +1,26 @@
 {
-  String crawl_path="/home/hu/data/crawl_test";
-  final String root="/home/hu/data/world";
+  String crawl_path="/home/hu/data/crawl_vegnet";
+  final String root="/home/hu/data/cnmls";
   Injector injector=new Injector(crawl_path);
-  injector.inject("http://www.xinhuanet.com/");
+  injector.inject("http://www.cnmls.net/price/mlsjiage/39.html");
   Handler gene_handler=new Handler(){
     @Override public void handleMessage(    Message msg){
       Page page=(Page)msg.obj;
       FileSystemOutput fsoutput=new FileSystemOutput(root);
-      System.out.println("visit:" + page.url);
+      Log.Info("visiting " + page.url);
       fsoutput.output(page);
     }
   }
 ;
   BreadthGenerator bg=new BreadthGenerator(gene_handler){
     @Override public boolean shouldFilter(    Page page){
-      if (Pattern.matches("http://news.xinhuanet.com/world/.*",page.url))       return false;
+      if (Pattern.matches("http://www.cnmls.net/price/.*",page.url))       return false;
  else       return true;
     }
   }
 ;
-  bg.topN=10;
-  int depth=3;
+  bg.setThreads(10);
+  int depth=5;
   for (int i=0; i < depth; i++) {
     bg.run(crawl_path);
   }
