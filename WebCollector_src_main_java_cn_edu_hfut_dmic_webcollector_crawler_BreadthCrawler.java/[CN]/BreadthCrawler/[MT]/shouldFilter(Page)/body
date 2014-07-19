@@ -1,0 +1,7 @@
+{
+  RegexFilter regexfilter=new RegexFilter();
+  for (  String regex : regexs) {
+    regexfilter.addRule(regex);
+  }
+  return regexfilter.shouldFilter(page.url);
+}

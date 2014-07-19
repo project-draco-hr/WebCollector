@@ -1,0 +1,6 @@
+{
+  Injector injector=new Injector(crawl_path);
+  for (  String seed : seeds) {
+    injector.inject(seed);
+  }
+}

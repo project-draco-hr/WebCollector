@@ -1,6 +1,8 @@
 {
 synchronized (queue) {
-    if (!queue.isEmpty())     return true;
+    if (!queue.isEmpty()) {
+      return true;
+    }
   }
   for (  PoolWorker thread : threads) {
     if (thread.status == 1)     return true;

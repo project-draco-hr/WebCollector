@@ -1,0 +1,18 @@
+{
+  for (  String seed : seeds) {
+    try {
+      URL _URL=new URL(seed);
+      String host=_URL.getHost();
+      if (host.startsWith("www.")) {
+        host=host.substring(4);
+        host=".*" + host;
+      }
+      String autoregex=_URL.getProtocol() + "://" + host+ ".*";
+      regexs.add(autoregex);
+      System.out.println("autoregex:" + autoregex);
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
