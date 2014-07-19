@@ -11,8 +11,10 @@
   if (!resumable) {
     inject();
   }
+  initGenerator();
   for (int i=0; i < depth; i++) {
     Log.Info("starting depth " + (i + 1));
-    generate();
+    if (generator != null)     generate();
+ else     break;
   }
 }

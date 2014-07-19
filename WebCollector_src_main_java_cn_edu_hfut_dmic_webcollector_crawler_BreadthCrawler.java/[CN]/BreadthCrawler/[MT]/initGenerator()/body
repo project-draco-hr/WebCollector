@@ -1,0 +1,24 @@
+{
+  conconfig=new ConnectionConfig(){
+    @Override public void config(    HttpURLConnection con){
+      super.config(con);
+      configCon(con);
+    }
+  }
+;
+  Handler gene_handler=new Handler(){
+    @Override public void handleMessage(    Message msg){
+      Page page=(Page)msg.obj;
+      visit(page);
+    }
+  }
+;
+  generator=new BreadthGenerator(gene_handler){
+    @Override public boolean shouldFilter(    Page page){
+      return BreadthCrawler.this.shouldFilter(page);
+    }
+  }
+;
+  generator.setConconfig(conconfig);
+  generator.setThreads(threads);
+}

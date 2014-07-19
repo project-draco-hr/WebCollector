@@ -1,0 +1,27 @@
+{
+  final String localpath=txt_path.getText().trim();
+  Thread crawlthread=new Thread(){
+    @Override public void run(){
+      crawler.setRoot(localpath);
+      crawler.setResumable(false);
+      crawler.setCrawl_path("crawl");
+      try {
+        depth=Integer.valueOf(txt_depth.getText());
+        threads=Integer.valueOf(txt_threads.getText());
+      }
+ catch (      Exception e) {
+        e.printStackTrace();
+      }
+      try {
+        crawler.start(depth);
+      }
+ catch (      IOException ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+;
+  crawlthread.start();
+  btn_start.setEnabled(false);
+  output("????????????????????????" + localpath + "???????????????????????????,????????????????????????");
+}

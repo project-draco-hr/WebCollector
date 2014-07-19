@@ -1,0 +1,3 @@
+{
+  txt_output.append(line + "\n");
+}
