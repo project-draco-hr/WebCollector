@@ -15,9 +15,9 @@
       unfetched_count++;
     }
   }
-  Log.Info(unfetched_count + " pages to fetch");
+  Log.Info("info",unfetched_count + " pages to fetch");
   if (!hasUnfetched) {
-    Log.Info("Nothing to fetch");
+    Log.Info("info","Nothing to fetch");
     return;
   }
   for (int i=0; i < oldlength; i++) {

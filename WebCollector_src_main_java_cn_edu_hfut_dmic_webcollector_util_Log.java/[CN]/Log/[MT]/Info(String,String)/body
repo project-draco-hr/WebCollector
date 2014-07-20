@@ -1,0 +1,8 @@
+{
+  if (handler == null)   System.out.println(type + ":" + info);
+ else {
+    Message msg=new Message();
+    msg.obj=new String[]{type,info};
+    handler.sendMessage(msg);
+  }
+}
