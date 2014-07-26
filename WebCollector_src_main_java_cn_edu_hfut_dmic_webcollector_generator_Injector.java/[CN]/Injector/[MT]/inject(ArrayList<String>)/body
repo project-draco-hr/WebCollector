@@ -1,13 +1,18 @@
 {
-  JSONArray ja=new JSONArray();
-  for (  String url : urls) {
-    JSONObject jo=new JSONObject();
-    jo.put("url",url);
-    jo.put("status",Page.UNFETCHED);
-    ja.put(jo);
-  }
-  byte[] content=ja.toString().getBytes("utf-8");
+  Schema schema=AvroModel.getPageSchema();
   String info_path=Config.current_info_path;
   File inject_file=new File(crawl_path,info_path);
-  FileUtils.writeFileWithParent(inject_file,content);
+  if (!inject_file.getParentFile().exists()) {
+    inject_file.getParentFile().mkdirs();
+  }
+  DatumWriter<GenericRecord> datumWriter=new GenericDatumWriter<GenericRecord>(schema);
+  DataFileWriter<GenericRecord> dataFileWriter=new DataFileWriter<GenericRecord>(datumWriter);
+  dataFileWriter.create(schema,inject_file);
+  for (  String url : urls) {
+    GenericRecord page=new GenericData.Record(schema);
+    page.put("url",url);
+    page.put("status",Page.UNFETCHED);
+    dataFileWriter.append(page);
+  }
+  dataFileWriter.close();
 }

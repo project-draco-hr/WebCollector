@@ -6,14 +6,19 @@
       query="_" + _URL.getQuery();
     }
     String path=_URL.getPath();
-    if (path.charAt(path.length() - 1) == '/') {
-      path=path + "index.html";
+    if (path.length() == 0) {
+      path="index.html";
     }
  else {
-      for (int i=path.length() - 1; i >= 0; i--) {
-        if (path.charAt(i) == '/') {
-          if (!path.substring(i + 1).contains(".")) {
-            path=path + ".html";
+      if (path.charAt(path.length() - 1) == '/') {
+        path=path + "index.html";
+      }
+ else {
+        for (int i=path.length() - 1; i >= 0; i--) {
+          if (path.charAt(i) == '/') {
+            if (!path.substring(i + 1).contains(".")) {
+              path=path + ".html";
+            }
           }
         }
       }

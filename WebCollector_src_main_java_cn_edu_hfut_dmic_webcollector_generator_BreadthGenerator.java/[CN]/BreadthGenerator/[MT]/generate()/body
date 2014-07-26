@@ -9,9 +9,12 @@
   int unfetched_count=0;
   boolean hasUnfetched=false;
   for (int i=0; i < oldlength; i++) {
-    JSONObject page_object=oldinfo.getJSONObject(i);
-    if (page_object.getInt("status") == Page.UNFETCHED) {
-      if (hasUnfetched == false)       hasUnfetched=true;
+    GenericRecord page_record=old_records.get(i);
+    int status=(int)page_record.get("status");
+    if (status == Page.UNFETCHED) {
+      if (hasUnfetched == false) {
+        hasUnfetched=true;
+      }
       unfetched_count++;
     }
   }

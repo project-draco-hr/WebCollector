@@ -1,5 +1,5 @@
 {
-  String crawl_path="/home/hu/data/crawl_test";
+  String crawl_path="/home/hu/data/crawl_avro";
   BreadthGenerator bg=new BreadthGenerator(null){
     @Override public boolean shouldFilter(    Page page){
       if (Pattern.matches("http://news.xinhuanet.com/world/.*",page.url)) {

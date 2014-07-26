@@ -1,4 +1,4 @@
 {
-  Injector inject=new Injector("/home/hu/data/crawl_test");
+  Injector inject=new Injector("/home/hu/data/crawl_avro");
   inject.inject("http://www.xinhuanet.com/");
 }

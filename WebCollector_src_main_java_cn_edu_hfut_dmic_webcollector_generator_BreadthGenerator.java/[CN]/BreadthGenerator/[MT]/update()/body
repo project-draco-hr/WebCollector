@@ -1,5 +1,13 @@
 {
   File currentfile=new File(crawl_path,Config.current_info_path);
-  byte[] content=oldinfo.toString().getBytes("utf-8");
-  FileUtils.writeFileWithParent(currentfile,content);
+  if (!currentfile.getParentFile().exists()) {
+    currentfile.getParentFile().mkdirs();
+  }
+  DatumWriter<GenericRecord> datumWriter=new GenericDatumWriter<GenericRecord>(schema);
+  DataFileWriter<GenericRecord> dataFileWriter=new DataFileWriter<GenericRecord>(datumWriter);
+  dataFileWriter.create(schema,currentfile);
+  for (  GenericRecord page_record : old_records) {
+    dataFileWriter.append(page_record);
+  }
+  dataFileWriter.close();
 }

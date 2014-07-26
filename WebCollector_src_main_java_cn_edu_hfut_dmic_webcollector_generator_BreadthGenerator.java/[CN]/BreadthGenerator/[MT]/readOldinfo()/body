@@ -1,8 +1,15 @@
 {
-  String oldinfostr=new String(FileUtils.readFile(new File(crawl_path,Config.old_info_path)),"utf-8");
-  oldinfo=new JSONArray(oldinfostr);
-  oldlength=oldinfo.length();
-  for (int i=0; i < oldlength; i++) {
-    uniquefilter.addUrl(oldinfo.getJSONObject(i).getString("url"));
+  File oldfile=new File(crawl_path,Config.old_info_path);
+  DatumReader<GenericRecord> datumReader=new GenericDatumReader<GenericRecord>(schema);
+  DataFileReader<GenericRecord> dataFileReader=new DataFileReader<GenericRecord>(oldfile,datumReader);
+  GenericRecord page=null;
+  while (dataFileReader.hasNext()) {
+    page=dataFileReader.next(page);
+    old_records.add(page);
+    System.out.println(page);
+    String url=page.get("url").toString();
+    uniquefilter.addUrl(url);
   }
+  dataFileReader.close();
+  oldlength=old_records.size();
 }

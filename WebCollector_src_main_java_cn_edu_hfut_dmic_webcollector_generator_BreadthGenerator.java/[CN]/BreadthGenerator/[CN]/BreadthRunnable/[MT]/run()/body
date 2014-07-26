@@ -1,22 +1,20 @@
 {
-  JSONObject page_object=oldinfo.getJSONObject(index);
-  if (page_object.getInt("status") == Page.FETCHED) {
+  GenericRecord page_record=old_records.get(index);
+  if ((int)page_record.get("status") == Page.FETCHED) {
     return;
   }
   Page page=new Page();
-  page.url=page_object.getString("url");
+  page.url=page_record.get("url").toString();
   page=HttpUtils.fetchHttpResponse(page.url,conconfig,3);
-  page_object.put("status",Page.FETCHED);
+  page_record.put("status",Page.FETCHED);
   page.fecthtime=System.currentTimeMillis();
-  page_object.put("fetchtime",page.fecthtime);
+  page_record.put("fetchtime",page.fecthtime);
   Log.Info("fetch",page.url);
   try {
     if (page.headers.containsKey("Content-Type")) {
       String contenttype=page.headers.get("Content-Type").toString();
-      page_object.put("contenttype",contenttype);
       if (contenttype.contains("text/html")) {
         String charset=CharsetDetector.guessEncoding(page.content);
-        page_object.put("charset",charset);
         page.html=new String(page.content,charset);
         page.doc=Jsoup.parse(page.html);
         page.doc.setBaseUri(page.url);
@@ -48,11 +46,11 @@
         }
         for (int i=0; i < maxlink; i++) {
           String link=outlinks.get(i);
-          JSONObject jo_link=new JSONObject();
-          jo_link.put("url",link);
-          jo_link.put("status",Page.UNFETCHED);
-synchronized (oldinfo) {
-            oldinfo.put(jo_link);
+          GenericRecord outlink_record=new GenericData.Record(schema);
+          outlink_record.put("url",link);
+          outlink_record.put("status",Page.UNFETCHED);
+synchronized (old_records) {
+            old_records.add(outlink_record);
           }
         }
       }
