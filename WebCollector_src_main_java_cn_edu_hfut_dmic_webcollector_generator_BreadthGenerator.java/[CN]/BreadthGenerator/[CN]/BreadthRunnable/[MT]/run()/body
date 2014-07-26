@@ -7,8 +7,8 @@
   page.url=page_record.get("url").toString();
   page=HttpUtils.fetchHttpResponse(page.url,conconfig,3);
   page_record.put("status",Page.FETCHED);
-  page.fecthtime=System.currentTimeMillis();
-  page_record.put("fetchtime",page.fecthtime);
+  page.fetchtime=System.currentTimeMillis();
+  page_record.put("fetchtime",page.fetchtime);
   Log.Info("fetch",page.url);
   try {
     if (page.headers.containsKey("Content-Type")) {
