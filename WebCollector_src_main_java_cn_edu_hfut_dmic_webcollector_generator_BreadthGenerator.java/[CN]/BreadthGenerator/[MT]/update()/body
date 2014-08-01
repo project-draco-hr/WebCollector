@@ -3,10 +3,10 @@
   if (!currentfile.getParentFile().exists()) {
     currentfile.getParentFile().mkdirs();
   }
-  DatumWriter<GenericRecord> datumWriter=new GenericDatumWriter<GenericRecord>(schema);
-  DataFileWriter<GenericRecord> dataFileWriter=new DataFileWriter<GenericRecord>(datumWriter);
-  dataFileWriter.create(schema,currentfile);
-  for (  GenericRecord page_record : old_records) {
+  DatumWriter<WritablePage> datumWriter=new ReflectDatumWriter<WritablePage>(WritablePage.class);
+  DataFileWriter<WritablePage> dataFileWriter=new DataFileWriter<WritablePage>(datumWriter);
+  dataFileWriter.create(AvroModel.getPageSchema(),currentfile);
+  for (  WritablePage page_record : old_records) {
     dataFileWriter.append(page_record);
   }
   dataFileWriter.close();

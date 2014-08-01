@@ -1,0 +1,10 @@
+{
+  ArrayList<Link> links=new ArrayList<Link>();
+  Elements link_elements=doc.select("a[href]");
+  for (  Element link : link_elements) {
+    String anchor=link.text();
+    String href=link.attr("abs:href");
+    links.add(new Link(anchor,href));
+  }
+  return links;
+}

@@ -1,9 +1,6 @@
 {
-  try {
-    return new Schema.Parser().parse(AvroModel.class.getResourceAsStream("/page.avsc"));
+  if (page_schema == null) {
+    page_schema=ReflectData.get().getSchema(WritablePage.class);
   }
- catch (  Exception ex) {
-    ex.printStackTrace();
-    return null;
-  }
+  return page_schema;
 }

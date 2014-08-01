@@ -1,0 +1,4 @@
+{
+  this.anchor=anchor;
+  this.url=url;
+}

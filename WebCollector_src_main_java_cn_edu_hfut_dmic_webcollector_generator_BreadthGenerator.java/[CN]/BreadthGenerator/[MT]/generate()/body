@@ -6,25 +6,9 @@
     ex.printStackTrace();
   }
   workqueue=new WorkQueue(threads);
-  int unfetched_count=0;
-  boolean hasUnfetched=false;
   for (int i=0; i < oldlength; i++) {
-    GenericRecord page_record=old_records.get(i);
-    int status=(int)page_record.get("status");
-    if (status == Page.UNFETCHED) {
-      if (hasUnfetched == false) {
-        hasUnfetched=true;
-      }
-      unfetched_count++;
-    }
-  }
-  Log.Info("info",unfetched_count + " pages to fetch");
-  if (!hasUnfetched) {
-    Log.Info("info","Nothing to fetch");
-    return;
-  }
-  for (int i=0; i < oldlength; i++) {
-    BreadthRunnable breathrunnable=new BreadthRunnable(i);
+    WritablePage page_record=old_records.get(i);
+    BreadthRunnable breathrunnable=new BreadthRunnable(page_record);
     workqueue.execute(breathrunnable);
   }
   try {

@@ -1,5 +1,10 @@
 {
   Injector injector=new Injector(crawl_path);
+  injector.setTaskname(taskname);
+  if (resumable && injector.hasInjected()) {
+    Log.Infos("inject","no need to inject");
+    return;
+  }
   for (  String seed : seeds) {
     injector.inject(seed);
   }

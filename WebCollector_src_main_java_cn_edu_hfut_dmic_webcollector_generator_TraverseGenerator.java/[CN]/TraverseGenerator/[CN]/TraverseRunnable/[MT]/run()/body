@@ -16,9 +16,9 @@
         page.html=new String(page.content,charset);
         page.doc=Jsoup.parse(page.html);
         page.doc.setBaseUri(page.url);
-        ArrayList<String> outlinks=LinkParser.getAll(page);
-        for (        String link : outlinks) {
-          workqueue.execute(new TraverseRunnable(link));
+        ArrayList<Link> links=LinkUtils.getAll(page);
+        for (        Link link : links) {
+          workqueue.execute(new TraverseRunnable(link.url));
         }
       }
  else {

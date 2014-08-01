@@ -1,0 +1,9 @@
+{
+  String charset=CharsetDetector.guessEncoding(page.content);
+  page.html=new String(page.content,charset);
+  page.doc=Jsoup.parse(page.html);
+  page.doc.setBaseUri(page.url);
+  ArrayList<Link> links=LinkUtils.getAll(page);
+  ParseResult parseresult=new ParseResult(page.doc.title(),links);
+  return parseresult;
+}

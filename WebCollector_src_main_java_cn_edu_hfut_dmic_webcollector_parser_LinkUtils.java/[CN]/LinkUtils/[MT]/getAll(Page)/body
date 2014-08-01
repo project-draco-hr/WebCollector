@@ -1,0 +1,13 @@
+{
+  try {
+    ArrayList<Link> result=getLinks(page.doc);
+    result.addAll(getImgs(page.doc));
+    result.addAll(getCSS(page.doc));
+    result.addAll(getJS(page.doc));
+    return result;
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return null;
+  }
+}

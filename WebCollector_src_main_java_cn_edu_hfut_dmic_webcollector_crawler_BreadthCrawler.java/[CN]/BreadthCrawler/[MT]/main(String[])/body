@@ -2,6 +2,7 @@
   String crawl_path="/home/hu/data/crawl_hfut";
   String root="/home/hu/data/hfut";
   BreadthCrawler crawler=new BreadthCrawler();
+  crawler.taskname=RandomUtils.getTimeString() + "hfut";
   crawler.addSeed("http://news.hfut.edu.cn/");
   crawler.setRoot(root);
   crawler.setCrawl_path(crawl_path);

@@ -8,7 +8,13 @@
   Log.handler=new Handler(){
     @Override public void handleMessage(    Message msg){
       super.handleMessage(msg);
+      if (!msg.obj.getClass().isArray()) {
+        return;
+      }
       final String[] infos=(String[])msg.obj;
+      if (infos.length < 2) {
+        return;
+      }
       EventQueue.invokeLater(new Runnable(){
         @Override public void run(){
           tablemodel.addRow(infos);

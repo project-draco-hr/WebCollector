@@ -1,13 +1,10 @@
 {
   File oldfile=new File(crawl_path,Config.old_info_path);
-  DatumReader<GenericRecord> datumReader=new GenericDatumReader<GenericRecord>(schema);
-  DataFileReader<GenericRecord> dataFileReader=new DataFileReader<GenericRecord>(oldfile,datumReader);
-  GenericRecord page=null;
-  while (dataFileReader.hasNext()) {
-    page=dataFileReader.next(page);
+  DatumReader<WritablePage> datumReader=new ReflectDatumReader<WritablePage>(WritablePage.class);
+  DataFileReader<WritablePage> dataFileReader=new DataFileReader<WritablePage>(oldfile,datumReader);
+  for (  WritablePage page : dataFileReader) {
     old_records.add(page);
-    System.out.println(page);
-    String url=page.get("url").toString();
+    String url=page.url;
     uniquefilter.addUrl(url);
   }
   dataFileReader.close();
