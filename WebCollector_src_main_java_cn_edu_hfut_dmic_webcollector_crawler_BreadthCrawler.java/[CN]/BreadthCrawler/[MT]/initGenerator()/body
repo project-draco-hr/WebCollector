@@ -1,11 +1,5 @@
 {
-  conconfig=new ConnectionConfig(){
-    @Override public void config(    HttpURLConnection con){
-      super.config(con);
-      configCon(con);
-    }
-  }
-;
+  conconfig=new CommonConnectionConfig();
   Handler gene_handler=new Handler(){
     @Override public void handleMessage(    Message msg){
       Page page=(Page)msg.obj;

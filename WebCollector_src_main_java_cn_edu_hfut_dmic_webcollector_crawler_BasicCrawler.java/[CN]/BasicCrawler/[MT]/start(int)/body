@@ -2,13 +2,7 @@
   if (regexs.size() == 0) {
     autoRegex();
   }
-  conconfig=new ConnectionConfig(){
-    @Override public void config(    HttpURLConnection con){
-      super.config(con);
-      configCon(con);
-    }
-  }
-;
+  conconfig=new CommonConnectionConfig();
   Handler gene_handler=new Handler(){
     @Override public void handleMessage(    Message msg){
       Page p=(Page)msg.obj;
