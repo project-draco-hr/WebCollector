@@ -44,35 +44,6 @@
       if (contenttype.contains("text/html")) {
         HtmlParser htmlparser=new HtmlParser();
         ParseResult parseresult=htmlparser.getParse(page);
-        ArrayList<Link> links=parseresult.links;
-        int updatesize;
-        if (topN == null) {
-          updatesize=links.size();
-        }
- else {
-          updatesize=Math.min(topN,links.size());
-        }
-        int sum=0;
-        for (int i=0; i < links.size(); i++) {
-          if (sum >= updatesize) {
-            break;
-          }
-          Link link=links.get(i);
-          if (uniquefilter.shouldFilter(link.url)) {
-            continue;
-          }
-          if (shouldFilter(link.url)) {
-            continue;
-          }
-          uniquefilter.addUrl(link.url);
-          WritablePage outlink_record=new WritablePage();
-          outlink_record.url=link.url;
-          outlink_record.status=Page.UNFETCHED;
-synchronized (old_records) {
-            old_records.add(outlink_record);
-          }
-          sum++;
-        }
       }
  else {
       }

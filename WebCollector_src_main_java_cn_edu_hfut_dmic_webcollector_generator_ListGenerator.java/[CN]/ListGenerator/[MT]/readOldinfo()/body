@@ -1,0 +1,12 @@
+{
+  File oldfile=new File(crawl_path,Config.old_info_path);
+  DatumReader<WritablePage> datumReader=new ReflectDatumReader<WritablePage>(WritablePage.class);
+  DataFileReader<WritablePage> dataFileReader=new DataFileReader<WritablePage>(oldfile,datumReader);
+  for (  WritablePage page : dataFileReader) {
+    old_records.add(page);
+    String url=page.url;
+    uniquefilter.addUrl(url);
+  }
+  dataFileReader.close();
+  oldlength=old_records.size();
+}

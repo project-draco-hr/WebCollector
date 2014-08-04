@@ -1,0 +1,20 @@
+{
+  Document doc=Jsoup.connect("http://www.mogujie.com/").get();
+  Elements links=doc.select("a[href]");
+  ArrayList<String> linklist=new ArrayList<String>();
+  for (  Element link : links) {
+    linklist.add(link.attr("href"));
+  }
+  Injector inject=new Injector("/home/hu/data/crawl_avro");
+  inject.inject(linklist);
+  String crawl_path="/home/hu/data/crawl_avro";
+  Handler handler=new Handler(){
+    @Override public void handleMessage(    Message msg){
+      Page page=(Page)msg.obj;
+      System.out.println(page.url);
+    }
+  }
+;
+  ListGenerator bg=new ListGenerator(handler);
+  bg.run(crawl_path);
+}
