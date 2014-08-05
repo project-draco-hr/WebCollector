@@ -37,7 +37,7 @@
   page_record.status=Page.FETCHED;
   page.fetchtime=System.currentTimeMillis();
   page_record.fetchtime=page.fetchtime;
-  Log.Infos("fetch",page.url);
+  Log.Infos("fetch",BreadthGenerator.this.taskname,page.url);
   try {
     if (page.headers.containsKey("Content-Type")) {
       String contenttype=page.headers.get("Content-Type").toString();
