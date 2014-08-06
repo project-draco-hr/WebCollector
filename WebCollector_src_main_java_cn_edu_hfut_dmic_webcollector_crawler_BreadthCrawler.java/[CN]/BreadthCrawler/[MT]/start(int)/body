@@ -9,10 +9,14 @@
     }
   }
   inject();
-  initGenerator();
+  status=RUNNING;
   for (int i=0; i < depth; i++) {
+    if (status == STOPED) {
+      break;
+    }
     Log.Infos("info","starting depth " + (i + 1));
-    if (generator != null)     generate();
- else     break;
+    Generator generator=getGenerator();
+    fetcher=getFecther();
+    fetcher.fetchAll(generator);
   }
 }

@@ -1,0 +1,11 @@
+{
+  if (!iterator.hasNext())   return null;
+  CrawlDatum crawldatum=iterator.next();
+  if (crawldatum == null) {
+    return null;
+  }
+  if (shouldFilter(crawldatum.url)) {
+    return next();
+  }
+  return crawldatum;
+}

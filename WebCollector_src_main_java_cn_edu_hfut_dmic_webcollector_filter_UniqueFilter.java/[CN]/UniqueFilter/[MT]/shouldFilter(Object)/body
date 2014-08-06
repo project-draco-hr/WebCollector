@@ -1,9 +1,0 @@
-{
-  String url=(String)object;
-  if (hashset.contains(url)) {
-    return true;
-  }
- else {
-    return false;
-  }
-}

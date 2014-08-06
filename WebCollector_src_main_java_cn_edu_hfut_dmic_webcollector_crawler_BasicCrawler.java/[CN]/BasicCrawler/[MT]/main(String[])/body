@@ -1,6 +1,0 @@
-{
-  BasicCrawler crawler=new BasicCrawler();
-  crawler.addSeed("http://www.zhihu.com/");
-  crawler.setRoot("/home/hu/data/xaut");
-  crawler.start(30);
-}

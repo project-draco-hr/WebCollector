@@ -1,0 +1,8 @@
+{
+  start();
+  CrawlDatum crawlDatum=null;
+  while ((crawlDatum=generator.next()) != null) {
+    addFetcherThread(crawlDatum.url);
+  }
+  end();
+}

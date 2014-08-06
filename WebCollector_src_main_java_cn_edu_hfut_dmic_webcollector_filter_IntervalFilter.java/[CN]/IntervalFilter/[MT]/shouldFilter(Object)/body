@@ -1,7 +1,0 @@
-{
-  Long lasttime=(Long)object;
-  if (lasttime + Config.interval > System.currentTimeMillis()) {
-    return true;
-  }
-  return false;
-}

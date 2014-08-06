@@ -1,5 +1,5 @@
 {
   FileSystemOutput fsoutput=new FileSystemOutput(root);
-  Log.Infos("visit",page.url);
+  Log.Infos("visit",this.taskname,page.url);
   fsoutput.output(page);
 }

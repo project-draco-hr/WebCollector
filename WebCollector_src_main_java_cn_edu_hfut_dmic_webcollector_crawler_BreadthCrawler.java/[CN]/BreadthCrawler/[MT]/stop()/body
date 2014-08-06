@@ -1,5 +1,4 @@
 {
-  BreadthGenerator temp=generator;
-  generator=null;
-  temp.stop();
+  fetcher.stop();
+  status=STOPED;
 }

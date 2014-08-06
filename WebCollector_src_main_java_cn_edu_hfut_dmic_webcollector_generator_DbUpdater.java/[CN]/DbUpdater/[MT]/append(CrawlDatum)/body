@@ -1,0 +1,7 @@
+{
+  dataFileWriter.append(crawldatum);
+  if (updaterCount % 200 == 0) {
+    dataFileWriter.flush();
+  }
+  updaterCount++;
+}

@@ -1,0 +1,17 @@
+{
+  CrawlDatum crawldatum=generator.next();
+  if (crawldatum == null) {
+    return null;
+  }
+  if (crawldatum.status == Page.UNFETCHED) {
+    return crawldatum;
+  }
+  if (Config.interval == -1) {
+    return crawldatum;
+  }
+  Long lasttime=crawldatum.fetchtime;
+  if (lasttime + Config.interval > System.currentTimeMillis()) {
+    return next();
+  }
+  return crawldatum;
+}

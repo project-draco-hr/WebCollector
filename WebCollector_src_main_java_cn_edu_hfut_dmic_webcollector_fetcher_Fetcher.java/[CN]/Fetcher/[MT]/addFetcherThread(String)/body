@@ -1,0 +1,4 @@
+{
+  FetcherThread fetcherthread=new FetcherThread(url);
+  workqueue.execute(fetcherthread);
+}

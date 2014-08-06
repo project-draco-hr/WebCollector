@@ -1,11 +1,12 @@
 {
-  String crawl_path="/home/hu/data/crawl_hfut";
-  String root="/home/hu/data/hfut";
+  String crawl_path="/home/hu/data/crawl_hfut1";
+  String root="/home/hu/data/hfut1";
+  Config.topN=500;
   BreadthCrawler crawler=new BreadthCrawler();
   crawler.taskname=RandomUtils.getTimeString() + "hfut";
   crawler.addSeed("http://news.hfut.edu.cn/");
   crawler.setRoot(root);
   crawler.setCrawl_path(crawl_path);
   crawler.setResumable(false);
-  crawler.start(5);
+  crawler.start(4);
 }

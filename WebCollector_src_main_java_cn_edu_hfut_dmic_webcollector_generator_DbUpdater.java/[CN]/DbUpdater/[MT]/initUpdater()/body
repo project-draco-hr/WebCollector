@@ -1,0 +1,10 @@
+{
+  File currentfile=new File(crawl_path,Config.current_info_path);
+  if (!currentfile.getParentFile().exists()) {
+    currentfile.getParentFile().mkdirs();
+  }
+  DatumWriter<CrawlDatum> datumWriter=new ReflectDatumWriter<CrawlDatum>(CrawlDatum.class);
+  dataFileWriter=new DataFileWriter<CrawlDatum>(datumWriter);
+  dataFileWriter.appendTo(currentfile);
+  updaterCount=0;
+}

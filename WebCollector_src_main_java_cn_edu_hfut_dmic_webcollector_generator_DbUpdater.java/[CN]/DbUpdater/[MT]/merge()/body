@@ -1,0 +1,30 @@
+{
+  File oldfile=new File(crawl_path,Config.current_info_path);
+  DatumReader<CrawlDatum> datumReader=new ReflectDatumReader<CrawlDatum>(CrawlDatum.class);
+  DataFileReader<CrawlDatum> dataFileReader=new DataFileReader<CrawlDatum>(oldfile,datumReader);
+  HashMap<String,Integer> indexmap=new HashMap<String,Integer>();
+  ArrayList<CrawlDatum> origin_datums=new ArrayList<CrawlDatum>();
+  for (  CrawlDatum crawldatum : dataFileReader) {
+    String url=crawldatum.url;
+    if (indexmap.containsKey(crawldatum.url)) {
+      int preindex=indexmap.get(url);
+      CrawlDatum pre_datum=origin_datums.get(preindex);
+      if (crawldatum.status == Page.UNFETCHED) {
+        continue;
+      }
+ else       if (pre_datum.fetchtime >= crawldatum.fetchtime) {
+        continue;
+      }
+ else {
+        origin_datums.set(preindex,crawldatum);
+        indexmap.put(url,preindex);
+      }
+    }
+ else {
+      origin_datums.add(crawldatum);
+      indexmap.put(url,origin_datums.size() - 1);
+    }
+  }
+  dataFileReader.close();
+  updateAll(origin_datums);
+}

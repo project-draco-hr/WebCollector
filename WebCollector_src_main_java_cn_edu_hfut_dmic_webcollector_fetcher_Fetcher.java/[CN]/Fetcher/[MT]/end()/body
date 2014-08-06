@@ -1,0 +1,14 @@
+{
+  try {
+    while (workqueue.isAlive()) {
+      Thread.sleep(5000);
+    }
+    workqueue.killALl();
+  }
+ catch (  InterruptedException ex) {
+    ex.printStackTrace();
+  }
+  dbUpdater.closeUpdater();
+  dbUpdater.merge();
+  dbUpdater.unlock();
+}

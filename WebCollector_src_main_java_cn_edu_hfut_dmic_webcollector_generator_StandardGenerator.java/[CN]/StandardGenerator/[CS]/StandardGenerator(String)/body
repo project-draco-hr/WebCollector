@@ -1,0 +1,25 @@
+{
+  this.crawl_path=crawl_path;
+  try {
+    backup();
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+  DbUpdater dbupdater=new DbUpdater(crawl_path);
+  try {
+    if (dbupdater.isLocked()) {
+      dbupdater.merge();
+      dbupdater.unlock();
+    }
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+  try {
+    initReader();
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+}

@@ -1,0 +1,24 @@
+{
+  Handler fetch_handler=new Handler(){
+    @Override public void handleMessage(    Message msg){
+      Page page=(Page)msg.obj;
+switch (msg.what) {
+case Fetcher.FETCH_SUCCESS:
+        visit(page);
+      break;
+case Fetcher.FETCH_FAILED:
+    failed(page);
+  break;
+default :
+break;
+}
+}
+}
+;
+Fetcher fetcher=new Fetcher(crawl_path);
+fetcher.setHandler(fetch_handler);
+conconfig=new CommonConnectionConfig();
+fetcher.setThreads(threads);
+fetcher.setConconfig(conconfig);
+return fetcher;
+}

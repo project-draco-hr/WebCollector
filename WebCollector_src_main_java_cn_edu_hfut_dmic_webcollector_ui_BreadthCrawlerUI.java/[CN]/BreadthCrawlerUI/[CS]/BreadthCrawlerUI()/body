@@ -12,12 +12,12 @@
         return;
       }
       final String[] infos=(String[])msg.obj;
-      if (infos.length < 2) {
+      if (infos.length < 3) {
         return;
       }
       EventQueue.invokeLater(new Runnable(){
         @Override public void run(){
-          tablemodel.addRow(infos);
+          tablemodel.addRow(new String[]{infos[0],infos[2]});
         }
       }
 );
