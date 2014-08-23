@@ -1,5 +1,3 @@
 {
-  File oldfile=new File(crawl_path,Config.old_info_path);
-  File currentfile=new File(crawl_path,Config.current_info_path);
-  FileUtils.copy(currentfile,oldfile);
+  DbUpdater.backup(crawl_path);
 }

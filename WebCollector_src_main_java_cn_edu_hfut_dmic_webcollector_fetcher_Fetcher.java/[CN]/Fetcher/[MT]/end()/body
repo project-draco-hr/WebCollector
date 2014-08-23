@@ -8,7 +8,9 @@
  catch (  InterruptedException ex) {
     ex.printStackTrace();
   }
-  dbUpdater.closeUpdater();
-  dbUpdater.merge();
-  dbUpdater.unlock();
+  if (needUpdateDb) {
+    dbUpdater.closeUpdater();
+    dbUpdater.merge();
+    dbUpdater.unlock();
+  }
 }

@@ -21,30 +21,39 @@
     return;
   }
   CrawlDatum crawldatum=new CrawlDatum();
+  crawldatum.url=url;
   crawldatum.status=Page.FETCHED;
   page.fetchtime=System.currentTimeMillis();
   crawldatum.fetchtime=page.fetchtime;
-  Log.Infos("fetch",Fetcher.this.taskname,page.url);
   try {
-    if (page.headers.containsKey("Content-Type")) {
-      String contenttype=page.headers.get("Content-Type").toString();
-      if (contenttype.contains("text/html")) {
-        HtmlParser htmlparser=new HtmlParser(Config.topN);
-        ParseResult parseresult=htmlparser.getParse(page);
-        ArrayList<Link> links=parseresult.links;
-        for (        Link link : links) {
-          CrawlDatum link_crawldatum=new CrawlDatum();
-          link_crawldatum.url=link.url;
-          link_crawldatum.status=Page.UNFETCHED;
-          dbUpdater.append(link_crawldatum);
+    dbUpdater.append(crawldatum);
+  }
+ catch (  IOException ex) {
+    ex.printStackTrace();
+  }
+  Log.Infos("fetch",Fetcher.this.taskname,page.url);
+  if (needUpdateDb) {
+    try {
+      if (page.headers.containsKey("Content-Type")) {
+        String contenttype=page.headers.get("Content-Type").toString();
+        if (contenttype.contains("text/html")) {
+          HtmlParser htmlparser=new HtmlParser(Config.topN);
+          ParseResult parseresult=htmlparser.getParse(page);
+          ArrayList<Link> links=parseresult.links;
+          for (          Link link : links) {
+            CrawlDatum link_crawldatum=new CrawlDatum();
+            link_crawldatum.url=link.url;
+            link_crawldatum.status=Page.UNFETCHED;
+            dbUpdater.append(link_crawldatum);
+          }
+        }
+ else {
         }
       }
- else {
-      }
     }
-  }
- catch (  Exception ex) {
-    ex.printStackTrace();
+ catch (    Exception ex) {
+      ex.printStackTrace();
+    }
   }
   Message msg=new Message();
   msg.what=Fetcher.FETCH_SUCCESS;

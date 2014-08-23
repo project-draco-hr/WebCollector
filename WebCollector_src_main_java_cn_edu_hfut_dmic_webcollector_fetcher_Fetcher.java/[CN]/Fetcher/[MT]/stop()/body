@@ -1,6 +1,8 @@
 {
   workqueue.killALl();
-  dbUpdater.closeUpdater();
-  dbUpdater.merge();
-  dbUpdater.unlock();
+  if (needUpdateDb) {
+    dbUpdater.closeUpdater();
+    dbUpdater.merge();
+    dbUpdater.unlock();
+  }
 }

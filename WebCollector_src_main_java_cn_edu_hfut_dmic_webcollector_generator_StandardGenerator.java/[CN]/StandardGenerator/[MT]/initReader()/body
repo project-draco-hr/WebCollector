@@ -1,6 +1,4 @@
 {
   File oldfile=new File(crawl_path,Config.old_info_path);
-  DatumReader<CrawlDatum> datumReader=new ReflectDatumReader<CrawlDatum>(CrawlDatum.class);
-  DataFileReader<CrawlDatum> dataFileReader=new DataFileReader<CrawlDatum>(oldfile,datumReader);
-  iterator=dataFileReader.iterator();
+  dbreader=new DbReader(oldfile);
 }

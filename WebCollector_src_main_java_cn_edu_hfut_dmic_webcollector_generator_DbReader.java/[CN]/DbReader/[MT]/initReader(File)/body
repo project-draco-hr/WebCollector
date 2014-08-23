@@ -1,0 +1,5 @@
+{
+  DatumReader<CrawlDatum> datumReader=new ReflectDatumReader<CrawlDatum>(CrawlDatum.class);
+  dataFileReader=new DataFileReader<CrawlDatum>(dbfile,datumReader);
+  iterator=dataFileReader.iterator();
+}

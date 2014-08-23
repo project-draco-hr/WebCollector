@@ -1,6 +1,6 @@
 {
-  if (!iterator.hasNext())   return null;
-  CrawlDatum crawldatum=iterator.next();
+  if (!dbreader.hasNext())   return null;
+  CrawlDatum crawldatum=dbreader.readNext();
   if (crawldatum == null) {
     return null;
   }

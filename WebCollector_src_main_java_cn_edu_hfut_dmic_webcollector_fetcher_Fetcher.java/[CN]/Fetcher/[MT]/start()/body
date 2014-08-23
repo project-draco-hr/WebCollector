@@ -1,6 +1,8 @@
 {
-  this.dbUpdater=new DbUpdater(crawl_path);
+  if (needUpdateDb) {
+    this.dbUpdater=new DbUpdater(crawl_path);
+    dbUpdater.initUpdater();
+    dbUpdater.lock();
+  }
   workqueue=new WorkQueue(threads);
-  dbUpdater.initUpdater();
-  dbUpdater.lock();
 }

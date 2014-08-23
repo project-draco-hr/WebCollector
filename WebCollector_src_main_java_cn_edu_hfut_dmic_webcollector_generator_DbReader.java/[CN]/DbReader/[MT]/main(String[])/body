@@ -1,0 +1,30 @@
+{
+  if (args.length == 0) {
+    System.err.println("Usage dbpath");
+    main(new String[]{"/home/hu/data/crawl_hfut1/crawldb/current/info.avro"});
+    return;
+  }
+  String dbpath=args[0];
+  DbReader reader=new DbReader(dbpath);
+  int sum=0;
+  int sum_fetched=0;
+  int sum_unfetched=0;
+  CrawlDatum crawldatum=null;
+  System.out.println("start read:");
+  while (reader.hasNext()) {
+    crawldatum=reader.readNext();
+    sum++;
+switch (crawldatum.status) {
+case Page.FETCHED:
+      sum_fetched++;
+    break;
+case Page.UNFETCHED:
+  sum_unfetched++;
+break;
+}
+}
+reader.close();
+System.out.println("Total urls:" + sum);
+System.out.println("status " + Page.FETCHED + " (fetched):"+ sum_fetched);
+System.out.println("status " + Page.UNFETCHED + " (unfetched):"+ sum_unfetched);
+}
