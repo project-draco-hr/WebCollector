@@ -8,5 +8,5 @@
   crawler.setRoot(root);
   crawler.setCrawl_path(crawl_path);
   crawler.setResumable(false);
-  crawler.start(4);
+  crawler.start(5);
 }
