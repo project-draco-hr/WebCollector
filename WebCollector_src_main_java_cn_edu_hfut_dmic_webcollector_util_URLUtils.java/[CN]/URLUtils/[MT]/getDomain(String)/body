@@ -1,0 +1,10 @@
+{
+  URL _URL=null;
+  try {
+    _URL=new URL(url);
+  }
+ catch (  MalformedURLException ex) {
+    return null;
+  }
+  return _URL.getHost();
+}

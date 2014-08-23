@@ -3,11 +3,9 @@
   if (!currentfile.getParentFile().exists()) {
     currentfile.getParentFile().mkdirs();
   }
-  DatumWriter<CrawlDatum> datumWriter=new ReflectDatumWriter<CrawlDatum>(CrawlDatum.class);
-  DataFileWriter<CrawlDatum> alldataFileWriter=new DataFileWriter<CrawlDatum>(datumWriter);
-  alldataFileWriter.create(AvroModel.getPageSchema(),currentfile);
+  DbWriter writer=new DbWriter(currentfile);
   for (  CrawlDatum crawldatum : datums) {
-    alldataFileWriter.append(crawldatum);
+    writer.write(crawldatum);
   }
-  alldataFileWriter.close();
+  writer.close();
 }

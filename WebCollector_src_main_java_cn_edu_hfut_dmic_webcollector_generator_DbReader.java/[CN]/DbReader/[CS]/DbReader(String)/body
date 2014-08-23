@@ -1,5 +1,3 @@
 {
-  this.dbpath=dbpath;
-  File dbfile=new File(dbpath);
-  initReader(dbfile);
+  this(new File(dbpath));
 }

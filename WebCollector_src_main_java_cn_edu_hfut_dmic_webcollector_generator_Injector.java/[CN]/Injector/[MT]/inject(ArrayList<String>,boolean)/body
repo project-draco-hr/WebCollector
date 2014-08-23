@@ -1,0 +1,16 @@
+{
+  Schema schema=AvroModel.getPageSchema();
+  String info_path=Config.current_info_path;
+  File inject_file=new File(crawl_path,info_path);
+  if (!inject_file.getParentFile().exists()) {
+    inject_file.getParentFile().mkdirs();
+  }
+  DbWriter writer=new DbWriter(inject_file,append);
+  for (  String url : urls) {
+    CrawlDatum crawldatum=new CrawlDatum();
+    crawldatum.url=url;
+    crawldatum.status=Page.UNFETCHED;
+    writer.write(crawldatum);
+  }
+  writer.close();
+}

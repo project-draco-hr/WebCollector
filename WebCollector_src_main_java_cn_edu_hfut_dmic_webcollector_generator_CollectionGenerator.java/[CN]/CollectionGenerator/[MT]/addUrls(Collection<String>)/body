@@ -1,0 +1,10 @@
+{
+  for (  String url : urls) {
+    CrawlDatum crawldatum=new CrawlDatum();
+    crawldatum.url=url;
+    crawldatum.fetchtime=Page.FETCHTIME_UNDEFINED;
+    crawldatum.status=Page.UNFETCHED;
+    data.add(crawldatum);
+  }
+  iterator=data.iterator();
+}

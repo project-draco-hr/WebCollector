@@ -1,0 +1,4 @@
+{
+  data.addAll(crawldatums);
+  iterator=data.iterator();
+}

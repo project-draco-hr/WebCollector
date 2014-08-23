@@ -1,10 +1,11 @@
 {
-  File oldfile=new File(crawl_path,Config.current_info_path);
-  DatumReader<CrawlDatum> datumReader=new ReflectDatumReader<CrawlDatum>(CrawlDatum.class);
-  DataFileReader<CrawlDatum> dataFileReader=new DataFileReader<CrawlDatum>(oldfile,datumReader);
+  File currentfile=new File(crawl_path,Config.current_info_path);
+  DbReader reader=new DbReader(currentfile);
   HashMap<String,Integer> indexmap=new HashMap<String,Integer>();
   ArrayList<CrawlDatum> origin_datums=new ArrayList<CrawlDatum>();
-  for (  CrawlDatum crawldatum : dataFileReader) {
+  CrawlDatum crawldatum=null;
+  while (reader.hasNext()) {
+    crawldatum=reader.readNext();
     String url=crawldatum.url;
     if (indexmap.containsKey(crawldatum.url)) {
       int preindex=indexmap.get(url);
@@ -25,6 +26,6 @@
       indexmap.put(url,origin_datums.size() - 1);
     }
   }
-  dataFileReader.close();
+  reader.close();
   updateAll(origin_datums);
 }

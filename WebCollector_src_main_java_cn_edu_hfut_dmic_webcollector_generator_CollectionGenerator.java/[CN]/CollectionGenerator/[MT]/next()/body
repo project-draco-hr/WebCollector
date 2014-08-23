@@ -1,0 +1,8 @@
+{
+  if (iterator.hasNext()) {
+    return iterator.next();
+  }
+ else {
+    return null;
+  }
+}

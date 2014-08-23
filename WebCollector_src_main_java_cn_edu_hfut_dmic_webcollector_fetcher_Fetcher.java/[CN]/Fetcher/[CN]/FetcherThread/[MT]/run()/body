@@ -2,22 +2,26 @@
   Page page=new Page();
   page.url=url;
   try {
-    page=HttpUtils.fetchHttpResponse(page.url,conconfig,3);
+    page=HttpUtils.fetchHttpResponse(page.url,conconfig,retry);
   }
  catch (  Exception ex) {
     Log.Errors("failed ",page.url);
-    Message msg=new Message();
-    msg.what=Fetcher.FETCH_FAILED;
-    msg.obj=page;
-    handler.sendMessage(msg);
+    if (handler != null) {
+      Message msg=new Message();
+      msg.what=Fetcher.FETCH_FAILED;
+      msg.obj=page;
+      handler.sendMessage(msg);
+    }
     return;
   }
   if (page == null) {
     Log.Errors("failed ",page.url);
-    Message msg=new Message();
-    msg.what=Fetcher.FETCH_FAILED;
-    msg.obj=page;
-    handler.sendMessage(msg);
+    if (handler != null) {
+      Message msg=new Message();
+      msg.what=Fetcher.FETCH_FAILED;
+      msg.obj=page;
+      handler.sendMessage(msg);
+    }
     return;
   }
   CrawlDatum crawldatum=new CrawlDatum();
@@ -25,15 +29,10 @@
   crawldatum.status=Page.FETCHED;
   page.fetchtime=System.currentTimeMillis();
   crawldatum.fetchtime=page.fetchtime;
-  try {
-    dbUpdater.append(crawldatum);
-  }
- catch (  IOException ex) {
-    ex.printStackTrace();
-  }
   Log.Infos("fetch",Fetcher.this.taskname,page.url);
   if (needUpdateDb) {
     try {
+      dbUpdater.append(crawldatum);
       if (page.headers.containsKey("Content-Type")) {
         String contenttype=page.headers.get("Content-Type").toString();
         if (contenttype.contains("text/html")) {
@@ -55,8 +54,10 @@
       ex.printStackTrace();
     }
   }
-  Message msg=new Message();
-  msg.what=Fetcher.FETCH_SUCCESS;
-  msg.obj=page;
-  handler.sendMessage(msg);
+  if (handler != null) {
+    Message msg=new Message();
+    msg.what=Fetcher.FETCH_SUCCESS;
+    msg.obj=page;
+    handler.sendMessage(msg);
+  }
 }

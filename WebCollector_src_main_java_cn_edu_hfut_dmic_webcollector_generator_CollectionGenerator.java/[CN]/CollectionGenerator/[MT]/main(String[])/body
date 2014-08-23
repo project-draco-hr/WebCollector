@@ -1,0 +1,9 @@
+{
+  CollectionGenerator generator=new CollectionGenerator();
+  generator.addUrl("http://abc1.com");
+  generator.addUrl("http://abc2.com");
+  CrawlDatum crawldatum;
+  while ((crawldatum=generator.next()) != null) {
+    System.out.println(crawldatum.url);
+  }
+}

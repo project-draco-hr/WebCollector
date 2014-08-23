@@ -1,5 +1,3 @@
 {
-  ArrayList<String> urls=new ArrayList<>();
-  urls.add(url);
-  inject(urls);
+  inject(url,false);
 }
