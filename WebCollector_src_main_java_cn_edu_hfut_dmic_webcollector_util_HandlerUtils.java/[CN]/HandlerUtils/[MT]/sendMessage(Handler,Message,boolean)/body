@@ -1,0 +1,8 @@
+{
+  if (checknull) {
+    if (handler == null) {
+      return;
+    }
+  }
+  handler.sendMessage(msg);
+}

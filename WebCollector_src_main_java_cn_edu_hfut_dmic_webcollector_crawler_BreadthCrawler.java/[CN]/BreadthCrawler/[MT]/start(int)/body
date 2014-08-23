@@ -1,10 +1,10 @@
 {
   if (!resumable) {
-    if (seeds.size() == 0) {
+    if (seeds.isEmpty()) {
       Log.Infos("error:" + "Please add at least one seed");
       return;
     }
-    if (regexs.size() == 0) {
+    if (regexs.isEmpty()) {
       autoRegex();
     }
   }

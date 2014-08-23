@@ -6,22 +6,12 @@
   }
  catch (  Exception ex) {
     Log.Errors("failed ",page.url);
-    if (handler != null) {
-      Message msg=new Message();
-      msg.what=Fetcher.FETCH_FAILED;
-      msg.obj=page;
-      handler.sendMessage(msg);
-    }
+    HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
     return;
   }
   if (page == null) {
     Log.Errors("failed ",page.url);
-    if (handler != null) {
-      Message msg=new Message();
-      msg.what=Fetcher.FETCH_FAILED;
-      msg.obj=page;
-      handler.sendMessage(msg);
-    }
+    HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
     return;
   }
   CrawlDatum crawldatum=new CrawlDatum();
@@ -54,10 +44,5 @@
       ex.printStackTrace();
     }
   }
-  if (handler != null) {
-    Message msg=new Message();
-    msg.what=Fetcher.FETCH_SUCCESS;
-    msg.obj=page;
-    handler.sendMessage(msg);
-  }
+  HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_SUCCESS,page),true);
 }
