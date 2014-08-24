@@ -1,0 +1,4 @@
+{
+  page.doc=parseDocument(page.content,page.url);
+  return page;
+}

@@ -1,0 +1,13 @@
+{
+  String charset=CharsetDetector.guessEncoding(content);
+  String html;
+  try {
+    html=new String(content,charset);
+  }
+ catch (  UnsupportedEncodingException ex) {
+    return null;
+  }
+  Document doc=Jsoup.parse(html);
+  doc.setBaseUri(url);
+  return doc;
+}
