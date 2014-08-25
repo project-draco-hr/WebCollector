@@ -4,9 +4,10 @@
       Log.Infos("error:" + "Please add at least one seed");
       return;
     }
-    if (regexs.isEmpty()) {
-      autoRegex();
-    }
+  }
+  if (regexs.isEmpty()) {
+    Log.Infos("error:" + "Please add at least one regex rule");
+    return;
   }
   inject();
   status=RUNNING;

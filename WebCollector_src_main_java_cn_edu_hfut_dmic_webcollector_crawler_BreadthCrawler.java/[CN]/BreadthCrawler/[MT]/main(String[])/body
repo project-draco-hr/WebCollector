@@ -4,9 +4,9 @@
   Config.topN=500;
   BreadthCrawler crawler=new BreadthCrawler();
   crawler.taskname=RandomUtils.getTimeString() + "hfut";
-  crawler.addSeed("http://news.hfut.edu.cn/");
+  crawler.addRegex("http://news.hfut.edu.cn/.*");
   crawler.setRoot(root);
   crawler.setCrawl_path(crawl_path);
-  crawler.setResumable(false);
+  crawler.setResumable(true);
   crawler.start(5);
 }
