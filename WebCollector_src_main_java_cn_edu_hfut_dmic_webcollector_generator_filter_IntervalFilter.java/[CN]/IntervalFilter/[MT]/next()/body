@@ -7,7 +7,7 @@
     return crawldatum;
   }
   if (Config.interval == -1) {
-    return crawldatum;
+    return next();
   }
   Long lasttime=crawldatum.fetchtime;
   if (lasttime + Config.interval > System.currentTimeMillis()) {
