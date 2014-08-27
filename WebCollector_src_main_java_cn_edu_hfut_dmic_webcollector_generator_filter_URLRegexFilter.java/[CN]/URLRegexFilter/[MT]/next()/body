@@ -1,24 +1,26 @@
 {
-  CrawlDatum crawldatum=generator.next();
-  if (crawldatum == null) {
-    return null;
-  }
-  String url=crawldatum.url;
-  for (  String nregex : negative) {
-    if (Pattern.matches(nregex,url)) {
-      return next();
+  while (true) {
+    CrawlDatum crawldatum=generator.next();
+    if (crawldatum == null) {
+      return null;
     }
-  }
-  int count=0;
-  for (  String pregex : positive) {
-    if (Pattern.matches(pregex,url)) {
-      count++;
+    String url=crawldatum.url;
+    for (    String nregex : negative) {
+      if (Pattern.matches(nregex,url)) {
+        continue;
+      }
     }
-  }
-  if (count == 0) {
-    return next();
-  }
+    int count=0;
+    for (    String pregex : positive) {
+      if (Pattern.matches(pregex,url)) {
+        count++;
+      }
+    }
+    if (count == 0) {
+      continue;
+    }
  else {
-    return crawldatum;
+      return crawldatum;
+    }
   }
 }

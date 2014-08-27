@@ -1,17 +1,19 @@
 {
-  CrawlDatum crawldatum=generator.next();
-  if (crawldatum == null) {
-    return null;
-  }
-  if (crawldatum.status == Page.UNFETCHED) {
+  while (true) {
+    CrawlDatum crawldatum=generator.next();
+    if (crawldatum == null) {
+      return null;
+    }
+    if (crawldatum.status == Page.UNFETCHED) {
+      return crawldatum;
+    }
+    if (Config.interval == -1) {
+      continue;
+    }
+    Long lasttime=crawldatum.fetchtime;
+    if (lasttime + Config.interval > System.currentTimeMillis()) {
+      continue;
+    }
     return crawldatum;
   }
-  if (Config.interval == -1) {
-    return next();
-  }
-  Long lasttime=crawldatum.fetchtime;
-  if (lasttime + Config.interval > System.currentTimeMillis()) {
-    return next();
-  }
-  return crawldatum;
 }
