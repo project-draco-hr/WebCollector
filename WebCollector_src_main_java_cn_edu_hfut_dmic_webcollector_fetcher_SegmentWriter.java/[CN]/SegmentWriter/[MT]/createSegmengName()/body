@@ -1,0 +1,12 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+  Date date=new Date();
+  String datestr=sdf.format(date);
+  try {
+    Thread.sleep(1000);
+  }
+ catch (  InterruptedException ex) {
+    ex.printStackTrace();
+  }
+  return datestr;
+}

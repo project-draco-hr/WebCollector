@@ -4,10 +4,10 @@
     currentfile.getParentFile().mkdirs();
   }
   if (currentfile.exists()) {
-    updater_writer=new DbWriter(currentfile,true);
+    updater_writer=new DbWriter<CrawlDatum>(CrawlDatum.class,currentfile,true);
   }
  else {
-    updater_writer=new DbWriter(currentfile,false);
+    updater_writer=new DbWriter<CrawlDatum>(CrawlDatum.class,currentfile,false);
   }
   updaterCount=0;
 }

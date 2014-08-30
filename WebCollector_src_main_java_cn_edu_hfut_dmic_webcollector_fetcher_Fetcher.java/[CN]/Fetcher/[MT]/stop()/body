@@ -2,7 +2,7 @@
   workqueue.killALl();
   if (needUpdateDb) {
     dbUpdater.closeUpdater();
-    dbUpdater.merge();
+    dbUpdater.merge(segment_path);
     dbUpdater.unlock();
   }
 }

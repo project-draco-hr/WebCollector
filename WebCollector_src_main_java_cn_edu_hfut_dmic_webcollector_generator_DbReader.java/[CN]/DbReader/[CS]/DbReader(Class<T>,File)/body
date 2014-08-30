@@ -1,0 +1,6 @@
+{
+  this.type=type;
+  DatumReader<T> datumReader=new ReflectDatumReader<T>(type);
+  dataFileReader=new DataFileReader<T>(dbfile,datumReader);
+  iterator=dataFileReader.iterator();
+}

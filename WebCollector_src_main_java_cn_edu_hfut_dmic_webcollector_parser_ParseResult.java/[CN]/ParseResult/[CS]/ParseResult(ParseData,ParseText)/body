@@ -1,0 +1,4 @@
+{
+  this.parsedata=parsedata;
+  this.parsetext=parsetext;
+}

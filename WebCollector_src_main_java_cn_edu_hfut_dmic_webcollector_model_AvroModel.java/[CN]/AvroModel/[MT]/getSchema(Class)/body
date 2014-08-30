@@ -1,0 +1,4 @@
+{
+  Schema schema=ReflectData.get().getSchema(type);
+  return schema;
+}

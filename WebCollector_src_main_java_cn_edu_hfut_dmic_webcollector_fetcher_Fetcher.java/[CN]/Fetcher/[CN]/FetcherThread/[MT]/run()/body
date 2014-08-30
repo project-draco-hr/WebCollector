@@ -17,21 +17,33 @@
   Log.Infos("fetch",Fetcher.this.taskname,page.url);
   if (needUpdateDb) {
     try {
-      dbUpdater.append(crawldatum);
-      if (page.headers.containsKey("Content-Type")) {
-        String contenttype=page.headers.get("Content-Type").toString();
-        if (contenttype.contains("text/html")) {
-          HtmlParser htmlparser=new HtmlParser(Config.topN);
-          ParseResult parseresult=htmlparser.getParse(page);
-          ArrayList<Link> links=parseresult.links;
-          for (          Link link : links) {
-            CrawlDatum link_crawldatum=new CrawlDatum();
-            link_crawldatum.url=link.url;
-            link_crawldatum.status=Page.UNFETCHED;
-            dbUpdater.append(link_crawldatum);
-          }
+      segmengwriter.wrtieFetch(crawldatum);
+      String contentType;
+      List<String> contentTypeList=page.headers.get("Content-Type");
+      if (contentTypeList == null) {
+        contentType=null;
+      }
+ else {
+        contentType=contentTypeList.get(0);
+      }
+      if (isContentStored) {
+        Content content=new Content();
+        content.url=page.url;
+        if (page.content != null) {
+          content.content=page.content;
         }
  else {
+          content.content=new byte[0];
+        }
+        content.contentType=contentType;
+        segmengwriter.wrtieContent(content);
+      }
+      if (parsing) {
+        Parser parser=ParserFactory.getParser(contentType,page.url);
+        if (parser != null) {
+          ParseResult parseresult=parser.getParse(page);
+          page.parseResult=parseresult;
+          segmengwriter.wrtieParse(parseresult);
         }
       }
     }

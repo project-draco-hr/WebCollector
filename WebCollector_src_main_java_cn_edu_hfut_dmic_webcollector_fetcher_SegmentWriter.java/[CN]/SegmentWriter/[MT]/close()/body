@@ -1,0 +1,6 @@
+{
+  fetchWriter.close();
+  contentWriter.close();
+  parseDataWriter.close();
+  parseTextWriter.close();
+}

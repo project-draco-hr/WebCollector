@@ -1,5 +1,9 @@
 {
   if (!resumable) {
+    File crawl_dir=new File(crawl_path);
+    if (crawl_dir.exists()) {
+      FileUtils.deleteDir(crawl_dir);
+    }
     if (seeds.isEmpty()) {
       Log.Infos("error:" + "Please add at least one seed");
       return;

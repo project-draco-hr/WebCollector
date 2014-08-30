@@ -5,7 +5,7 @@
     return;
   }
   String dbpath=args[0];
-  DbReader reader=new DbReader(dbpath);
+  DbReader<CrawlDatum> reader=new DbReader<CrawlDatum>(CrawlDatum.class,dbpath);
   int sum=0;
   int sum_fetched=0;
   int sum_unfetched=0;

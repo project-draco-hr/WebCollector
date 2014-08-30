@@ -1,7 +1,0 @@
-{
-  updater_writer.write(crawldatum);
-  if (updaterCount % 200 == 0) {
-    updater_writer.flush();
-  }
-  updaterCount++;
-}

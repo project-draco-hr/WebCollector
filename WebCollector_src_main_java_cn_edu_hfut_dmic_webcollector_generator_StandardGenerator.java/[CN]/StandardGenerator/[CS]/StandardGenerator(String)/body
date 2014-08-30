@@ -7,9 +7,13 @@
     ex.printStackTrace();
   }
   DbUpdater dbupdater=new DbUpdater(crawl_path);
+  dbupdater.setTaskname(this.taskname);
   try {
     if (dbupdater.isLocked()) {
-      dbupdater.merge();
+      String segment_path=getSegmentPath();
+      if (segment_path != null) {
+        dbupdater.merge(segment_path);
+      }
       dbupdater.unlock();
     }
   }

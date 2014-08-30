@@ -16,6 +16,7 @@ break;
 }
 ;
 Fetcher fetcher=new Fetcher(crawl_path);
+fetcher.setIsContentStored(isContentStored);
 fetcher.setHandler(fetch_handler);
 conconfig=new CommonConnectionConfig();
 fetcher.setTaskname(taskname);

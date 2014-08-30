@@ -1,0 +1,7 @@
+{
+  fetchWriter.write(fetch);
+  count_fetch=(count_fetch++) % 50;
+  if (count_fetch == 0) {
+    fetchWriter.flush();
+  }
+}

@@ -3,7 +3,7 @@
   if (!currentfile.getParentFile().exists()) {
     currentfile.getParentFile().mkdirs();
   }
-  DbWriter writer=new DbWriter(currentfile);
+  DbWriter<CrawlDatum> writer=new DbWriter<CrawlDatum>(CrawlDatum.class,currentfile);
   for (  CrawlDatum crawldatum : datums) {
     writer.write(crawldatum);
   }

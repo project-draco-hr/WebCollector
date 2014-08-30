@@ -1,0 +1,9 @@
+{
+  parseDataWriter.write(parseresult.parsedata);
+  parseTextWriter.write(parseresult.parsetext);
+  count_parse=(count_parse++) % 50;
+  if (count_parse == 0) {
+    parseDataWriter.flush();
+    parseTextWriter.flush();
+  }
+}
