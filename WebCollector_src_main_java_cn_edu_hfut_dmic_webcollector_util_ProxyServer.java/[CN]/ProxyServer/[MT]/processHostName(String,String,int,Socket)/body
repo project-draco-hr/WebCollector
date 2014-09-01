@@ -1,0 +1,5 @@
+{
+  java.text.DateFormat cal=java.text.DateFormat.getDateTimeInstance();
+  System.out.println(cal.format(new java.util.Date()) + " - " + url+ " "+ sock.getInetAddress()+ "\n");
+  return host;
+}

@@ -1,3 +1,0 @@
-{
-  return fetchHttpResponseWithSize(url,conconfig,Config.maxsize);
-}

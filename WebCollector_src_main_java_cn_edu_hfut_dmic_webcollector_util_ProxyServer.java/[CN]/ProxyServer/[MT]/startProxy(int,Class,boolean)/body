@@ -1,0 +1,14 @@
+{
+  if (runAsThread) {
+    Runnable runnable=new Runnable(){
+      @Override public void run(){
+        ProxyServer.startProxy(port,clobj);
+      }
+    }
+;
+    new Thread(runnable).start();
+  }
+ else {
+    startProxy(port,clobj);
+  }
+}

@@ -1,0 +1,27 @@
+{
+  ServerSocket ssock;
+  Socket sock;
+  try {
+    ssock=new ServerSocket(port);
+    while (true) {
+      Class[] sarg=new Class[1];
+      Object[] arg=new Object[1];
+      sarg[0]=Socket.class;
+      try {
+        java.lang.reflect.Constructor cons=clobj.getDeclaredConstructor(sarg);
+        arg[0]=ssock.accept();
+        cons.newInstance(arg);
+      }
+ catch (      Exception e) {
+        Socket esock=(Socket)arg[0];
+        try {
+          esock.close();
+        }
+ catch (        Exception ec) {
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+  }
+}

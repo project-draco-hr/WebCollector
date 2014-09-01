@@ -1,0 +1,4 @@
+String url
+Proxy proxy
+ConnectionConfig conconfig
+int retry
