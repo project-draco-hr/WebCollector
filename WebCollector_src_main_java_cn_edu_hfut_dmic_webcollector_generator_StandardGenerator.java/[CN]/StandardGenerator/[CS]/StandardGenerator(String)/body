@@ -7,7 +7,7 @@
     ex.printStackTrace();
   }
   DbUpdater dbupdater=new DbUpdater(crawl_path);
-  dbupdater.setTaskname(this.taskname);
+  dbupdater.setTaskName(this.getTaskName());
   try {
     if (dbupdater.isLocked()) {
       String segment_path=getSegmentPath();

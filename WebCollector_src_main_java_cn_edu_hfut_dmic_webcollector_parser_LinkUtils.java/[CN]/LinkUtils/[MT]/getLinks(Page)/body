@@ -1,6 +1,6 @@
 {
   try {
-    return getLinks(page.doc);
+    return getLinks(page.getDoc());
   }
  catch (  Exception e) {
     e.printStackTrace();

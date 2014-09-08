@@ -1,9 +1,9 @@
 {
   try {
-    ArrayList<Link> result=getLinks(page.doc);
-    result.addAll(getImgs(page.doc));
-    result.addAll(getCSS(page.doc));
-    result.addAll(getJS(page.doc));
+    ArrayList<Link> result=getLinks(page.getDoc());
+    result.addAll(getImgs(page.getDoc()));
+    result.addAll(getCSS(page.getDoc()));
+    result.addAll(getJS(page.getDoc()));
     return result;
   }
  catch (  Exception e) {

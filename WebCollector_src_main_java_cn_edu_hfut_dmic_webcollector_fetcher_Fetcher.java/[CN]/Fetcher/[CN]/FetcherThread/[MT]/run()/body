@@ -1,55 +1,89 @@
 {
-  Page page=new Page();
-  page.url=url;
-  Page response=null;
-  response=HttpUtils.fetchHttpResponse(url,proxy,conconfig,retry);
-  if (response == null) {
-    Log.Errors("failed ",Fetcher.this.taskname,page.url);
-    HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
-    return;
-  }
-  page=response;
-  CrawlDatum crawldatum=new CrawlDatum();
-  crawldatum.url=url;
-  crawldatum.status=Page.FETCHED;
-  page.fetchtime=System.currentTimeMillis();
-  crawldatum.fetchtime=page.fetchtime;
-  Log.Infos("fetch",Fetcher.this.taskname,page.url);
-  if (needUpdateDb) {
-    try {
-      segmengwriter.wrtieFetch(crawldatum);
-      String contentType;
-      List<String> contentTypeList=page.headers.get("Content-Type");
-      if (contentTypeList == null) {
-        contentType=null;
-      }
- else {
-        contentType=contentTypeList.get(0);
-      }
-      if (isContentStored) {
-        Content content=new Content();
-        content.url=page.url;
-        if (page.content != null) {
-          content.content=page.content;
+  activeThreads.incrementAndGet();
+  try {
+    while (true) {
+      FetchItem item=fetchQueue.getFetchItem();
+      if (item == null) {
+        if (feeder.isAlive() || fetchQueue.getSize() > 0) {
+          try {
+            Thread.sleep(500);
+          }
+ catch (          Exception ex) {
+          }
+          continue;
         }
  else {
-          content.content=new byte[0];
-        }
-        content.contentType=contentType;
-        segmengwriter.wrtieContent(content);
-      }
-      if (parsing) {
-        Parser parser=ParserFactory.getParser(contentType,page.url);
-        if (parser != null) {
-          ParseResult parseresult=parser.getParse(page);
-          page.parseResult=parseresult;
-          segmengwriter.wrtieParse(parseresult);
+          return;
         }
       }
-    }
- catch (    Exception ex) {
-      ex.printStackTrace();
+      CrawlDatum crawldatum=new CrawlDatum();
+      String url=item.datum.getUrl();
+      crawldatum.setUrl(url);
+      Request request=RequestFactory.createRequest(url,proxy,conconfig);
+      Response response=null;
+      for (int i=0; i <= retry; i++) {
+        try {
+          response=request.getResponse(crawldatum);
+          break;
+        }
+ catch (        Exception ex) {
+        }
+      }
+      crawldatum.setStatus(CrawlDatum.STATUS_DB_FETCHED);
+      crawldatum.setFetchTime(System.currentTimeMillis());
+      Page page=new Page();
+      page.setUrl(url);
+      page.setFetchtime(crawldatum.getFetchTime());
+      if (response == null) {
+        Log.Errors("failed ",Fetcher.this.getTaskName(),url);
+        HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
+        continue;
+      }
+      page.setResponse(response);
+      Log.Infos("fetch",Fetcher.this.getTaskName(),url);
+      if (needUpdateDb) {
+        try {
+          segmengwriter.wrtieFetch(crawldatum);
+          String contentType;
+          List<String> contentTypeList=response.getHeader("Content-Type");
+          if (contentTypeList == null) {
+            contentType=null;
+          }
+ else {
+            contentType=contentTypeList.get(0);
+          }
+          if (isContentStored) {
+            Content content=new Content();
+            content.setUrl(url);
+            if (response.getContent() != null) {
+              content.setContent(response.getContent());
+            }
+ else {
+              content.setContent(new byte[0]);
+            }
+            content.setContentType(contentType);
+            segmengwriter.wrtieContent(content);
+          }
+          if (parsing) {
+            Parser parser=ParserFactory.getParser(contentType,page.getUrl());
+            if (parser != null) {
+              ParseResult parseresult=parser.getParse(page);
+              page.setParseResult(parseresult);
+              segmengwriter.wrtieParse(parseresult);
+            }
+          }
+        }
+ catch (        Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+      HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_SUCCESS,page),true);
     }
   }
-  HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_SUCCESS,page),true);
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+ finally {
+    activeThreads.decrementAndGet();
+  }
 }

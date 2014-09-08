@@ -4,7 +4,7 @@
   if (crawldatum == null) {
     return null;
   }
-  if (shouldFilter(crawldatum.url)) {
+  if (shouldFilter(crawldatum.getUrl())) {
     return next();
   }
   return crawldatum;

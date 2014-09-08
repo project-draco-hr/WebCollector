@@ -1,6 +1,6 @@
 {
   Generator generator=new StandardGenerator(crawl_path);
   generator=new UniqueFilter(new IntervalFilter(new URLRegexFilter(generator,regexs)));
-  generator.setTaskname(taskname);
+  generator.setTaskName(getTaskName());
   return generator;
 }

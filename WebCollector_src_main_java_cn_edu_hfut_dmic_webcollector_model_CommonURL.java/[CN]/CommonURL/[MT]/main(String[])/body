@@ -1,4 +1,8 @@
 {
-  CommonURL commonurl=new CommonURL("http://nc.mofcom.gov.cn/channel/gxdj/jghq/jg_detail.shtml?id=20859&test=xxx");
-  commonurl.print();
+  CollectionGenerator generator=new CollectionGenerator();
+  generator.addUrl("http://www.hfut.edu.cn/ch/");
+  generator.addUrl("http://news.hfut.edu.cn/");
+  Fetcher fetcher=new Fetcher();
+  fetcher.fetchAll(generator);
+  BreadthCrawler bc=new BreadthCrawler();
 }

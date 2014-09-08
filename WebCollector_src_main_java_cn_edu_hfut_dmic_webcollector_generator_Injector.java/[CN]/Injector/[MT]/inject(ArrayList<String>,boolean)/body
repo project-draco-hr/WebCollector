@@ -9,8 +9,8 @@
  else   writer=new DbWriter<CrawlDatum>(CrawlDatum.class,inject_file,false);
   for (  String url : urls) {
     CrawlDatum crawldatum=new CrawlDatum();
-    crawldatum.url=url;
-    crawldatum.status=Page.UNFETCHED;
+    crawldatum.setUrl(url);
+    crawldatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
     writer.write(crawldatum);
   }
   writer.close();

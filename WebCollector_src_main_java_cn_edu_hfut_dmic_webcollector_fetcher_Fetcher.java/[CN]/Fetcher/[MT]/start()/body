@@ -1,11 +1,11 @@
 {
   if (needUpdateDb) {
     this.dbUpdater=new DbUpdater(crawl_path);
-    dbUpdater.setTaskname(this.taskname);
+    dbUpdater.setTaskName(this.getTaskName());
     dbUpdater.initUpdater();
     dbUpdater.lock();
     segment_path=crawl_path + "/segments/" + SegmentWriter.createSegmengName();
     segmengwriter=new SegmentWriter(segment_path);
   }
-  workqueue=new WorkQueue(threads);
+  running=true;
 }

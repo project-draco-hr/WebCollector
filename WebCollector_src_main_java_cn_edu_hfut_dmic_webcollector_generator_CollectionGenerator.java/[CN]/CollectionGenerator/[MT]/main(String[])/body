@@ -4,6 +4,6 @@
   generator.addUrl("http://abc2.com");
   CrawlDatum crawldatum;
   while ((crawldatum=generator.next()) != null) {
-    System.out.println(crawldatum.url);
+    System.out.println(crawldatum.getUrl());
   }
 }

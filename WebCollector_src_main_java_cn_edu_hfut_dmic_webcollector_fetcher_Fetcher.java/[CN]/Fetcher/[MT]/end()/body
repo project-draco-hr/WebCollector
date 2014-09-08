@@ -1,13 +1,4 @@
 {
-  try {
-    while (workqueue.isAlive()) {
-      Thread.sleep(5000);
-    }
-    workqueue.killALl();
-  }
- catch (  InterruptedException ex) {
-    ex.printStackTrace();
-  }
   if (needUpdateDb) {
     dbUpdater.closeUpdater();
     dbUpdater.merge(segment_path);

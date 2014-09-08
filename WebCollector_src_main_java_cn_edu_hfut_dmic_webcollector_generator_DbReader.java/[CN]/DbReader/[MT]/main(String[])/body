@@ -14,17 +14,14 @@
   while (reader.hasNext()) {
     crawldatum=reader.readNext();
     sum++;
-switch (crawldatum.status) {
-case Page.FETCHED:
+switch (crawldatum.getStatus()) {
+case CrawlDatum.STATUS_DB_FETCHED:
       sum_fetched++;
     break;
-case Page.UNFETCHED:
+case CrawlDatum.STATUS_DB_UNFETCHED:
   sum_unfetched++;
 break;
 }
 }
 reader.close();
-System.out.println("Total urls:" + sum);
-System.out.println("status " + Page.FETCHED + " (fetched):"+ sum_fetched);
-System.out.println("status " + Page.UNFETCHED + " (unfetched):"+ sum_unfetched);
 }

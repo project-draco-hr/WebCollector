@@ -1,8 +1,19 @@
 {
   start();
-  CrawlDatum crawlDatum=null;
-  while ((crawlDatum=generator.next()) != null) {
-    addFetcherThread(crawlDatum.url);
+  fetchQueue=new FetchQueue();
+  feeder=new QueueFeeder(fetchQueue,generator,1000);
+  feeder.start();
+  for (int i=0; i < threads; i++) {
+    FetcherThread fetcherThread=new FetcherThread();
+    fetcherThread.start();
   }
+  do {
+    try {
+      Thread.sleep(1000);
+    }
+ catch (    InterruptedException ex) {
+    }
+  }
+ while (activeThreads.get() > 0 && running);
   end();
 }

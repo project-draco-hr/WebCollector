@@ -1,5 +1,5 @@
 {
-  Log.Infos("merge",taskname,segment_path);
+  Log.Infos("merge",getTaskName(),segment_path);
   File file_fetch=new File(segment_path,"fetch");
   if (!file_fetch.exists()) {
     return;
@@ -13,23 +13,23 @@
   while (reader_current.hasNext()) {
     datum=reader_current.readNext();
     datums_origin.add(datum);
-    indexmap.put(datum.url,datums_origin.size() - 1);
+    indexmap.put(datum.getUrl(),datums_origin.size() - 1);
   }
   while (reader_fetch.hasNext()) {
     datum=reader_fetch.readNext();
-    if (indexmap.containsKey(datum.url)) {
-      if (datum.status == Page.UNFETCHED) {
+    if (indexmap.containsKey(datum.getUrl())) {
+      if (datum.getStatus() == CrawlDatum.STATUS_DB_UNFETCHED) {
         continue;
       }
  else {
-        int preindex=indexmap.get(datum.url);
+        int preindex=indexmap.get(datum.getUrl());
         datums_origin.set(preindex,datum);
-        indexmap.put(datum.url,preindex);
+        indexmap.put(datum.getUrl(),preindex);
       }
     }
  else {
       datums_origin.add(datum);
-      indexmap.put(datum.url,datums_origin.size() - 1);
+      indexmap.put(datum.getUrl(),datums_origin.size() - 1);
     }
   }
   reader_fetch.close();
@@ -41,14 +41,14 @@
       parseresult=reader_parse.readNext();
       for (      Link link : parseresult.links) {
         datum=new CrawlDatum();
-        datum.url=link.url;
-        datum.status=Page.UNFETCHED;
-        if (indexmap.containsKey(datum.url)) {
+        datum.setUrl(link.getUrl());
+        datum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+        if (indexmap.containsKey(datum.getUrl())) {
           continue;
         }
  else {
           datums_origin.add(datum);
-          indexmap.put(datum.url,datums_origin.size() - 1);
+          indexmap.put(datum.getUrl(),datums_origin.size() - 1);
         }
       }
     }

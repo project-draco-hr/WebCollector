@@ -1,0 +1,8 @@
+{
+  Request request=RequestFactory.createRequest("http://www.xinhuanet.com");
+  CrawlDatum datum=new CrawlDatum();
+  Response response=request.getResponse(datum);
+  System.out.println("status=" + datum.getStatus());
+  System.out.println("code=" + response.getCode());
+  System.out.println(response.getHeaders());
+}

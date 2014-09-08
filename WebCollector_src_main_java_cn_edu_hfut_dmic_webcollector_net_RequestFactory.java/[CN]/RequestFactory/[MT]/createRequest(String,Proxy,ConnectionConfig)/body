@@ -1,0 +1,8 @@
+{
+  Request request=new HttpRequest();
+  URL _URL=new URL(url);
+  request.setURL(_URL);
+  request.setProxy(proxy);
+  request.setConnectionConfig(config);
+  return request;
+}
