@@ -1,0 +1,6 @@
+{
+  CollectionFetcher tf=new CollectionFetcher();
+  tf.start();
+  Thread.sleep(1000);
+  tf.stopFetcher();
+}

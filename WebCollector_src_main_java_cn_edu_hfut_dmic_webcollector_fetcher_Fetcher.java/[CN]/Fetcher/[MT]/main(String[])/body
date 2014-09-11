@@ -1,7 +1,0 @@
-{
-  CollectionGenerator generator=new CollectionGenerator();
-  generator.addUrl("http://www.hfut.edu.cn/ch/");
-  generator.addUrl("http://news.hfut.edu.cn/");
-  Fetcher fetcher=new Fetcher();
-  fetcher.fetchAll(generator);
-}

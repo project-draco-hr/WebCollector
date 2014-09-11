@@ -15,5 +15,7 @@
     }
   }
  while (activeThreads.get() > 0 && running);
+  feeder.stop();
+  fetchQueue.clear();
   end();
 }
