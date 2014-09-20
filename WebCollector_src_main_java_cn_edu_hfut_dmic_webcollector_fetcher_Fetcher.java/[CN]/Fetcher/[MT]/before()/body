@@ -1,0 +1,10 @@
+{
+  if (needUpdateDb) {
+    this.dbUpdater=new DbUpdater(crawlPath);
+    dbUpdater.initUpdater();
+    dbUpdater.lock();
+    segmentPath=crawlPath + "/segments/" + SegmentWriter.createSegmengName();
+    segmengwriter=new SegmentWriter(segmentPath);
+  }
+  running=true;
+}

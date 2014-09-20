@@ -1,5 +1,5 @@
 {
-  Log.Infos("merge",getTaskName(),segment_path);
+  LogUtils.getLogger().info("merge " + segment_path);
   File file_fetch=new File(segment_path,"fetch");
   if (!file_fetch.exists()) {
     return;
@@ -39,7 +39,7 @@
     ParseData parseresult=null;
     while (reader_parse.hasNext()) {
       parseresult=reader_parse.readNext();
-      for (      Link link : parseresult.links) {
+      for (      Link link : parseresult.getLinks()) {
         datum=new CrawlDatum();
         datum.setUrl(link.getUrl());
         datum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);

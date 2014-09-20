@@ -1,0 +1,9 @@
+{
+  Logger logger=Logger.getLogger(defaultLogName);
+  ConsoleAppender ca=new ConsoleAppender();
+  ca.setName("default");
+  ca.setWriter(new PrintWriter(System.out));
+  ca.setLayout(new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %p %c %x - %m%n "));
+  logger.addAppender(ca);
+  return logger;
+}

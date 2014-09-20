@@ -4,7 +4,7 @@
     @Override public void run(){
       crawler.setRoot(localpath);
       crawler.setResumable(false);
-      crawler.setCrawl_path(crawl_path);
+      crawler.setCrawlPath(crawlPath);
       try {
         depth=Integer.valueOf(txt_depth.getText());
         threads=Integer.valueOf(txt_threads.getText());

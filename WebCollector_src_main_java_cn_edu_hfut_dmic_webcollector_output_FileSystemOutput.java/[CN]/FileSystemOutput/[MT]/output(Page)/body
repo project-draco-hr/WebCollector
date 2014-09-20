@@ -26,8 +26,8 @@
     path+=query;
     File domain_path=new File(root,_URL.getHost());
     File f=new File(domain_path,path);
-    Log.Infos("output",null,f.getAbsolutePath());
     FileUtils.writeFileWithParent(f,page.getContent());
+    LogUtils.getLogger().info("output " + f.getAbsolutePath());
   }
  catch (  Exception e) {
     e.printStackTrace();

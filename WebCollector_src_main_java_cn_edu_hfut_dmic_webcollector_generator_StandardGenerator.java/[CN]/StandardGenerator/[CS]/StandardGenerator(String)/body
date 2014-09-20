@@ -1,13 +1,12 @@
 {
-  this.crawl_path=crawl_path;
+  this.crawlPath=crawlPath;
   try {
     backup();
   }
  catch (  IOException ex) {
     ex.printStackTrace();
   }
-  DbUpdater dbupdater=new DbUpdater(crawl_path);
-  dbupdater.setTaskName(this.getTaskName());
+  DbUpdater dbupdater=new DbUpdater(crawlPath);
   try {
     if (dbupdater.isLocked()) {
       String segment_path=getSegmentPath();

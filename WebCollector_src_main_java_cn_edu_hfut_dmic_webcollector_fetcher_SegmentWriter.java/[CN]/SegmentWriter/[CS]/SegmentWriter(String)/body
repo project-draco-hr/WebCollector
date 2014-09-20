@@ -1,13 +1,13 @@
 {
-  this.segment_path=segment_path;
+  this.segmentPath=segmentPath;
   count_fetch=0;
   count_content=0;
   count_parse=0;
   try {
-    fetchWriter=new DbWriter<CrawlDatum>(CrawlDatum.class,segment_path + "/fetch");
-    contentWriter=new DbWriter<Content>(Content.class,segment_path + "/content");
-    parseDataWriter=new DbWriter<ParseData>(ParseData.class,segment_path + "/parse_data");
-    parseTextWriter=new DbWriter<ParseText>(ParseText.class,segment_path + "/parse_text");
+    fetchWriter=new DbWriter<CrawlDatum>(CrawlDatum.class,segmentPath + "/fetch");
+    contentWriter=new DbWriter<Content>(Content.class,segmentPath + "/content");
+    parseDataWriter=new DbWriter<ParseData>(ParseData.class,segmentPath + "/parse_data");
+    parseTextWriter=new DbWriter<ParseText>(ParseText.class,segmentPath + "/parse_text");
   }
  catch (  IOException ex) {
     Logger.getLogger(SegmentWriter.class.getName()).log(Level.SEVERE,null,ex);

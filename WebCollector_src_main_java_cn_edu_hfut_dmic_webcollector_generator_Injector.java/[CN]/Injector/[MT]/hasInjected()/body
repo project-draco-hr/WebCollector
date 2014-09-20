@@ -1,5 +1,5 @@
 {
-  String info_path=Config.current_info_path;
-  File inject_file=new File(crawl_path,info_path);
+  String infoPath=Config.current_info_path;
+  File inject_file=new File(crawlPath,infoPath);
   return inject_file.exists();
 }

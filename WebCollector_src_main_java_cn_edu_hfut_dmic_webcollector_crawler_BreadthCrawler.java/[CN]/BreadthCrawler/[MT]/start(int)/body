@@ -1,16 +1,16 @@
 {
   if (!resumable) {
-    File crawl_dir=new File(crawl_path);
-    if (crawl_dir.exists()) {
-      FileUtils.deleteDir(crawl_dir);
+    File crawlDir=new File(crawlPath);
+    if (crawlDir.exists()) {
+      FileUtils.deleteDir(crawlDir);
     }
     if (seeds.isEmpty()) {
-      Log.Infos("error:" + "Please add at least one seed");
+      LogUtils.getLogger().info("error:Please add at least one seed");
       return;
     }
   }
   if (regexs.isEmpty()) {
-    Log.Infos("error:" + "Please add at least one regex rule");
+    LogUtils.getLogger().info("error:Please add at least one regex rule");
     return;
   }
   inject();
@@ -19,9 +19,9 @@
     if (status == STOPED) {
       break;
     }
-    Log.Infos("info","starting depth " + (i + 1));
-    Generator generator=getGenerator();
-    fetcher=getFecther();
+    LogUtils.getLogger().info("starting depth " + (i + 1));
+    Generator generator=createGenerator();
+    fetcher=createFecther();
     fetcher.fetchAll(generator);
   }
 }

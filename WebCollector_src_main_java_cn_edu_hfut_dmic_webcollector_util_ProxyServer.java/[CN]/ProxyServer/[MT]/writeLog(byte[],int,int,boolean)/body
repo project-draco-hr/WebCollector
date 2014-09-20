@@ -1,5 +1,0 @@
-{
-  for (int i=0; i < len; i++) {
-    writeLog((int)bytes[offset + i],browser);
-  }
-}

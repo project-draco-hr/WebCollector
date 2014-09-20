@@ -1,0 +1,5 @@
+{
+  Generator generator=new StandardGenerator(crawlPath);
+  generator=new UniqueFilter(new IntervalFilter(new URLRegexFilter(generator,regexs)));
+  return generator;
+}

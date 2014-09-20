@@ -1,3 +1,0 @@
-{
-  setTaskName(RandomUtils.getTimeString());
-}

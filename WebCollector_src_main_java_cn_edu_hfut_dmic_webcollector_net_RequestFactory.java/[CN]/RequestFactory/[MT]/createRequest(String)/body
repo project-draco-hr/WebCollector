@@ -1,3 +1,0 @@
-{
-  return RequestFactory.createRequest(url,null,null);
-}

@@ -1,6 +1,6 @@
 {
   String info_path=Config.current_info_path;
-  File inject_file=new File(crawl_path,info_path);
+  File inject_file=new File(crawlPath,info_path);
   if (!inject_file.getParentFile().exists()) {
     inject_file.getParentFile().mkdirs();
   }
@@ -12,6 +12,7 @@
     crawldatum.setUrl(url);
     crawldatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
     writer.write(crawldatum);
+    LogUtils.getLogger().info("inject " + url);
   }
   writer.close();
 }

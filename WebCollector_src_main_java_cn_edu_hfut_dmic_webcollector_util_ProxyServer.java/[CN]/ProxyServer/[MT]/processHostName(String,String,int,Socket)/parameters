@@ -1,4 +1,0 @@
-String url
-String host
-int port
-Socket sock

@@ -1,5 +1,5 @@
 {
-  String[] segment_list=new File(crawl_path,"segments").list();
+  String[] segment_list=new File(crawlPath,"segments").list();
   String segment_path=null;
   long max=0;
   for (  String segment : segment_list) {

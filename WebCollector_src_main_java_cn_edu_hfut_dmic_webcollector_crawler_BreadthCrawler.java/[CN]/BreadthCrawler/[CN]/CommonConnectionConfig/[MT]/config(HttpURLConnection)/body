@@ -1,3 +1,6 @@
 {
-  configCon(con);
+  con.setRequestProperty("User-Agent",useragent);
+  if (cookie != null) {
+    con.setRequestProperty("Cookie",cookie);
+  }
 }

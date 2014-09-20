@@ -1,6 +1,7 @@
 {
   String crawl_path="/home/hu/data/crawl_hfut1";
   String root="/home/hu/data/hfut1";
+  LogUtils.setLogger(LogUtils.createCommonLogger("hfut"));
   BreadthCrawler crawler=new BreadthCrawler(){
     @Override public void visit(    Page page){
       System.out.println(page.getUrl() + " " + page.getResponse().getCode());
@@ -8,7 +9,6 @@
     }
   }
 ;
-  crawler.setTaskName(RandomUtils.getTimeString() + "hfut");
   crawler.addSeed("http://news.hfut.edu.cn/");
   crawler.addRegex("http://news.hfut.edu.cn/.*");
   crawler.addRegex("-.*#.*");
@@ -18,7 +18,7 @@
   crawler.addRegex("-.*js.*");
   crawler.addRegex("-.*css.*");
   crawler.setRoot(root);
-  crawler.setCrawl_path(crawl_path);
+  crawler.setCrawlPath(crawl_path);
   crawler.setResumable(false);
   crawler.start(3);
 }

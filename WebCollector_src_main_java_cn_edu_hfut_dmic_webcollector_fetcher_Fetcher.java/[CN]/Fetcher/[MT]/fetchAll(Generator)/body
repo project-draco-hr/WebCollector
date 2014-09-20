@@ -1,5 +1,7 @@
 {
-  start();
+  before();
+  activeThreads=new AtomicInteger(0);
+  spinWaiting=new AtomicInteger(0);
   fetchQueue=new FetchQueue();
   feeder=new QueueFeeder(fetchQueue,generator,1000);
   feeder.start();
@@ -13,9 +15,10 @@
     }
  catch (    InterruptedException ex) {
     }
+    LogUtils.getLogger().info("-activeThreads=" + activeThreads.get() + ", spinWaiting="+ spinWaiting.get()+ ", fetchQueue.size="+ fetchQueue.getSize());
   }
  while (activeThreads.get() > 0 && running);
   feeder.stop();
   fetchQueue.clear();
-  end();
+  after();
 }

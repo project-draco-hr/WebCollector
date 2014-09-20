@@ -1,3 +1,4 @@
 {
-  this.crawl_path=crawl_path;
+  this.crawlPath=crawlPath;
+  this.needUpdateDb=true;
 }
