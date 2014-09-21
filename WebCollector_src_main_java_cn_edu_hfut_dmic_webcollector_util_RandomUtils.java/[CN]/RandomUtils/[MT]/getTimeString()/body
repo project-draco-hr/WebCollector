@@ -1,3 +1,0 @@
-{
-  return sdf.format(new Date(System.currentTimeMillis()));
-}
