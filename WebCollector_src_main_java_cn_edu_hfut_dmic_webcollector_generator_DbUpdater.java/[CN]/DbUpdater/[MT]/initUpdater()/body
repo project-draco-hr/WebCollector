@@ -9,5 +9,4 @@
  else {
     updater_writer=new DbWriter<CrawlDatum>(CrawlDatum.class,currentfile,false);
   }
-  updaterCount=0;
 }
