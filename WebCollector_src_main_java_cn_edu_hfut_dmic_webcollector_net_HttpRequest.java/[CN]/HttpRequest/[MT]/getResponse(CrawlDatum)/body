@@ -32,7 +32,7 @@
     bos.write(buf,0,read);
   }
   is.close();
-  response.content=bos.toByteArray();
-  response.headers=con.getHeaderFields();
+  response.setContent(bos.toByteArray());
+  response.setHeaders(con.getHeaderFields());
   return response;
 }
