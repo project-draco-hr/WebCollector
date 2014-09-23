@@ -1,8 +1,8 @@
 {
   if (needUpdateDb) {
     dbUpdater.closeUpdater();
-    dbUpdater.merge(segmentPath);
+    dbUpdater.merge();
     dbUpdater.unlock();
-    segmengwriter.close();
+    dbUpdater.getSegmentWriter().close();
   }
 }

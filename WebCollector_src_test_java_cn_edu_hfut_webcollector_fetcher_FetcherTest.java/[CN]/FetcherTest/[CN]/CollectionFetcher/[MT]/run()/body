@@ -9,12 +9,12 @@
     }
     generator.addUrl("http://news.hfut.edu.cn/" + r);
   }
-  fetcher=new Fetcher();
+  fetcher=new FSFetcher();
   fetcher.setThreads(2);
   try {
     fetcher.fetchAll(generator);
   }
- catch (  IOException ex) {
+ catch (  Exception ex) {
     Logger.getLogger(Fetcher.class.getName()).log(Level.SEVERE,null,ex);
   }
 }

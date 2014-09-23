@@ -61,7 +61,7 @@
       }
       if (needUpdateDb) {
         try {
-          segmengwriter.wrtieFetch(crawldatum);
+          dbUpdater.getSegmentWriter().wrtieFetch(crawldatum);
           if (isContentStored) {
             Content content=new Content();
             content.setUrl(url);
@@ -72,10 +72,10 @@
               content.setContent(new byte[0]);
             }
             content.setContentType(contentType);
-            segmengwriter.wrtieContent(content);
+            dbUpdater.getSegmentWriter().wrtieContent(content);
           }
           if (parsing && page.getParseResult() != null) {
-            segmengwriter.wrtieParse(page.getParseResult());
+            dbUpdater.getSegmentWriter().wrtieParse(page.getParseResult());
           }
         }
  catch (        Exception ex) {

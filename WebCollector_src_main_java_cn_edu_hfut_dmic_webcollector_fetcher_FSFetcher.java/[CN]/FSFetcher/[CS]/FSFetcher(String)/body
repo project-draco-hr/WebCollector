@@ -1,0 +1,4 @@
+{
+  this.crawlPath=crawlPath;
+  setNeedUpdateDb(true);
+}

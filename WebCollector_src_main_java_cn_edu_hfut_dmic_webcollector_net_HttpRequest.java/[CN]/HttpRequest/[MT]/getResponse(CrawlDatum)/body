@@ -34,5 +34,6 @@
   is.close();
   response.setContent(bos.toByteArray());
   response.setHeaders(con.getHeaderFields());
+  bos.close();
   return response;
 }

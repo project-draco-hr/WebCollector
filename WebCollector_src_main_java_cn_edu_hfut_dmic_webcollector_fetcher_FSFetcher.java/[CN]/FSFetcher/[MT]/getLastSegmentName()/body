@@ -1,0 +1,16 @@
+{
+  String[] segment_list=new File(crawlPath,"segments").list();
+  if (segment_list == null) {
+    return null;
+  }
+  String segment_path=null;
+  long max=0;
+  for (  String segment : segment_list) {
+    long timestamp=Long.valueOf(segment);
+    if (timestamp > max) {
+      max=timestamp;
+      segment_path=segment;
+    }
+  }
+  return segment_path;
+}

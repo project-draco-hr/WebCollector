@@ -1,4 +1,0 @@
-{
-  File oldfile=new File(crawlPath,Config.old_info_path);
-  dbreader=new DbReader<CrawlDatum>(CrawlDatum.class,oldfile);
-}

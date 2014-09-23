@@ -1,4 +1,4 @@
 {
-  Injector injector=new Injector(crawlPath);
+  Injector injector=createInjector();
   injector.inject(seeds,resumable);
 }

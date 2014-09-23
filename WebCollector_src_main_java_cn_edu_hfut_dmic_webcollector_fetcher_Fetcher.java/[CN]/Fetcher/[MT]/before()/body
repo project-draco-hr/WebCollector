@@ -1,10 +1,19 @@
 {
+  DbUpdater recoverDbUpdater=createRecoverDbUpdater();
   if (needUpdateDb) {
-    this.dbUpdater=new DbUpdater(crawlPath);
+    try {
+      if (recoverDbUpdater.isLocked()) {
+        recoverDbUpdater.merge();
+        recoverDbUpdater.unlock();
+      }
+    }
+ catch (    Exception ex) {
+      ex.printStackTrace();
+    }
+    setSegmentName(SegmentUtils.createSegmengName());
+    this.dbUpdater=createDbUpdater();
     dbUpdater.initUpdater();
     dbUpdater.lock();
-    segmentPath=crawlPath + "/segments/" + SegmentWriter.createSegmengName();
-    segmengwriter=new SegmentWriter(segmentPath);
   }
   running=true;
 }

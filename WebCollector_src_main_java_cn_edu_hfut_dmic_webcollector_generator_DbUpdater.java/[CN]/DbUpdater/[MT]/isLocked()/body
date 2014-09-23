@@ -1,8 +1,0 @@
-{
-  File lockfile=new File(crawl_path + "/" + Config.lock_path);
-  if (!lockfile.exists()) {
-    return false;
-  }
-  String lock=new String(FileUtils.readFile(lockfile),"utf-8");
-  return lock.equals("1");
-}

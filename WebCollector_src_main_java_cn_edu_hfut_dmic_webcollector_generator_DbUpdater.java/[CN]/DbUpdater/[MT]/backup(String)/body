@@ -1,5 +1,0 @@
-{
-  File oldfile=new File(backuppath,Config.old_info_path);
-  File currentfile=new File(backuppath,Config.current_info_path);
-  FileUtils.copy(currentfile,oldfile);
-}

@@ -1,26 +1,9 @@
 {
   this.crawlPath=crawlPath;
   try {
-    backup();
-  }
- catch (  IOException ex) {
-    ex.printStackTrace();
-  }
-  DbUpdater dbupdater=new DbUpdater(crawlPath);
-  try {
-    if (dbupdater.isLocked()) {
-      String segment_path=getSegmentPath();
-      if (segment_path != null) {
-        dbupdater.merge(segment_path);
-      }
-      dbupdater.unlock();
-    }
-  }
- catch (  IOException ex) {
-    ex.printStackTrace();
-  }
-  try {
-    initReader();
+    File oldfile=new File(crawlPath,Config.current_info_path);
+    DbReader<CrawlDatum> r=new DbReader<CrawlDatum>(CrawlDatum.class,oldfile);
+    dbreader=new DbReader<CrawlDatum>(CrawlDatum.class,oldfile);
   }
  catch (  IOException ex) {
     ex.printStackTrace();
