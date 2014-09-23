@@ -5,7 +5,7 @@
   seeds.add("http://www.xinhuanet.com/");
   Injector injector=new FSInjector(crawl_path);
   injector.inject(seeds);
-  StandardGenerator generator=new StandardGenerator(crawl_path);
+  FSGenerator generator=new FSGenerator(crawl_path);
   CrawlDatum crawldatum=null;
   ArrayList<CrawlDatum> datums=new ArrayList<CrawlDatum>();
   while ((crawldatum=generator.next()) != null) {
