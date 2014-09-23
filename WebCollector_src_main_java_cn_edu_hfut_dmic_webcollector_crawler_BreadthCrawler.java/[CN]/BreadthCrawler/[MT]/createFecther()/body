@@ -1,5 +1,5 @@
 {
-  Fetcher fetcher=new FSFetcher(crawlPath);
+  FSFetcher fetcher=new FSFetcher(crawlPath);
   fetcher.setProxy(proxy);
   fetcher.setIsContentStored(isContentStored);
   fetcher.setHandler(createFetcherHandler());

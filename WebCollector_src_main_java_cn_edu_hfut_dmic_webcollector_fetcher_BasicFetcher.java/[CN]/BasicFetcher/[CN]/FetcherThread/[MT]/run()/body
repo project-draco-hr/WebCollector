@@ -41,7 +41,7 @@
       page.setFetchTime(crawldatum.getFetchTime());
       if (response == null) {
         LogUtils.getLogger().info("failed " + url);
-        HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
+        HandlerUtils.sendMessage(handler,new Message(BasicFetcher.FETCH_FAILED,page),true);
         continue;
       }
       page.setResponse(response);
@@ -82,7 +82,7 @@
           LogUtils.getLogger().info("Exception",ex);
         }
       }
-      HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_SUCCESS,page),true);
+      HandlerUtils.sendMessage(handler,new Message(BasicFetcher.FETCH_SUCCESS,page),true);
     }
   }
  catch (  Exception ex) {
