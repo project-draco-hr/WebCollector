@@ -1,0 +1,11 @@
+{
+  BasicFetcher fetcher=new BasicFetcher();
+  fetcher.setNeedUpdateDb(true);
+  fetcher.setProxy(proxy);
+  fetcher.setIsContentStored(isContentStored);
+  fetcher.setHandler(createFetcherHandler());
+  conconfig=new CommonConnectionConfig(useragent,cookie);
+  fetcher.setThreads(getThreads());
+  fetcher.setConconfig(conconfig);
+  return fetcher;
+}

@@ -1,0 +1,3 @@
+{
+  jedis.hset(tableName + suffix_fetch,datum.getUrl(),datum.getStatus() + "" + datum.getFetchTime());
+}

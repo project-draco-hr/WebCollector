@@ -1,0 +1,3 @@
+{
+  redisHelper=new RedisHelper(taskName,ip,port);
+}

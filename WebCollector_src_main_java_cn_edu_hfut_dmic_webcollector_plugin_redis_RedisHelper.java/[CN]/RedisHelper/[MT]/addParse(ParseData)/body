@@ -1,0 +1,14 @@
+{
+  if (parseData == null || parseData.getLinks() == null) {
+    return;
+  }
+  for (  Link link : parseData.getLinks()) {
+    if (jedis.hget(tableName + suffix_parse,link.getUrl()) == null) {
+      CrawlDatum datum=new CrawlDatum();
+      datum.setUrl(link.getUrl());
+      datum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+      datum.setFetchTime(CrawlDatum.FETCHTIME_UNDEFINED);
+      jedis.hset(tableName + suffix_parse,datum.getUrl(),datum.getStatus() + "" + datum.getFetchTime());
+    }
+  }
+}

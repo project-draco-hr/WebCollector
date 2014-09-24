@@ -1,0 +1,7 @@
+{
+  if (ite.hasNext()) {
+    String key=ite.next().toString();
+    return redisHelper.getCrawlDatumByKey(key);
+  }
+ else   return null;
+}

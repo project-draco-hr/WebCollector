@@ -1,4 +1,0 @@
-{
-  DbUpdater recoverDbUpdater=new FSDbUpdater(crawlPath,getLastSegmentName());
-  return recoverDbUpdater;
-}

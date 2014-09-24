@@ -1,0 +1,4 @@
+{
+  segmentName=SegmentUtils.createSegmengName();
+  segmentWriter=new FSSegmentWriter(crawlPath,getSegmentPath());
+}

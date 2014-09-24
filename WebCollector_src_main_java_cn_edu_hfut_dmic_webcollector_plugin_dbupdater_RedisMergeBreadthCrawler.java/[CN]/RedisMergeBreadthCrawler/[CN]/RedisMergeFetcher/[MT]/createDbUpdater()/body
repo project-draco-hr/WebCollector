@@ -1,7 +1,0 @@
-{
-  RedisMergeFSDbupdater updater=new RedisMergeFSDbupdater(getCrawlPath(),getSegmentName());
-  updater.setIp(redisIP);
-  updater.setPort(redisPort);
-  updater.setSegmentWriter(new FSSegmentWriter(getCrawlPath(),getSegmentName()));
-  return updater;
-}

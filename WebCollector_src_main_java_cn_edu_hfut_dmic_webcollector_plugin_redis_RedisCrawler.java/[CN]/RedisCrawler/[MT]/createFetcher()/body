@@ -1,0 +1,7 @@
+{
+  BasicFetcher fetcher=new BasicFetcher();
+  fetcher.setThreads(getThreads());
+  fetcher.setHandler(createFetcherHandler());
+  fetcher.setNeedUpdateDb(true);
+  return fetcher;
+}

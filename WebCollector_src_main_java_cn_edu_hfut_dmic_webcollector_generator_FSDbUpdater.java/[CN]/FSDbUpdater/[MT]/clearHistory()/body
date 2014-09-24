@@ -1,0 +1,7 @@
+{
+  File file=new File(crawlPath);
+  LogUtils.getLogger().info("clear " + file.getAbsolutePath());
+  if (file.exists()) {
+    FileUtils.deleteDir(file);
+  }
+}

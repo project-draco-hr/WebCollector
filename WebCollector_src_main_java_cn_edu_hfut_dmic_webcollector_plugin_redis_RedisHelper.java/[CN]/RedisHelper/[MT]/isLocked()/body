@@ -1,0 +1,6 @@
+{
+  String lock=jedis.get(tableName + suffix_lock);
+  if (lock == null)   return false;
+  if (lock.equals("0"))   return false;
+ else   return true;
+}

@@ -1,0 +1,11 @@
+{
+  String value=jedis.hget(tableName + suffix_crawldb,key);
+  if (value == null)   return null;
+  int status=Integer.valueOf(value.charAt(0) + "");
+  long fetchTime=Long.valueOf(value.substring(1));
+  CrawlDatum datum=new CrawlDatum();
+  datum.setUrl(key);
+  datum.setStatus(status);
+  datum.setFetchTime(fetchTime);
+  return datum;
+}

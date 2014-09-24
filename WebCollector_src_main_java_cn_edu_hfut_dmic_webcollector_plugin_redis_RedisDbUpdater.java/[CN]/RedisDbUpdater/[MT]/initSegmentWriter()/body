@@ -1,0 +1,3 @@
+{
+  segmentWriter=new RedisSegmentWriter(redisHelper);
+}

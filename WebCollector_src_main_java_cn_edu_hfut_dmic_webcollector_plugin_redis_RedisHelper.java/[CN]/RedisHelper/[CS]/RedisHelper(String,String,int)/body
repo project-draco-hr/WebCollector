@@ -1,0 +1,6 @@
+{
+  this.tableName=tableName;
+  this.ip=ip;
+  this.port=port;
+  jedis=new Jedis(ip,port);
+}

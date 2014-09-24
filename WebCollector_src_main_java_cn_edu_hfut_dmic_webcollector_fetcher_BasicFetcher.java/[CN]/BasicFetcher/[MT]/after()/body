@@ -1,7 +1,6 @@
 {
   if (needUpdateDb) {
-    dbUpdater.closeUpdater();
-    dbUpdater.getSegmentWriter().close();
+    dbUpdater.close();
     dbUpdater.merge();
     dbUpdater.unlock();
   }

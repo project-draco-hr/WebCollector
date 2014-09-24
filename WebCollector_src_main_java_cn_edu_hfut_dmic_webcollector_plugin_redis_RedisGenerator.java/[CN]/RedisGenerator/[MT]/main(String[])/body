@@ -1,0 +1,7 @@
+{
+  RedisGenerator g=new RedisGenerator("test","127.0.0.1",6379);
+  CrawlDatum d=null;
+  while ((d=g.next()) != null) {
+    System.out.println(d.getUrl());
+  }
+}

@@ -1,5 +1,5 @@
 {
-  this.segmentPath=crawlPath + "/segments/" + segmentName;
+  this.segmentPath=segmentPath;
   count_fetch=0;
   count_content=0;
   count_parse=0;

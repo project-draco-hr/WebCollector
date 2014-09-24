@@ -1,0 +1,3 @@
+{
+  redisHelper.addFetch(fetch);
+}

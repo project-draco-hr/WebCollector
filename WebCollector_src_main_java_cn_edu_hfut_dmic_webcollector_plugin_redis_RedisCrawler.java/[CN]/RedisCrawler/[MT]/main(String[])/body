@@ -1,0 +1,19 @@
+{
+  RedisCrawler crawler=new RedisCrawler("mytest","127.0.0.1",6379){
+    @Override public void visit(    Page page){
+      System.out.println(page.getDoc().title());
+    }
+  }
+;
+  crawler.addSeed("http://news.hfut.edu.cn/");
+  crawler.addRegex("http://news.hfut.edu.cn/.*");
+  crawler.addRegex("-.*#.*");
+  crawler.addRegex("-.*png.*");
+  crawler.addRegex("-.*jpg.*");
+  crawler.addRegex("-.*gif.*");
+  crawler.addRegex("-.*js.*");
+  crawler.addRegex("-.*css.*");
+  crawler.setThreads(30);
+  crawler.setResumable(false);
+  crawler.start(5);
+}

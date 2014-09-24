@@ -1,0 +1,3 @@
+{
+  return new RedisDbUpdater(tableName,ip,port);
+}

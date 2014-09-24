@@ -1,5 +1,0 @@
-{
-  super(crawlPath);
-  this.redisIP=redisIP;
-  this.redisPort=redisPort;
-}

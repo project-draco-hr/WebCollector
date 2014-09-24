@@ -1,0 +1,19 @@
+{
+  Handler fetchHandler=new Handler(){
+    @Override public void handleMessage(    Message msg){
+      Page page=(Page)msg.obj;
+switch (msg.what) {
+case BasicFetcher.FETCH_SUCCESS:
+        visit(page);
+      break;
+case BasicFetcher.FETCH_FAILED:
+    failed(page);
+  break;
+default :
+break;
+}
+}
+}
+;
+return fetchHandler;
+}

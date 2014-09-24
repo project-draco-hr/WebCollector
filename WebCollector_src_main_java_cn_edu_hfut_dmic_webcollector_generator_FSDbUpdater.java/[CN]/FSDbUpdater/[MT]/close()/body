@@ -1,0 +1,5 @@
+{
+  if (segmentWriter != null) {
+    segmentWriter.close();
+  }
+}

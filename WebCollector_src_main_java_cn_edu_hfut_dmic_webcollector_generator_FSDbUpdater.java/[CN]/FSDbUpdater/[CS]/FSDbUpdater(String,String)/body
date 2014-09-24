@@ -1,7 +1,0 @@
-{
-  this.crawlPath=crawlPath;
-  this.segmentName=segmentName;
-  if (segmentName != null) {
-    this.segmentPath=crawlPath + "/segments/" + segmentName;
-  }
-}

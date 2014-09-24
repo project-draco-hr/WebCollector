@@ -1,0 +1,5 @@
+{
+  redisHelper=new RedisHelper(tableName,redisIP,redisPort);
+  Set crawldbSet=redisHelper.getCrawlDb();
+  ite=crawldbSet.iterator();
+}

@@ -1,18 +1,15 @@
 {
-  DbUpdater recoverDbUpdater=createRecoverDbUpdater();
   if (needUpdateDb) {
     try {
-      if (recoverDbUpdater.isLocked()) {
-        recoverDbUpdater.merge();
-        recoverDbUpdater.unlock();
+      if (dbUpdater.isLocked()) {
+        dbUpdater.merge();
+        dbUpdater.unlock();
       }
     }
  catch (    Exception ex) {
       ex.printStackTrace();
     }
-    setSegmentName(SegmentUtils.createSegmengName());
-    this.dbUpdater=createDbUpdater();
-    dbUpdater.initUpdater();
+    dbUpdater.initSegmentWriter();
     dbUpdater.lock();
   }
   running=true;

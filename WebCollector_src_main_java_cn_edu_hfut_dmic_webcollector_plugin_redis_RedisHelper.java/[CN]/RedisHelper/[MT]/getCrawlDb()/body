@@ -1,0 +1,3 @@
+{
+  return jedis.hkeys(tableName + suffix_crawldb);
+}

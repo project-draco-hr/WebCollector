@@ -1,5 +1,8 @@
 {
   if (segmentName == null) {
+    segmentName=getLastSegmentName();
+  }
+  if (segmentName == null) {
     return;
   }
   try {
@@ -8,8 +11,8 @@
  catch (  IOException ex) {
     LogUtils.getLogger().info("Exception",ex);
   }
-  LogUtils.getLogger().info("merge " + segmentPath);
-  File file_fetch=new File(segmentPath,"fetch/info.avro");
+  LogUtils.getLogger().info("merge " + getSegmentPath());
+  File file_fetch=new File(getSegmentPath(),"fetch/info.avro");
   if (!file_fetch.exists()) {
     return;
   }
@@ -42,7 +45,7 @@
     }
   }
   reader_fetch.close();
-  File file_parse=new File(segmentPath,"parse_data/info.avro");
+  File file_parse=new File(getSegmentPath(),"parse_data/info.avro");
   if (file_parse.exists()) {
     DbReader<ParseData> reader_parse=new DbReader<ParseData>(ParseData.class,file_parse);
     ParseData parseresult=null;
