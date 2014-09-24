@@ -1,0 +1,6 @@
+{
+  super(crawlPath,segmentName);
+  jedis=new Jedis("127.0.0.1",6379);
+  updateCount=new AtomicInteger(0);
+  writeCount=new AtomicInteger(0);
+}

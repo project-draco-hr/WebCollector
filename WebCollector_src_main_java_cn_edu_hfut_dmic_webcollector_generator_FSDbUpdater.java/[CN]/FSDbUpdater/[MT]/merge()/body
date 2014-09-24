@@ -2,6 +2,12 @@
   if (segmentName == null) {
     return;
   }
+  try {
+    backup();
+  }
+ catch (  IOException ex) {
+    LogUtils.getLogger().info("Exception",ex);
+  }
   LogUtils.getLogger().info("merge " + segmentPath);
   File file_fetch=new File(segmentPath,"fetch/info.avro");
   if (!file_fetch.exists()) {

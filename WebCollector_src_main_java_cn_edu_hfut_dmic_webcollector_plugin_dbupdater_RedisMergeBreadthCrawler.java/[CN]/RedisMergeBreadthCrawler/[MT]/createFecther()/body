@@ -1,0 +1,10 @@
+{
+  RedisMergeFetcher fetcher=new RedisMergeFetcher(getCrawlPath(),redisIP,redisPort);
+  fetcher.setProxy(getProxy());
+  fetcher.setIsContentStored(getIsContentStored());
+  fetcher.setHandler(createFetcherHandler());
+  setConconfig(new CommonConnectionConfig(getUseragent(),getCookie()));
+  fetcher.setThreads(getThreads());
+  fetcher.setConconfig(getConconfig());
+  return fetcher;
+}

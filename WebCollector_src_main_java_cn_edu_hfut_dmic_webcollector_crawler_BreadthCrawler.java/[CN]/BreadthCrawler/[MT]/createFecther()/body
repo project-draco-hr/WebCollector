@@ -3,7 +3,7 @@
   fetcher.setProxy(proxy);
   fetcher.setIsContentStored(isContentStored);
   fetcher.setHandler(createFetcherHandler());
-  conconfig=new CommonConnectionConfig();
+  conconfig=new CommonConnectionConfig(useragent,cookie);
   fetcher.setThreads(threads);
   fetcher.setConconfig(conconfig);
   return fetcher;

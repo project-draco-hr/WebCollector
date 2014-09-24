@@ -1,5 +1,6 @@
 {
   before();
+  lastRequestStart=new AtomicLong(System.currentTimeMillis());
   activeThreads=new AtomicInteger(0);
   spinWaiting=new AtomicInteger(0);
   fetchQueue=new FetchQueue();
@@ -16,6 +17,13 @@
  catch (    InterruptedException ex) {
     }
     LogUtils.getLogger().info("-activeThreads=" + activeThreads.get() + ", spinWaiting="+ spinWaiting.get()+ ", fetchQueue.size="+ fetchQueue.getSize());
+    if (!feeder.isAlive() && fetchQueue.getSize() < 5) {
+      fetchQueue.dump();
+    }
+    if ((System.currentTimeMillis() - lastRequestStart.get()) > Config.requestMaxInterval) {
+      LogUtils.getLogger().info("Aborting with " + activeThreads + " hung threads.");
+      return;
+    }
   }
  while (activeThreads.get() > 0 && running);
   feeder.stop();

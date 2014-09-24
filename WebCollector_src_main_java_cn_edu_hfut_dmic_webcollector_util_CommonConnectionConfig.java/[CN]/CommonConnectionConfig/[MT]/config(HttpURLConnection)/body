@@ -1,0 +1,8 @@
+{
+  if (userAgent != null) {
+    con.setRequestProperty("User-Agent",userAgent);
+  }
+  if (cookie != null) {
+    con.setRequestProperty("Cookie",cookie);
+  }
+}

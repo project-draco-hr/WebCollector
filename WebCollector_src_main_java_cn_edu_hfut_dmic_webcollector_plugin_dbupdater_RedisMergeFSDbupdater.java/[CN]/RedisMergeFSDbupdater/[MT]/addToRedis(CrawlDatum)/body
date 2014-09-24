@@ -1,0 +1,29 @@
+{
+  try {
+    String key=datum.getUrl();
+    if (key.trim().isEmpty()) {
+      return;
+    }
+    if (updateCount.incrementAndGet() % 5000 == 0) {
+      LogUtils.getLogger().info(updateCount.get() + " crawlDatum add to redis");
+    }
+    String value=jedis.get(key);
+    if (value == null) {
+      update(datum);
+      return;
+    }
+    int status=Integer.valueOf(value.charAt(0) + "");
+    long fetchTime=Long.valueOf(value.substring(1));
+    if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED && datum.getStatus() == status) {
+      if (datum.getFetchTime() > fetchTime) {
+        update(datum);
+      }
+    }
+ else     if (datum.getStatus() > status) {
+      update(datum);
+    }
+  }
+ catch (  Exception ex) {
+    LogUtils.getLogger().info("Exception",ex);
+  }
+}
