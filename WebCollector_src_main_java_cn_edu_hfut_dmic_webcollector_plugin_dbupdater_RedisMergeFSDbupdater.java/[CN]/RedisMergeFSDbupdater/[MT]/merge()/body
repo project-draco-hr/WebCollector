@@ -1,7 +1,7 @@
 {
   backup();
   LogUtils.getLogger().info("merge " + getSegmentPath());
-  jedis.flushDB();
+  jedis.del(getCrawlPath());
   LogUtils.getLogger().info("Delete all data in redis");
   File crawldbFile=new File(getCrawlPath(),Config.old_info_path);
   File fetchFile=new File(getSegmentPath(),"fetch/info.avro");
@@ -37,11 +37,11 @@
     parseReader.close();
   }
   DbWriter<CrawlDatum> writer=new DbWriter<CrawlDatum>(CrawlDatum.class,new File(getCrawlPath(),Config.current_info_path));
-  Set set=jedis.keys("*");
+  Set set=jedis.hkeys(getCrawlPath());
   Iterator ite=set.iterator();
   while (ite.hasNext()) {
     String key=ite.next().toString();
-    String value=jedis.get(key);
+    String value=jedis.hget(getCrawlPath(),key);
     int status=Integer.valueOf(value.charAt(0) + "");
     long fetchTime=Long.valueOf(value.substring(1));
     CrawlDatum datum=new CrawlDatum();
