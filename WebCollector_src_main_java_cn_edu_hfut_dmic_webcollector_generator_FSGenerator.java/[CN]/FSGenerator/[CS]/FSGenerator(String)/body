@@ -1,11 +1,3 @@
 {
   this.crawlPath=crawlPath;
-  try {
-    File oldfile=new File(crawlPath,Config.current_info_path);
-    DbReader<CrawlDatum> r=new DbReader<CrawlDatum>(CrawlDatum.class,oldfile);
-    dbreader=new DbReader<CrawlDatum>(CrawlDatum.class,oldfile);
-  }
- catch (  IOException ex) {
-    ex.printStackTrace();
-  }
 }
