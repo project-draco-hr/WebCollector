@@ -1,0 +1,16 @@
+{
+  try {
+    DbUpdater dbUpdater=createDbUpdater();
+    if (dbUpdater != null) {
+      fetcher.setDbUpdater(createDbUpdater());
+    }
+    fetcher.setRequestFactory(this);
+    fetcher.setParserFactory(this);
+    fetcher.setHandler(createFetcherHandler());
+    return fetcher;
+  }
+ catch (  Exception ex) {
+    LogUtils.getLogger().info("Exception",ex);
+    return null;
+  }
+}
