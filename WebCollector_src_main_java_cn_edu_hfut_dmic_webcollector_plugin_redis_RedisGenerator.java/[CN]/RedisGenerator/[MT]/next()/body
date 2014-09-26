@@ -1,4 +1,10 @@
 {
+  if (!isStarted) {
+    redisHelper=new RedisHelper(tableName,redisIP,redisPort);
+    Set crawldbSet=redisHelper.getCrawlDb();
+    ite=crawldbSet.iterator();
+    isStarted=true;
+  }
   if (ite.hasNext()) {
     String key=ite.next().toString();
     return redisHelper.getCrawlDatumByKey(key);
