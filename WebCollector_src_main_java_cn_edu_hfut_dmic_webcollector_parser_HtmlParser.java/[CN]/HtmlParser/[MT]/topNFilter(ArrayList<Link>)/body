@@ -13,6 +13,9 @@
       break;
     }
     Link link=origin_links.get(i);
+    if (!regexRule.satisfy(link.getUrl())) {
+      continue;
+    }
     result.add(link);
     sum++;
   }

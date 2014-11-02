@@ -1,0 +1,20 @@
+{
+  int state=0;
+  for (  String nregex : negative) {
+    if (Pattern.matches(nregex,str)) {
+      return false;
+    }
+  }
+  int count=0;
+  for (  String pregex : positive) {
+    if (Pattern.matches(pregex,str)) {
+      count++;
+    }
+  }
+  if (count == 0) {
+    return false;
+  }
+ else {
+    return true;
+  }
+}

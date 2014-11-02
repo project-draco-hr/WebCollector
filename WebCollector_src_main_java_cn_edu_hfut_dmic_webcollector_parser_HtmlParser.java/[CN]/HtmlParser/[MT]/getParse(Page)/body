@@ -8,7 +8,13 @@
   page.setDoc(doc);
   String title=doc.title();
   String text=doc.text();
-  ArrayList<Link> links=topNFilter(LinkUtils.getAll(page));
+  ArrayList<Link> links=null;
+  if (topN != null && topN == 0) {
+    links=new ArrayList<Link>();
+  }
+ else {
+    links=topNFilter(LinkUtils.getAll(page));
+  }
   ParseData parsedata=new ParseData(url,title,links);
   ParseText parsetext=new ParseText(url,text);
   return new ParseResult(parsedata,parsetext);

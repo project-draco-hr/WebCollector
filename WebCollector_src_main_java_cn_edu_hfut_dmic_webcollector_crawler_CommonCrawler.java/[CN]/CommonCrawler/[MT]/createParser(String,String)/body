@@ -3,7 +3,9 @@
     return null;
   }
   if (contentType.contains("text/html")) {
-    return new HtmlParser(Config.topN);
+    HtmlParser parser=new HtmlParser(Config.topN);
+    parser.setRegexRule(getRegexRule());
+    return parser;
   }
   return null;
 }

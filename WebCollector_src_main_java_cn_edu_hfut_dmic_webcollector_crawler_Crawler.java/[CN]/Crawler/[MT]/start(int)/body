@@ -9,8 +9,8 @@
       return;
     }
   }
-  if (regexs.isEmpty()) {
-    LogUtils.getLogger().info("error:Please add at least one regex rule");
+  if (regexRule.isEmpty()) {
+    LogUtils.getLogger().info("error:Please add at least one positive regex rule");
     return;
   }
   inject();

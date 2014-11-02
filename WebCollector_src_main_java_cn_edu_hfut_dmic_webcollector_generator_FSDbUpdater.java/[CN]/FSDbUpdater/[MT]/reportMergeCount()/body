@@ -1,0 +1,6 @@
+{
+  mergeCount++;
+  if (mergeCount % 10000 == 0) {
+    LogUtils.getLogger().info(mergeCount + " crawldatums merged");
+  }
+}

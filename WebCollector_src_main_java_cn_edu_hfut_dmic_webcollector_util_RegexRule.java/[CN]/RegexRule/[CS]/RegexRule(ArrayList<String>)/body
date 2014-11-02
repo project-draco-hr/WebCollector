@@ -1,5 +1,4 @@
 {
-  super(generator);
   for (  String rule : rules) {
     addRule(rule);
   }
