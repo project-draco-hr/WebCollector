@@ -5,26 +5,20 @@
   if (segmentName == null) {
     return;
   }
-  try {
-    backup();
-  }
- catch (  IOException ex) {
-    LogUtils.getLogger().info("Exception",ex);
-  }
   LogUtils.getLogger().info("merge " + getSegmentPath());
   mergeCount=0;
   File file_fetch=new File(getSegmentPath(),"fetch/info.avro");
   if (!file_fetch.exists()) {
     return;
   }
-  File file_old=new File(crawlPath,Config.current_info_path);
-  DbReader<CrawlDatum> reader_old=new DbReader<CrawlDatum>(CrawlDatum.class,file_old);
-  DbReader<CrawlDatum> reader_fetch=new DbReader<CrawlDatum>(CrawlDatum.class,file_fetch);
   File file_current=new File(crawlPath,Config.current_info_path);
-  if (!file_current.getParentFile().exists()) {
-    file_current.getParentFile().mkdirs();
+  DbReader<CrawlDatum> reader_current=new DbReader<CrawlDatum>(CrawlDatum.class,file_current);
+  DbReader<CrawlDatum> reader_fetch=new DbReader<CrawlDatum>(CrawlDatum.class,file_fetch);
+  File file_new=new File(crawlPath,Config.new_info_path);
+  if (!file_new.getParentFile().exists()) {
+    file_new.getParentFile().mkdirs();
   }
-  DbWriter<CrawlDatum> writer=new DbWriter<CrawlDatum>(CrawlDatum.class,file_current);
+  DbWriter<CrawlDatum> writer=new DbWriter<CrawlDatum>(CrawlDatum.class,file_new);
   BloomFilter bloomFilter=new BloomFilter();
   CrawlDatum datum=null;
   while (reader_fetch.hasNext()) {
@@ -34,8 +28,8 @@
     reportMergeCount();
   }
   reader_fetch.close();
-  while (reader_old.hasNext()) {
-    datum=reader_old.readNext();
+  while (reader_current.hasNext()) {
+    datum=reader_current.readNext();
     if (bloomFilter.contains(datum.getUrl())) {
       continue;
     }
@@ -43,7 +37,7 @@
     writer.write(datum);
     reportMergeCount();
   }
-  reader_old.close();
+  reader_current.close();
   File file_parse=new File(getSegmentPath(),"parse_data/info.avro");
   if (file_parse.exists()) {
     DbReader<ParseData> reader_parse=new DbReader<ParseData>(ParseData.class,file_parse);
@@ -65,4 +59,5 @@
     reader_parse.close();
   }
   writer.close();
+  install();
 }
