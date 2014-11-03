@@ -8,6 +8,8 @@
   if (!file_old.getParentFile().exists()) {
     file_old.getParentFile().mkdirs();
   }
-  file_current.renameTo(file_old);
-  file_new.renameTo(file_current);
+  FileUtils.copy(file_current,file_old);
+  file_current.delete();
+  FileUtils.copy(file_new,file_current);
+  file_new.delete();
 }
