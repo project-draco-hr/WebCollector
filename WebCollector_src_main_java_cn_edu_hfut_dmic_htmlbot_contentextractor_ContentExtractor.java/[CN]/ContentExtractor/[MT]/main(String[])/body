@@ -1,0 +1,4 @@
+{
+  String content=ContentExtractor.getContentByURL("http://news.hfut.edu.cn/show-1-14138-1.html");
+  System.out.println(content);
+}

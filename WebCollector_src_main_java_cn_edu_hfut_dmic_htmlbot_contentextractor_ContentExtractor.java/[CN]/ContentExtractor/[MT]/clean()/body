@@ -1,0 +1,5 @@
+{
+  doc.select("script").remove();
+  doc.select("style").remove();
+  doc.select("iframe").remove();
+}

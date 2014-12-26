@@ -1,0 +1,18 @@
+{
+  page=ParseUtils.parseDocument(page);
+  try {
+    visit(page);
+  }
+ catch (  Exception ex) {
+    LogUtils.getLogger().info("Exception",ex);
+  }
+  Elements links=page.getDoc().select("a[href]");
+  ArrayList<String> nextUrls=new ArrayList<String>();
+  for (  Element link : links) {
+    String href=link.attr("abs:href");
+    if (regexRule.satisfy(href)) {
+      nextUrls.add(href);
+    }
+  }
+  return nextUrls;
+}

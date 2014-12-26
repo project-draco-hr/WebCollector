@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < queue.size(); i++) {
+    FetchItem it=queue.get(i);
+    LogUtils.getLogger().info("  " + i + ". "+ it.datum.getUrl());
+  }
+}

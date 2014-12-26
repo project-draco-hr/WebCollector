@@ -1,0 +1,9 @@
+{
+  if (node instanceof TextNode) {
+    return "text";
+  }
+ else {
+    Element element=(Element)node;
+    return element.tagName().toLowerCase();
+  }
+}

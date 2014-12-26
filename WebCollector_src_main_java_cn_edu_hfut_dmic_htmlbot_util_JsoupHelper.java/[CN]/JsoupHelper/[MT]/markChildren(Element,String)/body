@@ -1,0 +1,13 @@
+{
+  tag.traverse(new NodeVisitor(){
+    @Override public void head(    Node node,    int i){
+      if (node instanceof Element) {
+        Element tag=(Element)node;
+        mark(tag,color);
+      }
+    }
+    @Override public void tail(    Node node,    int i){
+    }
+  }
+);
+}

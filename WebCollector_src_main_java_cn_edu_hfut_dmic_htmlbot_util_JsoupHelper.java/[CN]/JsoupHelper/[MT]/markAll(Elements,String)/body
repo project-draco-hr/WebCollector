@@ -1,0 +1,5 @@
+{
+  for (  Element tag : tags) {
+    mark(tag,color);
+  }
+}

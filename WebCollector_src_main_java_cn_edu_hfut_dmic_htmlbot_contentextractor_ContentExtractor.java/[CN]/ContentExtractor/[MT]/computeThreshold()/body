@@ -1,0 +1,4 @@
+{
+  double d=computeDeviation(gaussEtprList);
+  return d * 0.8;
+}

@@ -1,0 +1,8 @@
+{
+  DemoNewsCrawler crawler=new DemoNewsCrawler();
+  for (int i=1; i <= 5; i++) {
+    crawler.addSeed("http://news.hfut.edu.cn/list-1-" + i + ".html");
+  }
+  crawler.setThreads(50);
+  crawler.start(2);
+}

@@ -1,0 +1,3 @@
+{
+  markChildren(tag,defaultColor);
+}

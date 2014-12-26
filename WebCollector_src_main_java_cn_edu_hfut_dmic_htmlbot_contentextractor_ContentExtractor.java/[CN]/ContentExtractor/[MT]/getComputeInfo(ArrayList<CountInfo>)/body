@@ -1,0 +1,17 @@
+{
+  double textSum=0;
+  double puncSum=0;
+  ArrayList<Double> textCountList=new ArrayList<Double>();
+  ArrayList<Double> puncCountList=new ArrayList<Double>();
+  for (  CountInfo countInfo : countInfoList) {
+    textSum+=countInfo.textCount;
+    puncSum+=countInfo.puncCount;
+    textCountList.add(countInfo.textCount + 0.0);
+    puncCountList.add(countInfo.puncCount + 0.0);
+  }
+  double tpr=textSum / countInfoList.size();
+  double ppr=puncSum / countInfoList.size();
+  double cs=computeDeviation(textCountList);
+  double ps=computeDeviation(puncCountList);
+  return new ComputeInfo(tpr,ppr,cs,ps);
+}

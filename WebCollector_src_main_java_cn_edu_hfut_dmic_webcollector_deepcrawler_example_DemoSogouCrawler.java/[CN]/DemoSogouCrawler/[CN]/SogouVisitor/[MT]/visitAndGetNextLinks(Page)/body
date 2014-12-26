@@ -1,0 +1,22 @@
+{
+  String url=page.getUrl();
+  if (Pattern.matches("http://www.sogou.com/web\\?query.*",url)) {
+    page=ParseUtils.parseDocument(page);
+    ArrayList<String> nextLinks=new ArrayList<String>();
+    Elements links=page.getDoc().select("h3>a[id^=uigs]");
+    for (    Element link : links) {
+      nextLinks.add(link.attr("abs:href"));
+    }
+    return nextLinks;
+  }
+ else {
+    try {
+      FileUtils.writeFileWithParent("/home/hu/data/sogou/" + page.getUrl().hashCode() + ".html",page.getContent());
+      LogUtils.getLogger().info("save " + page.getUrl());
+    }
+ catch (    IOException ex) {
+      LogUtils.getLogger().info("Exception",ex);
+    }
+    return null;
+  }
+}

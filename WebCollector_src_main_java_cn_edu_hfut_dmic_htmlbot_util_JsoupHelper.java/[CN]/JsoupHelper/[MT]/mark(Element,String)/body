@@ -1,0 +1,8 @@
+{
+  String style="border:2px solid " + color + ";";
+  if (tag.hasAttr("style")) {
+    style=tag.attr("style") + ";" + style;
+  }
+  tag.attr("mark","true");
+  tag.attr("style",style);
+}

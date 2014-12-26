@@ -15,7 +15,6 @@
  else {
     links=topNFilter(LinkUtils.getAll(page));
   }
-  ParseData parsedata=new ParseData(url,title,links);
-  ParseText parsetext=new ParseText(url,text);
-  return new ParseResult(parsedata,parsetext);
+  ParseData parsedata=new ParseData(url,links);
+  return new ParseResult(parsedata);
 }

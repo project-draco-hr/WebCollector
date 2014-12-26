@@ -1,0 +1,5 @@
+{
+  this.queue=queue;
+  this.generator=generator;
+  this.size=size;
+}

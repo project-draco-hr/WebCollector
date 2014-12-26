@@ -1,0 +1,6 @@
+{
+  this.tNode=tNode;
+  String text=tNode.text();
+  this.textCount=TextUtils.countText(text);
+  this.puncCount=TextUtils.countPunc(text);
+}

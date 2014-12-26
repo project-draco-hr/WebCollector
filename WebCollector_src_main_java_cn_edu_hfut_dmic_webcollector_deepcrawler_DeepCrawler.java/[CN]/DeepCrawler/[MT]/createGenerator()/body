@@ -1,0 +1,5 @@
+{
+  Generator generator=new FSGenerator(crawlPath);
+  generator=new IntervalFilter(generator);
+  return generator;
+}

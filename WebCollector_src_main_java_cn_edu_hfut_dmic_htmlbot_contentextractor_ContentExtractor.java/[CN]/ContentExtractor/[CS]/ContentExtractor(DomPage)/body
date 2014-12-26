@@ -1,0 +1,6 @@
+{
+  this.domPage=domPage;
+  this.doc=domPage.getDoc();
+  clean();
+  buildHisto();
+}

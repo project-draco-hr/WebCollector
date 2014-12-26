@@ -1,0 +1,8 @@
+{
+  Document doc=Jsoup.parse(html);
+  if (url != null) {
+    doc.setBaseUri(url);
+  }
+  DomPage domPage=new DomPage(doc);
+  return domPage;
+}

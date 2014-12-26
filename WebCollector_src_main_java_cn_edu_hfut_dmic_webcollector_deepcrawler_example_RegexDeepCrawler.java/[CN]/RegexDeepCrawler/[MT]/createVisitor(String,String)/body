@@ -1,0 +1,9 @@
+{
+  if (contentType == null) {
+    return null;
+  }
+  if (contentType.contains("text/html")) {
+    return this;
+  }
+  return null;
+}
