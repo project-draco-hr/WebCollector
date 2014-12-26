@@ -2,7 +2,7 @@
   String url=page.getUrl();
   if (Pattern.matches("http://www.sogou.com/web\\?query.*",url)) {
     page=ParseUtils.parseDocument(page);
-    ArrayList<String> nextLinks=new ArrayList<String>();
+    DeepLinks nextLinks=new DeepLinks();
     Elements links=page.getDoc().select("h3>a[id^=uigs]");
     for (    Element link : links) {
       nextLinks.add(link.attr("abs:href"));

@@ -6,7 +6,7 @@
       jsonResult=new String(page.getContent(),"utf-8");
       JSONObject friendsJson=new JSONObject(jsonResult);
       JSONArray friends=friendsJson.getJSONArray("friends");
-      ArrayList<String> nextLinks=new ArrayList<String>();
+      DeepLinks nextLinks=new DeepLinks();
       for (int i=0; i < friends.length(); i++) {
         String friendName=friends.getString(i);
         String nextLink="http://shejiao.com/api.jsp?user=" + friendName;
@@ -20,7 +20,7 @@
   }
  else   if (Pattern.matches("http://shejiao.com/hot.jsp",url)) {
     page=ParseUtils.parseDocument(page);
-    ArrayList<String> nextLinks=new ArrayList<String>();
+    DeepLinks nextLinks=new DeepLinks();
     Elements links=page.getDoc().select("CSS?????????");
     for (    Element link : links) {
       String friendName=link.text();

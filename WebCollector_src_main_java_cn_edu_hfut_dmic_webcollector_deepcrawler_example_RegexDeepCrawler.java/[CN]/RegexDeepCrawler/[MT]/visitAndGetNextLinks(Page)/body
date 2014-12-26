@@ -7,7 +7,7 @@
     LogUtils.getLogger().info("Exception",ex);
   }
   Elements links=page.getDoc().select("a[href]");
-  ArrayList<String> nextUrls=new ArrayList<String>();
+  DeepLinks nextUrls=new DeepLinks();
   for (  Element link : links) {
     String href=link.attr("abs:href");
     if (regexRule.satisfy(href)) {

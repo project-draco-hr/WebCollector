@@ -2,7 +2,7 @@
   String url=page.getUrl();
   if (Pattern.matches("http://news.hfut.edu.cn/list-1-[0-9]+.html",url)) {
     page=ParseUtils.parseDocument(page);
-    ArrayList<String> nextLinks=new ArrayList<String>();
+    DeepLinks nextLinks=new DeepLinks();
     Elements links=page.getDoc().select("div>div>ul").first().select("li>a");
     for (    Element link : links) {
       nextLinks.add(link.attr("abs:href"));

@@ -65,7 +65,7 @@
             dbUpdater.getSegmentWriter().wrtieContent(content);
           }
           if (visitor != null) {
-            ArrayList<String> nextLinks=null;
+            DeepLinks nextLinks=null;
             try {
               nextLinks=visitor.visitAndGetNextLinks(page);
             }
