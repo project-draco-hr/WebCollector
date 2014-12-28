@@ -1,8 +1,0 @@
-{
-  int size=1 + r * 2;
-  double[] window=new double[size];
-  for (int i=-r; i <= r; i++) {
-    window[i + r]=1.0 / Math.pow(Math.E,(i * i + 0.0) / (2 * r * r));
-  }
-  return window;
-}

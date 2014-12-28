@@ -1,0 +1,50 @@
+{
+  HttpResponse response=new HttpResponse(url);
+  HttpURLConnection con;
+  URL _URL=new URL(url);
+  if (proxys == null) {
+    con=(HttpURLConnection)_URL.openConnection();
+  }
+ else {
+    Proxy proxy=proxys.nextProxy();
+    if (proxy == null) {
+      con=(HttpURLConnection)_URL.openConnection();
+    }
+ else {
+      con=(HttpURLConnection)_URL.openConnection(proxy);
+    }
+  }
+  if (userAgent != null) {
+    con.setRequestProperty("User-Agent",userAgent);
+  }
+  if (cookie != null) {
+    con.setRequestProperty("Cookie",cookie);
+  }
+  con.setDoInput(true);
+  con.setDoOutput(true);
+  configConnection(con);
+  InputStream is;
+  response.setCode(con.getResponseCode());
+  is=con.getInputStream();
+  byte[] buf=new byte[2048];
+  int read;
+  int sum=0;
+  int maxsize=Config.MAX_RECEIVE_SIZE;
+  ByteArrayOutputStream bos=new ByteArrayOutputStream();
+  while ((read=is.read(buf)) != -1) {
+    if (maxsize > 0) {
+      sum=sum + read;
+      if (sum > maxsize) {
+        read=maxsize - (sum - read);
+        bos.write(buf,0,read);
+        break;
+      }
+    }
+    bos.write(buf,0,read);
+  }
+  is.close();
+  response.setContent(bos.toByteArray());
+  response.setHeaders(con.getHeaderFields());
+  bos.close();
+  return response;
+}

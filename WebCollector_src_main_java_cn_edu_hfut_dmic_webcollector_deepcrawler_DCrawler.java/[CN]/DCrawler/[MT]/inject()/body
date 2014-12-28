@@ -1,4 +1,0 @@
-{
-  Injector injector=createInjector();
-  injector.inject(seeds,true);
-}

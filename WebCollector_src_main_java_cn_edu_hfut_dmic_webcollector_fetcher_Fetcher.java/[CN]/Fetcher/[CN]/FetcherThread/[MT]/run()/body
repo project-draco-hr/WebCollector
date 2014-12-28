@@ -21,79 +21,63 @@
           }
         }
         lastRequestStart.set(System.currentTimeMillis());
-        CrawlDatum crawldatum=new CrawlDatum();
         String url=item.datum.getUrl();
-        crawldatum.setUrl(url);
-        Request request=requestFactory.createRequest(url);
-        Response response=null;
-        for (int i=0; i <= retry; i++) {
-          if (i > 0) {
-            LogUtils.getLogger().info("retry " + i + "th "+ url);
+        HttpResponse response=null;
+        int retryCount=0;
+        for (; retryCount <= retry; retryCount++) {
+          if (retryCount > 0) {
+            LOG.info("retry " + retryCount + "th "+ url);
           }
           try {
-            response=request.getResponse(crawldatum);
+            response=httpRequester.getResponse(url);
             break;
           }
  catch (          Exception ex) {
           }
         }
-        crawldatum.setStatus(CrawlDatum.STATUS_DB_FETCHED);
-        crawldatum.setFetchTime(System.currentTimeMillis());
-        Page page=new Page();
-        page.setUrl(url);
-        page.setFetchTime(crawldatum.getFetchTime());
-        if (response == null) {
-          LogUtils.getLogger().info("failed " + url);
-          HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_FAILED,page),true);
-          continue;
+        CrawlDatum crawlDatum=null;
+        if (response != null) {
+          LOG.info("fetch " + url);
+          crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_FETCHED,item.datum.getRetry() + retryCount);
         }
-        page.setResponse(response);
-        LogUtils.getLogger().info("fetch " + url);
-        String contentType=response.getContentType();
-        if (parsing) {
-          try {
-            Parser parser=parserFactory.createParser(url,contentType);
-            if (parser != null) {
-              ParseResult parseresult=parser.getParse(page);
-              page.setParseResult(parseresult);
-            }
-          }
- catch (          Exception ex) {
-            LogUtils.getLogger().info("Exception",ex);
-          }
-        }
-        if (needUpdateDb) {
-          try {
-            dbUpdater.getSegmentWriter().wrtieFetch(crawldatum);
-            if (isContentStored) {
-              Content content=new Content();
-              content.setUrl(url);
-              if (response.getContent() != null) {
-                content.setContent(response.getContent());
-              }
  else {
-                content.setContent(new byte[0]);
-              }
-              content.setContentType(contentType);
-              dbUpdater.getSegmentWriter().wrtieContent(content);
-            }
-            if (parsing && page.getParseResult() != null) {
-              dbUpdater.getSegmentWriter().wrtieParse(page.getParseResult());
-            }
+          LOG.info("failed " + url);
+          crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED,item.datum.getRetry() + retryCount);
+        }
+        try {
+          dbUpdater.getSegmentWriter().wrtieFetch(crawlDatum);
+          if (response == null) {
+            continue;
           }
- catch (          Exception ex) {
-            LogUtils.getLogger().info("Exception",ex);
+          String contentType=response.getContentType();
+          Visitor visitor=visitorFactory.createVisitor(url,contentType);
+          Page page=new Page();
+          page.setUrl(url);
+          page.setResponse(response);
+          if (visitor != null) {
+            Links nextLinks=null;
+            try {
+              nextLinks=visitor.visitAndGetNextLinks(page);
+            }
+ catch (            Exception ex) {
+              LOG.info("Exception",ex);
+            }
+            if (nextLinks != null && !nextLinks.isEmpty()) {
+              dbUpdater.getSegmentWriter().wrtieLinks(nextLinks);
+            }
           }
         }
-        HandlerUtils.sendMessage(handler,new Message(Fetcher.FETCH_SUCCESS,page),true);
+ catch (        Exception ex) {
+          LOG.info("Exception",ex);
+        }
       }
  catch (      Exception ex) {
-        LogUtils.getLogger().info("Exception",ex);
+        LOG.info("Exception",ex);
       }
     }
   }
  catch (  Exception ex) {
-    LogUtils.getLogger().info("Exception",ex);
+    LOG.info("Exception",ex);
   }
  finally {
     activeThreads.decrementAndGet();

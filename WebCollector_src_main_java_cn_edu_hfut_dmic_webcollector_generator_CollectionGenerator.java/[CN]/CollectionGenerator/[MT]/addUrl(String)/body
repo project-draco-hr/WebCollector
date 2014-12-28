@@ -1,8 +1,0 @@
-{
-  CrawlDatum crawldatum=new CrawlDatum();
-  crawldatum.setUrl(url);
-  crawldatum.setFetchTime(CrawlDatum.FETCHTIME_UNDEFINED);
-  crawldatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
-  data.add(crawldatum);
-  iterator=data.iterator();
-}

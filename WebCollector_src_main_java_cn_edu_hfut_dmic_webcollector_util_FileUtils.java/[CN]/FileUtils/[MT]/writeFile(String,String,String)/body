@@ -1,0 +1,6 @@
+{
+  byte[] content=contentStr.getBytes(charset);
+  FileOutputStream fos=new FileOutputStream(filename);
+  fos.write(content);
+  fos.close();
+}

@@ -1,4 +1,0 @@
-{
-  deepFetcher.stop();
-  status=STOPED;
-}

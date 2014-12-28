@@ -1,5 +1,0 @@
-{
-  Generator generator=new FSGenerator(crawlPath);
-  generator=new URLRegexFilter(new IntervalFilter(generator),getRegexRule());
-  return generator;
-}

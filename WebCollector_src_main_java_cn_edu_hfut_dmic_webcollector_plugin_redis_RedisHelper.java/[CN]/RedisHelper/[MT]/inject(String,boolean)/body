@@ -1,6 +1,0 @@
-{
-  if (!append) {
-    jedis.del(tableName + suffix_crawldb);
-  }
-  jedis.hset(tableName + suffix_crawldb,url,CrawlDatum.STATUS_DB_UNFETCHED + "" + CrawlDatum.FETCHTIME_UNDEFINED);
-}

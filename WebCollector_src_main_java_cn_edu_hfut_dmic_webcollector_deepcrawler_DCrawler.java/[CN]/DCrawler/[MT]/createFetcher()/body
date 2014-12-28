@@ -1,7 +1,0 @@
-{
-  DeepFetcher fetcher=new DeepFetcher();
-  fetcher.setIsContentStored(isContentStored);
-  fetcher.setVisitorFactory(visitorFactory);
-  fetcher.setThreads(getThreads());
-  return fetcher;
-}

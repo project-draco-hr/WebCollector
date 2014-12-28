@@ -1,5 +1,0 @@
-{
-  Document doc=parseDocument(page.getContent(),page.getUrl());
-  page.setDoc(doc);
-  return page;
-}

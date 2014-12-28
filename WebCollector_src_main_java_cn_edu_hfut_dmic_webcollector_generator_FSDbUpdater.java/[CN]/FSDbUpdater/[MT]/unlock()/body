@@ -1,3 +1,0 @@
-{
-  FileUtils.writeFile(crawlPath + "/" + Config.lock_path,"0".getBytes("utf-8"));
-}

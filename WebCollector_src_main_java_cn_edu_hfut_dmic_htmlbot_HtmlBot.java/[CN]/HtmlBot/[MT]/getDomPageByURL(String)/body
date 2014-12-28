@@ -1,4 +1,0 @@
-{
-  Document doc=Jsoup.connect(url).get();
-  return new DomPage(doc);
-}

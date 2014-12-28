@@ -1,5 +1,0 @@
-{
-  dbUpdater.close();
-  dbUpdater.merge();
-  dbUpdater.unlock();
-}

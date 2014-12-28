@@ -1,5 +1,0 @@
-{
-  if (parseresult != null) {
-    redisHelper.addParse(parseresult.getParsedata());
-  }
-}

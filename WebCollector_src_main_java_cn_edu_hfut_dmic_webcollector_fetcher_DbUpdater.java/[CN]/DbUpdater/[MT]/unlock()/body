@@ -1,0 +1,8 @@
+{
+  lockDatabase=env.openDatabase(null,"lock",BerkeleyDBUtils.defaultDBConfig);
+  DatabaseEntry key=new DatabaseEntry("lock".getBytes("utf-8"));
+  DatabaseEntry value=new DatabaseEntry("unlocked".getBytes("utf-8"));
+  lockDatabase.put(null,key,value);
+  lockDatabase.sync();
+  lockDatabase.close();
+}

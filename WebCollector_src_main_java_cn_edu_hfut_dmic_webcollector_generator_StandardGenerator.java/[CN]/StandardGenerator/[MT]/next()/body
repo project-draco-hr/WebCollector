@@ -1,0 +1,29 @@
+{
+  if (cursor == null) {
+    cursor=database.openCursor(null,CursorConfig.DEFAULT);
+  }
+  while (true) {
+    if (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+      try {
+        CrawlDatum datum=new CrawlDatum(key,value);
+        if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED) {
+          continue;
+        }
+ else {
+          if (datum.getRetry() >= 10) {
+            continue;
+          }
+          return datum;
+        }
+      }
+ catch (      UnsupportedEncodingException ex) {
+        continue;
+      }
+    }
+ else {
+      cursor.close();
+      database.close();
+      return null;
+    }
+  }
+}

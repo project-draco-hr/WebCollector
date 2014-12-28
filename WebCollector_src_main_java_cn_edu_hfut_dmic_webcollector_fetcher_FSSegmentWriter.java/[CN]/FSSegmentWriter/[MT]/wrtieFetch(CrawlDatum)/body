@@ -1,7 +1,0 @@
-{
-  fetchWriter.write(fetch);
-  count_fetch=(count_fetch++) % Config.segmentwriter_buffer_size;
-  if (count_fetch == 0) {
-    fetchWriter.flush();
-  }
-}

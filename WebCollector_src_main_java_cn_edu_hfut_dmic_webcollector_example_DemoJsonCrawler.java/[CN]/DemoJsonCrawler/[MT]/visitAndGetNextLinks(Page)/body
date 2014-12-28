@@ -1,0 +1,8 @@
+{
+  String jsonStr=page.getHtml();
+  JSONObject json=new JSONObject(jsonStr);
+  String ip=json.getString("ip");
+  int port=json.getInt("port");
+  System.out.println("???JSON:" + jsonStr.trim() + "\n"+ "JSON???????????? ip="+ ip+ "  port="+ port);
+  return null;
+}

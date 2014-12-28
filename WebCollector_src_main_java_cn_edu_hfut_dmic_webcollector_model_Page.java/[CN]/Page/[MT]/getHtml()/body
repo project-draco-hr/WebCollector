@@ -1,3 +1,17 @@
 {
-  return html;
+  if (html != null) {
+    return html;
+  }
+  if (getContent() == null) {
+    return null;
+  }
+  String charset=CharsetDetector.guessEncoding(getContent());
+  try {
+    this.html=new String(getContent(),charset);
+    return html;
+  }
+ catch (  UnsupportedEncodingException ex) {
+    LOG.info("Exception",ex);
+    return null;
+  }
 }

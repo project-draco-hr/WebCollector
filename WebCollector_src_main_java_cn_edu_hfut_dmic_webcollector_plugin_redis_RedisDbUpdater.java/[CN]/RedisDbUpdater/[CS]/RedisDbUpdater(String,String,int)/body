@@ -1,4 +1,0 @@
-{
-  this.tableName=tableName;
-  redisHelper=new RedisHelper(tableName,redisIP,redisPort);
-}

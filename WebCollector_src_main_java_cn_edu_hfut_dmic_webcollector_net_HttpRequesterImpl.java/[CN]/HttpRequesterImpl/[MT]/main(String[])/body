@@ -1,0 +1,5 @@
+{
+  HttpRequesterImpl requester=new HttpRequesterImpl();
+  HttpResponse response=requester.getResponse("http://www.baidu.com");
+  System.out.println(response.getCode());
+}

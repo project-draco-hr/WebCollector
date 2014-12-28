@@ -1,0 +1,4 @@
+{
+  this.env=env;
+  segmentWriter=new SegmentWriter(env);
+}

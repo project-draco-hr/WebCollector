@@ -1,0 +1,8 @@
+{
+  for (  String urlPattern : visitorMap.keySet()) {
+    if (Pattern.matches(urlPattern,url)) {
+      return visitorMap.get(urlPattern);
+    }
+  }
+  return null;
+}

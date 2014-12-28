@@ -1,4 +1,8 @@
 {
+  if (visitorFactory == null) {
+    LOG.info("Please specify a VisitorFactory!");
+    return;
+  }
   before();
   lastRequestStart=new AtomicLong(System.currentTimeMillis());
   activeThreads=new AtomicInteger(0);
@@ -17,12 +21,12 @@
     }
  catch (    InterruptedException ex) {
     }
-    LogUtils.getLogger().info("-activeThreads=" + activeThreads.get() + ", spinWaiting="+ spinWaiting.get()+ ", fetchQueue.size="+ fetchQueue.getSize());
+    LOG.info("-activeThreads=" + activeThreads.get() + ", spinWaiting="+ spinWaiting.get()+ ", fetchQueue.size="+ fetchQueue.getSize());
     if (!feeder.isAlive() && fetchQueue.getSize() < 5) {
       fetchQueue.dump();
     }
     if ((System.currentTimeMillis() - lastRequestStart.get()) > Config.requestMaxInterval) {
-      LogUtils.getLogger().info("Aborting with " + activeThreads + " hung threads.");
+      LOG.info("Aborting with " + activeThreads + " hung threads.");
       break;
     }
   }

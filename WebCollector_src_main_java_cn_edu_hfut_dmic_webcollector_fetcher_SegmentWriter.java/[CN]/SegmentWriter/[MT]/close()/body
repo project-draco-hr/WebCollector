@@ -1,0 +1,6 @@
+{
+  fetchDatabase.sync();
+  linkDatabase.sync();
+  fetchDatabase.close();
+  linkDatabase.close();
+}

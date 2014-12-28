@@ -1,4 +1,0 @@
-{
-  this.redisIP=redisIP;
-  this.redisPort=redisPort;
-}

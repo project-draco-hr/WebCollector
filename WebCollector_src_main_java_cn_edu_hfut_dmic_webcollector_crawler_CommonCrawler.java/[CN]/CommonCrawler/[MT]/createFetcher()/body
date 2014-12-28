@@ -1,8 +1,0 @@
-{
-  Fetcher fetcher=new Fetcher();
-  fetcher.setNeedUpdateDb(true);
-  fetcher.setIsContentStored(isContentStored);
-  conconfig=new CommonConnectionConfig(useragent,cookie);
-  fetcher.setThreads(getThreads());
-  return fetcher;
-}

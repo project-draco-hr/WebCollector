@@ -1,0 +1,10 @@
+{
+  TutorialCrawler crawler=new TutorialCrawler("/home/hu/data/wb");
+  crawler.setThreads(50);
+  crawler.addSeed("http://www.zhihu.com/");
+  crawler.setResumable(false);
+  Proxys proxys=new Proxys();
+  crawler.setProxys(proxys);
+  crawler.setResumable(false);
+  crawler.start(5);
+}

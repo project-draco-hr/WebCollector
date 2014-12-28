@@ -1,6 +1,0 @@
-{
-  super(crawlPath);
-  jedis=new Jedis("127.0.0.1",6379,REDIS_TIME_OUT);
-  updateCount=new AtomicInteger(0);
-  writeCount=new AtomicInteger(0);
-}

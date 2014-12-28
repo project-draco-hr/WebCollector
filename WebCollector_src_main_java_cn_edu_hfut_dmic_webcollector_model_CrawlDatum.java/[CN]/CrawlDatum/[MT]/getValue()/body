@@ -1,0 +1,6 @@
+{
+  byte[] value=new byte[2];
+  value[0]=status;
+  value[1]=(byte)retry;
+  return new DatabaseEntry(value);
+}

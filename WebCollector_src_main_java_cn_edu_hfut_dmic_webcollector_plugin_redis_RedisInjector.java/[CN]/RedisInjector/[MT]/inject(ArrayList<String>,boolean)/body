@@ -1,5 +1,0 @@
-{
-  for (  String url : urls) {
-    redisHelper.inject(url,append);
-  }
-}

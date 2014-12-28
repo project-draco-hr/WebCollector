@@ -1,7 +1,5 @@
 {
-  if (needUpdateDb) {
-    dbUpdater.close();
-    dbUpdater.merge();
-    dbUpdater.unlock();
-  }
+  dbUpdater.close();
+  dbUpdater.merge();
+  dbUpdater.unlock();
 }

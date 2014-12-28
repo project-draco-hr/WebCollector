@@ -1,3 +1,0 @@
-{
-  return new RedisInjector(tableName,ip,port);
-}

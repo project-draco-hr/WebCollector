@@ -1,4 +1,0 @@
-{
-  int count=countText(node.text());
-  return count == 0;
-}

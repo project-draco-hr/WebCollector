@@ -1,0 +1,6 @@
+{
+  fetchDatabase=env.openDatabase(null,"fetch",BerkeleyDBUtils.defaultDBConfig);
+  linkDatabase=env.openDatabase(null,"link",BerkeleyDBUtils.defaultDBConfig);
+  count_fetch=new AtomicInteger(0);
+  count_link=new AtomicInteger(0);
+}

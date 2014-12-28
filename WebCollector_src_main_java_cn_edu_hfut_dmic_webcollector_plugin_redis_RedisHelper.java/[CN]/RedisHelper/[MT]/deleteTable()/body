@@ -1,6 +1,0 @@
-{
-  jedis.del(tableName + suffix_crawldb);
-  jedis.del(tableName + suffix_fetch);
-  jedis.del(tableName + suffix_parse);
-  jedis.del(tableName + suffix_lock);
-}

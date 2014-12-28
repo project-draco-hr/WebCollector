@@ -1,5 +1,0 @@
-{
-  FileSystemOutput fsoutput=new FileSystemOutput(root);
-  LogUtils.getLogger().info("visit " + page.getUrl());
-  fsoutput.output(page);
-}

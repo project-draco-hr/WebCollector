@@ -1,6 +1,0 @@
-{
-  for (  CrawlDatum crawldatum : crawldatums) {
-    data.add(crawldatum);
-  }
-  iterator=data.iterator();
-}

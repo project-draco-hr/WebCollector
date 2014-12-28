@@ -1,6 +1,0 @@
-{
-  DemoJsonCrawler crawler=new DemoJsonCrawler();
-  crawler.addSeed("http://shejiao.com/hot.jsp");
-  crawler.setThreads(50);
-  crawler.start(50);
-}

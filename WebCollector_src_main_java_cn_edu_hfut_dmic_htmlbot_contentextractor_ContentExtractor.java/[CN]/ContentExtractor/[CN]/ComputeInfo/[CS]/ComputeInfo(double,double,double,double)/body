@@ -1,7 +1,0 @@
-{
-  this.tpr=tpr;
-  this.ppr=ppr;
-  this.cs=cs;
-  this.ps=ps;
-  this.etpr=tpr * ppr * cs* ps;
-}

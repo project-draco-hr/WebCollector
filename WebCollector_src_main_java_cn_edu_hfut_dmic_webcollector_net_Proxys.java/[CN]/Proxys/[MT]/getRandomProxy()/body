@@ -1,0 +1,12 @@
+{
+  if (this.isEmpty()) {
+    return null;
+  }
+  try {
+    int r=random.nextInt(this.size());
+    return this.get(r);
+  }
+ catch (  Exception ex) {
+    return null;
+  }
+}

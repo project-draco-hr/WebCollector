@@ -1,0 +1,6 @@
+String templateName
+String url
+String username
+String password
+int initialSize
+int maxActive

@@ -1,0 +1,11 @@
+{
+  for (  String url : links) {
+    CrawlDatum datum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED);
+    DatabaseEntry key=datum.getKey();
+    DatabaseEntry value=datum.getValue();
+    linkDatabase.put(null,key,value);
+  }
+  if (count_link.incrementAndGet() % BUFFER_SIZE == 0) {
+    linkDatabase.sync();
+  }
+}

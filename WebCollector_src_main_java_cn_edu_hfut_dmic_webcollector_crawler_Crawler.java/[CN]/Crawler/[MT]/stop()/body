@@ -1,4 +1,0 @@
-{
-  fetcher.stop();
-  status=STOPED;
-}

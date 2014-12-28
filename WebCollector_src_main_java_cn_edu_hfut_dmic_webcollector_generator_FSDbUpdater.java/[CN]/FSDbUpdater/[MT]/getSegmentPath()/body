@@ -1,3 +1,0 @@
-{
-  return crawlPath + "/segments/" + segmentName;
-}

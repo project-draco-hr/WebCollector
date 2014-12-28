@@ -1,0 +1,25 @@
+{
+  Database crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+  Database fetchDatabase=env.openDatabase(null,"fetch",BerkeleyDBUtils.defaultDBConfig);
+  Cursor fetchCursor=fetchDatabase.openCursor(null,null);
+  DatabaseEntry key=new DatabaseEntry();
+  DatabaseEntry value=new DatabaseEntry();
+  while (fetchCursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+    crawldbDatabase.put(null,key,value);
+  }
+  fetchCursor.close();
+  fetchDatabase.close();
+  Database linkDatabase=env.openDatabase(null,"link",BerkeleyDBUtils.defaultDBConfig);
+  Cursor linkCursor=linkDatabase.openCursor(null,null);
+  while (linkCursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+    if (!(crawldbDatabase.get(null,key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS)) {
+      crawldbDatabase.put(null,key,value);
+    }
+  }
+  linkCursor.close();
+  linkDatabase.close();
+  crawldbDatabase.sync();
+  crawldbDatabase.close();
+  env.removeDatabase(null,"fetch");
+  env.removeDatabase(null,"link");
+}

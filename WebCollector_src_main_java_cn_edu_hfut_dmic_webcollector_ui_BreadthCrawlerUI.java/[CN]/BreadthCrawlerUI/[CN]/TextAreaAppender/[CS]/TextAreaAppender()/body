@@ -1,4 +1,0 @@
-{
-  logArea.getDocument().addDocumentListener(this);
-  layout=new PatternLayout("%d{yyyy-MM-dd HH:mm:ss} %p %c %x - %m%n ");
-}

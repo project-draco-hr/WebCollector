@@ -1,5 +1,0 @@
-{
-  DomPage domPage=HtmlBot.getDomPageByHtml(html);
-  ContentExtractor contentExtractor=new ContentExtractor(domPage);
-  return contentExtractor.getContent();
-}

@@ -1,0 +1,9 @@
+{
+  Elements as=doc.select(cssSelector).select("a[href]");
+  for (  Element a : as) {
+    String href=a.attr("abs:href");
+    if (regexRule.satisfy(href)) {
+      this.add(href);
+    }
+  }
+}

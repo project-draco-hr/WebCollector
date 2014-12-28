@@ -1,3 +1,0 @@
-{
-  jedis.hset(getCrawlPath(),datum.getUrl(),datum.getStatus() + "" + datum.getFetchTime());
-}

@@ -1,0 +1,3 @@
+{
+  visitorMap.put(urlPattern,visitor);
+}

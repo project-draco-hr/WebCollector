@@ -1,7 +1,0 @@
-{
-  parseDataWriter.write(parseresult.getParsedata());
-  count_parse=(count_parse++) % Config.segmentwriter_buffer_size;
-  if (count_parse == 0) {
-    parseDataWriter.flush();
-  }
-}

@@ -1,0 +1,5 @@
+{
+  DemoJSCrawler crawler=new DemoJSCrawler("/home/hu/data/wb");
+  for (int page=1; page <= 5; page++)   crawler.addSeed("http://www.sogou.com/web?query=" + URLEncoder.encode("??????") + "&page="+ page);
+  crawler.start(1);
+}

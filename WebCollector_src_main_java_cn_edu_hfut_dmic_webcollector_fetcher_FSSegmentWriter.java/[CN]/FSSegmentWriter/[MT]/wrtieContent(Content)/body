@@ -1,7 +1,0 @@
-{
-  contentWriter.write(content);
-  count_content=(count_content++) % Config.segmentwriter_buffer_size;
-  if (count_content == 0) {
-    contentWriter.flush();
-  }
-}

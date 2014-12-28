@@ -1,0 +1,6 @@
+{
+  this.url=new String(key.getData(),"utf-8");
+  byte[] valueData=value.getData();
+  this.status=valueData[0];
+  this.retry=valueData[1];
+}
