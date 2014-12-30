@@ -1,0 +1,6 @@
+{
+  soupLang.extract(page.getDoc());
+  Links nextLinks=new Links();
+  nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+  return nextLinks;
+}

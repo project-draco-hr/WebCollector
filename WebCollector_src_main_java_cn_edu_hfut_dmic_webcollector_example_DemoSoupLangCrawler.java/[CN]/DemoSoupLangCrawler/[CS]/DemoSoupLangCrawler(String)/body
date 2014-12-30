@@ -1,0 +1,9 @@
+{
+  super(crawlPath);
+  addSeed("http://www.zhihu.com/");
+  regexRule.addRule("http://www.zhihu.com/question/[0-9]+");
+  regexRule.addRule("http://www.zhihu.com/people/.+");
+  regexRule.addRule("-http://www.zhihu.com/people/.+/.*");
+  regexRule.addRule("-.*(jpg|png|gif|#|\\?).*");
+  soupLang=new SoupLang(ClassLoader.getSystemResourceAsStream("example/DemoRule.xml"));
+}

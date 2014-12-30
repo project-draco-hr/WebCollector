@@ -1,0 +1,6 @@
+{
+  System.out.println(prefix + this.getClass());
+  for (  LangNode child : children) {
+    child.printTree("   " + prefix);
+  }
+}

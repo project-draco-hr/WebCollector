@@ -1,0 +1,9 @@
+{
+  params=xmlElement.getAttribute("params").trim();
+  if (params.isEmpty()) {
+    params=null;
+  }
+ else {
+    paramarray=params.split(",");
+  }
+}

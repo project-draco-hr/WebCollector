@@ -1,0 +1,26 @@
+{
+  if (attributeName == null) {
+    return null;
+  }
+  Element jsoupElement=null;
+  Elements jsoupElements=null;
+  if (input instanceof Element) {
+    jsoupElement=(Element)input;
+    if (!jsoupElement.hasAttr(attributeName)) {
+      return null;
+    }
+    String result=jsoupElement.attr(attributeName);
+    return result;
+  }
+ else {
+    jsoupElements=(Elements)input;
+    ArrayList<String> result=new ArrayList<String>();
+    for (    Element ele : jsoupElements) {
+      if (ele.hasAttr(attributeName)) {
+        System.out.println("attr=" + ele.attr(attributeName));
+        result.add(ele.attr(attributeName));
+      }
+    }
+    return result;
+  }
+}

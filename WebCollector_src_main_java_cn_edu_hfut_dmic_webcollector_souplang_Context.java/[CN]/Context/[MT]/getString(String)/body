@@ -1,0 +1,9 @@
+{
+  Object result=output.get(name);
+  if (result == null) {
+    return null;
+  }
+ else {
+    return result.toString();
+  }
+}

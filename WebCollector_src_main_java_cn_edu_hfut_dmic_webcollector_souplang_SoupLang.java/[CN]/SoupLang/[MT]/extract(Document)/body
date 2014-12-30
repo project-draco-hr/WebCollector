@@ -1,0 +1,11 @@
+{
+  Context context=new Context();
+  context.output.put("url",doc.baseUri());
+  try {
+    run(context,parser.root,doc);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+  }
+  return context;
+}

@@ -1,0 +1,6 @@
+{
+  if (!(input instanceof Node)) {
+    return false;
+  }
+  return true;
+}

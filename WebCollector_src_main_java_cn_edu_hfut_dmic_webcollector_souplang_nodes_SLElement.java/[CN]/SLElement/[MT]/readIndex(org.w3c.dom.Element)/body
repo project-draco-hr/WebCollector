@@ -1,0 +1,6 @@
+{
+  String indexAttr=xmlElement.getAttribute("index");
+  if (!indexAttr.isEmpty()) {
+    index=Integer.valueOf(indexAttr);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  value=xmlElement.getAttribute("value");
+  if (value.isEmpty()) {
+    value=null;
+  }
+}

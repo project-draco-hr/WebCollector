@@ -1,0 +1,6 @@
+{
+  template=xmlElement.getAttribute("template");
+  if (template.isEmpty()) {
+    template=null;
+  }
+}

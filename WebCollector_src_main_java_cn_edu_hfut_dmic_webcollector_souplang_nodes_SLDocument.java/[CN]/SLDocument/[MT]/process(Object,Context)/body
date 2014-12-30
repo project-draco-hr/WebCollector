@@ -1,0 +1,13 @@
+{
+  if (!(input instanceof Document)) {
+    throw new InputTypeErrorException();
+  }
+  Document jsoupDoc=(Document)input;
+  LOG.debug("baseuri=" + jsoupDoc.baseUri());
+  if (jsoupDoc.baseUri() != null) {
+    if (!Pattern.matches(urlRegex,jsoupDoc.baseUri())) {
+      return null;
+    }
+  }
+  return input;
+}

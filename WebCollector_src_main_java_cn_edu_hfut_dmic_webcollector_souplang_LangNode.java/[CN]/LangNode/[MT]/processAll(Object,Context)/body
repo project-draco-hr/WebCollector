@@ -1,0 +1,14 @@
+{
+  if (!validate(input)) {
+    return;
+  }
+  Object output=null;
+  try {
+    output=process(input,context);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+    return;
+  }
+  save(output,context);
+}

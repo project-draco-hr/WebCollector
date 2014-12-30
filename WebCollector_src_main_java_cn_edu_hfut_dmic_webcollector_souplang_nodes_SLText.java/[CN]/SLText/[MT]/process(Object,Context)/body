@@ -1,0 +1,22 @@
+{
+  if (input == null) {
+    return null;
+  }
+  String result=null;
+  if (input instanceof Element) {
+    Element jsoupElement=(Element)input;
+    result=jsoupElement.text();
+  }
+ else   if (input instanceof Elements) {
+    Elements jsoupElements=(Elements)input;
+    result=jsoupElements.text();
+  }
+ else   if (input instanceof TextNode) {
+    TextNode jsoupTextNode=(TextNode)input;
+    result=jsoupTextNode.text();
+  }
+  if (result == null) {
+    result=input.toString();
+  }
+  return extractByRegex(result);
+}

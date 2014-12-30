@@ -1,0 +1,17 @@
+{
+  if (!node.validate(input)) {
+    return;
+  }
+  Object output=node.process(input,context);
+  node.save(output,context);
+  if (output != null) {
+    for (int i=0; i < node.children.size(); i++) {
+      try {
+        run(context,node.children.get(i),output);
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception",ex);
+      }
+    }
+  }
+}

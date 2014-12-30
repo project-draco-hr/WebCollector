@@ -1,0 +1,6 @@
+{
+  if (value == null || name == null) {
+    return null;
+  }
+  return value;
+}
