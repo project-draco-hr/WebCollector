@@ -4,6 +4,9 @@
   if (resumable && dir.exists()) {
     needInject=false;
   }
+  if (resumable && !dir.exists()) {
+    dir.mkdirs();
+  }
   if (!resumable) {
     if (dir.exists()) {
       FileUtils.deleteDir(dir);
