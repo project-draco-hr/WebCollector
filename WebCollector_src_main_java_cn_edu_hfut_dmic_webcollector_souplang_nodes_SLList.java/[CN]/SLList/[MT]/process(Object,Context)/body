@@ -1,0 +1,35 @@
+{
+  ArrayList<Element> elementList=new ArrayList<Element>();
+  Element jsoupElement=null;
+  Elements jsoupElements=null;
+  if (input instanceof Element) {
+    jsoupElement=(Element)input;
+  }
+ else {
+    jsoupElements=(Elements)input;
+  }
+  if (cssSelector != null && !cssSelector.isEmpty()) {
+    Elements result;
+    if (jsoupElement != null) {
+      result=jsoupElement.select(cssSelector);
+    }
+ else {
+      result=jsoupElements.select(cssSelector);
+    }
+    for (    Element item : result) {
+      elementList.add(item);
+    }
+    return elementList;
+  }
+ else {
+    if (jsoupElement != null) {
+      elementList.add(jsoupElement);
+    }
+ else {
+      for (      Element child : jsoupElements) {
+        elementList.add(child);
+      }
+    }
+    return elementList;
+  }
+}

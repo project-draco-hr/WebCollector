@@ -4,7 +4,7 @@
   }
   Document jsoupDoc=(Document)input;
   LOG.debug("baseuri=" + jsoupDoc.baseUri());
-  if (jsoupDoc.baseUri() != null) {
+  if (jsoupDoc.baseUri() != null && urlRegex != null) {
     if (!Pattern.matches(urlRegex,jsoupDoc.baseUri())) {
       return null;
     }

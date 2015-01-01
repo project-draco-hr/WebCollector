@@ -3,14 +3,36 @@
     return;
   }
   Object output=node.process(input,context);
-  node.save(output,context);
-  if (output != null) {
-    for (int i=0; i < node.children.size(); i++) {
-      try {
-        run(context,node.children.get(i),output);
+  LOG.debug("execute node " + node.getClass());
+  if (node instanceof SLList) {
+    ArrayList<Element> list=(ArrayList<Element>)output;
+    ArrayList<Context> contextList=new ArrayList<Context>();
+    if (node.name != null) {
+      context.output.put(node.name,contextList);
+    }
+    for (int i=0; i < list.size(); i++) {
+      Context newContext=new Context();
+      contextList.add(newContext);
+      for (int j=0; j < node.children.size(); j++) {
+        try {
+          run(newContext,node.children.get(j),list.get(i));
+        }
+ catch (        Exception ex) {
+          LOG.info("Exception",ex);
+        }
       }
- catch (      Exception ex) {
-        LOG.info("Exception",ex);
+    }
+  }
+ else {
+    node.save(output,context);
+    if (output != null) {
+      for (int i=0; i < node.children.size(); i++) {
+        try {
+          run(context,node.children.get(i),output);
+        }
+ catch (        Exception ex) {
+          LOG.info("Exception",ex);
+        }
       }
     }
   }

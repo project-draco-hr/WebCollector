@@ -5,5 +5,5 @@
   regexRule.addRule("http://www.zhihu.com/people/.+");
   regexRule.addRule("-http://www.zhihu.com/people/.+/.*");
   regexRule.addRule("-.*(jpg|png|gif|#|\\?).*");
-  soupLang=new SoupLang(ClassLoader.getSystemResourceAsStream("example/DemoRule.xml"));
+  soupLang=new SoupLang(ClassLoader.getSystemResourceAsStream("example/DemoRule1.xml"));
 }

@@ -2,7 +2,6 @@
   DocumentBuilderFactory f=DocumentBuilderFactory.newInstance();
   DocumentBuilder builder=f.newDocumentBuilder();
   Document xmlDoc=builder.parse(is);
-  System.out.println(xmlDoc.getChildNodes().getLength());
   Element xmlRoot=xmlDoc.getDocumentElement();
   parse(xmlRoot,root);
 }
