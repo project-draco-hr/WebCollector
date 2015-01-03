@@ -23,6 +23,9 @@
   if (needInject) {
     inject();
   }
+  if (!forcedSeeds.isEmpty()) {
+    injectForcedSeeds();
+  }
   status=RUNNING;
   for (int i=0; i < depth; i++) {
     if (status == STOPED) {
