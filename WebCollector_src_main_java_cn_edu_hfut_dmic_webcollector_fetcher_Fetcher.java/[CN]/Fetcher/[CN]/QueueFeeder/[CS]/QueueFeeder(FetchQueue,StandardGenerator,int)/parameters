@@ -1,0 +1,3 @@
+FetchQueue queue
+StandardGenerator generator
+int size

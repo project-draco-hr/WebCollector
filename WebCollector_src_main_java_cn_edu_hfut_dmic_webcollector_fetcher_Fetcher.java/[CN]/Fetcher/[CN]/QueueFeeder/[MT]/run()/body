@@ -1,6 +1,7 @@
 {
   boolean hasMore=true;
-  while (hasMore) {
+  running=true;
+  while (hasMore && running) {
     int feed=size - queue.getSize();
     if (feed <= 0) {
       try {
@@ -10,7 +11,7 @@
       }
       continue;
     }
-    while (feed > 0 && hasMore) {
+    while (feed > 0 && hasMore && running) {
       CrawlDatum datum=generator.next();
       hasMore=(datum != null);
       if (hasMore) {
@@ -19,4 +20,5 @@
       }
     }
   }
+  generator.close();
 }
