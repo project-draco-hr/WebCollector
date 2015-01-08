@@ -1,7 +1,4 @@
 {
-  if (cursor == null) {
-    cursor=database.openCursor(null,CursorConfig.DEFAULT);
-  }
   while (true) {
     if (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
       try {
@@ -21,8 +18,6 @@
       }
     }
  else {
-      cursor.close();
-      database.close();
       return null;
     }
   }

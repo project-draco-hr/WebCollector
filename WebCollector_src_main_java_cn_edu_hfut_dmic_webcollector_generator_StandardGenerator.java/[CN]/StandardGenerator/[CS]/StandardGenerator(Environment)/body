@@ -1,3 +1,0 @@
-{
-  this.database=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
-}

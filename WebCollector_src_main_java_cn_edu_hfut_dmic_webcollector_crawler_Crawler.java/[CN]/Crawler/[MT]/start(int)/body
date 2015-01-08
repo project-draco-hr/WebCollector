@@ -32,13 +32,18 @@
       break;
     }
     LOG.info("starting depth " + (i + 1));
-    Generator generator=new StandardGenerator(env);
+    Database crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+    Cursor crawldbCursor=crawldbDatabase.openCursor(null,CursorConfig.DEFAULT);
+    Generator generator=new StandardGenerator(crawldbCursor);
     fetcher=new Fetcher();
+    fetcher.setRetry(retry);
     fetcher.setHttpRequester(httpRequester);
     fetcher.setDbUpdater(new DbUpdater(env));
     fetcher.setVisitorFactory(visitorFactory);
     fetcher.setThreads(threads);
     fetcher.fetchAll(generator);
+    crawldbCursor.close();
+    crawldbDatabase.close();
   }
   env.close();
 }

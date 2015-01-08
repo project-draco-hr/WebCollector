@@ -22,6 +22,8 @@
   }
   con.setDoInput(true);
   con.setDoOutput(true);
+  con.setConnectTimeout(3000);
+  con.setReadTimeout(10000);
   configConnection(con);
   InputStream is;
   response.setCode(con.getResponseCode());
