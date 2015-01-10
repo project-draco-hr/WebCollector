@@ -3,4 +3,6 @@
   linkDatabase.sync();
   fetchDatabase.close();
   linkDatabase.close();
+  redirectDatabase.sync();
+  redirectDatabase.close();
 }

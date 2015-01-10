@@ -1,0 +1,8 @@
+{
+  DatabaseEntry key=new DatabaseEntry(originUrl.getBytes("utf-8"));
+  DatabaseEntry value=new DatabaseEntry(realUrl.getBytes("utf-8"));
+  redirectDatabase.put(null,key,value);
+  if (count_redirect.incrementAndGet() % BUFFER_SIZE == 0) {
+    redirectDatabase.sync();
+  }
+}

@@ -1,5 +1,7 @@
 {
+  LOG.info("start merge");
   Database crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+  LOG.info("merge fetch database");
   Database fetchDatabase=env.openDatabase(null,"fetch",BerkeleyDBUtils.defaultDBConfig);
   Cursor fetchCursor=fetchDatabase.openCursor(null,null);
   DatabaseEntry key=new DatabaseEntry();
@@ -9,6 +11,7 @@
   }
   fetchCursor.close();
   fetchDatabase.close();
+  LOG.info("merge link database");
   Database linkDatabase=env.openDatabase(null,"link",BerkeleyDBUtils.defaultDBConfig);
   Cursor linkCursor=linkDatabase.openCursor(null,null);
   while (linkCursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
@@ -18,8 +21,11 @@
   }
   linkCursor.close();
   linkDatabase.close();
+  LOG.info("end merge");
   crawldbDatabase.sync();
   crawldbDatabase.close();
   env.removeDatabase(null,"fetch");
+  LOG.debug("remove fetch database");
   env.removeDatabase(null,"link");
+  LOG.debug("remove link database");
 }

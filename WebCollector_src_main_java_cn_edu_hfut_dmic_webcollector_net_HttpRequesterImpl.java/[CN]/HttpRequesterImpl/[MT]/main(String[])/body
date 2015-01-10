@@ -1,5 +1,6 @@
 {
   HttpRequesterImpl requester=new HttpRequesterImpl();
-  HttpResponse response=requester.getResponse("http://www.baidu.com");
+  HttpResponse response=requester.getResponse("http://localhost/test/haha.php");
   System.out.println(response.getCode());
+  System.out.println(new String(response.getContent(),"utf-8"));
 }

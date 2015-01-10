@@ -2,7 +2,7 @@
   activeThreads.incrementAndGet();
   FetchItem item=null;
   try {
-    while (true) {
+    while (running) {
       try {
         item=fetchQueue.getFetchItem();
         if (item == null) {
@@ -33,6 +33,11 @@
             break;
           }
  catch (          Exception ex) {
+            String logMessage="fetch of " + url + " failed once with "+ ex.getMessage();
+            if (retryCount < retry) {
+              logMessage+="   retry";
+            }
+            LOG.info(logMessage);
           }
         }
         CrawlDatum crawlDatum=null;
@@ -45,9 +50,17 @@
           crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED,item.datum.getRetry() + retryCount);
         }
         try {
+          long fetchStart=System.currentTimeMillis();
           dbUpdater.getSegmentWriter().wrtieFetch(crawlDatum);
+          long fetchEnd=System.currentTimeMillis();
+          LOG.debug("writing fetch elapse " + (fetchEnd - fetchStart));
           if (response == null) {
             continue;
+          }
+          if (response.getRedirect()) {
+            if (response.getRealUrl() != null) {
+              dbUpdater.getSegmentWriter().writeRedirect(response.getUrl(),response.getRealUrl());
+            }
           }
           String contentType=response.getContentType();
           Visitor visitor=visitorFactory.createVisitor(url,contentType);
@@ -63,7 +76,10 @@
               LOG.info("Exception",ex);
             }
             if (nextLinks != null && !nextLinks.isEmpty()) {
+              long linkStart=System.currentTimeMillis();
               dbUpdater.getSegmentWriter().wrtieLinks(nextLinks);
+              long linkEnd=System.currentTimeMillis();
+              LOG.debug("writing link elapse " + (linkEnd - linkStart));
             }
           }
         }

@@ -31,11 +31,35 @@
     }
   }
  while (activeThreads.get() > 0 && running);
-  for (int i=0; i < threads; i++) {
-    if (fetcherThreads[i].isAlive()) {
-      fetcherThreads[i].stop();
+  running=false;
+  long waitThreadEndStartTime=System.currentTimeMillis();
+  if (activeThreads.get() > 0) {
+    LOG.info("wait for activeThreads to end");
+  }
+  while (activeThreads.get() > 0) {
+    LOG.info("-activeThreads=" + activeThreads.get());
+    try {
+      Thread.sleep(500);
+    }
+ catch (    Exception ex) {
+    }
+    if (System.currentTimeMillis() - waitThreadEndStartTime > Config.WAIT_THREAD_END_TIME) {
+      LOG.info("kill threads");
+      for (int i=0; i < fetcherThreads.length; i++) {
+        if (fetcherThreads[i].isAlive()) {
+          try {
+            fetcherThreads[i].stop();
+            LOG.info("kill thread " + i);
+          }
+ catch (          Exception ex) {
+            LOG.info("Exception",ex);
+          }
+        }
+      }
+      break;
     }
   }
+  LOG.info("clear all activeThread");
   feeder.stopFeeder();
   fetchQueue.clear();
   after();
