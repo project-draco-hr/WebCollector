@@ -50,10 +50,7 @@
           crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED,item.datum.getRetry() + retryCount);
         }
         try {
-          long fetchStart=System.currentTimeMillis();
           dbUpdater.getSegmentWriter().wrtieFetch(crawlDatum);
-          long fetchEnd=System.currentTimeMillis();
-          LOG.debug("writing fetch elapse " + (fetchEnd - fetchStart));
           if (response == null) {
             continue;
           }
@@ -76,10 +73,7 @@
               LOG.info("Exception",ex);
             }
             if (nextLinks != null && !nextLinks.isEmpty()) {
-              long linkStart=System.currentTimeMillis();
               dbUpdater.getSegmentWriter().wrtieLinks(nextLinks);
-              long linkEnd=System.currentTimeMillis();
-              LOG.debug("writing link elapse " + (linkEnd - linkStart));
             }
           }
         }
