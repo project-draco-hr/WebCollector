@@ -33,6 +33,7 @@
     if (redirect == 0) {
       response.setCode(code);
     }
+    boolean needBreak=false;
 switch (code) {
 case HttpURLConnection.HTTP_MOVED_PERM:
 case HttpURLConnection.HTTP_MOVED_TEMP:
@@ -50,11 +51,19 @@ response.setRealUrl(_URL.toString());
 LOG.info("redirect from " + originUrl + " to "+ _URL.toString());
 continue;
 default :
+needBreak=true;
+break;
+}
+if (needBreak) {
 break;
 }
 }
 InputStream is;
 is=con.getInputStream();
+String contentEncoding=con.getContentEncoding();
+if (contentEncoding != null && contentEncoding.equals("gzip")) {
+is=new GZIPInputStream(is);
+}
 byte[] buf=new byte[2048];
 int read;
 int sum=0;
