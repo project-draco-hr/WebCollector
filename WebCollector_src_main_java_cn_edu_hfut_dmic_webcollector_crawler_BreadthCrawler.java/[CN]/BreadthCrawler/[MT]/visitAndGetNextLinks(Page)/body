@@ -1,0 +1,17 @@
+{
+  Links nextLinks=new Links();
+  if (autoParse) {
+    String conteType=page.getResponse().getContentType();
+    Document doc=page.getDoc();
+    if (conteType != null && doc != null && conteType.contains("text/html")) {
+      nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+    }
+  }
+  try {
+    visit(page,nextLinks);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+  }
+  return nextLinks;
+}

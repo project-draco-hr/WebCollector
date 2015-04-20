@@ -32,7 +32,9 @@
       break;
     }
     LOG.info("starting depth " + (i + 1));
+    long startTime=System.currentTimeMillis();
     StandardGenerator generator=new StandardGenerator(env);
+    generator.setTopN(topN);
     fetcher=new Fetcher();
     fetcher.setRetry(retry);
     fetcher.setHttpRequester(httpRequester);
@@ -40,6 +42,13 @@
     fetcher.setVisitorFactory(visitorFactory);
     fetcher.setThreads(threads);
     fetcher.fetchAll(generator);
+    long endTime=System.currentTimeMillis();
+    long costTime=(endTime - startTime) / 1000;
+    int totalGenerate=generator.getTotalGenerate();
+    LOG.info("depth " + (i + 1) + " finish: \n\tTOTAL urls:\t"+ totalGenerate+ "\n\tTOTAL time:\t"+ costTime+ " seconds");
+    if (totalGenerate == 0) {
+      break;
+    }
   }
   env.close();
 }

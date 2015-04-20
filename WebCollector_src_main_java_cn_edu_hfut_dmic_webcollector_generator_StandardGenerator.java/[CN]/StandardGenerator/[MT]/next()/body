@@ -1,4 +1,9 @@
 {
+  if (topN != null) {
+    if (totalGenerate >= topN) {
+      return null;
+    }
+  }
   if (cursor == null) {
     crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
     cursor=crawldbDatabase.openCursor(null,CursorConfig.DEFAULT);
@@ -14,6 +19,7 @@
           if (datum.getRetry() >= 10) {
             continue;
           }
+          totalGenerate++;
           return datum;
         }
       }

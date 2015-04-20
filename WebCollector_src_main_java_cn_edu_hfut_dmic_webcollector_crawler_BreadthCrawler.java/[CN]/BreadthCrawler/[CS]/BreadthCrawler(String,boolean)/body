@@ -1,0 +1,4 @@
+{
+  super(crawlPath);
+  this.autoParse=autoParse;
+}

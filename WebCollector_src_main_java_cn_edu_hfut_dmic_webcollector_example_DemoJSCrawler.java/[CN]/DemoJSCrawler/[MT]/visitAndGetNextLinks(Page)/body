@@ -1,8 +1,0 @@
-{
-  HtmlUnitDriver driver=page.getDriver(BrowserVersion.CHROME);
-  List<WebElement> divInfos=driver.findElementsByCssSelector("h3>a[id^=uigs]");
-  for (  WebElement divInfo : divInfos) {
-    System.out.println(divInfo.getText());
-  }
-  return null;
-}

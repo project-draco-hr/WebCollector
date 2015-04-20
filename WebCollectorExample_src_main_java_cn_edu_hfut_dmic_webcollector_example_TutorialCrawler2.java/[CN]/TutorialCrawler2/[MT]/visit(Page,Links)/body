@@ -1,0 +1,11 @@
+{
+  Document doc=page.getDoc();
+  String title=doc.title();
+  System.out.println("URL:" + page.getUrl() + "  ??????:"+ title);
+  if (jdbcTemplate != null) {
+    int updates=jdbcTemplate.update("insert into tb_content (title,url,html) value(?,?,?)",title,page.getUrl(),page.getHtml());
+    if (updates == 1) {
+      System.out.println("mysql????????????");
+    }
+  }
+}

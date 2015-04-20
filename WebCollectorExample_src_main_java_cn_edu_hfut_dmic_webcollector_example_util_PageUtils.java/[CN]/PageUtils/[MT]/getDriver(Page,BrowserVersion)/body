@@ -1,0 +1,6 @@
+{
+  HtmlUnitDriver driver=new HtmlUnitDriver(browserVersion);
+  driver.setJavascriptEnabled(true);
+  driver.get(page.getUrl());
+  return driver;
+}
