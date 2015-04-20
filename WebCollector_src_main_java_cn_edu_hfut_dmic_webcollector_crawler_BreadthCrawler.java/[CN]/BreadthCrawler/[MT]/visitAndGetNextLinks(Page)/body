@@ -2,9 +2,11 @@
   Links nextLinks=new Links();
   if (autoParse) {
     String conteType=page.getResponse().getContentType();
-    Document doc=page.getDoc();
-    if (conteType != null && doc != null && conteType.contains("text/html")) {
-      nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+    if (conteType != null && conteType.contains("text/html")) {
+      Document doc=page.getDoc();
+      if (doc != null) {
+        nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+      }
     }
   }
   try {
