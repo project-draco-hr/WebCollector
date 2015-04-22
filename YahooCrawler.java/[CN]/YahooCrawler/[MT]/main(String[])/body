@@ -1,0 +1,6 @@
+{
+  YahooCrawler crawler=new YahooCrawler("crawl",true);
+  crawler.setThreads(50);
+  crawler.setTopN(100);
+  crawler.start(4);
+}
