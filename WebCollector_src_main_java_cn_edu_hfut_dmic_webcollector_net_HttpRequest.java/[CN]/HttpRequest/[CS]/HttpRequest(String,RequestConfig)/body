@@ -1,0 +1,4 @@
+{
+  this.url=new URL(url);
+  this.requestConfig=requestConfig;
+}

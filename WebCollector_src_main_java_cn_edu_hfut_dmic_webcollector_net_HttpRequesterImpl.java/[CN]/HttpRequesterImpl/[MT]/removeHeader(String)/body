@@ -1,0 +1,3 @@
+{
+  requestConfig.removeHeader(key);
+}

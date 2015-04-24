@@ -3,8 +3,6 @@
   crawler.setThreads(50);
   crawler.addSeed("http://www.zhihu.com/");
   crawler.setResumable(false);
-  Proxys proxys=new Proxys();
-  crawler.setProxys(proxys);
   crawler.setResumable(false);
   crawler.setTopN(100);
   crawler.start(5);

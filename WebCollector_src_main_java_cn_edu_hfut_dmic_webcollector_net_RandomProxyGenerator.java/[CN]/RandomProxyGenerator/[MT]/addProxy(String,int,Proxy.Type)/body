@@ -1,0 +1,3 @@
+{
+  addProxy(new Proxy(type,new InetSocketAddress(host,port)));
+}

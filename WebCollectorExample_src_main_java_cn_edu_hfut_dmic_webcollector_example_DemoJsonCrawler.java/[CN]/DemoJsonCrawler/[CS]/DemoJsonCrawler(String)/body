@@ -1,17 +1,7 @@
 {
   super(crawlPath);
-  HttpRequesterImpl myRequester=new HttpRequesterImpl(){
-    @Override public void configConnection(    HttpURLConnection con){
-      try {
-        con.setRequestMethod("POST");
-      }
- catch (      ProtocolException ex) {
-        ex.printStackTrace();
-      }
-      con.addRequestProperty("xxx","xxxxxxx");
-    }
-  }
-;
-  myRequester.setCookie("??????cookie");
-  this.setHttpRequester(myRequester);
+  HttpRequesterImpl requester=(HttpRequesterImpl)this.getHttpRequester();
+  requester.setMethod("POST");
+  requester.setCookie("??????cookie");
+  requester.addHeader("xxx","xxxxxxxx");
 }

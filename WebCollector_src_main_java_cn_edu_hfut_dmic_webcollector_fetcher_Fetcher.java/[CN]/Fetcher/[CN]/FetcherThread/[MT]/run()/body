@@ -23,73 +23,89 @@
         lastRequestStart.set(System.currentTimeMillis());
         String url=item.datum.getUrl();
         HttpResponse response=null;
+        CrawlDatum crawlDatum=null;
         int retryCount=0;
+        Exception lastException=null;
         for (; retryCount <= retry; retryCount++) {
           if (retryCount > 0) {
-            LOG.info("retry " + retryCount + "th "+ url);
-          }
-          try {
-            response=httpRequester.getResponse(url);
+            String suffix="th ";
+switch (retryCount) {
+case 1:
+              suffix="st ";
             break;
-          }
- catch (          Exception ex) {
-            String logMessage="fetch of " + url + " failed once with "+ ex.getMessage();
-            if (retryCount < retry) {
-              logMessage+="   retry";
-            }
-            LOG.info(logMessage);
-          }
-        }
-        CrawlDatum crawlDatum=null;
-        if (response != null) {
-          LOG.info("fetch " + url);
-          crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_FETCHED,item.datum.getRetry() + retryCount);
-        }
+case 2:
+          suffix="nd ";
+        break;
+case 3:
+      suffix="rd ";
+    break;
+default :
+  suffix="th ";
+}
+LOG.info("retry " + retryCount + suffix+ url);
+}
+try {
+response=httpRequester.getResponse(url);
+break;
+}
+ catch (Exception ex) {
+lastException=ex;
+String logMessage="fetch " + url + " failed,"+ ex.toString();
+if (retryCount < retry) {
+logMessage+="   retry";
+}
+LOG.info(logMessage);
+}
+}
+if (response != null) {
+LOG.info("fetch " + url);
+crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_FETCHED,item.datum.getRetry() + retryCount);
+}
  else {
-          LOG.info("failed " + url);
-          crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED,item.datum.getRetry() + retryCount);
-        }
-        try {
-          dbUpdater.getSegmentWriter().wrtieFetch(crawlDatum);
-          if (response == null) {
-            continue;
-          }
-          if (response.getRedirect()) {
-            if (response.getRealUrl() != null) {
-              dbUpdater.getSegmentWriter().writeRedirect(response.getUrl(),response.getRealUrl());
-            }
-          }
-          String contentType=response.getContentType();
-          Visitor visitor=visitorFactory.createVisitor(url,contentType);
-          Page page=new Page();
-          page.setUrl(url);
-          page.setResponse(response);
-          if (visitor != null) {
-            Links nextLinks=null;
-            try {
-              nextLinks=visitor.visitAndGetNextLinks(page);
-            }
- catch (            Exception ex) {
-              LOG.info("Exception",ex);
-            }
-            if (nextLinks != null && !nextLinks.isEmpty()) {
-              dbUpdater.getSegmentWriter().wrtieLinks(nextLinks);
-            }
-          }
-        }
- catch (        Exception ex) {
-          LOG.info("Exception",ex);
-        }
-      }
- catch (      Exception ex) {
-        LOG.info("Exception",ex);
-      }
-    }
-  }
- catch (  Exception ex) {
-    LOG.info("Exception",ex);
-  }
+LOG.info("failed " + url + " "+ lastException.toString());
+crawlDatum=new CrawlDatum(url,CrawlDatum.STATUS_DB_UNFETCHED,item.datum.getRetry() + retryCount);
+}
+try {
+dbUpdater.getSegmentWriter().wrtieFetch(crawlDatum);
+if (response == null) {
+continue;
+}
+if (response.getRedirect()) {
+if (response.getRealUrl() != null) {
+dbUpdater.getSegmentWriter().writeRedirect(response.getUrl().toString(),response.getRealUrl().toString());
+}
+}
+String contentType=response.getContentType();
+Visitor visitor=visitorFactory.createVisitor(url,contentType);
+Page page=new Page();
+page.setUrl(url);
+page.setResponse(response);
+if (visitor != null) {
+Links nextLinks=null;
+try {
+nextLinks=visitor.visitAndGetNextLinks(page);
+}
+ catch (Exception ex) {
+LOG.info("Exception",ex);
+}
+if (nextLinks != null && !nextLinks.isEmpty()) {
+dbUpdater.getSegmentWriter().wrtieLinks(nextLinks);
+}
+}
+}
+ catch (Exception ex) {
+LOG.info("Exception",ex);
+}
+}
+ catch (Exception ex) {
+LOG.info("Exception",ex);
+}
+}
+}
+ catch (Exception ex) {
+LOG.info("Exception",ex);
+}
  finally {
-    activeThreads.decrementAndGet();
-  }
+activeThreads.decrementAndGet();
+}
 }

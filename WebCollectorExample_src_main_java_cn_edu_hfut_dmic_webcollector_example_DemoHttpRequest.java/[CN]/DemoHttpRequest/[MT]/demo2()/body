@@ -1,0 +1,13 @@
+{
+  RequestConfig requestConfig=new RequestConfig();
+  requestConfig.setMethod("GET");
+  requestConfig.setUserAgent("WebCollector");
+  requestConfig.setCookie("xxxxxxxxxxxxxx");
+  requestConfig.addHeader("xxx","xxxxxxxxx");
+  HttpRequest request=new HttpRequest("http://www.csdn.net",requestConfig);
+  HttpResponse response=request.getResponse();
+  String html=response.getHtmlByCharsetDetect();
+  System.out.println(html);
+  System.out.println("response code=" + response.getCode());
+  System.out.println("Server=" + response.getHeader("Server"));
+}

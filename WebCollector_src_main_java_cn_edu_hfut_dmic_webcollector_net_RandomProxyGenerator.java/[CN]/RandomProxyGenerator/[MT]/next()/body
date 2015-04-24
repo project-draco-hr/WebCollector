@@ -1,0 +1,20 @@
+{
+synchronized (lock) {
+    if (proxys == null) {
+      return null;
+    }
+    if (proxys.isEmpty()) {
+      return null;
+    }
+    if (proxys.size() == 1) {
+      return proxys.get(0);
+    }
+    try {
+      int r=random.nextInt(proxys.size());
+      return proxys.get(r);
+    }
+ catch (    Exception ex) {
+      return null;
+    }
+  }
+}

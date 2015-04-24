@@ -11,6 +11,7 @@
     return contentType;
   }
  catch (  Exception ex) {
+    LOG.info("Exception",ex);
     return null;
   }
 }

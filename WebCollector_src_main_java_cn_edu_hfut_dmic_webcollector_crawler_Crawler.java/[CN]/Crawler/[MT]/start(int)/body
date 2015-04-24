@@ -36,10 +36,10 @@
     StandardGenerator generator=new StandardGenerator(env);
     generator.setTopN(topN);
     fetcher=new Fetcher();
-    fetcher.setRetry(retry);
     fetcher.setHttpRequester(httpRequester);
     fetcher.setDbUpdater(new DbUpdater(env));
     fetcher.setVisitorFactory(visitorFactory);
+    fetcher.setRetry(retry);
     fetcher.setThreads(threads);
     fetcher.fetchAll(generator);
     long endTime=System.currentTimeMillis();

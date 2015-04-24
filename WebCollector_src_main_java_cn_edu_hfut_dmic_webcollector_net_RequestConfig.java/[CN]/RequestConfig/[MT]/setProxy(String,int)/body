@@ -1,0 +1,3 @@
+{
+  this.proxyGenerator=new SingleProxyGenerator(host,port);
+}

@@ -1,0 +1,13 @@
+{
+  if (content == null) {
+    return null;
+  }
+  try {
+    String html=new String(content,charset);
+    return html;
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+    return null;
+  }
+}

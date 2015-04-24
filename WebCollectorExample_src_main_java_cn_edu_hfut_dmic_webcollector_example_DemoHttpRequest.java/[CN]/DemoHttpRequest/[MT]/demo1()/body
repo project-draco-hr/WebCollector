@@ -1,0 +1,6 @@
+{
+  HttpRequest request=new HttpRequest("http://www.csdn.net");
+  HttpResponse response=request.getResponse();
+  String html=response.getHtmlByCharsetDetect();
+  System.out.println(html);
+}

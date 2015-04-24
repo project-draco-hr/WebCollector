@@ -1,0 +1,10 @@
+{
+  RequestConfig requestConfig=new RequestConfig();
+  if (userAgent != null) {
+    requestConfig.setUserAgent(userAgent);
+  }
+  if (cookie != null) {
+    requestConfig.setCookie(cookie);
+  }
+  return requestConfig;
+}

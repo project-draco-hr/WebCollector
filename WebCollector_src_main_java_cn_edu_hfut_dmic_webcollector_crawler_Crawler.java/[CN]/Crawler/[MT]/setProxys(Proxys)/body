@@ -1,3 +1,0 @@
-{
-  httpRequester.setProxys(proxys);
-}
