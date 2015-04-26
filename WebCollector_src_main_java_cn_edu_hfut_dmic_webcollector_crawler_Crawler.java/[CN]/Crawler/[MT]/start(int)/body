@@ -34,6 +34,7 @@
     LOG.info("starting depth " + (i + 1));
     long startTime=System.currentTimeMillis();
     StandardGenerator generator=new StandardGenerator(env);
+    generator.setMaxRetry(maxRetry);
     generator.setTopN(topN);
     fetcher=new Fetcher();
     fetcher.setHttpRequester(httpRequester);
