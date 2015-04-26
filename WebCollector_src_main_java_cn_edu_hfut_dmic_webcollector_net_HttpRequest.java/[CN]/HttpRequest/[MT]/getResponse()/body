@@ -8,7 +8,7 @@
     proxy=null;
   }
  else {
-    proxy=proxyGenerator.next();
+    proxy=proxyGenerator.next(url.toString());
   }
   try {
     HttpURLConnection con=null;
