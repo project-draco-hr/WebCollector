@@ -17,12 +17,7 @@
         con=(HttpURLConnection)url.openConnection();
       }
  else {
-        if (proxy == null) {
-          con=(HttpURLConnection)url.openConnection();
-        }
- else {
-          con=(HttpURLConnection)url.openConnection(proxy);
-        }
+        con=(HttpURLConnection)url.openConnection(proxy);
       }
       requestConfig.config(con);
       code=con.getResponseCode();
