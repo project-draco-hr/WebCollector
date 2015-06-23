@@ -1,3 +1,0 @@
-{
-  ExtractorTest.testExtractorByUrl("http://36kr.com/",MyExtractor.class);
-}
