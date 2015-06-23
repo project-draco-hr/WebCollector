@@ -1,0 +1,4 @@
+{
+  JsoupUtils.makeAbs(page.getDoc(),getUrl());
+  fsOutput.output(page);
+}

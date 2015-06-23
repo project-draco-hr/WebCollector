@@ -1,0 +1,5 @@
+{
+  RegexRule regexRule=new RegexRule();
+  regexRule.addRule(regex);
+  nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+}

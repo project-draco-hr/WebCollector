@@ -1,0 +1,14 @@
+{
+  String url=page.getUrl();
+  Extractors extractors=new Extractors();
+  for (  Entry<String,Class<? extends Extractor>> entry : extractorClassMap.entrySet()) {
+    String regex=entry.getKey();
+    if (Pattern.matches(regex,url)) {
+      Class extractorClass=entry.getValue();
+      Constructor<? extends Extractor> cons=extractorClass.getDeclaredConstructor(Page.class);
+      Extractor extractor=cons.newInstance(page);
+      extractors.add(extractor);
+    }
+  }
+  return extractors;
+}

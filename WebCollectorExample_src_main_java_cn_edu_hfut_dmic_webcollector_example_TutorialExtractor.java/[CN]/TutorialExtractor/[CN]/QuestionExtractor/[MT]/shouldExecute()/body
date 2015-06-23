@@ -1,0 +1,3 @@
+{
+  return Pattern.matches("http://www.zhihu.com/question/[0-9]+",getUrl());
+}

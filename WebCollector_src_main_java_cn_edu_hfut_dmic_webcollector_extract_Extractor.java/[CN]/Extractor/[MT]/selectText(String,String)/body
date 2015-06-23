@@ -1,0 +1,3 @@
+{
+  return selectText(cssSelector,0,defaultResult);
+}

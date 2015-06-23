@@ -1,0 +1,3 @@
+{
+  extractorClassMap.put(urlRegex,extractorClass);
+}

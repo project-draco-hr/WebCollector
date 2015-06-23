@@ -1,0 +1,3 @@
+{
+  regexExtractorFactory.addExtractor(urlRegex,extractorClass);
+}

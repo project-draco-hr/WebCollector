@@ -1,0 +1,2 @@
+String urlRegex
+Class<? extends Extractor> extractorClass

@@ -1,0 +1,15 @@
+{
+  HttpRequest httpRequest=new HttpRequest(url);
+  HttpResponse response=httpRequest.getResponse();
+  String htm=response.getHtmlByCharsetDetect();
+  Page page=new Page();
+  page.setUrl(url);
+  page.setHtml(response.getHtmlByCharsetDetect());
+  page.setResponse(response);
+  Extractor extractor=getInstance(extractorClass,page);
+  Links nextLinks=new Links();
+  extractor.execute(nextLinks);
+  for (  String nextLink : nextLinks) {
+    System.out.println("nextLink:" + nextLink);
+  }
+}

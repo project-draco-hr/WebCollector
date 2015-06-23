@@ -1,0 +1,4 @@
+{
+  title=selectText("div[id=zh-question-title]");
+  content=selectText("div#zh-question-detail");
+}

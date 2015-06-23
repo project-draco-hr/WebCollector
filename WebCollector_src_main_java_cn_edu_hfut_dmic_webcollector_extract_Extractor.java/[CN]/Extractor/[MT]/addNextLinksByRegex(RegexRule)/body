@@ -1,0 +1,3 @@
+{
+  nextLinks.addAllFromDocument(page.getDoc(),regexRule);
+}

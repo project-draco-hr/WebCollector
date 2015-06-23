@@ -1,0 +1,12 @@
+{
+  System.out.println("name=" + name + " location="+ location+ " description="+ description);
+  String fileName=id.incrementAndGet() + ".txt";
+  File outputFile=new File(dir,fileName);
+  StringBuilder sb=new StringBuilder();
+  sb.append("URL:\n").append(getUrl());
+  sb.append("\nNAME:\n").append(name);
+  sb.append("\nLOCATION:\n").append(location);
+  sb.append("\nDESCRIPTION:\n").append(description);
+  String result=sb.toString();
+  FileUtils.writeFile(outputFile,result.getBytes("utf-8"));
+}

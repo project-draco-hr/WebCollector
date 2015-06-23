@@ -1,0 +1,11 @@
+{
+  Elements elements=page.getDoc().select(cssSelector);
+  int realIndex;
+  if (index < 0) {
+    realIndex=elements.size() + index;
+  }
+ else {
+    realIndex=index;
+  }
+  return elements.get(realIndex);
+}

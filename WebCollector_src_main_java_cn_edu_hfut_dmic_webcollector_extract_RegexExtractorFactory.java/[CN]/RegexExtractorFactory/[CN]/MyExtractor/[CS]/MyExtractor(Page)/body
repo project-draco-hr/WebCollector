@@ -1,0 +1,4 @@
+{
+  super(page);
+  System.out.println("my extractor");
+}

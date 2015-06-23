@@ -1,0 +1,2 @@
+Class<? extends Extractor> extractorClass
+Page page

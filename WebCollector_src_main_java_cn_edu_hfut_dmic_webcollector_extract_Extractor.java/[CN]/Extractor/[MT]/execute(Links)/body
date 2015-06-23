@@ -1,0 +1,18 @@
+{
+  try {
+    if (!shouldExecute()) {
+      LOG.debug("Extractor " + this.getClass() + " should not execute on "+ getUrl());
+      return;
+    }
+    extract();
+    if (nextLinks != null) {
+      nextLinks.addAll(this.nextLinks);
+    }
+    if (output) {
+      output();
+    }
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception on " + getUrl(),ex);
+  }
+}
