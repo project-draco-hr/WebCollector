@@ -9,7 +9,7 @@
   crawler.addRegex("-.*\\.png.*");
   crawler.addExtractor("http://www.zhihu.com/people/[^/]*",PeopleExtractor.class);
   crawler.addExtractor("http://www.zhihu.com/question/[0-9]+",QuestionExtractor.class);
-  crawler.addExtractor(".*",HtmlExtractor.class,new ExtractorParams("path","download/html1"));
+  crawler.addExtractor(".*",HtmlExtractor.class,new ExtractorParams("path","download/html"));
   crawler.setThreads(100);
   crawler.start(10);
 }
