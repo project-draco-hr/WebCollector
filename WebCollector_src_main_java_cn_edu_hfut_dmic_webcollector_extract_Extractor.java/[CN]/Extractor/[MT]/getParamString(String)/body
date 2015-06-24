@@ -1,3 +1,6 @@
 {
+  if (params == null) {
+    return null;
+  }
   return params.getString(key);
 }
