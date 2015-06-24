@@ -1,0 +1,5 @@
+{
+  this.regex=regex;
+  this.extractorClass=extractorClass;
+  this.params=params;
+}

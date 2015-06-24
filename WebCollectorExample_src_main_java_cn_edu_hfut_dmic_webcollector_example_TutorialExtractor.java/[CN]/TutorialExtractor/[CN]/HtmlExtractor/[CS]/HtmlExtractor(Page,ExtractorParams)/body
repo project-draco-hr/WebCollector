@@ -1,0 +1,13 @@
+{
+  super(page,params);
+  String path=params.getString("path");
+  if (path == null) {
+    path="html";
+  }
+  File dir=new File(path);
+  if (dir.exists()) {
+    FileUtils.deleteDir(dir);
+  }
+  dir.mkdirs();
+  fsOutput=new FileSystemOutput(path);
+}

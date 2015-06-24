@@ -1,4 +1,0 @@
-{
-  Constructor<? extends Extractor> cons=extractorClass.getDeclaredConstructor(Page.class);
-  return cons.newInstance(page);
-}

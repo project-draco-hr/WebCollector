@@ -1,12 +1,13 @@
 {
   String url=page.getUrl();
   Extractors extractors=new Extractors();
-  for (  Entry<String,Class<? extends Extractor>> entry : extractorClassMap.entrySet()) {
-    String regex=entry.getKey();
+  for (  ExtractorInfo extractorInfo : extractorInfoList) {
+    String regex=extractorInfo.regex;
     if (Pattern.matches(regex,url)) {
-      Class extractorClass=entry.getValue();
-      Constructor<? extends Extractor> cons=extractorClass.getDeclaredConstructor(Page.class);
-      Extractor extractor=cons.newInstance(page);
+      Class extractorClass=extractorInfo.extractorClass;
+      Constructor<? extends Extractor> cons=extractorClass.getDeclaredConstructor(Page.class,ExtractorParams.class);
+      ExtractorParams params=extractorInfo.params;
+      Extractor extractor=cons.newInstance(page,params);
       extractors.add(extractor);
     }
   }

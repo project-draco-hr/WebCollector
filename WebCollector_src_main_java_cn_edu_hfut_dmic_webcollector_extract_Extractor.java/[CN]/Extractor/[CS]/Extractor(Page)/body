@@ -1,4 +1,0 @@
-{
-  this.page=page;
-  nextLinks=new Links();
-}
