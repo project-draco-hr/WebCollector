@@ -1,4 +1,4 @@
 {
   this.url=new URL(url);
-  requestConfig=new RequestConfig();
+  requestConfig=RequestConfig.createDefaultRequestConfig();
 }
