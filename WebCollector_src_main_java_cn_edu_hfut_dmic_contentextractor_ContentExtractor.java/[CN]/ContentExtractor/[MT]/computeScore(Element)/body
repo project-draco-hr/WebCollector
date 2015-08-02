@@ -1,0 +1,6 @@
+{
+  CountInfo countInfo=infoMap.get(tag);
+  double var=Math.sqrt(computeVar(countInfo.leafList) + 1);
+  double score=var * countInfo.densitySum * Math.sqrt(countInfo.textCount - countInfo.linkTextCount);
+  return score;
+}

@@ -1,0 +1,3 @@
+{
+  return "URL:\n" + url + "\nTITLE:\n"+ title+ "\nTIME:\n"+ time+ "\nCONTENT:\n"+ getContent()+ "\nCONTENT(SOURCE):\n"+ contentElement;
+}

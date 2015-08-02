@@ -1,0 +1,19 @@
+{
+  if (data.size() == 0) {
+    return 0;
+  }
+  if (data.size() == 1) {
+    return data.get(0);
+  }
+  double sum=0;
+  for (  Integer i : data) {
+    sum+=i;
+  }
+  double ave=sum / data.size();
+  sum=0;
+  for (  Integer i : data) {
+    sum+=(i - ave) * (i - ave);
+  }
+  sum=sum / data.size();
+  return sum;
+}

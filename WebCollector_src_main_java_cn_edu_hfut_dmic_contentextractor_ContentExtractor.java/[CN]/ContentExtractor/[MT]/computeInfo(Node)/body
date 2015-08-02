@@ -1,0 +1,41 @@
+{
+  if (node instanceof Element) {
+    Element tag=(Element)node;
+    String tagName=tag.tagName();
+    CountInfo countInfo=new CountInfo();
+    for (    Node childNode : tag.childNodes()) {
+      CountInfo childCountInfo=computeInfo(childNode);
+      countInfo.textCount+=childCountInfo.textCount;
+      countInfo.linkTextCount+=childCountInfo.linkTextCount;
+      countInfo.tagCount+=childCountInfo.tagCount;
+      countInfo.linkTagCount+=childCountInfo.linkTagCount;
+      countInfo.leafList.addAll(childCountInfo.leafList);
+      countInfo.densitySum+=childCountInfo.density;
+    }
+    countInfo.tagCount++;
+    if (tag.tagName().equals("a")) {
+      countInfo.linkTextCount=countInfo.textCount;
+      countInfo.linkTagCount++;
+    }
+    int len=countInfo.tagCount - countInfo.linkTagCount;
+    if (len == 0) {
+      countInfo.density=0;
+    }
+ else {
+      countInfo.density=(countInfo.textCount + 0.0) / len;
+    }
+    infoMap.put(tag,countInfo);
+    return countInfo;
+  }
+ else   if (node instanceof TextNode) {
+    TextNode tn=(TextNode)node;
+    CountInfo countInfo=new CountInfo();
+    int len=tn.text().length();
+    countInfo.textCount=len;
+    countInfo.leafList.add(len);
+    return countInfo;
+  }
+ else {
+    return new CountInfo();
+  }
+}

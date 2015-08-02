@@ -1,0 +1,5 @@
+{
+  HttpRequest request=new HttpRequest(url);
+  String html=request.getResponse().getHtmlByCharsetDetect();
+  return getContentElementByHtml(html,url);
+}

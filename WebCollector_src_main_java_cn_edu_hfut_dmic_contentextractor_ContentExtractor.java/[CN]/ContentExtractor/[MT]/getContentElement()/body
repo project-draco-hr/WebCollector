@@ -1,0 +1,18 @@
+{
+  clean();
+  computeInfo(doc);
+  double maxScore=0;
+  Element content=null;
+  for (  Map.Entry<Element,CountInfo> entry : infoMap.entrySet()) {
+    Element tag=entry.getKey();
+    double score=computeScore(tag);
+    if (score > maxScore) {
+      maxScore=score;
+      content=tag;
+    }
+  }
+  if (content == null) {
+    throw new Exception("extraction failed");
+  }
+  return content;
+}

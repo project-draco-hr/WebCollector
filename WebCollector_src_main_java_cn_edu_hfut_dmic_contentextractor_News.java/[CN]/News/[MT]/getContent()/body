@@ -1,0 +1,8 @@
+{
+  if (content == null) {
+    if (contentElement != null) {
+      content=contentElement.text();
+    }
+  }
+  return content;
+}

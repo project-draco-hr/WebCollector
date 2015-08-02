@@ -1,0 +1,28 @@
+{
+  News news=new News();
+  Element contentElement;
+  try {
+    contentElement=getContentElement();
+    news.setContentElement(contentElement);
+  }
+ catch (  Exception ex) {
+    LOG.info("news content extraction failed,extraction abort",ex);
+    throw new Exception(ex);
+  }
+  if (doc.baseUri() != null) {
+    news.setUrl(doc.baseUri());
+  }
+  try {
+    news.setTime(getTime(contentElement));
+  }
+ catch (  Exception ex) {
+    LOG.info("news title extraction failed",ex);
+  }
+  try {
+    news.setTitle(getTitle(contentElement));
+  }
+ catch (  Exception ex) {
+    LOG.info("title extraction failed",ex);
+  }
+  return news;
+}

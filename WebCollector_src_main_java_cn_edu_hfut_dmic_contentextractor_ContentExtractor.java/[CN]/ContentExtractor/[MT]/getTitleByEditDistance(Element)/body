@@ -1,0 +1,29 @@
+{
+  final String metaTitle=doc.title();
+  Element current=contentElement;
+  for (int i=0; i < 3; i++) {
+    if (current.parent() != null) {
+      current=current.parent();
+    }
+  }
+  final StringBuilder sb=new StringBuilder();
+  final AtomicInteger minDis=new AtomicInteger(10000);
+  current.traverse(new NodeVisitor(){
+    public void head(    Node node,    int i){
+      if (node instanceof TextNode) {
+        TextNode tn=(TextNode)node;
+        String text=tn.text();
+        int dis=editDistance(text,metaTitle);
+        if (dis < minDis.get()) {
+          minDis.set(dis);
+          sb.setLength(0);
+          sb.append(text);
+        }
+      }
+    }
+    public void tail(    Node node,    int i){
+    }
+  }
+);
+  return sb.toString();
+}

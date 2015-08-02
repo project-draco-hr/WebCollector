@@ -1,0 +1,4 @@
+{
+  ContentExtractor ce=new ContentExtractor(doc);
+  return ce.getContentElement().text();
+}

@@ -1,0 +1,22 @@
+{
+  Element current=contentElement;
+  for (int i=0; i < 3; i++) {
+    Elements hs=current.select("h1,h2,h3,h4,h5,h6");
+    if (hs.size() > 0) {
+      return hs.first().text();
+    }
+ else {
+      current=current.parent();
+      if (current == null) {
+        break;
+      }
+    }
+  }
+  Elements titles=doc.select("title");
+  if (titles.size() > 0) {
+    return titles.first().text();
+  }
+ else {
+    return getTitleByEditDistance(contentElement);
+  }
+}
