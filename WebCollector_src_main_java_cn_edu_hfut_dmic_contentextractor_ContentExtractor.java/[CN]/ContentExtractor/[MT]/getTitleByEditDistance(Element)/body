@@ -2,7 +2,7 @@
   final String metaTitle=doc.title();
   Element current=contentElement;
   for (int i=0; i < 3; i++) {
-    if (current.parent() != null) {
+    if (current != doc.body() && current.parent() != null) {
       current=current.parent();
     }
   }
