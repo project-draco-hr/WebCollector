@@ -20,15 +20,15 @@
       }
     }
   }
-  try {
-    return getTitleByEditDistance(contentElement);
+  Elements titles=doc.body().select("#title,.title");
+  if (titles.size() > 0) {
+    return titles.first().text();
   }
- catch (  Exception ex) {
-    Elements titles=doc.select("title");
-    if (titles.size() > 0) {
-      return titles.first().text();
-    }
  else {
+    try {
+      return getTitleByEditDistance(contentElement);
+    }
+ catch (    Exception ex) {
       throw new Exception("title not found");
     }
   }

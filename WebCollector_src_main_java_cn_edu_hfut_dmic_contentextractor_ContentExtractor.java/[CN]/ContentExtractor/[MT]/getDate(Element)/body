@@ -1,5 +1,5 @@
 {
-  String regex="([0-9]{4}).*?([0-9]{1,2}).*?([0-9]{1,2}).*?([0-9]{1,2}).*?([0-9]{1,2}).*?([0-9]{1,2})";
+  String regex="([0-9]{4}).*?([0-9]{1,2}).*?([0-9]{1,2})";
   Pattern pattern=Pattern.compile(regex);
   Element current=contentElement;
   for (int i=0; i < 2; i++) {
@@ -17,13 +17,8 @@
     String currentHtml=current.outerHtml();
     Matcher matcher=pattern.matcher(currentHtml);
     if (matcher.find()) {
-      return matcher.group(1) + "-" + matcher.group(2)+ "-"+ matcher.group(3)+ " "+ matcher.group(4)+ ":"+ matcher.group(5)+ ":"+ matcher.group(6);
+      return matcher.group(1) + "-" + matcher.group(2)+ "-"+ matcher.group(3);
     }
   }
-  try {
-    return getDate(contentElement);
-  }
- catch (  Exception ex) {
-    throw new Exception("time not found");
-  }
+  throw new Exception("date not found");
 }
