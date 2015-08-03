@@ -10,13 +10,18 @@
       countInfo.linkTagCount+=childCountInfo.linkTagCount;
       countInfo.leafList.addAll(childCountInfo.leafList);
       countInfo.densitySum+=childCountInfo.density;
+      countInfo.pCount+=childCountInfo.pCount;
     }
     countInfo.tagCount++;
-    if (tag.tagName().equals("a")) {
+    String tagName=tag.tagName();
+    if (tagName.equals("a")) {
       countInfo.linkTextCount=countInfo.textCount;
       countInfo.linkTagCount++;
     }
-    int pureLen=countInfo.textCount - countInfo.linkTagCount;
+ else     if (tagName.equals("p")) {
+      countInfo.pCount++;
+    }
+    int pureLen=countInfo.textCount - countInfo.linkTextCount;
     int len=countInfo.tagCount - countInfo.linkTagCount;
     if (pureLen == 0 || len == 0) {
       countInfo.density=0;

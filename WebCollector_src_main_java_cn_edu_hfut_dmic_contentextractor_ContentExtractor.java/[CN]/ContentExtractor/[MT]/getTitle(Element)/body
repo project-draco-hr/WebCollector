@@ -1,25 +1,43 @@
 {
-  Element current=contentElement;
-  for (int i=0; i < 2; i++) {
-    if (current != null && current != doc.body()) {
-      Element parent=current.parent();
-      if (parent != null) {
-        current=parent;
+  final ArrayList<Element> titleList=new ArrayList<Element>();
+  final ArrayList<Double> titleSim=new ArrayList<Double>();
+  final AtomicInteger contentIndex=new AtomicInteger();
+  final String metaTitle=doc.title().trim();
+  if (!metaTitle.isEmpty()) {
+    doc.body().traverse(new NodeVisitor(){
+      @Override public void head(      Node node,      int i){
+        if (node instanceof Element) {
+          Element tag=(Element)node;
+          if (tag == contentElement) {
+            contentIndex.set(titleList.size());
+            return;
+          }
+          String tagName=tag.tagName();
+          if (Pattern.matches("h[1-6]",tagName)) {
+            String title=tag.text().trim();
+            double sim=strSim(title,metaTitle);
+            titleSim.add(sim);
+            titleList.add(tag);
+          }
+        }
+      }
+      @Override public void tail(      Node node,      int i){
       }
     }
-  }
-  for (int i=0; i < 6; i++) {
-    Elements hs=current.select("h1,h2,h3,h4,h5,h6");
-    if (hs.size() > 0) {
-      String title=hs.first().text().trim();
-      if (title.length() > 4) {
-        return title;
+);
+    int index=contentIndex.get();
+    if (index > 0) {
+      double maxScore=0;
+      int maxIndex=-1;
+      for (int i=0; i < index; i++) {
+        double score=(i + 1) * titleSim.get(i);
+        if (score > maxScore) {
+          maxScore=score;
+          maxIndex=i;
+        }
       }
-    }
- else {
-      current=current.parent();
-      if (current == null) {
-        break;
+      if (maxIndex != -1) {
+        return titleList.get(maxIndex).text();
       }
     }
   }
