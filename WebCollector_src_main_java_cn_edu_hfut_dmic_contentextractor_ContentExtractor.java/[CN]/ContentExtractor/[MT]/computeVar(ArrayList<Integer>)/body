@@ -3,7 +3,7 @@
     return 0;
   }
   if (data.size() == 1) {
-    return data.get(0);
+    return data.get(0) / 2;
   }
   double sum=0;
   for (  Integer i : data) {
