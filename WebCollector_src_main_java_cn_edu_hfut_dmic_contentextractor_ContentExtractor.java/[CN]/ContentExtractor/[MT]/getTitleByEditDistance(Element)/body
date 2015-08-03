@@ -16,11 +16,20 @@
   }
   final StringBuilder sb=new StringBuilder();
   final AtomicInteger minDis=new AtomicInteger(10000);
+  final AtomicBoolean shouldStop=new AtomicBoolean(false);
   current.traverse(new NodeVisitor(){
     public void head(    Node node,    int i){
+      if (shouldStop.get()) {
+        return;
+      }
       if (node instanceof TextNode) {
         TextNode tn=(TextNode)node;
         String text=tn.text();
+        if (metaTitle.startsWith(text)) {
+          sb.append(text);
+          shouldStop.set(true);
+          return;
+        }
         int dis=editDistance(text,metaTitle);
         if (dis < 5 && dis < minDis.get()) {
           minDis.set(dis);
@@ -33,6 +42,9 @@
     }
   }
 );
+  if (shouldStop.get()) {
+    return sb.toString();
+  }
   if (minDis.get() >= 5) {
     throw new Exception();
   }

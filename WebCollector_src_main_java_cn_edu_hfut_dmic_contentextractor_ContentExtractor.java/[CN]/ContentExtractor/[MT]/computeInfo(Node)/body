@@ -1,7 +1,6 @@
 {
   if (node instanceof Element) {
     Element tag=(Element)node;
-    String tagName=tag.tagName();
     CountInfo countInfo=new CountInfo();
     for (    Node childNode : tag.childNodes()) {
       CountInfo childCountInfo=computeInfo(childNode);
@@ -17,12 +16,13 @@
       countInfo.linkTextCount=countInfo.textCount;
       countInfo.linkTagCount++;
     }
+    int pureLen=countInfo.textCount - countInfo.linkTagCount;
     int len=countInfo.tagCount - countInfo.linkTagCount;
-    if (len == 0) {
+    if (pureLen == 0 || len == 0) {
       countInfo.density=0;
     }
  else {
-      countInfo.density=(countInfo.textCount + 0.0) / len;
+      countInfo.density=(pureLen + 0.0) / len;
     }
     infoMap.put(tag,countInfo);
     return countInfo;
@@ -30,7 +30,8 @@
  else   if (node instanceof TextNode) {
     TextNode tn=(TextNode)node;
     CountInfo countInfo=new CountInfo();
-    int len=tn.text().length();
+    String text=tn.text();
+    int len=text.length();
     countInfo.textCount=len;
     countInfo.leafList.add(len);
     return countInfo;
