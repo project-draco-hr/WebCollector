@@ -1,6 +1,0 @@
-{
-  attributeName=xmlElement.getAttribute("attr");
-  if (attributeName.isEmpty()) {
-    attributeName=null;
-  }
-}

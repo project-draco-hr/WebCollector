@@ -1,6 +1,0 @@
-{
-  if (!(input instanceof Element) && !(input instanceof Elements)) {
-    return false;
-  }
-  return true;
-}

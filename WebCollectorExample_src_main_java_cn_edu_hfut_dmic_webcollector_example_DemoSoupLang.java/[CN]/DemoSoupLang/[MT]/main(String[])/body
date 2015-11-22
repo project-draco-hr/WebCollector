@@ -1,6 +1,0 @@
-{
-  Document doc=Jsoup.connect("http://www.youdao.com/search?q=webcollector").userAgent("Mozilla/5.0 (X11; Linux i686; rv:34.0) Gecko/20100101 Firefox/34.0").get();
-  SoupLang soupLang=new SoupLang(ClassLoader.getSystemResourceAsStream("example/DemoRule2.xml"));
-  Context context=soupLang.extract(doc);
-  System.out.println(context);
-}

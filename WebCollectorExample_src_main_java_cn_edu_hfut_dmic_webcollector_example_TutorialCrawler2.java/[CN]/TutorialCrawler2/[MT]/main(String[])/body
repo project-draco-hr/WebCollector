@@ -1,9 +1,0 @@
-{
-  TutorialCrawler2 crawler=new TutorialCrawler2("/home/hu/data/wb",true);
-  crawler.setThreads(50);
-  crawler.addSeed("http://www.zhihu.com/");
-  crawler.setResumable(false);
-  crawler.setResumable(false);
-  crawler.setTopN(100);
-  crawler.start(5);
-}

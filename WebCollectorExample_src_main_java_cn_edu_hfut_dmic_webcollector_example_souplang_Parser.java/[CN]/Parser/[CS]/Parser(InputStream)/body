@@ -1,7 +1,0 @@
-{
-  DocumentBuilderFactory f=DocumentBuilderFactory.newInstance();
-  DocumentBuilder builder=f.newDocumentBuilder();
-  Document xmlDoc=builder.parse(is);
-  Element xmlRoot=xmlDoc.getDocumentElement();
-  parse(xmlRoot,root);
-}

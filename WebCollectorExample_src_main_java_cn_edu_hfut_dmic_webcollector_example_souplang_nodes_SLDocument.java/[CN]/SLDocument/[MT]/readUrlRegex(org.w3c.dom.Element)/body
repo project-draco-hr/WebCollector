@@ -1,6 +1,0 @@
-{
-  urlRegex=xmlElement.getAttribute("url");
-  if (urlRegex.isEmpty()) {
-    urlRegex=null;
-  }
-}

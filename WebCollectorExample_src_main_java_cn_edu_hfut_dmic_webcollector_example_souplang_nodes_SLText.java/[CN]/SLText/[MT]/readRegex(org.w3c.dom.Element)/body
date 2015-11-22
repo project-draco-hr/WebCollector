@@ -1,6 +1,0 @@
-{
-  regex=xmlElement.getAttribute("regex");
-  if (regex.isEmpty()) {
-    regex=null;
-  }
-}

@@ -1,6 +1,0 @@
-{
-  String groupAttr=xmlElement.getAttribute("group");
-  if (!groupAttr.isEmpty()) {
-    group=Integer.valueOf(groupAttr);
-  }
-}

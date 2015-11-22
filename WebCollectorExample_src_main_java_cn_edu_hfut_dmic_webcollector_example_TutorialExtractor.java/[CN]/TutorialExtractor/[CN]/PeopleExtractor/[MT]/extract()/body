@@ -1,5 +1,0 @@
-{
-  name=selectText("span[class=name]");
-  location=selectText("span.location.item","??????");
-  description=selectText("span.content",0,null);
-}

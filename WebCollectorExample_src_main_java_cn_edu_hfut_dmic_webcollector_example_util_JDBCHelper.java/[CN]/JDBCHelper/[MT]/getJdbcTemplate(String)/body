@@ -1,3 +1,0 @@
-{
-  return templateMap.get(templateName);
-}

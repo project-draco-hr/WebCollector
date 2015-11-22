@@ -1,5 +1,0 @@
-{
-  String url="http://www.huxiu.com/article/121959/1.html";
-  News news=ContentExtractor.getNewsByUrl(url);
-  System.out.println(news);
-}

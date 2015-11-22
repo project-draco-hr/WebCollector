@@ -1,6 +1,0 @@
-{
-  sql=xmlElement.getAttribute("sql");
-  if (sql.isEmpty()) {
-    sql=null;
-  }
-}

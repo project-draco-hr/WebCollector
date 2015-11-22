@@ -1,5 +1,0 @@
-{
-  String jsonStr=page.getHtml();
-  JSONObject json=new JSONObject(jsonStr);
-  System.out.println("JSON?????????" + json);
-}

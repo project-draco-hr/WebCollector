@@ -1,4 +1,0 @@
-{
-  FileInputStream fis=new FileInputStream(filePath);
-  parser=new Parser(fis);
-}

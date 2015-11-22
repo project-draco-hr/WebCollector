@@ -1,6 +1,0 @@
-{
-  if (!(input instanceof Document)) {
-    return false;
-  }
-  return true;
-}

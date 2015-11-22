@@ -1,7 +1,0 @@
-{
-  String url="http://www.huxiu.com/article/121959/1.html";
-  HttpRequest request=new HttpRequest(url);
-  String html=request.getResponse().getHtmlByCharsetDetect();
-  String content=ContentExtractor.getContentByHtml(html,url);
-  System.out.println(content);
-}

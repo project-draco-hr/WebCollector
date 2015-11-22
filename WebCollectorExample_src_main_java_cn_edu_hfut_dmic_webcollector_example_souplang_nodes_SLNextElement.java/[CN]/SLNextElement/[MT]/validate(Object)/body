@@ -1,6 +1,0 @@
-{
-  if (!(input instanceof Element)) {
-    return false;
-  }
-  return true;
-}

@@ -1,3 +1,0 @@
-{
-  return Pattern.matches("http://www.zhihu.com/people/[^/]+",getUrl());
-}

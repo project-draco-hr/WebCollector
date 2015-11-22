@@ -1,6 +1,0 @@
-{
-  cssSelector=xmlElement.getAttribute("selector");
-  if (cssSelector.isEmpty()) {
-    cssSelector=null;
-  }
-}
