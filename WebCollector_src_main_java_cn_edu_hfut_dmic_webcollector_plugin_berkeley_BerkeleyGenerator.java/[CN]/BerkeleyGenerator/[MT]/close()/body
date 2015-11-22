@@ -1,0 +1,6 @@
+{
+  cursor.close();
+  cursor=null;
+  crawldbDatabase.close();
+  env.close();
+}

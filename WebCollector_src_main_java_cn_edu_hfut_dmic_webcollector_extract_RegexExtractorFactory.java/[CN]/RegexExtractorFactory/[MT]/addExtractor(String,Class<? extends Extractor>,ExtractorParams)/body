@@ -1,4 +1,0 @@
-{
-  ExtractorInfo extractorInfo=new ExtractorInfo(urlRegex,extractorClass,params);
-  extractorInfoList.add(extractorInfo);
-}

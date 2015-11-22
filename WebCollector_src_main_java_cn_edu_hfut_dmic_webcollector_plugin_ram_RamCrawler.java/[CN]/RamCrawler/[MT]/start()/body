@@ -1,0 +1,3 @@
+{
+  start(Integer.MAX_VALUE);
+}

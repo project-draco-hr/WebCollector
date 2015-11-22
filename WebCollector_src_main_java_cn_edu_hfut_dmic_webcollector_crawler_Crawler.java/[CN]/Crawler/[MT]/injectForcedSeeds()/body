@@ -1,4 +1,3 @@
 {
-  Injector injector=new Injector(env);
-  injector.inject(forcedSeeds);
+  dbManager.inject(forcedSeeds);
 }

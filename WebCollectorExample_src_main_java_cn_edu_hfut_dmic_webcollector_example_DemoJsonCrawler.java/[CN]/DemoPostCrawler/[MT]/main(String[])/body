@@ -1,0 +1,6 @@
+{
+  DemoPostCrawler crawler=new DemoPostCrawler("json_crawler",true);
+  crawler.addSeed("http://abc.com/xxx1.json");
+  crawler.addSeed("http://abc.com/xxx2.json");
+  crawler.start(1);
+}

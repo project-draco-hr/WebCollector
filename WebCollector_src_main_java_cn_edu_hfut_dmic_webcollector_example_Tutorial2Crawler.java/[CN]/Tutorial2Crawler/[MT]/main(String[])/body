@@ -1,0 +1,7 @@
+{
+  Tutorial2Crawler crawler=new Tutorial2Crawler();
+  crawler.addSeed("http://blog.csdn.net/.*");
+  crawler.addRegex("http://blog.csdn.net/.*/article/details/.*");
+  crawler.setThreads(30);
+  crawler.start(2);
+}

@@ -1,7 +1,0 @@
-{
-  RequestConfig requestConfig=new RequestConfig();
-  if (userAgent != null) {
-    requestConfig.setUserAgent(userAgent);
-  }
-  return requestConfig;
-}

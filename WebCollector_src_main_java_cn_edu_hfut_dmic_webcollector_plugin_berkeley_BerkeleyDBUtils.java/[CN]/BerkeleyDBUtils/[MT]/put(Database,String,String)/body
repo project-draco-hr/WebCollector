@@ -1,0 +1,3 @@
+{
+  database.put(null,strToEntry(key),strToEntry(value));
+}

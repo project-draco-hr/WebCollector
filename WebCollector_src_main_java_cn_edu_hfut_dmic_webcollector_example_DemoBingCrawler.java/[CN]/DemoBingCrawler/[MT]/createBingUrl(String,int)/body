@@ -1,0 +1,5 @@
+{
+  int first=pageNum * 10 - 9;
+  keyword=URLEncoder.encode(keyword,"utf-8");
+  return String.format("http://cn.bing.com/search?q=%s&first=%s",keyword,first);
+}

@@ -1,0 +1,12 @@
+{
+  RegexRule regexRule=new RegexRule();
+  regexRule.addRule(rule);
+  Elements as=doc.select("a[href]");
+  for (  Element a : as) {
+    String href=a.attr("abs:href");
+    if (regexRule.satisfy(href)) {
+      this.add(href);
+    }
+  }
+  return this;
+}

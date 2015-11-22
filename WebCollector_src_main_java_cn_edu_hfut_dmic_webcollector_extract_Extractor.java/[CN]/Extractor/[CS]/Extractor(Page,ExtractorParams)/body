@@ -1,5 +1,0 @@
-{
-  this.page=page;
-  this.params=params;
-  nextLinks=new Links();
-}

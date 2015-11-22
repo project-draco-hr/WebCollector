@@ -1,6 +1,6 @@
 {
   if (rule.length() == 0) {
-    return;
+    return this;
   }
   char pn=rule.charAt(0);
   String realrule=rule.substring(1);
@@ -13,4 +13,5 @@
  else {
     addPositive(rule);
   }
+  return this;
 }

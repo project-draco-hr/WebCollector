@@ -1,0 +1,5 @@
+{
+  String key=datum.getKey();
+  String value=CrawlDatumFormater.datumToJsonStr(datum);
+  put(database,key,value);
+}

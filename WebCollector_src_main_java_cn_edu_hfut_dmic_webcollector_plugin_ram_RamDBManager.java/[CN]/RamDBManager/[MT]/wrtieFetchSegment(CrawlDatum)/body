@@ -1,0 +1,3 @@
+{
+  ramDB.fetchDB.put(fetchDatum.getKey(),fetchDatum);
+}

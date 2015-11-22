@@ -1,3 +1,0 @@
-{
-  return selectElement(cssSelector,0);
-}

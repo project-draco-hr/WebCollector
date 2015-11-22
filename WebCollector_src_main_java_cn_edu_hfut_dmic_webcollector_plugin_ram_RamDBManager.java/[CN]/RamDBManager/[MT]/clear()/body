@@ -1,0 +1,6 @@
+{
+  ramDB.crawlDB.clear();
+  ramDB.fetchDB.clear();
+  ramDB.linkDB.clear();
+  ramDB.redirectDB.clear();
+}

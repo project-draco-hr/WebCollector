@@ -1,5 +1,5 @@
 {
-  FileOutputStream fos=new FileOutputStream(filename);
+  FileOutputStream fos=new FileOutputStream(fileName);
   fos.write(content);
   fos.close();
 }

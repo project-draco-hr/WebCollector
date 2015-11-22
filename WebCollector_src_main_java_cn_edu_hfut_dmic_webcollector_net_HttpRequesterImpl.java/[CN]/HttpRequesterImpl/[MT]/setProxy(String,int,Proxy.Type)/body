@@ -1,3 +1,0 @@
-{
-  requestConfig.setProxy(host,port,type);
-}

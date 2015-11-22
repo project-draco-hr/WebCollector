@@ -1,0 +1,18 @@
+{
+  LOG.info("start merge");
+  LOG.info("merge fetch database");
+  for (  Entry<String,CrawlDatum> fetchEntry : ramDB.fetchDB.entrySet()) {
+    ramDB.crawlDB.put(fetchEntry.getKey(),fetchEntry.getValue());
+  }
+  LOG.info("merge link database");
+  for (  String key : ramDB.linkDB.keySet()) {
+    if (!ramDB.crawlDB.containsKey(key)) {
+      ramDB.crawlDB.put(key,ramDB.linkDB.get(key));
+    }
+  }
+  LOG.info("end merge");
+  ramDB.fetchDB.clear();
+  LOG.debug("remove fetch database");
+  ramDB.linkDB.clear();
+  LOG.debug("remove link database");
+}

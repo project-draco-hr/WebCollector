@@ -1,0 +1,5 @@
+{
+  for (  String url : links) {
+    addSeed(url,force);
+  }
+}

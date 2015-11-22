@@ -1,0 +1,6 @@
+{
+  NewsCrawler crawler=new NewsCrawler("crawl",true);
+  crawler.setThreads(50);
+  crawler.setTopN(100);
+  crawler.start(4);
+}

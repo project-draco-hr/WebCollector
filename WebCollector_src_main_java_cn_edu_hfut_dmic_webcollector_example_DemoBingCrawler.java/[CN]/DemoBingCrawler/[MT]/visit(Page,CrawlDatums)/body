@@ -1,0 +1,21 @@
+{
+  String keyword=page.getMetaData("keyword");
+  String pageType=page.getMetaData("pageType");
+  if (pageType.equals("searchEngine")) {
+    int pageNum=Integer.valueOf(page.getMetaData("pageNum"));
+    System.out.println("?????????????????????" + keyword + "??????"+ pageNum+ "???????????????");
+    Elements results=page.select("li.b_ans h2>a,li.b_algo h2>a");
+    for (int rank=0; rank < results.size(); rank++) {
+      Element result=results.get(rank);
+      CrawlDatum datum=new CrawlDatum(result.attr("abs:href")).putMetaData("keyword",keyword).putMetaData("pageNum",pageNum + "").putMetaData("rank",rank + "").putMetaData("pageType","outlink").putMetaData("refer",page.getUrl());
+      next.add(datum);
+    }
+  }
+ else   if (pageType.equals("outlink")) {
+    int pageNum=Integer.valueOf(page.getMetaData("pageNum"));
+    int rank=Integer.valueOf(page.getMetaData("rank"));
+    String refer=page.getMetaData("refer");
+    String line=String.format("???%s??????%s?????????:%s(%s??????)\trefer=%s",pageNum,rank + 1,page.getDoc().title(),page.getContent().length,refer);
+    System.out.println(line);
+  }
+}

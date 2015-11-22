@@ -1,0 +1,4 @@
+{
+  String key=datum.getKey();
+  ramDB.redirectDB.put(key,realUrl);
+}

@@ -1,0 +1,6 @@
+{
+  for (  String url : links) {
+    dataList.add(url);
+  }
+  return this;
+}

@@ -1,7 +1,0 @@
-{
-  super(crawlPath);
-  HttpRequesterImpl requester=(HttpRequesterImpl)this.getHttpRequester();
-  requester.setMethod("POST");
-  requester.setCookie("??????cookie");
-  requester.addHeader("xxx","xxxxxxxx");
-}

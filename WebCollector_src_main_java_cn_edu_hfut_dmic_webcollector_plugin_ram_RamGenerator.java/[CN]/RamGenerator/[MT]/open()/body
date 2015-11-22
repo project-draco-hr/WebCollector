@@ -1,0 +1,4 @@
+{
+  totalGenerate=0;
+  iterator=ramDB.crawlDB.entrySet().iterator();
+}

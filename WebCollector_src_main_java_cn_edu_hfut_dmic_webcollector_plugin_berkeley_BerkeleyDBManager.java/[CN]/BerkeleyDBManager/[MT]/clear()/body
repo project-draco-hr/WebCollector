@@ -1,0 +1,6 @@
+{
+  File dir=new File(crawlPath);
+  if (dir.exists()) {
+    FileUtils.deleteDir(dir);
+  }
+}

@@ -1,25 +1,18 @@
 {
-  File dir=new File(crawlPath);
   boolean needInject=true;
-  if (resumable && dir.exists()) {
+  if (resumable && dbManager.isDBExists()) {
     needInject=false;
   }
-  if (resumable && !dir.exists()) {
-    dir.mkdirs();
-  }
   if (!resumable) {
-    if (dir.exists()) {
-      FileUtils.deleteDir(dir);
+    if (dbManager.isDBExists()) {
+      dbManager.clear();
     }
-    dir.mkdirs();
     if (seeds.isEmpty() && forcedSeeds.isEmpty()) {
       LOG.info("error:Please add at least one seed");
       return;
     }
   }
-  EnvironmentConfig environmentConfig=new EnvironmentConfig();
-  environmentConfig.setAllowCreate(true);
-  env=new Environment(dir,environmentConfig);
+  dbManager.open();
   if (needInject) {
     inject();
   }
@@ -33,13 +26,20 @@
     }
     LOG.info("starting depth " + (i + 1));
     long startTime=System.currentTimeMillis();
-    StandardGenerator generator=new StandardGenerator(env);
-    generator.setMaxRetry(maxRetry);
+    generator.open();
+    if (maxRetry >= 0) {
+      generator.setMaxRetry(maxRetry);
+    }
+ else {
+      generator.setMaxRetry(Config.MAX_RETRY);
+    }
     generator.setTopN(topN);
     fetcher=new Fetcher();
-    fetcher.setHttpRequester(httpRequester);
-    fetcher.setDbUpdater(new DbUpdater(env));
-    fetcher.setVisitorFactory(visitorFactory);
+    fetcher.setRetryInterval(retryInterval);
+    fetcher.setVisitInterval(visitInterval);
+    fetcher.setDBManager(dbManager);
+    fetcher.setRequester(requester);
+    fetcher.setVisitor(visitor);
     fetcher.setRetry(retry);
     fetcher.setThreads(threads);
     fetcher.fetchAll(generator);
@@ -51,5 +51,5 @@
       break;
     }
   }
-  env.close();
+  dbManager.close();
 }

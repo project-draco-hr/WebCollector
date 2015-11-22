@@ -1,0 +1,35 @@
+{
+  if (topN >= 0) {
+    if (totalGenerate >= topN) {
+      return null;
+    }
+  }
+  if (cursor == null) {
+    crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+    cursor=crawldbDatabase.openCursor(null,CursorConfig.DEFAULT);
+  }
+  while (true) {
+    if (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+      try {
+        CrawlDatum datum=BerkeleyDBUtils.createCrawlDatum(key,value);
+        if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED) {
+          continue;
+        }
+ else {
+          if (datum.getRetry() >= maxRetry) {
+            continue;
+          }
+          totalGenerate++;
+          return datum;
+        }
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception when generating",ex);
+        continue;
+      }
+    }
+ else {
+      return null;
+    }
+  }
+}

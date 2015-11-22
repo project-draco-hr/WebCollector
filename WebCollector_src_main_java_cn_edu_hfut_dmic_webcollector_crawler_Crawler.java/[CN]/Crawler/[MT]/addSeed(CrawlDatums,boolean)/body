@@ -1,0 +1,5 @@
+{
+  for (  CrawlDatum datum : datums) {
+    addSeed(datum,force);
+  }
+}

@@ -1,8 +1,0 @@
-{
-  DatabaseEntry key=fetch.getKey();
-  DatabaseEntry value=fetch.getValue();
-  fetchDatabase.put(null,key,value);
-  if (count_fetch.incrementAndGet() % BUFFER_SIZE == 0) {
-    fetchDatabase.sync();
-  }
-}

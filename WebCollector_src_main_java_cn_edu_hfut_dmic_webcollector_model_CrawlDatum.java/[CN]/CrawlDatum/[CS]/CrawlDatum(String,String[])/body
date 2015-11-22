@@ -1,0 +1,11 @@
+{
+  this(url);
+  if (metas.length % 2 != 0) {
+    throw new Exception("length of metas must be even");
+  }
+ else {
+    for (int i=0; i < metas.length; i+=2) {
+      putMetaData(metas[i * 2],metas[i * 2 + 1]);
+    }
+  }
+}

@@ -1,3 +1,0 @@
-String regex
-Class<? extends Extractor> extractorClass
-ExtractorParams params

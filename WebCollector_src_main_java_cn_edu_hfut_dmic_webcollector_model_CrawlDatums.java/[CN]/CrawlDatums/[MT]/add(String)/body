@@ -1,0 +1,4 @@
+{
+  CrawlDatum datum=new CrawlDatum(url);
+  return add(datum);
+}

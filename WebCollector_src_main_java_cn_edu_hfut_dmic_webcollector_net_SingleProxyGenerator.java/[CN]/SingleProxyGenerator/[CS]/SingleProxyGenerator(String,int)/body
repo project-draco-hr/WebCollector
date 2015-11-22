@@ -1,3 +1,0 @@
-{
-  proxy=new Proxy(Proxy.Type.HTTP,new InetSocketAddress(host,port));
-}

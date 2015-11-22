@@ -1,0 +1,19 @@
+{
+  JSONArray jsonArray=new JSONArray(str);
+  CrawlDatum crawlDatum=new CrawlDatum();
+  crawlDatum.setKey(crawlDatumKey);
+  crawlDatum.setUrl(jsonArray.getString(0));
+  crawlDatum.setStatus(jsonArray.getInt(1));
+  crawlDatum.setFetchTime(jsonArray.getLong(2));
+  crawlDatum.setRetry(jsonArray.getInt(3));
+  crawlDatum.setHttpCode(jsonArray.getInt(4));
+  if (jsonArray.length() == 6) {
+    JSONObject metaJSONObject=jsonArray.getJSONObject(5);
+    for (    Object keyObject : metaJSONObject.keySet()) {
+      String key=keyObject.toString();
+      String value=metaJSONObject.getString(key);
+      crawlDatum.putMetaData(key,value);
+    }
+  }
+  return crawlDatum;
+}

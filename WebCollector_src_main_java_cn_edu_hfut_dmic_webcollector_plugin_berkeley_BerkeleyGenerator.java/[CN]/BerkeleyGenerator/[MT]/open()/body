@@ -1,0 +1,7 @@
+{
+  File dir=new File(crawlPath);
+  EnvironmentConfig environmentConfig=new EnvironmentConfig();
+  environmentConfig.setAllowCreate(true);
+  env=new Environment(dir,environmentConfig);
+  totalGenerate=0;
+}

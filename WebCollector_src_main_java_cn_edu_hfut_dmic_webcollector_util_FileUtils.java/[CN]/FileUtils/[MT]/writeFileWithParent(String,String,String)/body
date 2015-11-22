@@ -1,5 +1,5 @@
 {
-  File file=new File(filename);
+  File file=new File(fileName);
   File parent=file.getParentFile();
   if (!parent.exists()) {
     parent.mkdirs();

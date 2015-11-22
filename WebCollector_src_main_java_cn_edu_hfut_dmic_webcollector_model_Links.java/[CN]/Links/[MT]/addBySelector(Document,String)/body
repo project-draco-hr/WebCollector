@@ -1,0 +1,10 @@
+{
+  Elements as=doc.select(cssSelector);
+  for (  Element a : as) {
+    if (a.hasAttr("href")) {
+      String href=a.attr("abs:href");
+      this.add(href);
+    }
+  }
+  return this;
+}

@@ -1,8 +1,0 @@
-{
-  try {
-    return selectText(cssSelector,index);
-  }
- catch (  Exception ex) {
-    return defaultResult;
-  }
-}

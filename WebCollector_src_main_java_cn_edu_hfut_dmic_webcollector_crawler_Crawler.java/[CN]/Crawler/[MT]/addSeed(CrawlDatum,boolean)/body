@@ -1,0 +1,8 @@
+{
+  if (force) {
+    forcedSeeds.add(datum);
+  }
+ else {
+    seeds.add(datum);
+  }
+}

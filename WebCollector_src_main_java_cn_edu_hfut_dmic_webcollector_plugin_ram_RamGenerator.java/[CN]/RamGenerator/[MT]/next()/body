@@ -1,0 +1,25 @@
+{
+  if (topN >= 0) {
+    if (totalGenerate >= topN) {
+      return null;
+    }
+  }
+  while (true) {
+    if (iterator.hasNext()) {
+      CrawlDatum datum=iterator.next().getValue();
+      if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED) {
+        continue;
+      }
+ else       if (datum.getRetry() >= maxRetry) {
+        continue;
+      }
+ else {
+        totalGenerate++;
+        return datum;
+      }
+    }
+ else {
+      return null;
+    }
+  }
+}

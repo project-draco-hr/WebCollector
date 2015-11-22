@@ -1,7 +1,0 @@
-{
-  Object value=this.get(key);
-  if (value == null) {
-    return null;
-  }
-  return value.toString();
-}

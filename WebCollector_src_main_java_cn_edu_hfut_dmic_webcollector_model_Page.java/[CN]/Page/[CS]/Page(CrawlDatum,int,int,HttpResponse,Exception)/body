@@ -1,0 +1,7 @@
+{
+  this.crawlDatum=crawlDatum;
+  this.status=status;
+  this.retry=retry;
+  this.response=response;
+  this.exception=exception;
+}

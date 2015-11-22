@@ -1,8 +1,0 @@
-{
-  super(crawlPath,autoParse);
-  this.addSeed("http://news.yahoo.com/");
-  this.addRegex("http://news.yahoo.com/.*");
-  this.addRegex("-http://news.yahoo.com/.+/.*");
-  this.addRegex("-.*\\.(jpg|png|gif).*");
-  this.addRegex("-.*#.*");
-}

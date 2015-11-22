@@ -1,0 +1,9 @@
+{
+  File dir=new File(crawlPath);
+  if (!dir.exists()) {
+    dir.mkdirs();
+  }
+  EnvironmentConfig environmentConfig=new EnvironmentConfig();
+  environmentConfig.setAllowCreate(true);
+  env=new Environment(dir,environmentConfig);
+}

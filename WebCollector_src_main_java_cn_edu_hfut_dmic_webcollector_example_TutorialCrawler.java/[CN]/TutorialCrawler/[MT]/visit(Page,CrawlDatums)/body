@@ -1,0 +1,7 @@
+{
+  if (page.matchUrl("http://blog.csdn.net/.*/article/details/.*")) {
+    String title=page.select("div[class=article_title]").first().text();
+    String author=page.select("div[id=blog_userface]").first().text();
+    System.out.println("title:" + title + "\tauthor:"+ author);
+  }
+}

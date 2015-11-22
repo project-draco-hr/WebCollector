@@ -1,0 +1,9 @@
+{
+  String key=datum.getKey();
+  if (!force) {
+    if (ramDB.crawlDB.containsKey(key)) {
+      return;
+    }
+  }
+  ramDB.crawlDB.put(key,datum);
+}

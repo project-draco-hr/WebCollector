@@ -3,7 +3,7 @@
     return doc;
   }
   try {
-    this.doc=Jsoup.parse(getHtml(),url);
+    this.doc=Jsoup.parse(getHtml(),getUrl());
     return doc;
   }
  catch (  Exception ex) {

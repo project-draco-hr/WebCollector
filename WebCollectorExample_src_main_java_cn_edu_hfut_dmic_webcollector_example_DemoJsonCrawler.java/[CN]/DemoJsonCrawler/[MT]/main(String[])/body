@@ -1,6 +1,0 @@
-{
-  DemoJsonCrawler crawler=new DemoJsonCrawler("/home/hu/data/wb");
-  crawler.addSeed("http://www.brieftools.info/proxy/test/test1.json");
-  crawler.addSeed("http://www.brieftools.info/proxy/test/test2.json");
-  crawler.start(1);
-}

@@ -1,0 +1,8 @@
+{
+  for (  CrawlDatum datum : parseDatums) {
+    BerkeleyDBUtils.writeDatum(linkDatabase,datum);
+  }
+  if (count_link.incrementAndGet() % BUFFER_SIZE == 0) {
+    linkDatabase.sync();
+  }
+}

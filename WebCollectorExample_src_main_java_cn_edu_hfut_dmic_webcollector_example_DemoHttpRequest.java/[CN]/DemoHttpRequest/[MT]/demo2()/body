@@ -1,10 +1,9 @@
 {
-  RequestConfig requestConfig=new RequestConfig();
-  requestConfig.setMethod("GET");
-  requestConfig.setUserAgent("WebCollector");
-  requestConfig.setCookie("xxxxxxxxxxxxxx");
-  requestConfig.addHeader("xxx","xxxxxxxxx");
-  HttpRequest request=new HttpRequest("http://www.csdn.net",requestConfig);
+  HttpRequest request=new HttpRequest("http://www.csdn.net");
+  request.setMethod("GET");
+  request.setUserAgent("WebCollector");
+  request.setCookie("xxxxxxxxxxxxxx");
+  request.addHeader("xxx","xxxxxxxxx");
   HttpResponse response=request.getResponse();
   String html=response.getHtmlByCharsetDetect();
   System.out.println(html);

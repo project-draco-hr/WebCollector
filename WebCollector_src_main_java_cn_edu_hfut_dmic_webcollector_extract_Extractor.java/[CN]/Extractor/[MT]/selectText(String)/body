@@ -1,3 +1,0 @@
-{
-  return selectText(cssSelector,0);
-}

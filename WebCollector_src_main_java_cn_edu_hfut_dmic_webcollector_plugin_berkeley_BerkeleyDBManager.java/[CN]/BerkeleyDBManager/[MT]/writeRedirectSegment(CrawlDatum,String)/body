@@ -1,0 +1,6 @@
+{
+  BerkeleyDBUtils.put(redirectDatabase,datum.getKey(),realUrl);
+  if (count_redirect.incrementAndGet() % BUFFER_SIZE == 0) {
+    redirectDatabase.sync();
+  }
+}

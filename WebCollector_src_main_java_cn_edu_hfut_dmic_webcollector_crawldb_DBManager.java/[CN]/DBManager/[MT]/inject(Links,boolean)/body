@@ -1,0 +1,4 @@
+{
+  CrawlDatums datums=new CrawlDatums(links);
+  inject(datums,force);
+}

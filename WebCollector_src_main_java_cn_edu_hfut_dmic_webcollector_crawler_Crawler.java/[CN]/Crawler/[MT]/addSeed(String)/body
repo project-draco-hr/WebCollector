@@ -1,3 +1,3 @@
 {
-  seeds.add(seed);
+  addSeed(url,false);
 }

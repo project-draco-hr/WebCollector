@@ -1,14 +1,14 @@
 {
   try {
-    if (dbUpdater.isLocked()) {
-      dbUpdater.merge();
-      dbUpdater.unlock();
+    if (dbManager.isLocked()) {
+      dbManager.merge();
+      dbManager.unlock();
     }
   }
  catch (  Exception ex) {
     LOG.info("Exception",ex);
   }
-  dbUpdater.lock();
-  dbUpdater.getSegmentWriter().init();
+  dbManager.lock();
+  dbManager.initSegmentWriter();
   running=true;
 }

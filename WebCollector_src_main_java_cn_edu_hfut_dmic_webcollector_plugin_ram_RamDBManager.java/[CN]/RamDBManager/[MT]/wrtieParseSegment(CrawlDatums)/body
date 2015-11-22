@@ -1,0 +1,5 @@
+{
+  for (  CrawlDatum datum : parseDatums) {
+    ramDB.linkDB.put(datum.getKey(),datum);
+  }
+}

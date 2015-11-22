@@ -1,0 +1,17 @@
+{
+  con.setRequestMethod(method);
+  con.setInstanceFollowRedirects(followRedirects);
+  con.setDoInput(doinput);
+  con.setDoOutput(dooutput);
+  con.setConnectTimeout(timeoutForConnect);
+  con.setReadTimeout(timeoutForRead);
+  if (headerMap != null) {
+    for (    Map.Entry<String,List<String>> entry : headerMap.entrySet()) {
+      String key=entry.getKey();
+      List<String> valueList=entry.getValue();
+      for (      String value : valueList) {
+        con.addRequestProperty(key,value);
+      }
+    }
+  }
+}

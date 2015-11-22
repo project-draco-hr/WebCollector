@@ -1,0 +1,6 @@
+{
+  BerkeleyDBUtils.writeDatum(fetchDatabase,fetchDatum);
+  if (count_fetch.incrementAndGet() % BUFFER_SIZE == 0) {
+    fetchDatabase.sync();
+  }
+}

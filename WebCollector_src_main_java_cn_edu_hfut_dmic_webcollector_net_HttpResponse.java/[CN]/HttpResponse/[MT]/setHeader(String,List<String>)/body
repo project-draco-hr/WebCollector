@@ -1,0 +1,6 @@
+{
+  if (headers == null) {
+    headers=new HashMap<String,List<String>>();
+  }
+  headers.put(key,values);
+}
