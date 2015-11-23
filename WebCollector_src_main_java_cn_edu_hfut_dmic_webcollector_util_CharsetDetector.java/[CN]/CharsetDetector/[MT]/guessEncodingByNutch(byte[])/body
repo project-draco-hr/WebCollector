@@ -1,0 +1,38 @@
+{
+  int length=Math.min(content.length,CHUNK_SIZE);
+  String str="";
+  try {
+    str=new String(content,"ascii");
+  }
+ catch (  UnsupportedEncodingException e) {
+    return null;
+  }
+  Matcher metaMatcher=metaPattern.matcher(str);
+  String encoding=null;
+  if (metaMatcher.find()) {
+    Matcher charsetMatcher=charsetPattern.matcher(metaMatcher.group(1));
+    if (charsetMatcher.find()) {
+      encoding=new String(charsetMatcher.group(1));
+    }
+  }
+  if (encoding == null) {
+    metaMatcher=charsetPatternHTML5.matcher(str);
+    if (metaMatcher.find()) {
+      encoding=new String(metaMatcher.group(1));
+    }
+  }
+  if (encoding == null) {
+    if (length >= 3 && content[0] == (byte)0xEF && content[1] == (byte)0xBB && content[2] == (byte)0xBF) {
+      encoding="UTF-8";
+    }
+ else     if (length >= 2) {
+      if (content[0] == (byte)0xFF && content[1] == (byte)0xFE) {
+        encoding="UTF-16LE";
+      }
+ else       if (content[0] == (byte)0xFE && content[1] == (byte)0xFF) {
+        encoding="UTF-16BE";
+      }
+    }
+  }
+  return encoding;
+}
