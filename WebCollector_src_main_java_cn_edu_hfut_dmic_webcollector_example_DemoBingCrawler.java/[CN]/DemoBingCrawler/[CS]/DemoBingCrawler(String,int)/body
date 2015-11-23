@@ -1,7 +1,7 @@
 {
   for (int pageNum=1; pageNum <= maxPageNum; pageNum++) {
     String url=createBingUrl(keyword,pageNum);
-    CrawlDatum datum=new CrawlDatum(url).putMetaData("keyword",keyword).putMetaData("pageNum",pageNum + "").putMetaData("pageType","searchEngine");
+    CrawlDatum datum=new CrawlDatum(url).putMetaData("keyword",keyword).putMetaData("pageNum",pageNum + "").putMetaData("pageType","searchEngine").putMetaData("depth","1");
     addSeed(datum);
   }
 }
