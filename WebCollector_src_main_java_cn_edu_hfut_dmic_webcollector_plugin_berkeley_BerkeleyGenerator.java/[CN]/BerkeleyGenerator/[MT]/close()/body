@@ -1,6 +1,12 @@
 {
-  cursor.close();
+  if (cursor != null) {
+    cursor.close();
+  }
   cursor=null;
-  crawldbDatabase.close();
-  env.close();
+  if (crawldbDatabase != null) {
+    crawldbDatabase.close();
+  }
+  if (env != null) {
+    env.close();
+  }
 }

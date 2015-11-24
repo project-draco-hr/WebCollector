@@ -24,9 +24,8 @@
     if (status == STOPED) {
       break;
     }
-    LOG.info("starting depth " + (i + 1));
+    LOG.info("start depth " + (i + 1));
     long startTime=System.currentTimeMillis();
-    generator.open();
     if (maxRetry >= 0) {
       generator.setMaxRetry(maxRetry);
     }

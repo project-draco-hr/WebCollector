@@ -1,5 +1,0 @@
-{
-  dbManager.closeSegmentWriter();
-  dbManager.merge();
-  dbManager.unlock();
-}
