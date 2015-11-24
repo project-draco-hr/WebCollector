@@ -20,10 +20,4 @@
       }
     }
   }
-  try {
-    generator.close();
-  }
- catch (  Exception ex) {
-    LOG.info("Exception when closing generator",ex);
-  }
 }
