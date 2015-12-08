@@ -1,0 +1,19 @@
+{
+  super(lazyConfig.getCrawlPath(),true);
+  mongoHelper=new MongoHelper(lazyConfig.getMongoIP(),lazyConfig.getMongoPort(),lazyConfig.getPageDB(),lazyConfig.getPageCollection());
+  for (  String seed : lazyConfig.seeds) {
+    this.addSeed(new CrawlDatum(seed).putMetaData("refer","seed"));
+  }
+  for (  String forcedSeed : lazyConfig.forcedSeeds) {
+    this.addSeed(new CrawlDatum(forcedSeed).putMetaData("refer","forced_seed"),true);
+  }
+  this.setRegexRule(lazyConfig.getRegexRule());
+  this.setResumable(lazyConfig.isResumable());
+  this.setTopN(lazyConfig.getTopN());
+  this.headerMap=lazyConfig.getHeaderMap();
+  this.proxys=lazyConfig.getProxys();
+  this.setRetry(lazyConfig.getRetry());
+  this.setVisitInterval(lazyConfig.getVisitInterval());
+  this.setRetryInterval(lazyConfig.getRetryInterval());
+  this.setThreads(lazyConfig.getThreads());
+}

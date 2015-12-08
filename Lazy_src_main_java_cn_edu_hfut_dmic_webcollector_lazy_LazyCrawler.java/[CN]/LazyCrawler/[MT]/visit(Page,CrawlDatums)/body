@@ -1,0 +1,8 @@
+{
+  String conteType=page.getResponse().getContentType();
+  if (conteType != null && conteType.contains("text/html")) {
+    String id=page.getCrawlDatum().getKey();
+    String refer=page.getMetaData("refer");
+    mongoHelper.addPage(id,page.getUrl(),refer,page.getHtml());
+  }
+}

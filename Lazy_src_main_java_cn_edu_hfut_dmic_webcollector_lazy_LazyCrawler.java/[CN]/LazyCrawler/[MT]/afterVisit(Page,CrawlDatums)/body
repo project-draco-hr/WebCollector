@@ -1,0 +1,4 @@
+{
+  super.afterVisit(page,next);
+  next.putMetaData("refer",page.getUrl());
+}

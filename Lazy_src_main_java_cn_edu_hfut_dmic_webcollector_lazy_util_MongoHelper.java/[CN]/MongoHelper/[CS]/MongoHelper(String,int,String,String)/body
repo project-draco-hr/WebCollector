@@ -1,0 +1,5 @@
+{
+  client=new MongoClient(ip,port);
+  db=client.getDatabase(dbName);
+  collection=db.getCollection(collectionName);
+}

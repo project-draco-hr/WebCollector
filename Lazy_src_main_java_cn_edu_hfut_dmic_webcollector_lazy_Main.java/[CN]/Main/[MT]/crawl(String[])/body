@@ -1,0 +1,6 @@
+{
+  String confFileName=args[0];
+  LazyConfig lazyConfig=new LazyConfig(confFileName);
+  LazyCrawler crawler=new LazyCrawler(lazyConfig);
+  crawler.start(lazyConfig.getDepth());
+}

@@ -1,0 +1,11 @@
+{
+  HttpRequest request=new HttpRequest(crawlDatum);
+  for (  Entry<String,String> entry : headerMap.entrySet()) {
+    request.addHeader(entry.getKey(),entry.getValue());
+  }
+  if (proxys != null) {
+    Proxy proxy=proxys.nextRandom();
+    request.setProxy(proxy);
+  }
+  return request.getResponse();
+}

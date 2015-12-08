@@ -1,0 +1,7 @@
+{
+  args=new String[]{"demo_task.json"};
+  if (args.length == 0) {
+    usage();
+  }
+  crawl(args);
+}

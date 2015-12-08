@@ -1,0 +1,14 @@
+{
+  try {
+    collection.insertOne(new Document("_id",id).append("url",url).append("refer",refer).append("html",html));
+    LOG.info("save PAGE:" + id);
+  }
+ catch (  MongoWriteException ex) {
+    if (ex.getMessage().startsWith("E11000")) {
+      LOG.info("ignore duplicate key:" + id);
+    }
+ else {
+      LOG.info("Exception when inserting",ex);
+    }
+  }
+}

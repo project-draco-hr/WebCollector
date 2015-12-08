@@ -1,0 +1,80 @@
+{
+  String jsonStr=FileUtils.readFile(confFileName,"utf-8");
+  JSONObject confJson=new JSONObject(jsonStr);
+  taskName=confJson.getString("task_name");
+  LOG.info("set task_name=" + taskName);
+  resumable=confJson.getBoolean("resumable");
+  LOG.info("set resumable=" + resumable);
+  mongoIP=confJson.getString("mongo_ip");
+  mongoPort=confJson.getInt("mongo_port");
+  LOG.info("set mongo address=" + mongoIP + ":"+ mongoPort);
+  pageDB=confJson.getString("page_db");
+  pageCollection=confJson.getString("page_collection");
+  LOG.info("webpage will be saved to db:" + pageDB + " collection:"+ pageCollection);
+  if (confJson.has("seeds")) {
+    JSONArray seedsJA=confJson.getJSONArray("seeds");
+    for (int i=0; i < seedsJA.length(); i++) {
+      String seed=seedsJA.getString(i);
+      seeds.add(seed);
+      LOG.info("add seed:" + seed);
+    }
+  }
+  if (confJson.has("forced_seeds")) {
+    JSONArray forcedSeedsJA=confJson.getJSONArray("forced_seeds");
+    for (int i=0; i < forcedSeedsJA.length(); i++) {
+      String forcedSeed=forcedSeedsJA.getString(i);
+      forcedSeeds.add(forcedSeed);
+      LOG.info("add forced_seed:" + forcedSeed);
+    }
+  }
+  if (confJson.has("regex_rule")) {
+    JSONArray regexRuleJA=confJson.getJSONArray("regex_rule");
+    for (int i=0; i < regexRuleJA.length(); i++) {
+      String rule=regexRuleJA.getString(i);
+      regexRule.addRule(rule);
+      LOG.info("add regex_rule:" + rule);
+    }
+  }
+  if (confJson.has("topN")) {
+    topN=confJson.getInt("topN");
+    LOG.info("set topN=" + topN);
+  }
+  if (confJson.has("proxys")) {
+    JSONArray proxysJA=confJson.getJSONArray("proxys");
+    if (proxysJA.length() == 0) {
+      proxys=null;
+      LOG.info("set proxys=no proxy");
+    }
+ else     if (proxysJA.length() == 1 && proxysJA.getString(0).equals("direct")) {
+      proxys=null;
+      LOG.info("set proxys=no proxy");
+    }
+ else {
+      for (int i=0; i < proxysJA.length(); i++) {
+        String proxy=proxysJA.getString(i);
+        proxys.add(proxy);
+        LOG.info("add proxy:" + proxy);
+      }
+    }
+  }
+  if (confJson.has("depth")) {
+    depth=confJson.getInt("depth");
+    LOG.info("set depth=" + depth);
+  }
+  if (confJson.has("visit_interval")) {
+    visitInterval=confJson.getLong("visit_interval");
+    LOG.info("set visit_interval=" + visitInterval);
+  }
+  if (confJson.has("retry_interval")) {
+    retryInterval=confJson.getLong("retry_interval");
+    LOG.info("set retry_interval=" + retryInterval);
+  }
+  if (confJson.has("threads")) {
+    threads=confJson.getInt("threads");
+    LOG.info("set threads=" + threads);
+  }
+  if (confJson.has("retry")) {
+    retry=confJson.getInt("retry");
+    LOG.info("set retry=" + retry);
+  }
+}
