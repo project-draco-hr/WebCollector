@@ -1,0 +1,12 @@
+{
+switch (line.charAt(0)) {
+case '+':
+    sign=true;
+  break;
+case '-':
+sign=false;
+break;
+default :
+}
+url=line.substring(1);
+}

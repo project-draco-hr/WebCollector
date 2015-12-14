@@ -1,0 +1,3 @@
+{
+  return signatureImpl.calculate(content,null);
+}

@@ -1,0 +1,12 @@
+{
+  if (plugins == null) {
+    return;
+  }
+  for (  PluginDescriptor plugin : plugins) {
+    for (    ExtensionPoint point : plugin.getExtenstionPoints()) {
+      String xpId=point.getId();
+      LOG.debug("Adding extension point " + xpId);
+      fExtensionPoints.put(xpId,point);
+    }
+  }
+}

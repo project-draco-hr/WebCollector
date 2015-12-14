@@ -1,0 +1,5 @@
+XMLReader reader
+int subsetDenom
+boolean includeAdult
+int skew
+Pattern topicPattern

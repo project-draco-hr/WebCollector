@@ -1,0 +1,5 @@
+{
+  super();
+  fetchStatus=STATUS_FETCH_RETRY;
+  retryMax=configuration.getInt("db.fetch.retry.max",retryMax);
+}

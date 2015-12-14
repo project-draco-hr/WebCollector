@@ -1,0 +1,3 @@
+{
+  return getHostSegments(new URL(url));
+}

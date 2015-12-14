@@ -1,0 +1,17 @@
+{
+  String usage="Usage: ArcSegmentCreator <arcFiles> <segmentsOutDir>";
+  if (args.length < 2) {
+    System.err.println(usage);
+    return -1;
+  }
+  Path arcFiles=new Path(args[0]);
+  Path segmentsOutDir=new Path(args[1]);
+  try {
+    createSegments(arcFiles,segmentsOutDir);
+    return 0;
+  }
+ catch (  Exception e) {
+    LOG.error("ArcSegmentCreator: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+}

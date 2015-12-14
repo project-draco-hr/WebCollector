@@ -1,0 +1,3 @@
+CrawlDatum datum
+OutputCollector<Text,CrawlDatum> output
+Reporter reporter

@@ -1,0 +1,9 @@
+{
+  if (fIdFirst == null) {
+    fIdFirst=fIdLast=new ClassIdEntry(id,clazz);
+  }
+ else {
+    fIdLast.fNextIdEntry=fIdLast=new ClassIdEntry(id,clazz);
+  }
+  return id;
+}

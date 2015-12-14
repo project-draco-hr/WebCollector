@@ -1,0 +1,8 @@
+{
+  if (delay < 0) {
+    delay=-delay;
+    random=true;
+    r=new Random(1234567890L);
+  }
+  this.delay=delay;
+}

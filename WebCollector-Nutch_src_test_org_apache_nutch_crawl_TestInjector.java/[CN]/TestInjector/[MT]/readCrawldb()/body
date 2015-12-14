@@ -1,0 +1,14 @@
+{
+  Path dbfile=new Path(crawldbPath,CrawlDb.CURRENT_NAME + "/part-00000/data");
+  System.out.println("reading:" + dbfile);
+  @SuppressWarnings("resource") SequenceFile.Reader reader=new SequenceFile.Reader(fs,dbfile,conf);
+  ArrayList<String> read=new ArrayList<String>();
+  READ:   do {
+    Text key=new Text();
+    CrawlDatum value=new CrawlDatum();
+    if (!reader.next(key,value))     break READ;
+    read.add(key.toString());
+  }
+ while (true);
+  return read;
+}

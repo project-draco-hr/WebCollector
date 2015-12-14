@@ -1,0 +1,3 @@
+{
+  sort=job.getBoolean("db.reader.stats.sort",false);
+}

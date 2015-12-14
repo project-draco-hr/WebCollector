@@ -1,0 +1,18 @@
+{
+  try {
+    if (!inputDocs.isEmpty()) {
+      LOG.info("Indexing " + Integer.toString(inputDocs.size()) + " documents");
+      if (numDeletes > 0) {
+        LOG.info("Deleting " + Integer.toString(numDeletes) + " documents");
+      }
+      UpdateRequest req=new UpdateRequest();
+      req.add(inputDocs);
+      req.setParams(params);
+      req.process(solr);
+      inputDocs.clear();
+    }
+  }
+ catch (  final SolrServerException e) {
+    throw makeIOException(e);
+  }
+}

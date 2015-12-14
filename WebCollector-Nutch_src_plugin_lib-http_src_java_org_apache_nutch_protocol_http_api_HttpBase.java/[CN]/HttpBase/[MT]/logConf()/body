@@ -1,0 +1,11 @@
+{
+  if (logger.isInfoEnabled()) {
+    logger.info("http.proxy.host = " + proxyHost);
+    logger.info("http.proxy.port = " + proxyPort);
+    logger.info("http.timeout = " + timeout);
+    logger.info("http.content.limit = " + maxContent);
+    logger.info("http.agent = " + userAgent);
+    logger.info("http.accept.language = " + acceptLanguage);
+    logger.info("http.accept = " + accept);
+  }
+}

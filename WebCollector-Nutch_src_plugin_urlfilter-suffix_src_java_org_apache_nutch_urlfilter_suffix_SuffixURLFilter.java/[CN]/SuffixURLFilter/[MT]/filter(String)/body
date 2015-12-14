@@ -1,0 +1,23 @@
+{
+  if (url == null)   return null;
+  String _url;
+  if (ignoreCase)   _url=url.toLowerCase();
+ else   _url=url;
+  if (filterFromPath) {
+    try {
+      URL pUrl=new URL(_url);
+      _url=pUrl.getPath();
+    }
+ catch (    MalformedURLException e) {
+    }
+  }
+  String a=suffixes.shortestMatch(_url);
+  if (a == null) {
+    if (modeAccept)     return url;
+ else     return null;
+  }
+ else {
+    if (modeAccept)     return null;
+ else     return url;
+  }
+}

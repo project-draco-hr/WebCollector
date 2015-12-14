@@ -1,0 +1,9 @@
+{
+  TrieNode node=root;
+  for (int i=0; i < input.length(); i++) {
+    node=node.getChild(input.charAt(i));
+    if (node == null)     return null;
+    if (node.isTerminal())     return input.substring(0,i + 1);
+  }
+  return null;
+}

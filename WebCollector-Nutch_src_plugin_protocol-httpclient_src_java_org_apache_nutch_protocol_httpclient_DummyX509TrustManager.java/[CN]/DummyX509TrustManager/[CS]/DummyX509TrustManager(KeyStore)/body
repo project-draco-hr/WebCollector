@@ -1,0 +1,11 @@
+{
+  super();
+  String algo=TrustManagerFactory.getDefaultAlgorithm();
+  TrustManagerFactory factory=TrustManagerFactory.getInstance(algo);
+  factory.init(keystore);
+  TrustManager[] trustmanagers=factory.getTrustManagers();
+  if (trustmanagers.length == 0) {
+    throw new NoSuchAlgorithmException(algo + " trust manager not supported");
+  }
+  this.standardTrustManager=(X509TrustManager)trustmanagers[0];
+}

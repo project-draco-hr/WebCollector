@@ -1,0 +1,4 @@
+{
+  fromUrl=Text.readString(in);
+  anchor=Text.readString(in);
+}

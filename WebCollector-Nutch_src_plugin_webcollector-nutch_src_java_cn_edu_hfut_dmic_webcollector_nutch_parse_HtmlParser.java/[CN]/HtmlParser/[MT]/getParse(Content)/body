@@ -1,0 +1,36 @@
+{
+  URL base;
+  String url=content.getUrl();
+  try {
+    base=new URL(content.getBaseUrl());
+  }
+ catch (  MalformedURLException e) {
+    return new ParseStatus(e).getEmptyParseResult(url,getConf());
+  }
+  try {
+    byte[] contentBytes=content.getContent();
+    String encoding=CharsetDetector.guessEncoding(contentBytes);
+    String html=new String(contentBytes,encoding);
+    Document doc=Jsoup.parse(html,url);
+    ArrayList<Outlink> outlinkList=new ArrayList<Outlink>();
+    Elements linkEles=doc.select("a[href]");
+    for (    Element linkEle : linkEles) {
+      String href=linkEle.attr("abs:href");
+      String anchor=linkEle.text();
+      outlinkList.add(new Outlink(href,anchor));
+    }
+    Metadata metadata=new Metadata();
+    String title=doc.title();
+    String text=doc.text();
+    visit(url,html,doc,outlinkList);
+    Outlink[] outlinks=outlinkList.toArray(new Outlink[outlinkList.size()]);
+    ParseStatus status=new ParseStatus(ParseStatus.SUCCESS);
+    ParseData parseData=new ParseData(status,title,outlinks,content.getMetadata(),metadata);
+    ParseResult parseResult=ParseResult.createParseResult(url,new ParseImpl(text,parseData));
+    return parseResult;
+  }
+ catch (  Exception e) {
+    LOG.error("Error: ",e);
+    return new ParseStatus(e).getEmptyParseResult(url,getConf());
+  }
+}

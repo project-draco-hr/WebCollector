@@ -1,0 +1,5 @@
+{
+  Path dir=FileOutputFormat.getOutputPath(job);
+  DataOutputStream fileOut=fs.create(new Path(dir,name),progress);
+  return new LineRecordWriter(fileOut);
+}

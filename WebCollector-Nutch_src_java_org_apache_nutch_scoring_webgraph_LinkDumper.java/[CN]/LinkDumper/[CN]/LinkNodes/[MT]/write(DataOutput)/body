@@ -1,0 +1,9 @@
+{
+  if (links != null && links.length > 0) {
+    int numLinks=links.length;
+    out.writeInt(numLinks);
+    for (int i=0; i < numLinks; i++) {
+      links[i].write(out);
+    }
+  }
+}

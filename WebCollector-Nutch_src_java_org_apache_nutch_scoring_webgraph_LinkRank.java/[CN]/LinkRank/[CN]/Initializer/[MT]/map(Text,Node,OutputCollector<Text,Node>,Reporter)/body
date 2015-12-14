@@ -1,0 +1,6 @@
+{
+  String url=key.toString();
+  Node outNode=WritableUtils.clone(node,conf);
+  outNode.setInlinkScore(initialScore);
+  output.collect(new Text(url),outNode);
+}

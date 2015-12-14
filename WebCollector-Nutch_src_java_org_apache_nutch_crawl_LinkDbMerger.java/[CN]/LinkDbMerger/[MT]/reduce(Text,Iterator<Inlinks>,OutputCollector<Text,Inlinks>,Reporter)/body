@@ -1,0 +1,14 @@
+{
+  Inlinks result=new Inlinks();
+  while (values.hasNext()) {
+    Inlinks inlinks=values.next();
+    int end=Math.min(maxInlinks - result.size(),inlinks.size());
+    Iterator<Inlink> it=inlinks.iterator();
+    int i=0;
+    while (it.hasNext() && i++ < end) {
+      result.add(it.next());
+    }
+  }
+  if (result.size() == 0)   return;
+  output.collect(key,result);
+}

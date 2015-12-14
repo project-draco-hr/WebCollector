@@ -1,0 +1,52 @@
+{
+  JobConf job=LinkDb.createJob(getConf(),linkDb,normalize,filter);
+  Path lock=new Path(linkDb,LOCK_NAME);
+  FileSystem fs=FileSystem.get(getConf());
+  LockUtil.createLockFile(fs,lock,force);
+  Path currentLinkDb=new Path(linkDb,CURRENT_NAME);
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  if (LOG.isInfoEnabled()) {
+    LOG.info("LinkDb: starting at " + sdf.format(start));
+    LOG.info("LinkDb: linkdb: " + linkDb);
+    LOG.info("LinkDb: URL normalize: " + normalize);
+    LOG.info("LinkDb: URL filter: " + filter);
+    if (job.getBoolean(IGNORE_INTERNAL_LINKS,true)) {
+      LOG.info("LinkDb: internal links will be ignored.");
+    }
+  }
+  for (int i=0; i < segments.length; i++) {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("LinkDb: adding segment: " + segments[i]);
+    }
+    FileInputFormat.addInputPath(job,new Path(segments[i],ParseData.DIR_NAME));
+  }
+  try {
+    JobClient.runJob(job);
+  }
+ catch (  IOException e) {
+    LockUtil.removeLockFile(fs,lock);
+    throw e;
+  }
+  if (fs.exists(currentLinkDb)) {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("LinkDb: merging with existing linkdb: " + linkDb);
+    }
+    Path newLinkDb=FileOutputFormat.getOutputPath(job);
+    job=LinkDbMerger.createMergeJob(getConf(),linkDb,normalize,filter);
+    FileInputFormat.addInputPath(job,currentLinkDb);
+    FileInputFormat.addInputPath(job,newLinkDb);
+    try {
+      JobClient.runJob(job);
+    }
+ catch (    IOException e) {
+      LockUtil.removeLockFile(fs,lock);
+      fs.delete(newLinkDb,true);
+      throw e;
+    }
+    fs.delete(newLinkDb,true);
+  }
+  LinkDb.install(job,linkDb);
+  long end=System.currentTimeMillis();
+  LOG.info("LinkDb: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+}

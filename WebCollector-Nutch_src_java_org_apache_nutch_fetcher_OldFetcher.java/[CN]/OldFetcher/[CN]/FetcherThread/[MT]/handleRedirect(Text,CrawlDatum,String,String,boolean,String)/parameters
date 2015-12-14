@@ -1,0 +1,6 @@
+Text url
+CrawlDatum datum
+String urlString
+String newUrl
+boolean temp
+String redirType

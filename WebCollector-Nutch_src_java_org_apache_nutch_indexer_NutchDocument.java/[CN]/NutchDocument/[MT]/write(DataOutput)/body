@@ -1,0 +1,11 @@
+{
+  out.writeByte(VERSION);
+  WritableUtils.writeVInt(out,fields.size());
+  for (  Map.Entry<String,NutchField> entry : fields.entrySet()) {
+    Text.writeString(out,entry.getKey());
+    NutchField field=entry.getValue();
+    field.write(out);
+  }
+  out.writeFloat(weight);
+  documentMeta.write(out);
+}

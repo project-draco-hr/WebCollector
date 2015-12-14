@@ -1,0 +1,14 @@
+{
+  if (map != null) {
+    try {
+      DataOutputBuffer dob=new DataOutputBuffer();
+      map.write(dob);
+      DataInputBuffer dib=new DataInputBuffer();
+      dib.reset(dob.getData(),dob.getLength());
+      readFields(dib);
+    }
+ catch (    IOException e) {
+      throw new IllegalArgumentException("this map cannot be copied: " + StringUtils.stringifyException(e));
+    }
+  }
+}

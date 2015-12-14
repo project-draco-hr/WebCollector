@@ -1,0 +1,89 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  if (LOG.isInfoEnabled()) {
+    LOG.info("Loops: starting at " + sdf.format(start));
+    LOG.info("Loops: webgraphdb: " + webGraphDb);
+  }
+  Configuration conf=getConf();
+  FileSystem fs=FileSystem.get(conf);
+  Path outlinkDb=new Path(webGraphDb,WebGraph.OUTLINK_DIR);
+  Path nodeDb=new Path(webGraphDb,WebGraph.NODE_DIR);
+  Path routes=new Path(webGraphDb,ROUTES_DIR);
+  Path tempRoute=new Path(webGraphDb,ROUTES_DIR + "-" + Integer.toString(new Random().nextInt(Integer.MAX_VALUE)));
+  JobConf init=new NutchJob(conf);
+  init.setJobName("Initializer: " + webGraphDb);
+  FileInputFormat.addInputPath(init,outlinkDb);
+  FileInputFormat.addInputPath(init,nodeDb);
+  init.setInputFormat(SequenceFileInputFormat.class);
+  init.setMapperClass(Initializer.class);
+  init.setReducerClass(Initializer.class);
+  init.setMapOutputKeyClass(Text.class);
+  init.setMapOutputValueClass(ObjectWritable.class);
+  init.setOutputKeyClass(Text.class);
+  init.setOutputValueClass(Route.class);
+  FileOutputFormat.setOutputPath(init,tempRoute);
+  init.setOutputFormat(SequenceFileOutputFormat.class);
+  try {
+    LOG.info("Loops: starting initializer");
+    JobClient.runJob(init);
+    LOG.info("Loops: installing initializer " + routes);
+    FSUtils.replace(fs,routes,tempRoute,true);
+    LOG.info("Loops: finished initializer");
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  int depth=conf.getInt("link.loops.depth",2);
+  for (int i=0; i < depth; i++) {
+    JobConf looper=new NutchJob(conf);
+    looper.setJobName("Looper: " + (i + 1) + " of "+ depth);
+    FileInputFormat.addInputPath(looper,outlinkDb);
+    FileInputFormat.addInputPath(looper,routes);
+    looper.setInputFormat(SequenceFileInputFormat.class);
+    looper.setMapperClass(Looper.class);
+    looper.setReducerClass(Looper.class);
+    looper.setMapOutputKeyClass(Text.class);
+    looper.setMapOutputValueClass(ObjectWritable.class);
+    looper.setOutputKeyClass(Text.class);
+    looper.setOutputValueClass(Route.class);
+    FileOutputFormat.setOutputPath(looper,tempRoute);
+    looper.setOutputFormat(SequenceFileOutputFormat.class);
+    looper.setBoolean("last",i == (depth - 1));
+    try {
+      LOG.info("Loops: starting looper");
+      JobClient.runJob(looper);
+      LOG.info("Loops: installing looper " + routes);
+      FSUtils.replace(fs,routes,tempRoute,true);
+      LOG.info("Loops: finished looper");
+    }
+ catch (    IOException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      throw e;
+    }
+  }
+  JobConf finalizer=new NutchJob(conf);
+  finalizer.setJobName("Finalizer: " + webGraphDb);
+  FileInputFormat.addInputPath(finalizer,routes);
+  finalizer.setInputFormat(SequenceFileInputFormat.class);
+  finalizer.setMapperClass(Finalizer.class);
+  finalizer.setReducerClass(Finalizer.class);
+  finalizer.setMapOutputKeyClass(Text.class);
+  finalizer.setMapOutputValueClass(Route.class);
+  finalizer.setOutputKeyClass(Text.class);
+  finalizer.setOutputValueClass(LoopSet.class);
+  FileOutputFormat.setOutputPath(finalizer,new Path(webGraphDb,LOOPS_DIR));
+  finalizer.setOutputFormat(MapFileOutputFormat.class);
+  try {
+    LOG.info("Loops: starting finalizer");
+    JobClient.runJob(finalizer);
+    LOG.info("Loops: finished finalizer");
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  long end=System.currentTimeMillis();
+  LOG.info("Loops: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+}

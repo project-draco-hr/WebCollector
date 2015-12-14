@@ -1,0 +1,14 @@
+{
+  LOG.info("NUTCH-1564 test SYNC_DELTA calculation of AdaptiveFetchSchedule");
+  Configuration conf=CrawlDBTestUtil.createConfiguration();
+  conf.setLong("db.fetch.interval.default",172800);
+  conf.setLong("db.fetch.schedule.adaptive.min_interval",86400);
+  conf.setLong("db.fetch.schedule.adaptive.max_interval",604800);
+  conf.setLong("db.fetch.interval.max",604800);
+  conf.set("db.fetch.schedule.class","org.apache.nutch.crawl.AdaptiveFetchSchedule");
+  ContinuousCrawlTestUtil crawlUtil=new CrawlTestFetchScheduleNotModifiedFetchTime(conf);
+  crawlUtil.setInterval(FetchSchedule.SECONDS_PER_DAY / 3);
+  if (!crawlUtil.run(100)) {
+    fail("failed: sync_delta calculation with AdaptiveFetchSchedule");
+  }
+}

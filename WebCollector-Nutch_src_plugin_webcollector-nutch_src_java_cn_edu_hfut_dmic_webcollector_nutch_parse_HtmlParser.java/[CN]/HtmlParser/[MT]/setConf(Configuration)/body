@@ -1,0 +1,4 @@
+{
+  this.conf=conf;
+  this.htmlParseFilters=new HtmlParseFilters(getConf());
+}

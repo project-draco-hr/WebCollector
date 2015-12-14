@@ -1,0 +1,4 @@
+{
+  if (firstY)   firstY=false;
+ else   strings.add("\n");
+}

@@ -1,0 +1,4 @@
+{
+  UUID uuid=UUID.randomUUID();
+  conf.set(UUID_KEY,uuid.toString());
+}

@@ -1,0 +1,16 @@
+{
+  int n=in.read(cbuf,off,len);
+  if (n != -1) {
+    for (int i=0; i < n; i++) {
+      char c=cbuf[off + i];
+      char value=c;
+      if (!(XMLChar.isValid(c)))       value='X';
+ else       if (lastBad && c == '<') {
+        if (i != n - 1 && cbuf[off + i + 1] != '/')         value='X';
+      }
+      lastBad=(c == 65533);
+      cbuf[off + i]=value;
+    }
+  }
+  return n;
+}

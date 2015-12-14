@@ -1,0 +1,5 @@
+{
+  if (LOG.isInfoEnabled()) {
+    LOG.info("Conversion of " + url + " failed with: "+ StringUtils.stringifyException(t));
+  }
+}

@@ -1,0 +1,5 @@
+String agentName
+String agentVersion
+String agentDesc
+String agentURL
+String agentEmail

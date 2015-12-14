@@ -1,0 +1,13 @@
+{
+  NodeList list=pRootElement.getElementsByTagName("extension-point");
+  if (list != null) {
+    for (int i=0; i < list.getLength(); i++) {
+      Element oneExtensionPoint=(Element)list.item(i);
+      String id=oneExtensionPoint.getAttribute(ATTR_ID);
+      String name=oneExtensionPoint.getAttribute(ATTR_NAME);
+      String schema=oneExtensionPoint.getAttribute("schema");
+      ExtensionPoint extensionPoint=new ExtensionPoint(id,name,schema);
+      pPluginDescriptor.addExtensionPoint(extensionPoint);
+    }
+  }
+}

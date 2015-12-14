@@ -1,0 +1,5 @@
+{
+  if (!(o instanceof Inlink))   return false;
+  Inlink other=(Inlink)o;
+  return this.fromUrl.equals(other.fromUrl) && this.anchor.equals(other.anchor);
+}

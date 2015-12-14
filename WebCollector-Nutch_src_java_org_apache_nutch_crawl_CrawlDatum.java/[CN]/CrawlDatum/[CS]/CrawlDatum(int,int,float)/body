@@ -1,0 +1,4 @@
+{
+  this(status,fetchInterval);
+  this.score=score;
+}

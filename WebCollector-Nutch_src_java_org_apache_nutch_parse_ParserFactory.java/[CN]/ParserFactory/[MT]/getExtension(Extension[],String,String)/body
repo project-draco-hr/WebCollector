@@ -1,0 +1,8 @@
+{
+  for (int i=0; i < list.length; i++) {
+    if (match(list[i],id,type)) {
+      return list[i];
+    }
+  }
+  return null;
+}

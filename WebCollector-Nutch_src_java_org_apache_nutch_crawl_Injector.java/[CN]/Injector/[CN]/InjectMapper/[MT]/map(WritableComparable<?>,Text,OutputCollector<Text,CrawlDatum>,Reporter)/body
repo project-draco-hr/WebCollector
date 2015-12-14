@@ -1,0 +1,88 @@
+{
+  String url=value.toString().trim();
+  if (url != null && (url.length() == 0 || url.startsWith("#"))) {
+    return;
+  }
+  float customScore=-1f;
+  int customInterval=interval;
+  int fixedInterval=-1;
+  Map<String,String> metadata=new TreeMap<String,String>();
+  if (url.indexOf("\t") != -1) {
+    String[] splits=url.split("\t");
+    url=splits[0];
+    for (int s=1; s < splits.length; s++) {
+      int indexEquals=splits[s].indexOf("=");
+      if (indexEquals == -1) {
+        continue;
+      }
+      String metaname=splits[s].substring(0,indexEquals);
+      String metavalue=splits[s].substring(indexEquals + 1);
+      if (metaname.equals(nutchScoreMDName)) {
+        try {
+          customScore=Float.parseFloat(metavalue);
+        }
+ catch (        NumberFormatException nfe) {
+        }
+      }
+ else       if (metaname.equals(nutchFetchIntervalMDName)) {
+        try {
+          customInterval=Integer.parseInt(metavalue);
+        }
+ catch (        NumberFormatException nfe) {
+        }
+      }
+ else       if (metaname.equals(nutchFixedFetchIntervalMDName)) {
+        try {
+          fixedInterval=Integer.parseInt(metavalue);
+        }
+ catch (        NumberFormatException nfe) {
+        }
+      }
+ else       metadata.put(metaname,metavalue);
+    }
+  }
+  try {
+    url=urlNormalizers.normalize(url,URLNormalizers.SCOPE_INJECT);
+    url=filters.filter(url);
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Skipping " + url + ":"+ e);
+    }
+    url=null;
+  }
+  if (url == null) {
+    reporter.getCounter("injector","urls_filtered").increment(1);
+  }
+ else {
+    value.set(url);
+    CrawlDatum datum=new CrawlDatum();
+    datum.setStatus(CrawlDatum.STATUS_INJECTED);
+    if (fixedInterval > -1) {
+      datum.getMetaData().put(Nutch.WRITABLE_FIXED_INTERVAL_KEY,new FloatWritable(fixedInterval));
+      datum.setFetchInterval(fixedInterval);
+    }
+ else {
+      datum.setFetchInterval(customInterval);
+    }
+    datum.setFetchTime(curTime);
+    Iterator<String> keysIter=metadata.keySet().iterator();
+    while (keysIter.hasNext()) {
+      String keymd=keysIter.next();
+      String valuemd=metadata.get(keymd);
+      datum.getMetaData().put(new Text(keymd),new Text(valuemd));
+    }
+    if (customScore != -1)     datum.setScore(customScore);
+ else     datum.setScore(scoreInjected);
+    try {
+      scfilters.injectedScore(value,datum);
+    }
+ catch (    ScoringFilterException e) {
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("Cannot filter injected score for url " + url + ", using default ("+ e.getMessage()+ ")");
+      }
+    }
+    reporter.getCounter("injector","urls_injected").increment(1);
+    output.collect(value,datum);
+  }
+}

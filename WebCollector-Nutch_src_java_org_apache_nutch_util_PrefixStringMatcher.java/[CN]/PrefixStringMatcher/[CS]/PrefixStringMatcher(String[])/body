@@ -1,0 +1,4 @@
+{
+  super();
+  for (int i=0; i < prefixes.length; i++)   addPatternForward(prefixes[i]);
+}

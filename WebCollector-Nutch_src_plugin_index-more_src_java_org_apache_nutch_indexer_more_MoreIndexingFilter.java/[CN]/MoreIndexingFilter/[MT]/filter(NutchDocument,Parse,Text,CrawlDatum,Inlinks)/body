@@ -1,0 +1,8 @@
+{
+  String url_s=url.toString();
+  addTime(doc,parse.getData(),url_s,datum);
+  addLength(doc,parse.getData(),url_s);
+  addType(doc,parse.getData(),url_s,datum);
+  resetTitle(doc,parse.getData(),url_s);
+  return doc;
+}

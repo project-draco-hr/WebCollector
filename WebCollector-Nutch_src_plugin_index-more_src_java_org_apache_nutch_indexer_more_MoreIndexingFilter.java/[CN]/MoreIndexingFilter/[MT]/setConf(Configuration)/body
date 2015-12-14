@@ -1,0 +1,13 @@
+{
+  this.conf=conf;
+  MIME=new MimeUtil(conf);
+  if (conf.getBoolean("moreIndexingFilter.mapMimeTypes",false) == true) {
+    mapMimes=true;
+    try {
+      readConfiguration();
+    }
+ catch (    Exception e) {
+      LOG.error(org.apache.hadoop.util.StringUtils.stringifyException(e));
+    }
+  }
+}

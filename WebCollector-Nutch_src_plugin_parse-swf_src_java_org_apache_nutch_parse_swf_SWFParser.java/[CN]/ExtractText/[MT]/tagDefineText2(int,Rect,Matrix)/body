@@ -1,0 +1,5 @@
+{
+  lastBounds=curBounds;
+  curBounds=bounds;
+  return new TextDumper();
+}

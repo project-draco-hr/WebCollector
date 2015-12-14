@@ -1,0 +1,5 @@
+{
+  __initDefaults();
+  __dataTimeout=-1;
+  __remoteVerificationEnabled=true;
+}

@@ -1,0 +1,7 @@
+{
+  this.status=status;
+  this.title=title;
+  this.outlinks=outlinks;
+  this.contentMeta=contentMeta;
+  this.parseMeta=parseMeta;
+}

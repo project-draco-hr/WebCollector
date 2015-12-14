@@ -1,0 +1,5 @@
+{
+  this.conf=conf;
+  this.maxContentLength=conf.getInt("file.content.limit",64 * 1024);
+  this.crawlParents=conf.getBoolean("file.crawl.parent",true);
+}

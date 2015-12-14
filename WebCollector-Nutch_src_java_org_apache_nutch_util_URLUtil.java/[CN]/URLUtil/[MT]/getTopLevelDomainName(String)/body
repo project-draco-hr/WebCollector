@@ -1,0 +1,3 @@
+{
+  return getTopLevelDomainName(new URL(url));
+}

@@ -1,0 +1,8 @@
+{
+  super.setConf(conf);
+  if (conf == null)   return;
+  defaultInterval=conf.getInt("db.fetch.interval.default",0);
+  maxInterval=conf.getInt("db.fetch.interval.max",0);
+  LOG.info("defaultInterval=" + defaultInterval);
+  LOG.info("maxInterval=" + maxInterval);
+}

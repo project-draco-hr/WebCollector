@@ -1,0 +1,29 @@
+{
+  ProtocolSocketFactory factory=new SSLProtocolSocketFactory();
+  Protocol https=new Protocol("https",factory,443);
+  Protocol.registerProtocol("https",https);
+  HttpConnectionManagerParams params=connectionManager.getParams();
+  params.setConnectionTimeout(timeout);
+  params.setSoTimeout(timeout);
+  params.setSendBufferSize(BUFFER_SIZE);
+  params.setReceiveBufferSize(BUFFER_SIZE);
+  params.setMaxTotalConnections(maxThreadsTotal);
+  params.setDefaultMaxConnectionsPerHost(maxThreadsTotal);
+  client.getParams().setConnectionManagerTimeout(timeout);
+  HostConfiguration hostConf=client.getHostConfiguration();
+  ArrayList<Header> headers=new ArrayList<Header>();
+  headers.add(new Header("User-Agent",userAgent));
+  headers.add(new Header("Accept-Language",acceptLanguage));
+  headers.add(new Header("Accept-Charset","utf-8,ISO-8859-1;q=0.7,*;q=0.7"));
+  headers.add(new Header("Accept","text/html,application/xml;q=0.9,application/xhtml+xml,text/xml;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"));
+  headers.add(new Header("Accept-Encoding","x-gzip, gzip, deflate"));
+  hostConf.getParams().setParameter("http.default-headers",headers);
+  if (useProxy) {
+    hostConf.setProxy(proxyHost,proxyPort);
+    if (proxyUsername.length() > 0) {
+      AuthScope proxyAuthScope=getAuthScope(this.proxyHost,this.proxyPort,this.proxyRealm);
+      NTCredentials proxyCredentials=new NTCredentials(this.proxyUsername,this.proxyPassword,Http.agentHost,this.proxyRealm);
+      client.getState().setProxyCredentials(proxyAuthScope,proxyCredentials);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  lastFetchTime=currFetchTime;
+  currFetchTime=currentTime;
+  previousDbState=datum.getStatus();
+  lastSignature=datum.getSignature();
+  datum=super.fetch(datum,currentTime);
+  if (firstFetchTime == 0) {
+    firstFetchTime=currFetchTime;
+  }
+ else   if ((currFetchTime - firstFetchTime) > (duration / 2)) {
+    changeContent();
+    firstFetchTime=currFetchTime;
+  }
+  return datum;
+}

@@ -1,0 +1,18 @@
+{
+  NodeWalker walker=new NodeWalker(node);
+  while (walker.hasNext()) {
+    Node currentNode=walker.nextNode();
+    String nodeName=currentNode.getNodeName();
+    short nodeType=currentNode.getNodeType();
+    if ("body".equalsIgnoreCase(nodeName)) {
+      return false;
+    }
+    if (nodeType == Node.ELEMENT_NODE) {
+      if ("title".equalsIgnoreCase(nodeName)) {
+        getText(sb,currentNode);
+        return true;
+      }
+    }
+  }
+  return false;
+}

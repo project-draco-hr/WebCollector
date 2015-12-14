@@ -1,0 +1,4 @@
+Path nodeDb
+Path outlinkDb
+Path loopDb
+Path output

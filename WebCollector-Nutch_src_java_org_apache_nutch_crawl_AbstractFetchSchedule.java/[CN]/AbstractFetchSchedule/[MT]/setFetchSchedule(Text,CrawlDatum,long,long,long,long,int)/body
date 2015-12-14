@@ -1,0 +1,4 @@
+{
+  datum.setRetriesSinceFetch(0);
+  return datum;
+}

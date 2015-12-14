@@ -1,0 +1,12 @@
+{
+  if (datum.getMetaData().get(MAX_DEPTH_KEY_W) != null) {
+    String depthString=datum.getMetaData().get(MAX_DEPTH_KEY_W).toString();
+    datum.getMetaData().remove(MAX_DEPTH_KEY_W);
+    int depth=Integer.parseInt(depthString);
+    datum.getMetaData().put(MAX_DEPTH_KEY_W,new IntWritable(depth));
+  }
+ else {
+    datum.getMetaData().put(MAX_DEPTH_KEY_W,new IntWritable(defaultMaxDepth));
+  }
+  datum.getMetaData().put(DEPTH_KEY_W,new IntWritable(1));
+}

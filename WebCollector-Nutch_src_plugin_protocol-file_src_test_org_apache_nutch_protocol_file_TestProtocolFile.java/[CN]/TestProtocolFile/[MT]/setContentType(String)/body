@@ -1,0 +1,13 @@
+{
+  String urlString="file:" + sampleDir + fileSeparator+ testTextFile;
+  Assert.assertNotNull(urlString);
+  Protocol protocol=new ProtocolFactory(conf).getProtocol(urlString);
+  ProtocolOutput output=protocol.getProtocolOutput(new Text(urlString),datum);
+  Assert.assertNotNull(output);
+  Assert.assertEquals("Status code: [" + output.getStatus().getCode() + "], not equal to: ["+ ProtocolStatus.SUCCESS+ "]: args: ["+ output.getStatus().getArgs()+ "]",ProtocolStatus.SUCCESS,output.getStatus().getCode());
+  Assert.assertNotNull(output.getContent());
+  Assert.assertNotNull(output.getContent().getContentType());
+  Assert.assertEquals(expectedMimeType,output.getContent().getContentType());
+  Assert.assertNotNull(output.getContent().getMetadata());
+  Assert.assertEquals(expectedMimeType,output.getContent().getMetadata().get(Response.CONTENT_TYPE));
+}

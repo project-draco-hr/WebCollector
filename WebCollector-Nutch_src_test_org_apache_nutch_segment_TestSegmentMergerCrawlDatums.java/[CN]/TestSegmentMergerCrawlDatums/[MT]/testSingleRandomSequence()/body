@@ -1,0 +1,3 @@
+{
+  Assert.assertEquals(new Byte(CrawlDatum.STATUS_FETCH_SUCCESS),new Byte(executeSequence(CrawlDatum.STATUS_FETCH_GONE,CrawlDatum.STATUS_FETCH_SUCCESS,256,false)));
+}

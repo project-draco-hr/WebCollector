@@ -1,0 +1,4 @@
+Configuration conf
+int maxThreads
+long crawlDelay
+long minCrawlDelay

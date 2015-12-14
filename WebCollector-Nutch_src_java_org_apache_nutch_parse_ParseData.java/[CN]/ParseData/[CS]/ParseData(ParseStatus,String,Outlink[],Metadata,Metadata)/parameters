@@ -1,0 +1,5 @@
+ParseStatus status
+String title
+Outlink[] outlinks
+Metadata contentMeta
+Metadata parseMeta

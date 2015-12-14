@@ -1,0 +1,116 @@
+{
+  boolean dumpText=false;
+  boolean force=false;
+  String contentType=null;
+  String url=null;
+  String usage="Usage: ParserChecker [-dumpText] [-forceAs mimeType] [-md key=value] url";
+  if (args.length == 0) {
+    LOG.error(usage);
+    return (-1);
+  }
+  HashMap<String,String> metadata=new HashMap<String,String>();
+  for (int i=0; i < args.length; i++) {
+    if (args[i].equals("-forceAs")) {
+      force=true;
+      contentType=args[++i];
+    }
+ else     if (args[i].equals("-dumpText")) {
+      dumpText=true;
+    }
+ else     if (args[i].equals("-md")) {
+      String k=null, v=null;
+      String nextOne=args[++i];
+      int firstEquals=nextOne.indexOf("=");
+      if (firstEquals != -1) {
+        k=nextOne.substring(0,firstEquals);
+        v=nextOne.substring(firstEquals + 1);
+      }
+ else       k=nextOne;
+      metadata.put(k,v);
+    }
+ else     if (i != args.length - 1) {
+      LOG.error(usage);
+      System.exit(-1);
+    }
+ else {
+      url=URLUtil.toASCII(args[i]);
+    }
+  }
+  if (LOG.isInfoEnabled()) {
+    LOG.info("fetching: " + url);
+  }
+  CrawlDatum cd=new CrawlDatum();
+  Iterator<String> iter=metadata.keySet().iterator();
+  while (iter.hasNext()) {
+    String key=iter.next();
+    String value=metadata.get(key);
+    if (value == null)     value="";
+    cd.getMetaData().put(new Text(key),new Text(value));
+  }
+  ProtocolFactory factory=new ProtocolFactory(conf);
+  Protocol protocol=factory.getProtocol(url);
+  Text turl=new Text(url);
+  ProtocolOutput output=protocol.getProtocolOutput(turl,cd);
+  if (!output.getStatus().isSuccess()) {
+    System.err.println("Fetch failed with protocol status: " + output.getStatus());
+    return (-1);
+  }
+  Content content=output.getContent();
+  if (content == null) {
+    LOG.error("No content for " + url);
+    return (-1);
+  }
+  if (force) {
+    content.setContentType(contentType);
+  }
+ else {
+    contentType=content.getContentType();
+  }
+  if (contentType == null) {
+    LOG.error("Failed to determine content type!");
+    return (-1);
+  }
+  if (ParseSegment.isTruncated(content)) {
+    LOG.warn("Content is truncated, parse may fail!");
+  }
+  ScoringFilters scfilters=new ScoringFilters(conf);
+  try {
+    scfilters.passScoreBeforeParsing(turl,cd,content);
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Couldn't pass score, url " + turl.toString() + " ("+ e+ ")");
+    }
+  }
+  ParseResult parseResult=new ParseUtil(conf).parse(content);
+  if (parseResult == null) {
+    LOG.error("Problem with parse - check log");
+    return (-1);
+  }
+  byte[] signature=SignatureFactory.getSignature(getConf()).calculate(content,parseResult.get(new Text(url)));
+  if (LOG.isInfoEnabled()) {
+    LOG.info("parsing: " + url);
+    LOG.info("contentType: " + contentType);
+    LOG.info("signature: " + StringUtil.toHexString(signature));
+  }
+  try {
+    scfilters.passScoreAfterParsing(turl,content,parseResult.get(turl));
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Couldn't pass score, url " + turl + " ("+ e+ ")");
+    }
+  }
+  for (  java.util.Map.Entry<Text,Parse> entry : parseResult) {
+    Parse parse=entry.getValue();
+    LOG.info("---------\nUrl\n---------------\n");
+    System.out.print(entry.getKey());
+    LOG.info("\n---------\nParseData\n---------\n");
+    System.out.print(parse.getData().toString());
+    if (dumpText) {
+      LOG.info("---------\nParseText\n---------\n");
+      System.out.print(parse.getText());
+    }
+  }
+  return 0;
+}

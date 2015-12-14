@@ -1,0 +1,7 @@
+{
+  filter.setIgnoreCase(false);
+  filter.setModeAccept(true);
+  for (int i=0; i < urls.length; i++) {
+    Assert.assertTrue(urlsModeAccept[i] == filter.filter(urls[i]));
+  }
+}

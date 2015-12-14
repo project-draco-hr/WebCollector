@@ -1,0 +1,7 @@
+{
+  if (job.get("regex",null) != null) {
+    pattern=Pattern.compile(job.get("regex"));
+  }
+  status=job.get("status",null);
+  retry=job.getInt("retry",-1);
+}

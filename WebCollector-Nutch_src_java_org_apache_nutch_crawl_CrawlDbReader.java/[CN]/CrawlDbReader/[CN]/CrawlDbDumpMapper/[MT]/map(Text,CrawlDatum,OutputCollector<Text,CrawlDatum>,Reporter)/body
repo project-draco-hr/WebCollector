@@ -1,0 +1,15 @@
+{
+  if (retry != -1) {
+    if (value.getRetriesSinceFetch() < retry) {
+      return;
+    }
+  }
+  if (status != null && !status.equalsIgnoreCase(CrawlDatum.getStatusName(value.getStatus())))   return;
+  if (pattern != null) {
+    matcher=pattern.matcher(key.toString());
+    if (!matcher.matches()) {
+      return;
+    }
+  }
+  output.collect(key,value);
+}

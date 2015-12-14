@@ -1,0 +1,8 @@
+{
+  Metadata meta=new Metadata();
+  Assert.assertFalse(meta.isMultiValued("key"));
+  meta.add("key","value1");
+  Assert.assertFalse(meta.isMultiValued("key"));
+  meta.add("key","value2");
+  Assert.assertTrue(meta.isMultiValued("key"));
+}

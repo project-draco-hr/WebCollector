@@ -1,0 +1,10 @@
+{
+  String file="domain-suffixes.xml";
+  InputStream input=this.getClass().getClassLoader().getResourceAsStream(file);
+  try {
+    new DomainSuffixesReader().read(this,input);
+  }
+ catch (  Exception ex) {
+    LOG.warn(StringUtils.stringifyException(ex));
+  }
+}

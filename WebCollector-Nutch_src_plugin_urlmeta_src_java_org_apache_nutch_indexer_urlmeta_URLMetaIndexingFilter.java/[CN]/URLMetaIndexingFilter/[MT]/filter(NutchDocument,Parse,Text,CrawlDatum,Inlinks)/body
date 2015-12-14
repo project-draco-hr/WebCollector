@@ -1,0 +1,9 @@
+{
+  if (conf != null)   this.setConf(conf);
+  if (urlMetaTags == null || doc == null)   return doc;
+  for (  String metatag : urlMetaTags) {
+    Text metadata=(Text)datum.getMetaData().get(new Text(metatag));
+    if (metadata != null)     doc.add(metatag,metadata.toString());
+  }
+  return doc;
+}

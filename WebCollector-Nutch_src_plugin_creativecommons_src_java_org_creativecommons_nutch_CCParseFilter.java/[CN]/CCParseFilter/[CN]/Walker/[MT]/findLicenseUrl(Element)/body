@@ -1,0 +1,19 @@
+{
+  if (!"a".equalsIgnoreCase(element.getTagName()))   return;
+  String href=element.getAttribute("href");
+  if (href == null)   return;
+  try {
+    URL url=new URL(base,href);
+    if ("http".equalsIgnoreCase(url.getProtocol()) && "creativecommons.org".equalsIgnoreCase(url.getHost()) && url.getPath() != null && url.getPath().startsWith("/licenses/") && url.getPath().length() > "/licenses/".length()) {
+      String rel=element.getAttribute("rel");
+      if (rel != null && "license".equals(rel) && this.relLicense == null) {
+        this.relLicense=url;
+      }
+ else       if (this.anchorLicense == null) {
+        this.anchorLicense=url;
+      }
+    }
+  }
+ catch (  MalformedURLException e) {
+  }
+}

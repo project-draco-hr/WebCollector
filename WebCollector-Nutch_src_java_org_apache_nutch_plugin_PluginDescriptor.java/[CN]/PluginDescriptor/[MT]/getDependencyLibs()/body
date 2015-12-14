@@ -1,0 +1,5 @@
+{
+  ArrayList<URL> list=new ArrayList<URL>();
+  collectLibs(list,this);
+  return list;
+}

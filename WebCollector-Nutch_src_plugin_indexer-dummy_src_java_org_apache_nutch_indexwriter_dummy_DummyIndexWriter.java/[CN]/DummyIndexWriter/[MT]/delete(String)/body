@@ -1,0 +1,5 @@
+{
+  if (delete) {
+    writer.write("delete\t" + key + "\n");
+  }
+}

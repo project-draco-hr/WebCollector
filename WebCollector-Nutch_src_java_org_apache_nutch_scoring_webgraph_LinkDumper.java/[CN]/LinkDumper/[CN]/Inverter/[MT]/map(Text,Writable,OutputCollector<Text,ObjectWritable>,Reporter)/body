@@ -1,0 +1,5 @@
+{
+  ObjectWritable objWrite=new ObjectWritable();
+  objWrite.set(value);
+  output.collect(key,objWrite);
+}

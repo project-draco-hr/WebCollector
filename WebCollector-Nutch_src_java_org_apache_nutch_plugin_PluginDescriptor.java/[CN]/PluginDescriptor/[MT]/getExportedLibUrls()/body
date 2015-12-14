@@ -1,0 +1,3 @@
+{
+  return fExportedLibs.toArray(new URL[0]);
+}

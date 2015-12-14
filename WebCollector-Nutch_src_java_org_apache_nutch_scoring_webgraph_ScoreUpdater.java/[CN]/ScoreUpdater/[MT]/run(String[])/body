@@ -1,0 +1,34 @@
+{
+  Options options=new Options();
+  OptionBuilder.withArgName("help");
+  OptionBuilder.withDescription("show this help message");
+  Option helpOpts=OptionBuilder.create("help");
+  options.addOption(helpOpts);
+  OptionBuilder.withArgName("crawldb");
+  OptionBuilder.hasArg();
+  OptionBuilder.withDescription("the crawldb to use");
+  Option crawlDbOpts=OptionBuilder.create("crawldb");
+  options.addOption(crawlDbOpts);
+  OptionBuilder.withArgName("webgraphdb");
+  OptionBuilder.hasArg();
+  OptionBuilder.withDescription("the webgraphdb to use");
+  Option webGraphOpts=OptionBuilder.create("webgraphdb");
+  options.addOption(webGraphOpts);
+  CommandLineParser parser=new GnuParser();
+  try {
+    CommandLine line=parser.parse(options,args);
+    if (line.hasOption("help") || !line.hasOption("webgraphdb") || !line.hasOption("crawldb")) {
+      HelpFormatter formatter=new HelpFormatter();
+      formatter.printHelp("ScoreUpdater",options);
+      return -1;
+    }
+    String crawlDb=line.getOptionValue("crawldb");
+    String webGraphDb=line.getOptionValue("webgraphdb");
+    update(new Path(crawlDb),new Path(webGraphDb));
+    return 0;
+  }
+ catch (  Exception e) {
+    LOG.error("ScoreUpdater: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+}

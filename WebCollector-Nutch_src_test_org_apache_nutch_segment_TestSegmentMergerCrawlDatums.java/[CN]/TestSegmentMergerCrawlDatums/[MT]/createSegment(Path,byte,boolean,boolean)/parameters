@@ -1,0 +1,4 @@
+Path segment
+byte status
+boolean fetch
+boolean redirect

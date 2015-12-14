@@ -1,0 +1,15 @@
+{
+  StringBuffer repr=new StringBuffer("toUrl: ");
+  repr.append(toUrl);
+  repr.append(" anchor: ");
+  repr.append(anchor);
+  if (md != null && !md.isEmpty()) {
+    for (    Entry<Writable,Writable> e : md.entrySet()) {
+      repr.append(" ");
+      repr.append(e.getKey());
+      repr.append(": ");
+      repr.append(e.getValue());
+    }
+  }
+  return repr.toString();
+}

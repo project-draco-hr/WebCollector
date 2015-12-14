@@ -1,0 +1,36 @@
+{
+  String url=key.toString();
+  Set<String> domains=new HashSet<String>();
+  Set<String> pages=new HashSet<String>();
+  Node node=null;
+  int numInlinks=0;
+  float totalInlinkScore=rankOne;
+  while (values.hasNext()) {
+    ObjectWritable next=values.next();
+    Object value=next.get();
+    if (value instanceof Node) {
+      node=(Node)value;
+    }
+ else     if (value instanceof LinkDatum) {
+      LinkDatum linkDatum=(LinkDatum)value;
+      float scoreFromInlink=linkDatum.getScore();
+      String inlinkUrl=linkDatum.getUrl();
+      String inLinkDomain=URLUtil.getDomainName(inlinkUrl);
+      String inLinkPage=URLUtil.getPage(inlinkUrl);
+      if ((limitPages && pages.contains(inLinkPage)) || (limitDomains && domains.contains(inLinkDomain))) {
+        LOG.debug(url + ": ignoring " + scoreFromInlink+ " from "+ inlinkUrl+ ", duplicate page or domain");
+        continue;
+      }
+      numInlinks++;
+      totalInlinkScore+=scoreFromInlink;
+      domains.add(inLinkDomain);
+      pages.add(inLinkPage);
+      LOG.debug(url + ": adding " + scoreFromInlink+ " from "+ inlinkUrl+ ", total: "+ totalInlinkScore);
+    }
+  }
+  float linkRankScore=(1 - this.dampingFactor) + (this.dampingFactor * totalInlinkScore);
+  LOG.debug(url + ": score: " + linkRankScore+ " num inlinks: "+ numInlinks+ " iteration: "+ itNum);
+  Node outNode=WritableUtils.clone(node,conf);
+  outNode.setInlinkScore(linkRankScore);
+  output.collect(key,outNode);
+}

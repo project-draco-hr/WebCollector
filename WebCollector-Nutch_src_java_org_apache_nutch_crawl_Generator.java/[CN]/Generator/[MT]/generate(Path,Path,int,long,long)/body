@@ -1,0 +1,6 @@
+{
+  JobConf job=new NutchJob(getConf());
+  boolean filter=job.getBoolean(GENERATOR_FILTER,true);
+  boolean normalise=job.getBoolean(GENERATOR_NORMALISE,true);
+  return generate(dbDir,segments,numLists,topN,curTime,filter,normalise,false,1);
+}

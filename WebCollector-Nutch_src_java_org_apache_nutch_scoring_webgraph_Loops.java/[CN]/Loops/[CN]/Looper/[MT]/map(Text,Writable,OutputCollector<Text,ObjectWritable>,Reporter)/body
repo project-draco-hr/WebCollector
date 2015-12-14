@@ -1,0 +1,12 @@
+{
+  ObjectWritable objWrite=new ObjectWritable();
+  Writable cloned=null;
+  if (value instanceof LinkDatum) {
+    cloned=new Text(((LinkDatum)value).getUrl());
+  }
+ else {
+    cloned=WritableUtils.clone(value,conf);
+  }
+  objWrite.set(cloned);
+  output.collect(key,objWrite);
+}

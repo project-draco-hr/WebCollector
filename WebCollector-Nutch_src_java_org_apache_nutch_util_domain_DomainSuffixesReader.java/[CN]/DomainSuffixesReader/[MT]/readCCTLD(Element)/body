@@ -1,0 +1,7 @@
+{
+  String domain=el.getAttribute("domain");
+  Status status=readStatus(el);
+  float boost=readBoost(el);
+  String countryName=readCountryName(el);
+  return new TopLevelDomain(domain,status,boost,countryName);
+}

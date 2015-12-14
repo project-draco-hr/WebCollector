@@ -1,0 +1,22 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  if (LOG.isInfoEnabled()) {
+    LOG.info("ArcSegmentCreator: starting at " + sdf.format(start));
+    LOG.info("ArcSegmentCreator: arc files dir: " + arcFiles);
+  }
+  JobConf job=new NutchJob(getConf());
+  job.setJobName("ArcSegmentCreator " + arcFiles);
+  String segName=generateSegmentName();
+  job.set(Nutch.SEGMENT_NAME_KEY,segName);
+  FileInputFormat.addInputPath(job,arcFiles);
+  job.setInputFormat(ArcInputFormat.class);
+  job.setMapperClass(ArcSegmentCreator.class);
+  FileOutputFormat.setOutputPath(job,new Path(segmentsOutDir,segName));
+  job.setOutputFormat(FetcherOutputFormat.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(NutchWritable.class);
+  JobClient.runJob(job);
+  long end=System.currentTimeMillis();
+  LOG.info("ArcSegmentCreator: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+}

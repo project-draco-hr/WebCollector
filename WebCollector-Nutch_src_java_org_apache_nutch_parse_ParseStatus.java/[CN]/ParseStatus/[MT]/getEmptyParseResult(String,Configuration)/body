@@ -1,0 +1,3 @@
+{
+  return ParseResult.createParseResult(url,getEmptyParse(conf));
+}

@@ -1,0 +1,47 @@
+{
+  byte version=in.readByte();
+  if (version > CUR_VERSION)   throw new VersionMismatchException(CUR_VERSION,version);
+  status=in.readByte();
+  fetchTime=in.readLong();
+  retries=in.readByte();
+  if (version > 5) {
+    fetchInterval=in.readInt();
+  }
+ else   fetchInterval=Math.round(in.readFloat());
+  score=in.readFloat();
+  if (version > 2) {
+    modifiedTime=in.readLong();
+    int cnt=in.readByte();
+    if (cnt > 0) {
+      signature=new byte[cnt];
+      in.readFully(signature);
+    }
+ else     signature=null;
+  }
+  if (version > 3) {
+    boolean hasMetadata=false;
+    if (version < 7) {
+      org.apache.hadoop.io.MapWritable oldMetaData=new org.apache.hadoop.io.MapWritable();
+      if (in.readBoolean()) {
+        hasMetadata=true;
+        metaData=new org.apache.hadoop.io.MapWritable();
+        oldMetaData.readFields(in);
+      }
+      for (      Writable key : oldMetaData.keySet()) {
+        metaData.put(key,oldMetaData.get(key));
+      }
+    }
+ else {
+      if (in.readBoolean()) {
+        hasMetadata=true;
+        metaData=new org.apache.hadoop.io.MapWritable();
+        metaData.readFields(in);
+      }
+    }
+    if (hasMetadata == false)     metaData=null;
+  }
+  if (version < 5) {
+    if (oldToNew.containsKey(status))     status=oldToNew.get(status);
+ else     status=STATUS_DB_UNFETCHED;
+  }
+}

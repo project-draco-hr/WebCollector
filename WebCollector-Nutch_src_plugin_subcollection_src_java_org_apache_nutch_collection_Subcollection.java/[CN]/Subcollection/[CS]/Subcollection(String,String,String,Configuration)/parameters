@@ -1,0 +1,4 @@
+String id
+String name
+String key
+Configuration conf

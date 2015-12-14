@@ -1,0 +1,55 @@
+{
+  if (args.length < 1) {
+    System.err.println("Usage: DeduplicationJob <crawldb>");
+    return 1;
+  }
+  String crawldb=args[0];
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  LOG.info("DeduplicationJob: starting at " + sdf.format(start));
+  Path tempDir=new Path(getConf().get("mapred.temp.dir",".") + "/dedup-temp-" + Integer.toString(new Random().nextInt(Integer.MAX_VALUE)));
+  JobConf job=new NutchJob(getConf());
+  job.setJobName("Deduplication on " + crawldb);
+  FileInputFormat.addInputPath(job,new Path(crawldb,CrawlDb.CURRENT_NAME));
+  job.setInputFormat(SequenceFileInputFormat.class);
+  FileOutputFormat.setOutputPath(job,tempDir);
+  job.setOutputFormat(SequenceFileOutputFormat.class);
+  job.setMapOutputKeyClass(BytesWritable.class);
+  job.setMapOutputValueClass(CrawlDatum.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(CrawlDatum.class);
+  job.setMapperClass(DBFilter.class);
+  job.setReducerClass(DedupReducer.class);
+  try {
+    RunningJob rj=JobClient.runJob(job);
+    Group g=rj.getCounters().getGroup("DeduplicationJobStatus");
+    if (g != null) {
+      long dups=g.getCounter("Documents marked as duplicate");
+      LOG.info("Deduplication: " + (int)dups + " documents marked as duplicates");
+    }
+  }
+ catch (  final Exception e) {
+    LOG.error("DeduplicationJob: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+  if (LOG.isInfoEnabled()) {
+    LOG.info("Deduplication: Updating status of duplicate urls into crawl db.");
+  }
+  Path dbPath=new Path(crawldb);
+  JobConf mergeJob=CrawlDb.createJob(getConf(),dbPath);
+  FileInputFormat.addInputPath(mergeJob,tempDir);
+  mergeJob.setReducerClass(StatusUpdateReducer.class);
+  try {
+    JobClient.runJob(mergeJob);
+  }
+ catch (  final Exception e) {
+    LOG.error("DeduplicationMergeJob: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+  CrawlDb.install(mergeJob,dbPath);
+  FileSystem fs=FileSystem.get(getConf());
+  fs.delete(tempDir,true);
+  long end=System.currentTimeMillis();
+  LOG.info("Deduplication finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+  return 0;
+}

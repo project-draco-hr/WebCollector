@@ -1,0 +1,10 @@
+{
+  HashMap<Text,CrawlDatum> unique=new HashMap<Text,CrawlDatum>();
+  while (values.hasNext()) {
+    Generator.SelectorEntry entry=values.next();
+    unique.put(entry.url,entry.datum);
+  }
+  for (  Entry<Text,CrawlDatum> e : unique.entrySet()) {
+    output.collect(e.getKey(),e.getValue());
+  }
+}

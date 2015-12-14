@@ -1,0 +1,12 @@
+{
+  String tag=null;
+  try {
+    URL u=new URL(url);
+    String path=u.getPath();
+    tag=URLDecoder.decode(path.substring(path.lastIndexOf('/') + 1),"UTF-8");
+  }
+ catch (  Exception e) {
+    tag=null;
+  }
+  return tag;
+}

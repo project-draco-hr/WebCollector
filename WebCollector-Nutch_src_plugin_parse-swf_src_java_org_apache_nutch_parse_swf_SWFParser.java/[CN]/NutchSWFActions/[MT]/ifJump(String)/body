@@ -1,0 +1,4 @@
+{
+  strings.remove(var);
+  super.ifJump(var);
+}

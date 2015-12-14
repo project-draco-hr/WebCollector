@@ -1,0 +1,16 @@
+{
+  List<String> headings=new ArrayList<String>();
+  NodeWalker walker=new NodeWalker(doc);
+  while (walker.hasNext()) {
+    Node currentNode=walker.nextNode();
+    if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+      if (element.equalsIgnoreCase(currentNode.getNodeName())) {
+        headings.add(getNodeValue(currentNode));
+        if (!multiValued) {
+          break;
+        }
+      }
+    }
+  }
+  return headings;
+}

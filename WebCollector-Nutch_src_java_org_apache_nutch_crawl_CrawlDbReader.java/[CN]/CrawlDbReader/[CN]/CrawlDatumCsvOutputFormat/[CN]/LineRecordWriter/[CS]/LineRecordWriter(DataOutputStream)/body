@@ -1,0 +1,8 @@
+{
+  this.out=out;
+  try {
+    out.writeBytes("Url;Status code;Status name;Fetch Time;Modified Time;Retries since fetch;Retry interval seconds;Retry interval days;Score;Signature;Metadata\n");
+  }
+ catch (  IOException e) {
+  }
+}

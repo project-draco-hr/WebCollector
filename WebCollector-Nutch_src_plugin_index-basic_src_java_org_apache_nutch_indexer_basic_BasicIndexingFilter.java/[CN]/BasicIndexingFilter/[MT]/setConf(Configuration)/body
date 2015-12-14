@@ -1,0 +1,6 @@
+{
+  this.conf=conf;
+  this.MAX_TITLE_LENGTH=conf.getInt("indexer.max.title.length",100);
+  this.addDomain=conf.getBoolean("indexer.add.domain",false);
+  this.MAX_CONTENT_LENGTH=conf.getInt("indexer.max.content.length",-1);
+}

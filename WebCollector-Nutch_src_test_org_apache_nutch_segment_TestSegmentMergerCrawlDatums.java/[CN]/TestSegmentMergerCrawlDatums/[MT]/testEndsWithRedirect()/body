@@ -1,0 +1,10 @@
+{
+  Path testDir=new Path(conf.get("hadoop.tmp.dir"),"merge-" + System.currentTimeMillis());
+  Path segment1=new Path(testDir,"00001");
+  Path segment2=new Path(testDir,"00002");
+  createSegment(segment1,CrawlDatum.STATUS_FETCH_SUCCESS,false);
+  createSegment(segment2,CrawlDatum.STATUS_FETCH_SUCCESS,true);
+  Path mergedSegment=merge(testDir,new Path[]{segment1,segment2});
+  Byte status=new Byte(status=checkMergedSegment(testDir,mergedSegment));
+  Assert.assertEquals(new Byte(CrawlDatum.STATUS_FETCH_SUCCESS),status);
+}

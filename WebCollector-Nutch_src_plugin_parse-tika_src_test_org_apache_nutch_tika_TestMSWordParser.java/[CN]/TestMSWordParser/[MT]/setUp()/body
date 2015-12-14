@@ -1,0 +1,4 @@
+{
+  conf=NutchConfiguration.create();
+  conf.set("file.content.limit","-1");
+}

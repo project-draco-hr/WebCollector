@@ -1,0 +1,20 @@
+{
+  StringBuilder text=new StringBuilder();
+  if (parse == null)   return null;
+  String title=parse.getData().getTitle();
+  if (title != null) {
+    text.append(title.toString());
+  }
+  String content=parse.getText();
+  if (content != null) {
+    text.append(" ").append(content.toString());
+  }
+  String titleandcontent=text.toString();
+  if (this.contentMaxlength != -1 && titleandcontent.length() > this.contentMaxlength)   titleandcontent=titleandcontent.substring(0,contentMaxlength);
+  LanguageIdentifier identifier=new LanguageIdentifier(titleandcontent);
+  if (onlyCertain) {
+    if (identifier.isReasonablyCertain())     return identifier.getLanguage();
+ else     return null;
+  }
+  return identifier.getLanguage();
+}

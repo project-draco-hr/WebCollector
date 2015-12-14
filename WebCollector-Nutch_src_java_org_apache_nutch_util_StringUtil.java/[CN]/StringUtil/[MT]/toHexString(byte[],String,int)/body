@@ -1,0 +1,13 @@
+{
+  if (buf == null)   return null;
+  if (lineLen <= 0)   lineLen=Integer.MAX_VALUE;
+  StringBuffer res=new StringBuffer(buf.length * 2);
+  for (int i=0; i < buf.length; i++) {
+    int b=buf[i];
+    res.append(HEX_DIGITS[(b >> 4) & 0xf]);
+    res.append(HEX_DIGITS[b & 0xf]);
+    if (i > 0 && (i % lineLen) == 0)     res.append('\n');
+ else     if (sep != null && i < lineLen - 1)     res.append(sep);
+  }
+  return res.toString();
+}

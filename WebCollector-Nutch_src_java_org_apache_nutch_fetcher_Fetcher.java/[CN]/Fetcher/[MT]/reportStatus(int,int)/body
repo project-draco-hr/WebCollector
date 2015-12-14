@@ -1,0 +1,14 @@
+{
+  StringBuilder status=new StringBuilder();
+  Long elapsed=new Long((System.currentTimeMillis() - start) / 1000);
+  float avgPagesSec=(float)pages.get() / elapsed.floatValue();
+  long avgBytesSec=(bytes.get() / 125l) / elapsed.longValue();
+  status.append(activeThreads).append(" threads (").append(spinWaiting.get()).append(" waiting), ");
+  status.append(fetchQueues.getQueueCount()).append(" queues, ");
+  status.append(fetchQueues.getTotalSize()).append(" URLs queued, ");
+  status.append(pages).append(" pages, ").append(errors).append(" errors, ");
+  status.append(String.format("%.2f",avgPagesSec)).append(" pages/s (");
+  status.append(pagesLastSec).append(" last sec), ");
+  status.append(avgBytesSec).append(" kbits/s (").append((bytesLastSec / 125)).append(" last sec)");
+  reporter.setStatus(status.toString());
+}

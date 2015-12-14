@@ -1,0 +1,5 @@
+Path out
+Path[] segs
+boolean filter
+boolean normalize
+long slice

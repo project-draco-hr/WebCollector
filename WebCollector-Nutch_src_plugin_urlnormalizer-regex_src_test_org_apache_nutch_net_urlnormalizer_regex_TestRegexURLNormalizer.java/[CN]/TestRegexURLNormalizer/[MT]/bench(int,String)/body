@@ -1,0 +1,14 @@
+{
+  long start=System.currentTimeMillis();
+  try {
+    NormalizedURL[] expected=(NormalizedURL[])testData.get(scope);
+    if (expected == null)     return;
+    for (int i=0; i < loops; i++) {
+      normalizeTest(expected,scope);
+    }
+  }
+ catch (  Exception e) {
+    Assert.fail(e.toString());
+  }
+  LOG.info("bench time (" + loops + ") "+ (System.currentTimeMillis() - start)+ "ms");
+}

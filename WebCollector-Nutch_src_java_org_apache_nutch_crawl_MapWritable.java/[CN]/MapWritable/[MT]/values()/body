@@ -1,0 +1,9 @@
+{
+  LinkedList<Writable> list=new LinkedList<Writable>();
+  KeyValueEntry entry=fFirst;
+  while (entry != null) {
+    list.add(entry.fValue);
+    entry=entry.fNextEntry;
+  }
+  return list;
+}

@@ -1,0 +1,4 @@
+{
+  super("File Error: " + code);
+  this.code=code;
+}

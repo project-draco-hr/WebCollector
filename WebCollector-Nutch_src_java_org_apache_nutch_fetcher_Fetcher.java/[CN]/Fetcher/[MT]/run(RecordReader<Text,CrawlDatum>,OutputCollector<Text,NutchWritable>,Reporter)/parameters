@@ -1,0 +1,3 @@
+RecordReader<Text,CrawlDatum> input
+OutputCollector<Text,NutchWritable> output
+Reporter reporter

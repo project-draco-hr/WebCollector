@@ -1,0 +1,14 @@
+int fieldId
+String fieldName
+String initialText
+Rect boundary
+int flags
+AlphaColor textColor
+int alignment
+int fontId
+int fontSize
+int charLimit
+int leftMargin
+int rightMargin
+int indentation
+int lineSpacing

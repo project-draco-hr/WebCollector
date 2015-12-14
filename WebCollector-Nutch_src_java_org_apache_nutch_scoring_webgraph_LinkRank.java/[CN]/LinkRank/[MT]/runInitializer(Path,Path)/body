@@ -1,0 +1,23 @@
+{
+  JobConf initializer=new NutchJob(getConf());
+  initializer.setJobName("LinkAnalysis Initializer");
+  FileInputFormat.addInputPath(initializer,nodeDb);
+  FileOutputFormat.setOutputPath(initializer,output);
+  initializer.setInputFormat(SequenceFileInputFormat.class);
+  initializer.setMapperClass(Initializer.class);
+  initializer.setMapOutputKeyClass(Text.class);
+  initializer.setMapOutputValueClass(Node.class);
+  initializer.setOutputKeyClass(Text.class);
+  initializer.setOutputValueClass(Node.class);
+  initializer.setOutputFormat(MapFileOutputFormat.class);
+  initializer.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs",false);
+  LOG.info("Starting initialization job");
+  try {
+    JobClient.runJob(initializer);
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  LOG.info("Finished initialization job.");
+}

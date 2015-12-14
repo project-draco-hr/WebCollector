@@ -1,0 +1,6 @@
+{
+  if (scheme == null) {
+    return false;
+  }
+  return SCHEME_PATTERN.matcher(scheme).matches();
+}

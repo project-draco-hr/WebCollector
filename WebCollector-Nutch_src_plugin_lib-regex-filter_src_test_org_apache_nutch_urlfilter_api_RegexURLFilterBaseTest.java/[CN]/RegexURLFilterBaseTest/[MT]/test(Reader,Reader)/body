@@ -1,0 +1,8 @@
+{
+  try {
+    test(getURLFilter(rules),readURLFile(urls));
+  }
+ catch (  Exception e) {
+    Assert.fail(e.toString());
+  }
+}

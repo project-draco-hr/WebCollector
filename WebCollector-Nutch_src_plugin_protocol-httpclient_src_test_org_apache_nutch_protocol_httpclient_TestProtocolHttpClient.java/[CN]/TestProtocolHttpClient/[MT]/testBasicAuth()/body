@@ -1,0 +1,7 @@
+{
+  startServer(47500);
+  fetchPage("/basic.jsp",200);
+  fetchPage("/basic.jsp?case=1",200);
+  fetchPage("/basic.jsp?case=2",200);
+  server.start();
+}

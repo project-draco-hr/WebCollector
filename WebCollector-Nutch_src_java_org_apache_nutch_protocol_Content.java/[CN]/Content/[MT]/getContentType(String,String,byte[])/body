@@ -1,0 +1,3 @@
+{
+  return this.mimeTypes.autoResolveContentType(typeName,url,data);
+}

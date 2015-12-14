@@ -1,0 +1,19 @@
+{
+  if (fClassLoader != null)   return fClassLoader;
+  ArrayList<URL> arrayList=new ArrayList<URL>();
+  arrayList.addAll(fExportedLibs);
+  arrayList.addAll(fNotExportedLibs);
+  arrayList.addAll(getDependencyLibs());
+  File file=new File(getPluginPath());
+  try {
+    for (    File file2 : file.listFiles()) {
+      if (file2.getAbsolutePath().endsWith("properties"))       arrayList.add(file2.getParentFile().toURI().toURL());
+    }
+  }
+ catch (  MalformedURLException e) {
+    LOG.debug(getPluginId() + " " + e.toString());
+  }
+  URL[] urls=arrayList.toArray(new URL[arrayList.size()]);
+  fClassLoader=new PluginClassLoader(urls,PluginDescriptor.class.getClassLoader());
+  return fClassLoader;
+}

@@ -1,0 +1,72 @@
+{
+  try {
+    long startRead=in.getPos();
+    byte[] magicBuffer=null;
+    while (true) {
+      if (startRead >= splitEnd) {
+        return false;
+      }
+      boolean foundStart=false;
+      while (!foundStart) {
+        startRead=in.getPos();
+        magicBuffer=new byte[1024];
+        int read=in.read(magicBuffer);
+        if (read < 0) {
+          break;
+        }
+        for (int i=0; i < read - 1; i++) {
+          byte[] testMagic=new byte[2];
+          System.arraycopy(magicBuffer,i,testMagic,0,2);
+          if (isMagic(testMagic)) {
+            startRead+=i;
+            foundStart=true;
+            break;
+          }
+        }
+      }
+      in.seek(startRead);
+      ByteArrayOutputStream baos=null;
+      int totalRead=0;
+      try {
+        byte[] buffer=new byte[4096];
+        GZIPInputStream zin=new GZIPInputStream(in);
+        int gzipRead=-1;
+        baos=new ByteArrayOutputStream();
+        while ((gzipRead=zin.read(buffer,0,buffer.length)) != -1) {
+          baos.write(buffer,0,gzipRead);
+          totalRead+=gzipRead;
+        }
+      }
+ catch (      Exception e) {
+        System.out.println("Ignoring position: " + (startRead));
+        if (startRead + 1 < fileLen) {
+          in.seek(startRead + 1);
+        }
+        continue;
+      }
+      byte[] content=baos.toByteArray();
+      int eol=0;
+      for (int i=0; i < content.length; i++) {
+        if (i > 0 && content[i] == '\n') {
+          eol=i;
+          break;
+        }
+      }
+      String header=new String(content,0,eol).trim();
+      byte[] raw=new byte[(content.length - eol) - 1];
+      System.arraycopy(content,eol + 1,raw,0,raw.length);
+      Text keyText=key;
+      keyText.set(header);
+      BytesWritable valueBytes=value;
+      valueBytes.set(raw,0,raw.length);
+      if (startRead + 1 < fileLen) {
+        in.seek(startRead + 1);
+      }
+      return true;
+    }
+  }
+ catch (  Exception e) {
+    LOG.equals(StringUtils.stringifyException(e));
+  }
+  return false;
+}

@@ -1,0 +1,1 @@
+MultipleSequenceFileOutputFormat<FloatWritable,SelectorEntry>

@@ -1,0 +1,5 @@
+{
+  datum.setFetchTime(fetchTime + (long)SECONDS_PER_DAY * 1000);
+  datum.setRetriesSinceFetch(datum.getRetriesSinceFetch() + 1);
+  return datum;
+}

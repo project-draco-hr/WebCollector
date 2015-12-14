@@ -1,0 +1,4 @@
+{
+  strings.remove(stack.pop());
+  super.call();
+}

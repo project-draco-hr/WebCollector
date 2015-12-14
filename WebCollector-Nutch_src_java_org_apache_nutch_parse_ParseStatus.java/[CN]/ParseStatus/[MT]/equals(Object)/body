@@ -1,0 +1,20 @@
+{
+  if (o == null)   return false;
+  if (!(o instanceof ParseStatus))   return false;
+  boolean res=true;
+  ParseStatus other=(ParseStatus)o;
+  res=res && (this.majorCode == other.majorCode) && (this.minorCode == other.minorCode);
+  if (!res)   return res;
+  if (this.args == null) {
+    if (other.args == null)     return true;
+ else     return false;
+  }
+ else {
+    if (other.args == null)     return false;
+    if (other.args.length != this.args.length)     return false;
+    for (int i=0; i < this.args.length; i++) {
+      if (!this.args[i].equals(other.args[i]))       return false;
+    }
+  }
+  return true;
+}

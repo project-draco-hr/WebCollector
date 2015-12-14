@@ -1,0 +1,3 @@
+{
+  indexingFilters=(IndexingFilter[])PluginRepository.get(conf).getOrderedPlugins(IndexingFilter.class,IndexingFilter.X_POINT_ID,INDEXINGFILTER_ORDER);
+}

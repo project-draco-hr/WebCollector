@@ -1,0 +1,12 @@
+{
+  parse(node);
+  if (htmlAttribute != null) {
+    language=htmlAttribute;
+  }
+ else   if (dublinCore != null) {
+    language=dublinCore;
+  }
+ else {
+    language=httpEquiv;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  String urlString;
+  Content content;
+  Parse parse;
+  Configuration conf=NutchConfiguration.create();
+  Protocol protocol;
+  ProtocolFactory factory=new ProtocolFactory(conf);
+  System.out.println("Expected : " + expectedText);
+  for (int i=0; i < sampleFiles.length; i++) {
+    urlString="file:" + sampleDir + fileSeparator+ sampleFiles[i];
+    if (sampleFiles[i].startsWith("ootest") == false)     continue;
+    protocol=factory.getProtocol(urlString);
+    content=protocol.getProtocolOutput(new Text(urlString),new CrawlDatum()).getContent();
+    parse=new ParseUtil(conf).parseByExtensionId("parse-tika",content).get(content.getUrl());
+    String text=parse.getText().replaceAll("[ \t\r\n]+"," ").trim();
+    Assert.assertTrue(text != null && text.length() > 0);
+    System.out.println("Found " + sampleFiles[i] + ": "+ text);
+  }
+}

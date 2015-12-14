@@ -1,0 +1,6 @@
+{
+  final Subcollection subCol=getSubColection(id);
+  if (subCol != null) {
+    collectionMap.remove(id);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  interval=job.getInt("db.fetch.interval.default",2592000);
+  scoreInjected=job.getFloat("db.score.injected",1.0f);
+  overwrite=job.getBoolean("db.injector.overwrite",false);
+  update=job.getBoolean("db.injector.update",false);
+  LOG.info("Injector: overwrite: " + overwrite);
+  LOG.info("Injector: update: " + update);
+}

@@ -1,0 +1,13 @@
+int id
+int flags
+String name
+int numGlyphs
+int ascent
+int descent
+int leading
+int[] codes
+int[] advances
+Rect[] bounds
+int[] kernCodes1
+int[] kernCodes2
+int[] kernAdjustments

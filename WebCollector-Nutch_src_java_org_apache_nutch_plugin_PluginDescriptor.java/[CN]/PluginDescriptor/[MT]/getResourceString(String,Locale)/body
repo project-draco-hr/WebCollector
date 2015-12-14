@@ -1,0 +1,18 @@
+{
+  if (fMessages.containsKey(pLocale.toString())) {
+    ResourceBundle bundle=fMessages.get(pLocale.toString());
+    try {
+      return bundle.getString(pKey);
+    }
+ catch (    MissingResourceException e) {
+      return '!' + pKey + '!';
+    }
+  }
+  try {
+    ResourceBundle res=ResourceBundle.getBundle("messages",pLocale,getClassLoader());
+    return res.getString(pKey);
+  }
+ catch (  MissingResourceException x) {
+    return '!' + pKey + '!';
+  }
+}

@@ -1,0 +1,7 @@
+{
+  this.reader=reader;
+  this.queues=queues;
+  this.size=size;
+  this.setDaemon(true);
+  this.setName("QueueFeeder");
+}

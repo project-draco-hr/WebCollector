@@ -1,0 +1,19 @@
+{
+  try {
+    relativePathRule=new Rule();
+    relativePathRule.pattern=(Perl5Pattern)compiler.compile("(/[^/]*[^/.]{1}[^/]*/\\.\\./)",Perl5Compiler.READ_ONLY_MASK);
+    relativePathRule.substitution=new Perl5Substitution("/");
+    leadingRelativePathRule=new Rule();
+    leadingRelativePathRule.pattern=(Perl5Pattern)compiler.compile("^(/\\.\\./)+",Perl5Compiler.READ_ONLY_MASK);
+    leadingRelativePathRule.substitution=new Perl5Substitution("/");
+    currentPathRule=new Rule();
+    currentPathRule.pattern=(Perl5Pattern)compiler.compile("(/\\./)",Perl5Compiler.READ_ONLY_MASK);
+    currentPathRule.substitution=new Perl5Substitution("/");
+    adjacentSlashRule=new Rule();
+    adjacentSlashRule.pattern=(Perl5Pattern)compiler.compile("/{2,}",Perl5Compiler.READ_ONLY_MASK);
+    adjacentSlashRule.substitution=new Perl5Substitution("/");
+  }
+ catch (  MalformedPatternException e) {
+    throw new RuntimeException(e);
+  }
+}

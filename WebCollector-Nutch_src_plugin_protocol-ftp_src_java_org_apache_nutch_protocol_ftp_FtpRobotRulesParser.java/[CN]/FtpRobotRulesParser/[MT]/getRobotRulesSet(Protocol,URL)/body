@@ -1,0 +1,29 @@
+{
+  String protocol=url.getProtocol().toLowerCase();
+  String host=url.getHost().toLowerCase();
+  BaseRobotRules robotRules=(SimpleRobotRules)CACHE.get(protocol + ":" + host);
+  boolean cacheRule=true;
+  if (robotRules == null) {
+    if (LOG.isTraceEnabled())     LOG.trace("cache miss " + url);
+    try {
+      Text robotsUrl=new Text(new URL(url,"/robots.txt").toString());
+      ProtocolOutput output=((Ftp)ftp).getProtocolOutput(robotsUrl,new CrawlDatum());
+      ProtocolStatus status=output.getStatus();
+      if (status.getCode() == ProtocolStatus.SUCCESS) {
+        robotRules=parseRules(url.toString(),output.getContent().getContent(),CONTENT_TYPE,agentNames);
+      }
+ else {
+        robotRules=EMPTY_RULES;
+      }
+    }
+ catch (    Throwable t) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Couldn't get robots.txt for " + url + ": "+ t.toString());
+      }
+      cacheRule=false;
+      robotRules=EMPTY_RULES;
+    }
+    if (cacheRule)     CACHE.put(protocol + ":" + host,robotRules);
+  }
+  return robotRules;
+}

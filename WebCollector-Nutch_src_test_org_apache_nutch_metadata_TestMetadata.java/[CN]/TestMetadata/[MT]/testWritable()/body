@@ -1,0 +1,20 @@
+{
+  Metadata result=null;
+  Metadata meta=new Metadata();
+  result=writeRead(meta);
+  Assert.assertEquals(0,result.size());
+  meta.add("name-one","value-1.1");
+  result=writeRead(meta);
+  Assert.assertEquals(1,result.size());
+  Assert.assertEquals(1,result.getValues("name-one").length);
+  Assert.assertEquals("value-1.1",result.get("name-one"));
+  meta.add("name-two","value-2.1");
+  meta.add("name-two","value-2.2");
+  result=writeRead(meta);
+  Assert.assertEquals(2,result.size());
+  Assert.assertEquals(1,result.getValues("name-one").length);
+  Assert.assertEquals("value-1.1",result.getValues("name-one")[0]);
+  Assert.assertEquals(2,result.getValues("name-two").length);
+  Assert.assertEquals("value-2.1",result.getValues("name-two")[0]);
+  Assert.assertEquals("value-2.2",result.getValues("name-two")[1]);
+}

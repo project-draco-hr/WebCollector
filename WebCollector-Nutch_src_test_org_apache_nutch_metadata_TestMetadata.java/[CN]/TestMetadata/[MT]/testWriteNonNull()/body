@@ -1,0 +1,22 @@
+{
+  Metadata met=new Metadata();
+  met.add(CONTENTTYPE,null);
+  met.add(CONTENTTYPE,"text/bogus");
+  met.add(CONTENTTYPE,"text/bogus2");
+  met=writeRead(met);
+  Assert.assertNotNull(met);
+  Assert.assertEquals(met.size(),1);
+  boolean hasBogus=false, hasBogus2=false;
+  String[] values=met.getValues(CONTENTTYPE);
+  Assert.assertNotNull(values);
+  Assert.assertEquals(values.length,2);
+  for (int i=0; i < values.length; i++) {
+    if (values[i].equals("text/bogus")) {
+      hasBogus=true;
+    }
+    if (values[i].equals("text/bogus2")) {
+      hasBogus2=true;
+    }
+  }
+  Assert.assertTrue(hasBogus && hasBogus2);
+}

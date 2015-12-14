@@ -1,0 +1,5 @@
+{
+  Assert.assertEquals("http://www.??evir.com",URLUtil.toUNICODE("http://www.xn--evir-zoa.com"));
+  Assert.assertEquals("http://uni-t??bingen.de/",URLUtil.toUNICODE("http://xn--uni-tbingen-xhb.de/"));
+  Assert.assertEquals("http://www.medizin.uni-t??bingen.de:8080/search.php?q=abc#p1",URLUtil.toUNICODE("http://www.medizin.xn--uni-tbingen-xhb.de:8080/search.php?q=abc#p1"));
+}

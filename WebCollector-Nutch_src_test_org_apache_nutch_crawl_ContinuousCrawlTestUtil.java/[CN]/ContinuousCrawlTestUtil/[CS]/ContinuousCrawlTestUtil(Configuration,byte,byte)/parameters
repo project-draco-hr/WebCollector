@@ -1,0 +1,3 @@
+Configuration conf
+byte fetchStatus
+byte expectedDbStatus

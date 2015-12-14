@@ -1,0 +1,4 @@
+{
+  this.segmentDir=segmentDir;
+  this.conf=conf;
+}

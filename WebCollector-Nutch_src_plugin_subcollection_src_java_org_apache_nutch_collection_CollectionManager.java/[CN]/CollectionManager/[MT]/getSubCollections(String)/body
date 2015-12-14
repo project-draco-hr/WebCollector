@@ -1,0 +1,14 @@
+{
+  List<Subcollection> collections=new ArrayList<Subcollection>();
+  final Iterator iterator=collectionMap.values().iterator();
+  while (iterator.hasNext()) {
+    final Subcollection subCol=(Subcollection)iterator.next();
+    if (subCol.filter(url) != null) {
+      collections.add(subCol);
+    }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("subcollections:" + Arrays.toString(collections.toArray()));
+  }
+  return collections;
+}

@@ -1,0 +1,34 @@
+{
+  String resultText=null;
+  String resultTitle=null;
+  Outlink[] outlinks=null;
+  List<Outlink> outLinksList=new ArrayList<Outlink>();
+  try {
+    final String contentLen=content.getMetadata().get(Response.CONTENT_LENGTH);
+    final int len=Integer.parseInt(contentLen);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("ziplen: " + len);
+    }
+    final byte[] contentInBytes=content.getContent();
+    if (contentLen != null && contentInBytes.length != len) {
+      return new ParseStatus(ParseStatus.FAILED,ParseStatus.FAILED_TRUNCATED,"Content truncated at " + contentInBytes.length + " bytes. Parser can't handle incomplete zip file.").getEmptyParseResult(content.getUrl(),getConf());
+    }
+    ZipTextExtractor extractor=new ZipTextExtractor(getConf());
+    resultText=extractor.extractText(new ByteArrayInputStream(contentInBytes),content.getUrl(),outLinksList);
+  }
+ catch (  Exception e) {
+    return new ParseStatus(ParseStatus.FAILED,"Can't be handled as Zip document. " + e).getEmptyParseResult(content.getUrl(),getConf());
+  }
+  if (resultText == null) {
+    resultText="";
+  }
+  if (resultTitle == null) {
+    resultTitle="";
+  }
+  outlinks=(Outlink[])outLinksList.toArray(new Outlink[0]);
+  final ParseData parseData=new ParseData(ParseStatus.STATUS_SUCCESS,resultTitle,outlinks,content.getMetadata());
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Zip file parsed sucessfully !!");
+  }
+  return ParseResult.createParseResult(content.getUrl(),new ParseImpl(resultText,parseData));
+}

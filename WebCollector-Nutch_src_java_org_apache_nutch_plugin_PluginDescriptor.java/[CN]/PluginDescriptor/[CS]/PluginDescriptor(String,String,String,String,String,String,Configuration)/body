@@ -1,0 +1,9 @@
+{
+  setPath(pPath);
+  setPluginId(pId);
+  setVersion(pVersion);
+  setName(pName);
+  setProvidername(pProviderName);
+  if (pPluginclazz != null)   setPluginClass(pPluginclazz);
+  this.fConf=conf;
+}

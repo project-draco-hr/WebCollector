@@ -1,0 +1,10 @@
+{
+  StringBuffer sb=new StringBuffer("ElasticIndexWriter\n");
+  sb.append("\t").append(ElasticConstants.CLUSTER).append(" : elastic prefix cluster\n");
+  sb.append("\t").append(ElasticConstants.HOST).append(" : hostname\n");
+  sb.append("\t").append(ElasticConstants.PORT).append(" : port\n");
+  sb.append("\t").append(ElasticConstants.INDEX).append(" : elastic index command \n");
+  sb.append("\t").append(ElasticConstants.MAX_BULK_DOCS).append(" : elastic bulk index doc counts. (default 250) \n");
+  sb.append("\t").append(ElasticConstants.MAX_BULK_LENGTH).append(" : elastic bulk index length. (default 2500500 ~2.5MB)\n");
+  return sb.toString();
+}

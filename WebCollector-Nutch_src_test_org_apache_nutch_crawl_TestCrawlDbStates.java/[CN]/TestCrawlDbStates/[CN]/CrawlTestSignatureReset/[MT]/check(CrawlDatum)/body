@@ -1,0 +1,10 @@
+{
+  if (result.getStatus() == STATUS_DB_NOTMODIFIED && !(fetchState == STATUS_FETCH_SUCCESS || fetchState == STATUS_FETCH_NOTMODIFIED)) {
+    LOG.error("Should never get into state " + getStatusName(STATUS_DB_NOTMODIFIED) + " from "+ getStatusName(fetchState));
+    return false;
+  }
+  if (result.getSignature() != null && !(result.getStatus() == STATUS_DB_FETCHED || result.getStatus() == STATUS_DB_NOTMODIFIED)) {
+    LOG.error("Signature not reset in state " + getStatusName(result.getStatus()));
+  }
+  return true;
+}

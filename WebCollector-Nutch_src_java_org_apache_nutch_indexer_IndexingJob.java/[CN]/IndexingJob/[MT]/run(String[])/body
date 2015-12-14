@@ -1,0 +1,56 @@
+{
+  if (args.length < 2) {
+    System.err.println("Usage: Indexer <crawldb> [-linkdb <linkdb>] [-params k1=v1&k2=v2...] (<segment> ... | -dir <segments>) [-noCommit] [-deleteGone] [-filter] [-normalize]");
+    IndexWriters writers=new IndexWriters(getConf());
+    System.err.println(writers.describe());
+    return -1;
+  }
+  final Path crawlDb=new Path(args[0]);
+  Path linkDb=null;
+  final List<Path> segments=new ArrayList<Path>();
+  String params=null;
+  boolean noCommit=false;
+  boolean deleteGone=false;
+  boolean filter=false;
+  boolean normalize=false;
+  for (int i=1; i < args.length; i++) {
+    if (args[i].equals("-linkdb")) {
+      linkDb=new Path(args[++i]);
+    }
+ else     if (args[i].equals("-dir")) {
+      Path dir=new Path(args[++i]);
+      FileSystem fs=dir.getFileSystem(getConf());
+      FileStatus[] fstats=fs.listStatus(dir,HadoopFSUtil.getPassDirectoriesFilter(fs));
+      Path[] files=HadoopFSUtil.getPaths(fstats);
+      for (      Path p : files) {
+        segments.add(p);
+      }
+    }
+ else     if (args[i].equals("-noCommit")) {
+      noCommit=true;
+    }
+ else     if (args[i].equals("-deleteGone")) {
+      deleteGone=true;
+    }
+ else     if (args[i].equals("-filter")) {
+      filter=true;
+    }
+ else     if (args[i].equals("-normalize")) {
+      normalize=true;
+    }
+ else     if (args[i].equals("-params")) {
+      params=args[++i];
+    }
+ else {
+      segments.add(new Path(args[i]));
+    }
+  }
+  try {
+    index(crawlDb,linkDb,segments,noCommit,deleteGone,params,filter,normalize);
+    return 0;
+  }
+ catch (  final Exception e) {
+    LOG.error("Indexer: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+}

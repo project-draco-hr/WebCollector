@@ -1,0 +1,7 @@
+{
+  for (int i=0; i < this.indexingFilters.length; i++) {
+    doc=this.indexingFilters[i].filter(doc,parse,url,datum,inlinks);
+    if (doc == null)     return null;
+  }
+  return doc;
+}

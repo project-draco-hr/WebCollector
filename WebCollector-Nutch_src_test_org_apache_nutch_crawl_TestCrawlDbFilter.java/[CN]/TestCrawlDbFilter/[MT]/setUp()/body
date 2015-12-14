@@ -1,0 +1,5 @@
+{
+  conf=CrawlDBTestUtil.createConfiguration();
+  fs=FileSystem.get(conf);
+  fs.delete(testdir,true);
+}

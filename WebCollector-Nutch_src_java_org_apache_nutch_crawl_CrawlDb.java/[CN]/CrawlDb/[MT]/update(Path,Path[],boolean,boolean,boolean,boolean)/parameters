@@ -1,0 +1,6 @@
+Path crawlDb
+Path[] segments
+boolean normalize
+boolean filter
+boolean additionsAllowed
+boolean force

@@ -1,0 +1,8 @@
+{
+  Metadata meta=new Metadata();
+  Assert.assertNull(meta.get("a-name"));
+  meta.add("a-name","value-1");
+  Assert.assertEquals("value-1",meta.get("a-name"));
+  meta.add("a-name","value-2");
+  Assert.assertEquals("value-1",meta.get("a-name"));
+}

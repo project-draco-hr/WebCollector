@@ -1,0 +1,8 @@
+{
+  int hostIndex=urlString.indexOf(host);
+  StringBuilder buffer=new StringBuilder();
+  buffer.append(urlString.substring(0,hostIndex));
+  buffer.append(target);
+  buffer.append(urlString.substring(hostIndex + host.length()));
+  return buffer.toString();
+}

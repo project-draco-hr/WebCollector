@@ -1,0 +1,7 @@
+String crawlDb
+String output
+Configuration config
+String format
+String regex
+String status
+Integer retry

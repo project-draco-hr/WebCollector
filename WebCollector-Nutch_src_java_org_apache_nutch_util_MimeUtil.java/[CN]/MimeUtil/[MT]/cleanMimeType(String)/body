@@ -1,0 +1,10 @@
+{
+  if (origType == null)   return null;
+  String[] tokenizedMimeType=origType.split(SEPARATOR);
+  if (tokenizedMimeType.length > 1) {
+    return tokenizedMimeType[0];
+  }
+ else {
+    return origType;
+  }
+}

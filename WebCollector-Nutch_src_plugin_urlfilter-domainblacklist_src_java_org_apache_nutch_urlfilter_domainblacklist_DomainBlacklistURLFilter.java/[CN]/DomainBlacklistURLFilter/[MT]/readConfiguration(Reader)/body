@@ -1,0 +1,9 @@
+{
+  BufferedReader reader=new BufferedReader(configReader);
+  String line=null;
+  while ((line=reader.readLine()) != null) {
+    if (StringUtils.isNotBlank(line) && !line.startsWith("#")) {
+      domainSet.add(StringUtils.lowerCase(line.trim()));
+    }
+  }
+}

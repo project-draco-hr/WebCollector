@@ -1,0 +1,11 @@
+{
+  Text.writeString(out,toUrl);
+  Text.writeString(out,anchor);
+  if (md != null && md.size() > 0) {
+    out.writeBoolean(true);
+    md.write(out);
+  }
+ else {
+    out.writeBoolean(false);
+  }
+}

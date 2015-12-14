@@ -1,0 +1,70 @@
+{
+  String urlString=url.toString();
+  try {
+    URL u=new URL(urlString);
+    long startTime=System.currentTimeMillis();
+    Response response=getResponse(u,datum,false);
+    if (this.responseTime) {
+      int elapsedTime=(int)(System.currentTimeMillis() - startTime);
+      datum.getMetaData().put(RESPONSE_TIME,new IntWritable(elapsedTime));
+    }
+    int code=response.getCode();
+    byte[] content=response.getContent();
+    Content c=new Content(u.toString(),u.toString(),(content == null ? EMPTY_CONTENT : content),response.getHeader("Content-Type"),response.getHeaders(),this.conf);
+    if (code == 200) {
+      return new ProtocolOutput(c);
+    }
+ else     if (code >= 300 && code < 400) {
+      String location=response.getHeader("Location");
+      if (location == null)       location=response.getHeader("location");
+      if (location == null)       location="";
+      u=new URL(u,location);
+      int protocolStatusCode;
+switch (code) {
+case 300:
+        protocolStatusCode=ProtocolStatus.MOVED;
+      break;
+case 301:
+case 305:
+    protocolStatusCode=ProtocolStatus.MOVED;
+  break;
+case 302:
+case 303:
+case 307:
+protocolStatusCode=ProtocolStatus.TEMP_MOVED;
+break;
+case 304:
+protocolStatusCode=ProtocolStatus.NOTMODIFIED;
+break;
+default :
+protocolStatusCode=ProtocolStatus.MOVED;
+}
+return new ProtocolOutput(c,new ProtocolStatus(protocolStatusCode,u));
+}
+ else if (code == 400) {
+if (logger.isTraceEnabled()) {
+logger.trace("400 Bad request: " + u);
+}
+return new ProtocolOutput(c,new ProtocolStatus(ProtocolStatus.GONE,u));
+}
+ else if (code == 401) {
+if (logger.isTraceEnabled()) {
+logger.trace("401 Authentication Required");
+}
+return new ProtocolOutput(c,new ProtocolStatus(ProtocolStatus.ACCESS_DENIED,"Authentication required: " + urlString));
+}
+ else if (code == 404) {
+return new ProtocolOutput(c,new ProtocolStatus(ProtocolStatus.NOTFOUND,u));
+}
+ else if (code == 410) {
+return new ProtocolOutput(c,new ProtocolStatus(ProtocolStatus.GONE,"Http: " + code + " url="+ u));
+}
+ else {
+return new ProtocolOutput(c,new ProtocolStatus(ProtocolStatus.EXCEPTION,"Http code=" + code + ", url="+ u));
+}
+}
+ catch (Throwable e) {
+logger.error("Failed to get protocol output",e);
+return new ProtocolOutput(null,new ProtocolStatus(e));
+}
+}

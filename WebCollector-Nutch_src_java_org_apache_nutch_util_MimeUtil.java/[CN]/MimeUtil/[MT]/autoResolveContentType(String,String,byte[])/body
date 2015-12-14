@@ -1,0 +1,56 @@
+{
+  String retType=null;
+  MimeType type=null;
+  String cleanedMimeType=null;
+  cleanedMimeType=MimeUtil.cleanMimeType(typeName);
+  if (cleanedMimeType != null) {
+    try {
+      type=mimeTypes.forName(cleanedMimeType);
+      cleanedMimeType=type.getName();
+    }
+ catch (    MimeTypeException mte) {
+      cleanedMimeType=null;
+    }
+  }
+  if (type == null || (type != null && type.getName().equals(MimeTypes.OCTET_STREAM))) {
+    try {
+      retType=tika.detect(url) != null ? tika.detect(url) : null;
+    }
+ catch (    Exception e) {
+      String message="Problem loading default Tika configuration";
+      LOG.error(message,e);
+      throw new RuntimeException(e);
+    }
+  }
+ else {
+    retType=type.getName();
+  }
+  if (this.mimeMagic) {
+    String magicType=null;
+    Metadata tikaMeta=new Metadata();
+    tikaMeta.add(Metadata.RESOURCE_NAME_KEY,url);
+    tikaMeta.add(Metadata.CONTENT_TYPE,(cleanedMimeType != null ? cleanedMimeType : typeName));
+    try {
+      InputStream stream=TikaInputStream.get(data);
+      try {
+        magicType=tika.detect(stream,tikaMeta);
+      }
+  finally {
+        stream.close();
+      }
+    }
+ catch (    IOException ignore) {
+    }
+    if (magicType != null && !magicType.equals(MimeTypes.OCTET_STREAM) && !magicType.equals(MimeTypes.PLAIN_TEXT) && retType != null && !retType.equals(magicType)) {
+      retType=magicType;
+    }
+    if (retType == null) {
+      try {
+        retType=MimeTypes.OCTET_STREAM;
+      }
+ catch (      Exception ignore) {
+      }
+    }
+  }
+  return retType;
+}

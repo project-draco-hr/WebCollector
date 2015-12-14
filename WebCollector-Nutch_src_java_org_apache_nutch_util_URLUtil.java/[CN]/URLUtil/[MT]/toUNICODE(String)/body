@@ -1,0 +1,26 @@
+{
+  try {
+    URL u=new URL(url);
+    StringBuilder sb=new StringBuilder();
+    sb.append(u.getProtocol());
+    sb.append("://");
+    if (u.getUserInfo() != null) {
+      sb.append(u.getUserInfo());
+      sb.append('@');
+    }
+    sb.append(IDN.toUnicode(u.getHost()));
+    if (u.getPort() != -1) {
+      sb.append(':');
+      sb.append(u.getPort());
+    }
+    sb.append(u.getFile());
+    if (u.getRef() != null) {
+      sb.append('#');
+      sb.append(u.getRef());
+    }
+    return sb.toString();
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

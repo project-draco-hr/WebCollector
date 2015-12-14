@@ -1,0 +1,145 @@
+{
+  activeThreads.incrementAndGet();
+  FetchItem fit=null;
+  try {
+    while (true) {
+      if (isHalted()) {
+        LOG.debug(getName() + " set to halted");
+        fit=null;
+        return;
+      }
+      fit=fetchQueues.getFetchItem();
+      if (fit == null) {
+        if (feeder.isAlive() || fetchQueues.getTotalSize() > 0) {
+          LOG.debug(getName() + " spin-waiting ...");
+          spinWaiting.incrementAndGet();
+          try {
+            Thread.sleep(500);
+          }
+ catch (          Exception e) {
+          }
+          spinWaiting.decrementAndGet();
+          continue;
+        }
+ else {
+          LOG.info("Thread " + getName() + " has no more work available");
+          return;
+        }
+      }
+      lastRequestStart.set(System.currentTimeMillis());
+      Text reprUrlWritable=(Text)fit.datum.getMetaData().get(Nutch.WRITABLE_REPR_URL_KEY);
+      if (reprUrlWritable == null) {
+        reprUrl=fit.url.toString();
+      }
+ else {
+        reprUrl=reprUrlWritable.toString();
+      }
+      try {
+        redirecting=false;
+        redirectCount=0;
+        do {
+          if (LOG.isInfoEnabled()) {
+            LOG.info("fetching " + fit.url + " (queue crawl delay="+ fetchQueues.getFetchItemQueue(fit.queueID).crawlDelay+ "ms)");
+          }
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("redirectCount=" + redirectCount);
+          }
+          redirecting=false;
+          Protocol protocol=this.protocolFactory.getProtocol(fit.url.toString());
+          BaseRobotRules rules=protocol.getRobotRules(fit.url,fit.datum);
+          ProtocolOutput output=protocol.getProtocolOutput(fit.url,fit.datum);
+          ProtocolStatus status=output.getStatus();
+          Content content=output.getContent();
+          ParseStatus pstatus=null;
+          fetchQueues.finishFetchItem(fit);
+          String urlString=fit.url.toString();
+          reporter.incrCounter("FetcherStatus",status.getName(),1);
+switch (status.getCode()) {
+case ProtocolStatus.WOULDBLOCK:
+            fetchQueues.addFetchItem(fit);
+          break;
+case ProtocolStatus.SUCCESS:
+        pstatus=output(fit.url,fit.datum,content,status,CrawlDatum.STATUS_FETCH_SUCCESS,fit.outlinkDepth);
+      updateStatus(content.getContent().length);
+    if (pstatus != null && pstatus.isSuccess() && pstatus.getMinorCode() == ParseStatus.SUCCESS_REDIRECT) {
+      String newUrl=pstatus.getMessage();
+      int refreshTime=Integer.valueOf(pstatus.getArgs()[1]);
+      Text redirUrl=handleRedirect(fit.url,fit.datum,urlString,newUrl,refreshTime < Fetcher.PERM_REFRESH_TIME,Fetcher.CONTENT_REDIR);
+      if (redirUrl != null) {
+        queueRedirect(redirUrl,fit);
+      }
+    }
+  break;
+case ProtocolStatus.MOVED:
+case ProtocolStatus.TEMP_MOVED:
+int code;
+boolean temp;
+if (status.getCode() == ProtocolStatus.MOVED) {
+code=CrawlDatum.STATUS_FETCH_REDIR_PERM;
+temp=false;
+}
+ else {
+code=CrawlDatum.STATUS_FETCH_REDIR_TEMP;
+temp=true;
+}
+output(fit.url,fit.datum,content,status,code);
+String newUrl=status.getMessage();
+Text redirUrl=handleRedirect(fit.url,fit.datum,urlString,newUrl,temp,Fetcher.PROTOCOL_REDIR);
+if (redirUrl != null) {
+queueRedirect(redirUrl,fit);
+}
+ else {
+redirecting=false;
+}
+break;
+case ProtocolStatus.EXCEPTION:
+logError(fit.url,status.getMessage());
+int killedURLs=fetchQueues.checkExceptionThreshold(fit.getQueueID());
+if (killedURLs != 0) reporter.incrCounter("FetcherStatus","AboveExceptionThresholdInQueue",killedURLs);
+case ProtocolStatus.RETRY:
+case ProtocolStatus.BLOCKED:
+output(fit.url,fit.datum,null,status,CrawlDatum.STATUS_FETCH_RETRY);
+break;
+case ProtocolStatus.GONE:
+case ProtocolStatus.NOTFOUND:
+case ProtocolStatus.ACCESS_DENIED:
+case ProtocolStatus.ROBOTS_DENIED:
+output(fit.url,fit.datum,null,status,CrawlDatum.STATUS_FETCH_GONE);
+break;
+case ProtocolStatus.NOTMODIFIED:
+output(fit.url,fit.datum,null,status,CrawlDatum.STATUS_FETCH_NOTMODIFIED);
+break;
+default :
+if (LOG.isWarnEnabled()) {
+LOG.warn("Unknown ProtocolStatus: " + status.getCode());
+}
+output(fit.url,fit.datum,null,status,CrawlDatum.STATUS_FETCH_RETRY);
+}
+if (redirecting && redirectCount > maxRedirect) {
+fetchQueues.finishFetchItem(fit);
+if (LOG.isInfoEnabled()) {
+LOG.info(" - redirect count exceeded " + fit.url);
+}
+output(fit.url,fit.datum,null,ProtocolStatus.STATUS_REDIR_EXCEEDED,CrawlDatum.STATUS_FETCH_GONE);
+}
+}
+ while (redirecting && (redirectCount <= maxRedirect));
+}
+ catch (Throwable t) {
+fetchQueues.finishFetchItem(fit);
+logError(fit.url,StringUtils.stringifyException(t));
+output(fit.url,fit.datum,null,ProtocolStatus.STATUS_FAILED,CrawlDatum.STATUS_FETCH_RETRY);
+}
+}
+}
+ catch (Throwable e) {
+if (LOG.isErrorEnabled()) {
+LOG.error("fetcher caught:" + e.toString());
+}
+}
+ finally {
+if (fit != null) fetchQueues.finishFetchItem(fit);
+activeThreads.decrementAndGet();
+LOG.info("-finishing thread " + getName() + ", activeThreads="+ activeThreads);
+}
+}

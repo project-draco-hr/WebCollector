@@ -1,0 +1,6 @@
+{
+  if (LOG.isErrorEnabled()) {
+    LOG.error("Fatal err: " + spe.toString() + ": "+ spe.getMessage());
+    LOG.error("Last known line is " + location.getLineNumber() + ", column "+ location.getColumnNumber());
+  }
+}

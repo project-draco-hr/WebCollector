@@ -1,0 +1,3 @@
+{
+  return new CrawlDBTestUtil.URLCrawlDatum(new Text(url),new CrawlDatum(CrawlDatum.STATUS_DB_UNFETCHED,fetchInterval,score));
+}

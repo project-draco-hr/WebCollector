@@ -1,0 +1,7 @@
+{
+  long total=0;
+  while (values.hasNext()) {
+    total+=values.next().get();
+  }
+  output.collect(numNodes,new LongWritable(total));
+}

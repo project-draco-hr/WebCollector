@@ -1,0 +1,6 @@
+{
+  if (keyMap.containsKey(key)) {
+    key=(String)keyMap.get(key);
+  }
+  return key;
+}

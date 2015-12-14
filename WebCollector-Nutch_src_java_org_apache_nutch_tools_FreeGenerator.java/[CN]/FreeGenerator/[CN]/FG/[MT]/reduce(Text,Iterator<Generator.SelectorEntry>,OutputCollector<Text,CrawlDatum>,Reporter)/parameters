@@ -1,0 +1,4 @@
+Text key
+Iterator<Generator.SelectorEntry> values
+OutputCollector<Text,CrawlDatum> output
+Reporter reporter

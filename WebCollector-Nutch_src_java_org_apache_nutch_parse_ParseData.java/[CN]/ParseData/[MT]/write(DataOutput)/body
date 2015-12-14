@@ -1,0 +1,11 @@
+{
+  out.writeByte(VERSION);
+  status.write(out);
+  Text.writeString(out,title);
+  out.writeInt(outlinks.length);
+  for (int i=0; i < outlinks.length; i++) {
+    outlinks[i].write(out);
+  }
+  contentMeta.write(out);
+  parseMeta.write(out);
+}

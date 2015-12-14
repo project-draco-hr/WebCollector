@@ -1,0 +1,5 @@
+{
+  RegexURLFilter filter=new RegexURLFilter();
+  filter.setConf(NutchConfiguration.create());
+  main(filter,args);
+}

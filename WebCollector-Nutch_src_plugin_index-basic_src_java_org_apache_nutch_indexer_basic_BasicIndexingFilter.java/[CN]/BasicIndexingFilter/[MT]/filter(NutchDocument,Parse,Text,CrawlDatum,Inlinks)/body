@@ -1,0 +1,44 @@
+{
+  Text reprUrl=(Text)datum.getMetaData().get(Nutch.WRITABLE_REPR_URL_KEY);
+  String reprUrlString=reprUrl != null ? reprUrl.toString() : null;
+  String urlString=url.toString();
+  String host=null;
+  try {
+    URL u;
+    if (reprUrlString != null) {
+      u=new URL(reprUrlString);
+    }
+ else {
+      u=new URL(urlString);
+    }
+    if (addDomain) {
+      doc.add("domain",URLUtil.getDomainName(u));
+    }
+    host=u.getHost();
+  }
+ catch (  MalformedURLException e) {
+    throw new IndexingException(e);
+  }
+  if (host != null) {
+    doc.add("host",host);
+  }
+  doc.add("url",reprUrlString == null ? urlString : reprUrlString);
+  String content=parse.getText();
+  if (MAX_CONTENT_LENGTH > -1 && content.length() > MAX_CONTENT_LENGTH) {
+    content=content.substring(0,MAX_CONTENT_LENGTH);
+  }
+  doc.add("content",StringUtil.cleanField(content));
+  String title=parse.getData().getTitle();
+  if (MAX_TITLE_LENGTH > -1 && title.length() > MAX_TITLE_LENGTH) {
+    title=title.substring(0,MAX_TITLE_LENGTH);
+  }
+  if (title.length() > 0) {
+    doc.add("title",StringUtil.cleanField(title));
+  }
+  String caching=parse.getData().getMeta(Nutch.CACHING_FORBIDDEN_KEY);
+  if (caching != null && !caching.equals(Nutch.CACHING_FORBIDDEN_NONE)) {
+    doc.add("cache",caching);
+  }
+  doc.add("tstamp",new Date(datum.getFetchTime()));
+  return doc;
+}

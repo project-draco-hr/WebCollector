@@ -1,0 +1,8 @@
+{
+  String fromUrl=key.toString();
+  String toUrl=datum.getUrl();
+  String anchor=datum.getAnchor();
+  LinkDatum inlink=new LinkDatum(fromUrl,anchor,timestamp);
+  inlink.setLinkType(LinkDatum.INLINK);
+  output.collect(new Text(toUrl),inlink);
+}

@@ -1,0 +1,47 @@
+{
+  List<?> authors=entry.getAuthors(), categories=entry.getCategories();
+  Date published=entry.getPublishedDate(), updated=entry.getUpdatedDate();
+  String contentType=null;
+  if (authors != null) {
+    for (    Object o : authors) {
+      SyndPerson author=(SyndPerson)o;
+      String authorName=author.getName();
+      if (checkString(authorName)) {
+        parseMeta.add(Feed.FEED_AUTHOR,authorName);
+      }
+    }
+  }
+ else {
+    String authorName=entry.getAuthor();
+    if (checkString(authorName)) {
+      parseMeta.set(Feed.FEED_AUTHOR,authorName);
+    }
+  }
+  for (  Object i : categories) {
+    parseMeta.add(Feed.FEED_TAGS,((SyndCategory)i).getName());
+  }
+  if (published != null) {
+    parseMeta.set(Feed.FEED_PUBLISHED,Long.toString(published.getTime()));
+  }
+  if (updated != null) {
+    parseMeta.set(Feed.FEED_UPDATED,Long.toString(updated.getTime()));
+  }
+  SyndContent description=entry.getDescription();
+  if (description != null) {
+    contentType=description.getType();
+  }
+ else {
+    List<?> contents=entry.getContents();
+    if (contents.size() > 0) {
+      contentType=((SyndContent)contents.get(0)).getType();
+    }
+  }
+  if (checkString(contentType)) {
+    if (contentType.equals("html"))     contentType="text/html";
+ else     if (contentType.equals("xhtml"))     contentType="text/xhtml";
+    contentMeta.set(Response.CONTENT_TYPE,contentType + "; " + CHARSET_UTF8);
+  }
+ else {
+    contentMeta.set(Response.CONTENT_TYPE,TEXT_PLAIN_CONTENT_TYPE);
+  }
+}

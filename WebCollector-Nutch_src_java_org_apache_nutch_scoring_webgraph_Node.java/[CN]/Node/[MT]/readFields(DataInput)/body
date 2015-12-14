@@ -1,0 +1,7 @@
+{
+  numInlinks=in.readInt();
+  numOutlinks=in.readInt();
+  inlinkScore=in.readFloat();
+  metadata.clear();
+  metadata.readFields(in);
+}

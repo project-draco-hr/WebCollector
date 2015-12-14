@@ -1,0 +1,12 @@
+{
+  String uuid=NutchConfiguration.getUUID(conf);
+  if (uuid == null) {
+    uuid="nonNutchConf@" + conf.hashCode();
+  }
+  PluginRepository result=CACHE.get(uuid);
+  if (result == null) {
+    result=new PluginRepository(conf);
+    CACHE.put(uuid,result);
+  }
+  return result;
+}

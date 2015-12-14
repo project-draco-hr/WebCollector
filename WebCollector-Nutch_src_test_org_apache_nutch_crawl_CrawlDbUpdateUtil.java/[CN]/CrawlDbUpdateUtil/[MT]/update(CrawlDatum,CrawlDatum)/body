@@ -1,0 +1,6 @@
+{
+  List<CrawlDatum> values=new ArrayList<CrawlDatum>();
+  if (dbDatum != null)   values.add(dbDatum);
+  if (fetchDatum != null)   values.add(fetchDatum);
+  return update(values);
+}

@@ -1,0 +1,19 @@
+{
+  out.writeInt(size());
+  String[] values=null;
+  String[] names=names();
+  for (int i=0; i < names.length; i++) {
+    Text.writeString(out,names[i]);
+    values=_getValues(names[i]);
+    int cnt=0;
+    for (int j=0; j < values.length; j++) {
+      if (values[j] != null)       cnt++;
+    }
+    out.writeInt(cnt);
+    for (int j=0; j < values.length; j++) {
+      if (values[j] != null) {
+        Text.writeString(out,values[j]);
+      }
+    }
+  }
+}

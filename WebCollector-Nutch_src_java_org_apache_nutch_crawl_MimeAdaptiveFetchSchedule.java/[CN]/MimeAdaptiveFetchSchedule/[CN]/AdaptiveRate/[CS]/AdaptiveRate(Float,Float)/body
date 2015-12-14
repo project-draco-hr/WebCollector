@@ -1,0 +1,4 @@
+{
+  this.inc=inc;
+  this.dec=dec;
+}

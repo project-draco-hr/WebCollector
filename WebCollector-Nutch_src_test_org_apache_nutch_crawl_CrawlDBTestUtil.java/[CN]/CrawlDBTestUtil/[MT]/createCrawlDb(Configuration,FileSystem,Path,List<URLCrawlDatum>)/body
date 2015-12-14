@@ -1,0 +1,12 @@
+{
+  LOG.trace("* creating crawldb: " + crawldb);
+  Path dir=new Path(crawldb,CrawlDb.CURRENT_NAME);
+  MapFile.Writer writer=new MapFile.Writer(conf,fs,new Path(dir,"part-00000").toString(),Text.class,CrawlDatum.class);
+  Iterator<URLCrawlDatum> it=init.iterator();
+  while (it.hasNext()) {
+    URLCrawlDatum row=it.next();
+    LOG.info("adding:" + row.url.toString());
+    writer.append(new Text(row.url),row.datum);
+  }
+  writer.close();
+}

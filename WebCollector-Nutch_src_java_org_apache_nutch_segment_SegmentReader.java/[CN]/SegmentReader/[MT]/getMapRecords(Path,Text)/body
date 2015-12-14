@@ -1,0 +1,21 @@
+{
+  MapFile.Reader[] readers=MapFileOutputFormat.getReaders(fs,dir,getConf());
+  ArrayList<Writable> res=new ArrayList<Writable>();
+  Class<?> keyClass=readers[0].getKeyClass();
+  Class<?> valueClass=readers[0].getValueClass();
+  if (!keyClass.getName().equals("org.apache.hadoop.io.Text"))   throw new IOException("Incompatible key (" + keyClass.getName() + ")");
+  Writable value=(Writable)valueClass.newInstance();
+  for (int i=0; i < readers.length; i++) {
+    if (readers[i].get(key,value) != null) {
+      res.add(value);
+      value=(Writable)valueClass.newInstance();
+      Text aKey=(Text)keyClass.newInstance();
+      while (readers[i].next(aKey,value) && aKey.equals(key)) {
+        res.add(value);
+        value=(Writable)valueClass.newInstance();
+      }
+    }
+    readers[i].close();
+  }
+  return res;
+}

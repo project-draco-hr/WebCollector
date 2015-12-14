@@ -1,0 +1,5 @@
+{
+  int value=in.read();
+  in.unread(value);
+  return value;
+}

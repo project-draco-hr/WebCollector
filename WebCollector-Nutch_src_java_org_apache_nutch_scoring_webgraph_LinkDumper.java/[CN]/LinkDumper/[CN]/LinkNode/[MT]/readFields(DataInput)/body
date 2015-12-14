@@ -1,0 +1,5 @@
+{
+  url=in.readUTF();
+  node=new Node();
+  node.readFields(in);
+}

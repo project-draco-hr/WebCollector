@@ -1,0 +1,7 @@
+{
+  writers.close();
+  if (totalDeleted > 0 && !noCommit) {
+    writers.commit();
+  }
+  LOG.info("CleaningJob: deleted a total of " + totalDeleted + " documents");
+}

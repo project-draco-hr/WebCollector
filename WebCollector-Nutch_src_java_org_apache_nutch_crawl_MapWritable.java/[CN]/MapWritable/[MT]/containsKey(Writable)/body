@@ -1,0 +1,3 @@
+{
+  return findEntryByKey(key) != null;
+}

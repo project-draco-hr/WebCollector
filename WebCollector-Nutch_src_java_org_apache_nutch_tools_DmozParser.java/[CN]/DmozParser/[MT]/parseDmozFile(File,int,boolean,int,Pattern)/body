@@ -1,0 +1,23 @@
+{
+  SAXParserFactory parserFactory=SAXParserFactory.newInstance();
+  SAXParser parser=parserFactory.newSAXParser();
+  XMLReader reader=parser.getXMLReader();
+  RDFProcessor rp=new RDFProcessor(reader,subsetDenom,includeAdult,skew,topicPattern);
+  reader.setContentHandler(rp);
+  reader.setErrorHandler(rp);
+  LOG.info("skew = " + rp.hashSkew);
+  XMLCharFilter in=new XMLCharFilter(new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(dmozFile)),"UTF-8")));
+  try {
+    InputSource is=new InputSource(in);
+    reader.parse(is);
+  }
+ catch (  Exception e) {
+    if (LOG.isErrorEnabled()) {
+      LOG.error(e.toString());
+    }
+    System.exit(0);
+  }
+ finally {
+    in.close();
+  }
+}

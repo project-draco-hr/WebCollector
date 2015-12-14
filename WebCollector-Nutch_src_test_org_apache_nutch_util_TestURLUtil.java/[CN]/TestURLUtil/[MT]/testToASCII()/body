@@ -1,0 +1,5 @@
+{
+  Assert.assertEquals("http://www.xn--evir-zoa.com",URLUtil.toASCII("http://www.??evir.com"));
+  Assert.assertEquals("http://xn--uni-tbingen-xhb.de/",URLUtil.toASCII("http://uni-t??bingen.de/"));
+  Assert.assertEquals("http://www.medizin.xn--uni-tbingen-xhb.de:8080/search.php?q=abc#p1",URLUtil.toASCII("http://www.medizin.uni-t??bingen.de:8080/search.php?q=abc#p1"));
+}

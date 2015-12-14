@@ -1,0 +1,14 @@
+{
+  try {
+    ParseUtil parser=new ParseUtil(NutchConfiguration.create());
+    for (int t=0; t < docs.length; t++) {
+      Content content=getContent(docs[t]);
+      Parse parse=parser.parse(content).get(content.getUrl());
+      Assert.assertEquals(metalanguages[t],(String)parse.getData().getParseMeta().get(Metadata.LANGUAGE));
+    }
+  }
+ catch (  Exception e) {
+    e.printStackTrace(System.out);
+    Assert.fail(e.toString());
+  }
+}

@@ -1,0 +1,9 @@
+{
+  ObjectCache cache=ObjectCache.get(conf);
+  SolrMappingReader instance=(SolrMappingReader)cache.getObject(SolrMappingReader.class.getName());
+  if (instance == null) {
+    instance=new SolrMappingReader(conf);
+    cache.setObject(SolrMappingReader.class.getName(),instance);
+  }
+  return instance;
+}

@@ -1,0 +1,36 @@
+{
+  List<FTPFile> list=new LinkedList<FTPFile>();
+  try {
+    if (!FTPReply.isPositiveCompletion(ftp.client.cwd(path))) {
+      this.code=404;
+      return;
+    }
+    ftp.client.retrieveList(null,list,ftp.maxContentLength,ftp.parser);
+    this.content=list2html(list,path,"/".equals(path) ? false : true);
+    this.headers.set(Response.CONTENT_LENGTH,new Integer(this.content.length).toString());
+    this.headers.set(Response.CONTENT_TYPE,"text/html");
+    this.code=200;
+  }
+ catch (  FtpExceptionControlClosedByForcedDataClose e) {
+    if ((ftp.followTalk) && (Ftp.LOG.isInfoEnabled())) {
+      Ftp.LOG.info("delete client because server cut off control channel: " + e);
+    }
+    ftp.client=null;
+    this.content=list2html(list,path,"/".equals(path) ? false : true);
+    this.headers.set(Response.CONTENT_LENGTH,new Integer(this.content.length).toString());
+    this.headers.set(Response.CONTENT_TYPE,"text/html");
+    this.code=200;
+  }
+catch (  FtpExceptionUnknownForcedDataClose e) {
+    if (Ftp.LOG.isWarnEnabled()) {
+      Ftp.LOG.warn("Unrecognized reply after forced close of data channel. " + "If this is acceptable, please modify Client.java accordingly. " + e);
+    }
+    this.code=400;
+  }
+catch (  FtpExceptionCanNotHaveDataConnection e) {
+    if (Ftp.LOG.isWarnEnabled()) {
+      Ftp.LOG.warn("" + e);
+    }
+    this.code=500;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  String urlString;
+  Protocol protocol;
+  Content content;
+  Parse parse;
+  for (int i=0; i < sampleFiles.length; i++) {
+    urlString="file:" + sampleDir + fileSeparator+ sampleFiles[i];
+    Configuration conf=NutchConfiguration.create();
+    protocol=new ProtocolFactory(conf).getProtocol(urlString);
+    content=protocol.getProtocolOutput(new Text(urlString),new CrawlDatum()).getContent();
+    parse=new ParseUtil(conf).parseByExtensionId("parse-tika",content).get(content.getUrl());
+    Assert.assertEquals("121",parse.getData().getMeta("width"));
+    Assert.assertEquals("48",parse.getData().getMeta("height"));
+  }
+}

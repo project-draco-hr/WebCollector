@@ -1,0 +1,5 @@
+{
+  Text.writeString(out,outlinkUrl);
+  Text.writeString(out,lookingFor);
+  out.writeBoolean(found);
+}

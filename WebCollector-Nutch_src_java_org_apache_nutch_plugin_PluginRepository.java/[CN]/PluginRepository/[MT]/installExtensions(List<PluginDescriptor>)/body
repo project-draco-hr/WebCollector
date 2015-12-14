@@ -1,0 +1,12 @@
+{
+  for (  PluginDescriptor descriptor : pRegisteredPlugins) {
+    for (    Extension extension : descriptor.getExtensions()) {
+      String xpId=extension.getTargetPoint();
+      ExtensionPoint point=getExtensionPoint(xpId);
+      if (point == null) {
+        throw new PluginRuntimeException("Plugin (" + descriptor.getPluginId() + "), "+ "extension point: "+ xpId+ " does not exist.");
+      }
+      point.addExtension(extension);
+    }
+  }
+}

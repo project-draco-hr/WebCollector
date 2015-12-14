@@ -1,0 +1,7 @@
+{
+  this.url=url;
+  this.u=u;
+  this.datum=datum;
+  this.queueID=queueID;
+  this.outlinkDepth=outlinkDepth;
+}

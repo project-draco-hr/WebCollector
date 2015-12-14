@@ -1,0 +1,23 @@
+{
+  Configuration conf=NutchConfiguration.create();
+  conf.set("metatags.names","keywords,DC.creator");
+  conf.set("index.parse.md","metatag.keywords,metatag.dc.creator");
+  Metadata parseMeta=parseMeta(sampleFileMultival,conf);
+  String failMessage="One value of metatag with multiple values is missing: ";
+  Set<String> valueSet=new TreeSet<String>();
+  for (  String val : parseMeta.getValues("metatag.dc.creator")) {
+    valueSet.add(val);
+  }
+  String[] expectedValues1={"Doug Cutting","Michael Cafarella"};
+  for (  String val : expectedValues1) {
+    Assert.assertTrue(failMessage + val,valueSet.contains(val));
+  }
+  valueSet.clear();
+  for (  String val : parseMeta.getValues("metatag.keywords")) {
+    valueSet.add(val);
+  }
+  String[] expectedValues2={"robot d'indexation","web crawler","Webcrawler"};
+  for (  String val : expectedValues2) {
+    Assert.assertTrue(failMessage + val,valueSet.contains(val));
+  }
+}

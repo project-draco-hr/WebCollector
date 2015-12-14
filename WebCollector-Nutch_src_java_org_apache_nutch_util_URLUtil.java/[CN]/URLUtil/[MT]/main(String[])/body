@@ -1,0 +1,13 @@
+{
+  if (args.length != 1) {
+    System.err.println("Usage : URLUtil <url>");
+    return;
+  }
+  String url=args[0];
+  try {
+    System.out.println(URLUtil.getDomainName(new URL(url)));
+  }
+ catch (  MalformedURLException ex) {
+    ex.printStackTrace();
+  }
+}

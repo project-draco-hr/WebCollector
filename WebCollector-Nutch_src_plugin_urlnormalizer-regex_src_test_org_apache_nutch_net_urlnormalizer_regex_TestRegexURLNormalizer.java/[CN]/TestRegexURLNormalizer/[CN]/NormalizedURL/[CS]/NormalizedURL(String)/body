@@ -1,0 +1,5 @@
+{
+  String[] fields=line.split("\\s+");
+  url=fields[0];
+  expectedURL=fields[1];
+}

@@ -1,0 +1,5 @@
+{
+  ParseResult parseResult=new ParseResult(url);
+  parseResult.put(new Text(url),new ParseText(parse.getText()),parse.getData());
+  return parseResult;
+}

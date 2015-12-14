@@ -1,0 +1,5 @@
+{
+  Properties properties=new Properties();
+  properties.setProperty("key","value");
+  properties.store(new FileOutputStream(pFolderPath + File.separator + "messages"+ ".properties"),"");
+}

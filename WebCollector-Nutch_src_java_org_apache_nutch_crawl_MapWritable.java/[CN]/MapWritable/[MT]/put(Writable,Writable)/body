@@ -1,0 +1,16 @@
+{
+  KeyValueEntry entry=findEntryByKey(key);
+  if (entry != null) {
+    Writable oldValue=entry.fValue;
+    entry.fValue=value;
+    return oldValue;
+  }
+  KeyValueEntry newEntry=new KeyValueEntry(key,value);
+  fSize++;
+  if (fLast != null) {
+    fLast=fLast.fNextEntry=newEntry;
+    return null;
+  }
+  fLast=fFirst=newEntry;
+  return null;
+}

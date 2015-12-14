@@ -1,0 +1,16 @@
+{
+  long time=-1;
+  String lastModified=data.getMeta(Metadata.LAST_MODIFIED);
+  if (lastModified != null) {
+    time=getTime(lastModified,url);
+    doc.add("lastModified",new Date(time));
+  }
+  if (time == -1) {
+    time=datum.getModifiedTime();
+    if (time <= 0) {
+      time=datum.getFetchTime();
+    }
+  }
+  doc.add("date",new Date(time));
+  return doc;
+}

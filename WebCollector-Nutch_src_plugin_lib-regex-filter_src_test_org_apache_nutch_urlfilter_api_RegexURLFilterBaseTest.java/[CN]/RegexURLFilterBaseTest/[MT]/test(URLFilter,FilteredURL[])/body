@@ -1,0 +1,11 @@
+{
+  for (int i=0; i < expected.length; i++) {
+    String result=filter.filter(expected[i].url);
+    if (result != null) {
+      Assert.assertTrue(expected[i].url,expected[i].sign);
+    }
+ else {
+      Assert.assertFalse(expected[i].url,expected[i].sign);
+    }
+  }
+}

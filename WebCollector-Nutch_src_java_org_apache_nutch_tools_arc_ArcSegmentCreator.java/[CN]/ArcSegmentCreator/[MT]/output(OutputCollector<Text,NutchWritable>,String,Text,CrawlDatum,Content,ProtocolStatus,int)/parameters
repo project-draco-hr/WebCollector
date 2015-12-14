@@ -1,0 +1,7 @@
+OutputCollector<Text,NutchWritable> output
+String segmentName
+Text key
+CrawlDatum datum
+Content content
+ProtocolStatus pstatus
+int status

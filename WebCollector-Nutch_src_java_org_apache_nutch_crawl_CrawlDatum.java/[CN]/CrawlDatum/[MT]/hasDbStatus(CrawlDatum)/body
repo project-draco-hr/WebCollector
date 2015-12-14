@@ -1,0 +1,4 @@
+{
+  if (datum.status <= STATUS_DB_MAX)   return true;
+  return false;
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("initializing CollectionManager");
+    }
+    configfile=getConf().getResource(getConf().get("subcollections.config",DEFAULT_FILE_NAME));
+    InputStream input=getConf().getConfResourceAsInputStream(getConf().get("subcollections.config",DEFAULT_FILE_NAME));
+    parse(input);
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Error occured:" + e);
+    }
+  }
+}

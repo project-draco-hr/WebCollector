@@ -1,0 +1,4 @@
+FileSystem fs
+Path urlPath
+List<String> urls
+List<String> metadata

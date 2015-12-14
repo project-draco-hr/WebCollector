@@ -1,0 +1,3 @@
+List<FTPFile> list
+String path
+boolean includeDotDot

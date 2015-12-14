@@ -1,0 +1,4 @@
+Configuration config
+Path linkDb
+boolean normalize
+boolean filter

@@ -1,0 +1,48 @@
+{
+  int rdfPosition=comment.indexOf("RDF");
+  if (rdfPosition < 0)   return;
+  int nsPosition=comment.indexOf(CC_NS);
+  if (nsPosition < 0)   return;
+  Document doc;
+  try {
+    DocumentBuilder parser=FACTORY.newDocumentBuilder();
+    doc=parser.parse(new InputSource(new StringReader(comment)));
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("CC: Failed to parse RDF in " + base + ": "+ e);
+    }
+    return;
+  }
+  NodeList roots=doc.getElementsByTagNameNS(RDF_NS,"RDF");
+  if (roots.getLength() != 1) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("CC: No RDF root in " + base);
+    }
+    return;
+  }
+  Element rdf=(Element)roots.item(0);
+  NodeList licenses=rdf.getElementsByTagNameNS(CC_NS,"License");
+  for (int i=0; i < licenses.getLength(); i++) {
+    Element l=(Element)licenses.item(i);
+    this.rdfLicense=l.getAttributeNodeNS(RDF_NS,"about").getValue();
+    NodeList predicates=l.getChildNodes();
+    for (int j=0; j < predicates.getLength(); j++) {
+      Node predicateNode=predicates.item(j);
+      if (!(predicateNode instanceof Element))       continue;
+      Element predicateElement=(Element)predicateNode;
+      if (!CC_NS.equals(predicateElement.getNamespaceURI())) {
+        continue;
+      }
+    }
+  }
+  NodeList works=rdf.getElementsByTagNameNS(CC_NS,"Work");
+  for (int i=0; i < works.getLength(); i++) {
+    NodeList types=rdf.getElementsByTagNameNS(DC_NS,"type");
+    for (int j=0; j < types.getLength(); j++) {
+      Element type=(Element)types.item(j);
+      String workUri=type.getAttributeNodeNS(RDF_NS,"resource").getValue();
+      this.workType=WORK_TYPE_NAMES.get(workUri);
+    }
+  }
+}

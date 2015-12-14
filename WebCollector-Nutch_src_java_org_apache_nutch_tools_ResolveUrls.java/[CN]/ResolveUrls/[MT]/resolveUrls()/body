@@ -1,0 +1,19 @@
+{
+  try {
+    pool=Executors.newFixedThreadPool(numThreads);
+    BufferedReader buffRead=new BufferedReader(new FileReader(new File(urlsFile)));
+    String urlStr=null;
+    while ((urlStr=buffRead.readLine()) != null) {
+      LOG.info("Starting: " + urlStr);
+      pool.execute(new ResolverThread(urlStr));
+    }
+    buffRead.close();
+    pool.awaitTermination(60,TimeUnit.SECONDS);
+  }
+ catch (  Exception e) {
+    pool.shutdownNow();
+    LOG.info(StringUtils.stringifyException(e));
+  }
+  pool.shutdown();
+  LOG.info("Total: " + numTotal.get() + ", Resovled: "+ numResolved.get()+ ", Errored: "+ numErrored.get()+ ", Average Time: "+ totalTime.get() / numTotal.get());
+}

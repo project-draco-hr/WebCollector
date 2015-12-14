@@ -1,0 +1,5 @@
+{
+  if (value.getStatus() == CrawlDatum.STATUS_DB_GONE || value.getStatus() == CrawlDatum.STATUS_DB_DUPLICATE) {
+    output.collect(OUT,key);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  String path=System.getProperty("test.data");
+  if (path != null) {
+    File tempDir=new File(path);
+    if (!tempDir.exists())     tempDir.mkdir();
+    tempFile=File.createTempFile("nutch.test.plugin.ExtParser.",".txt",tempDir);
+  }
+ else {
+    tempFile=File.createTempFile("nutch.test.plugin.ExtParser.",".txt");
+  }
+  urlString=tempFile.toURI().toURL().toString();
+  FileOutputStream fos=new FileOutputStream(tempFile);
+  fos.write(expectedText.getBytes());
+  fos.close();
+  Protocol protocol=new ProtocolFactory(NutchConfiguration.create()).getProtocol(urlString);
+  content=protocol.getProtocolOutput(new Text(urlString),new CrawlDatum()).getContent();
+  protocol=null;
+}

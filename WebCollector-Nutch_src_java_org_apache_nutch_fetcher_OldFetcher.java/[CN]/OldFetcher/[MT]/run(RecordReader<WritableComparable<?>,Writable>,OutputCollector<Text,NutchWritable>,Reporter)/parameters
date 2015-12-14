@@ -1,0 +1,3 @@
+RecordReader<WritableComparable<?>,Writable> input
+OutputCollector<Text,NutchWritable> output
+Reporter reporter

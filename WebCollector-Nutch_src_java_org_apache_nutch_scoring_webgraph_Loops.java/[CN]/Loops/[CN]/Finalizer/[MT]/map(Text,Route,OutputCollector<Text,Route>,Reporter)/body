@@ -1,0 +1,6 @@
+{
+  if (value.isFound()) {
+    String lookingFor=value.getLookingFor();
+    output.collect(new Text(lookingFor),value);
+  }
+}

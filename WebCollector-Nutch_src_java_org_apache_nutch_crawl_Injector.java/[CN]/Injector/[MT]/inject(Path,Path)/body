@@ -1,0 +1,70 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  if (LOG.isInfoEnabled()) {
+    LOG.info("Injector: starting at " + sdf.format(start));
+    LOG.info("Injector: crawlDb: " + crawlDb);
+    LOG.info("Injector: urlDir: " + urlDir);
+  }
+  Path tempDir=new Path(getConf().get("mapred.temp.dir",".") + "/inject-temp-" + Integer.toString(new Random().nextInt(Integer.MAX_VALUE)));
+  if (LOG.isInfoEnabled()) {
+    LOG.info("Injector: Converting injected urls to crawl db entries.");
+  }
+  FileSystem fs=FileSystem.get(getConf());
+  boolean dbExists=fs.exists(crawlDb);
+  JobConf sortJob=new NutchJob(getConf());
+  sortJob.setJobName("inject " + urlDir);
+  FileInputFormat.addInputPath(sortJob,urlDir);
+  sortJob.setMapperClass(InjectMapper.class);
+  FileOutputFormat.setOutputPath(sortJob,tempDir);
+  if (dbExists) {
+    sortJob.setOutputFormat(SequenceFileOutputFormat.class);
+    sortJob.setNumReduceTasks(0);
+  }
+ else {
+    sortJob.setOutputFormat(MapFileOutputFormat.class);
+    sortJob.setReducerClass(InjectReducer.class);
+    sortJob.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs",false);
+  }
+  sortJob.setOutputKeyClass(Text.class);
+  sortJob.setOutputValueClass(CrawlDatum.class);
+  sortJob.setLong("injector.current.time",System.currentTimeMillis());
+  RunningJob mapJob=null;
+  try {
+    mapJob=JobClient.runJob(sortJob);
+  }
+ catch (  IOException e) {
+    fs.delete(tempDir,true);
+    throw e;
+  }
+  long urlsInjected=mapJob.getCounters().findCounter("injector","urls_injected").getValue();
+  long urlsFiltered=mapJob.getCounters().findCounter("injector","urls_filtered").getValue();
+  LOG.info("Injector: Total number of urls rejected by filters: " + urlsFiltered);
+  LOG.info("Injector: Total number of urls after normalization: " + urlsInjected);
+  long urlsMerged=0;
+  if (dbExists) {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Injector: Merging injected urls into crawl db.");
+    }
+    JobConf mergeJob=CrawlDb.createJob(getConf(),crawlDb);
+    FileInputFormat.addInputPath(mergeJob,tempDir);
+    mergeJob.setReducerClass(InjectReducer.class);
+    try {
+      RunningJob merge=JobClient.runJob(mergeJob);
+      urlsMerged=merge.getCounters().findCounter("injector","urls_merged").getValue();
+      LOG.info("Injector: URLs merged: " + urlsMerged);
+    }
+ catch (    IOException e) {
+      fs.delete(tempDir,true);
+      throw e;
+    }
+    CrawlDb.install(mergeJob,crawlDb);
+  }
+ else {
+    CrawlDb.install(sortJob,crawlDb);
+  }
+  fs.delete(tempDir,true);
+  LOG.info("Injector: Total new urls injected: " + (urlsInjected - urlsMerged));
+  long end=System.currentTimeMillis();
+  LOG.info("Injector: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+}

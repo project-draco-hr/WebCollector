@@ -1,0 +1,11 @@
+{
+  out.writeByte(VERSION);
+  out.writeByte((byte)code);
+  out.writeLong(lastModified);
+  if (args == null) {
+    out.writeInt(-1);
+  }
+ else {
+    WritableUtils.writeStringArray(out,args);
+  }
+}

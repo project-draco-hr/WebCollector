@@ -1,0 +1,33 @@
+{
+  SyndFeed feed=null;
+  ParseResult parseResult=new ParseResult(content.getUrl());
+  EncodingDetector detector=new EncodingDetector(conf);
+  detector.autoDetectClues(content,true);
+  String encoding=detector.guessEncoding(content,defaultEncoding);
+  try {
+    InputSource input=new InputSource(new ByteArrayInputStream(content.getContent()));
+    input.setEncoding(encoding);
+    SyndFeedInput feedInput=new SyndFeedInput();
+    feed=feedInput.build(input);
+  }
+ catch (  Exception e) {
+    LOG.warn("Parse failed: url: " + content.getUrl() + ", exception: "+ StringUtils.stringifyException(e));
+    return new ParseStatus(e).getEmptyParseResult(content.getUrl(),getConf());
+  }
+  String feedLink=feed.getLink();
+  try {
+    feedLink=normalizers.normalize(feedLink,URLNormalizers.SCOPE_OUTLINK);
+    if (feedLink != null)     feedLink=filters.filter(feedLink);
+  }
+ catch (  Exception e) {
+    feedLink=null;
+  }
+  List<?> entries=feed.getEntries();
+  for (  Object entry : entries) {
+    addToMap(parseResult,feed,feedLink,(SyndEntry)entry,content);
+  }
+  String feedDesc=stripTags(feed.getDescriptionEx());
+  String feedTitle=stripTags(feed.getTitleEx());
+  parseResult.put(content.getUrl(),new ParseText(feedDesc),new ParseData(new ParseStatus(ParseStatus.SUCCESS),feedTitle,new Outlink[0],content.getMetadata()));
+  return parseResult;
+}

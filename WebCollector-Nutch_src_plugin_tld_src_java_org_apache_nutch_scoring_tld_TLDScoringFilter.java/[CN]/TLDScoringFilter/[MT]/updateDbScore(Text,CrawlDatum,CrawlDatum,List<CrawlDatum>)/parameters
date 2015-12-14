@@ -1,0 +1,4 @@
+Text url
+CrawlDatum old
+CrawlDatum datum
+List<CrawlDatum> inlinked

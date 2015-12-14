@@ -1,0 +1,21 @@
+{
+  FSDataOutputStream out;
+  Path file=new Path(urlPath,"urls.txt");
+  fs.mkdirs(urlPath);
+  out=fs.create(file);
+  Iterator<String> urls_i=urls.iterator();
+  Iterator<String> metadata_i=metadata.iterator();
+  String url;
+  String md;
+  while (urls_i.hasNext()) {
+    url=urls_i.next();
+    out.writeBytes(url);
+    if (metadata_i.hasNext()) {
+      md=metadata_i.next();
+      out.writeBytes(md);
+    }
+    out.writeBytes("\n");
+  }
+  out.flush();
+  out.close();
+}

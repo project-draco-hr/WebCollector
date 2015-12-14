@@ -1,0 +1,10 @@
+{
+  String[] res=new String[urls.size()];
+  int i=0;
+  Iterator<String> it=urls.iterator();
+  while (it.hasNext()) {
+    res[i]=(String)it.next();
+    i++;
+  }
+  return res;
+}

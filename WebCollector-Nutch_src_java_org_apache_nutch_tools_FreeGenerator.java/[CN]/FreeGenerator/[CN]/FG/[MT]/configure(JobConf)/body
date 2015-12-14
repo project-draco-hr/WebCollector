@@ -1,0 +1,11 @@
+{
+  super.configure(job);
+  defaultInterval=job.getInt("db.fetch.interval.default",0);
+  scfilters=new ScoringFilters(job);
+  if (job.getBoolean(FILTER_KEY,false)) {
+    filters=new URLFilters(job);
+  }
+  if (job.getBoolean(NORMALIZE_KEY,false)) {
+    normalizers=new URLNormalizers(job,URLNormalizers.SCOPE_INJECT);
+  }
+}

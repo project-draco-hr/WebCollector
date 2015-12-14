@@ -1,0 +1,10 @@
+{
+  URL u=null;
+  try {
+    u=new URL(url.toString());
+  }
+ catch (  Exception e) {
+    return EMPTY_RULES;
+  }
+  return getRobotRulesSet(protocol,u);
+}

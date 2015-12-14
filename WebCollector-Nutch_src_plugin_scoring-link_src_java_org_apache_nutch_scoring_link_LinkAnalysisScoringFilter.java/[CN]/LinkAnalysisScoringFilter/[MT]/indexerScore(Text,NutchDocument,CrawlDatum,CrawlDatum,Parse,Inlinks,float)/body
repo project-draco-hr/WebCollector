@@ -1,0 +1,3 @@
+{
+  return (normalizedScore * dbDatum.getScore());
+}

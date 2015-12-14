@@ -1,0 +1,5 @@
+{
+  String val=(String)stack.pop();
+  strings.remove(val);
+  super.getMember();
+}

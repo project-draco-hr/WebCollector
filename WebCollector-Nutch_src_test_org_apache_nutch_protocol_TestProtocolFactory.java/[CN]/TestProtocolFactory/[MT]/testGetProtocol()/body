@@ -1,0 +1,28 @@
+{
+  try {
+    factory.getProtocol("xyzxyz://somehost");
+    Assert.fail("Must throw ProtocolNotFound");
+  }
+ catch (  ProtocolNotFound e) {
+  }
+catch (  Exception ex) {
+    Assert.fail("Must not throw any other exception");
+  }
+  Protocol httpProtocol=null;
+  try {
+    httpProtocol=factory.getProtocol("http://somehost");
+    Assert.assertNotNull(httpProtocol);
+  }
+ catch (  Exception ex) {
+    Assert.fail("Must not throw any other exception");
+  }
+  Object protocol=ObjectCache.get(conf).getObject(Protocol.X_POINT_ID + "http");
+  Assert.assertNotNull(protocol);
+  Assert.assertEquals(httpProtocol,protocol);
+  try {
+    Assert.assertTrue(httpProtocol == factory.getProtocol("http://somehost"));
+  }
+ catch (  ProtocolNotFound e) {
+    Assert.fail("Must not throw any exception");
+  }
+}

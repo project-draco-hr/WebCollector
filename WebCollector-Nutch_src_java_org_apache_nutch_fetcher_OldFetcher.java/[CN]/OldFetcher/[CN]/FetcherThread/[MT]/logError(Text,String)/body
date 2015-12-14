@@ -1,0 +1,8 @@
+{
+  if (LOG.isInfoEnabled()) {
+    LOG.info("fetch of " + url + " failed with: "+ message);
+  }
+synchronized (OldFetcher.this) {
+    errors++;
+  }
+}

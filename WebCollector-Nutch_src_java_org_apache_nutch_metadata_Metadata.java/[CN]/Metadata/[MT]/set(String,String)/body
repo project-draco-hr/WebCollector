@@ -1,0 +1,3 @@
+{
+  metadata.put(name,new String[]{value});
+}

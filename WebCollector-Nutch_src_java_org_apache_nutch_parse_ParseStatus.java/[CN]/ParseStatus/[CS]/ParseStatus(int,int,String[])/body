@@ -1,0 +1,5 @@
+{
+  this.args=args;
+  this.majorCode=(byte)majorCode;
+  this.minorCode=(short)minorCode;
+}

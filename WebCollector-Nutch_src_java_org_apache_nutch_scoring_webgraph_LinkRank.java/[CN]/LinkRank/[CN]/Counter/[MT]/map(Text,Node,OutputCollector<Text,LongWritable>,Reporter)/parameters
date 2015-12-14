@@ -1,0 +1,4 @@
+Text key
+Node value
+OutputCollector<Text,LongWritable> output
+Reporter reporter

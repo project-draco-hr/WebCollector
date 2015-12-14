@@ -1,0 +1,5 @@
+{
+  String sUrl=url.toString();
+  addSubCollectionField(doc,sUrl);
+  return doc;
+}

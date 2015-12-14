@@ -1,0 +1,58 @@
+{
+  this.orig=url.toString();
+  this.base=url.toString();
+  this.file=file;
+  this.conf=conf;
+  MIME=new MimeUtil(conf);
+  tika=new Tika();
+  if (!"file".equals(url.getProtocol()))   throw new FileException("Not a file url:" + url);
+  if (File.LOG.isTraceEnabled()) {
+    File.LOG.trace("fetching " + url);
+  }
+  if (url.getPath() != url.getFile()) {
+    if (File.LOG.isWarnEnabled()) {
+      File.LOG.warn("url.getPath() != url.getFile(): " + url);
+    }
+  }
+  String path="".equals(url.getPath()) ? "/" : url.getPath();
+  try {
+    path=java.net.URLDecoder.decode(path,"UTF-8");
+  }
+ catch (  UnsupportedEncodingException ex) {
+  }
+  try {
+    this.content=null;
+    java.io.File f=new java.io.File(path);
+    if (!f.exists()) {
+      this.code=404;
+      return;
+    }
+    if (!f.canRead()) {
+      this.code=401;
+      return;
+    }
+    if (!f.equals(f.getCanonicalFile())) {
+      headers.set(Response.LOCATION,f.getCanonicalFile().toURI().toURL().toString());
+      this.code=300;
+      return;
+    }
+    if (f.lastModified() <= datum.getModifiedTime()) {
+      this.code=304;
+      this.headers.set("Last-Modified",HttpDateFormat.toString(f.lastModified()));
+      return;
+    }
+    if (f.isDirectory()) {
+      getDirAsHttpResponse(f);
+    }
+ else     if (f.isFile()) {
+      getFileAsHttpResponse(f);
+    }
+ else {
+      this.code=500;
+      return;
+    }
+  }
+ catch (  IOException e) {
+    throw e;
+  }
+}

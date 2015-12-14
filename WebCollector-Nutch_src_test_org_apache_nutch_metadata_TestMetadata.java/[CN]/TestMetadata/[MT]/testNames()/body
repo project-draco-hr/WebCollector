@@ -1,0 +1,13 @@
+{
+  String[] names=null;
+  Metadata meta=new Metadata();
+  names=meta.names();
+  Assert.assertEquals(0,names.length);
+  meta.add("name-one","value");
+  names=meta.names();
+  Assert.assertEquals(1,names.length);
+  Assert.assertEquals("name-one",names[0]);
+  meta.add("name-two","value");
+  names=meta.names();
+  Assert.assertEquals(2,names.length);
+}

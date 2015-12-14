@@ -1,0 +1,4 @@
+{
+  reducer=red;
+  reducer.configure(new JobConf(conf));
+}

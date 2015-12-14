@@ -1,0 +1,8 @@
+{
+  String contentLength=data.getMeta(Response.CONTENT_LENGTH);
+  if (contentLength != null) {
+    String trimmed=contentLength.toString().trim();
+    if (!trimmed.isEmpty())     doc.add("contentLength",trimmed);
+  }
+  return doc;
+}

@@ -1,0 +1,13 @@
+{
+  if (urlMetaTags == null || targets == null || parseData == null)   return adjust;
+  Iterator<Entry<Text,CrawlDatum>> targetIterator=targets.iterator();
+  while (targetIterator.hasNext()) {
+    Entry<Text,CrawlDatum> nextTarget=targetIterator.next();
+    for (    String metatag : urlMetaTags) {
+      String metaFromParse=parseData.getMeta(metatag);
+      if (metaFromParse == null)       continue;
+      nextTarget.getValue().getMetaData().put(new Text(metatag),new Text(metaFromParse));
+    }
+  }
+  return adjust;
+}

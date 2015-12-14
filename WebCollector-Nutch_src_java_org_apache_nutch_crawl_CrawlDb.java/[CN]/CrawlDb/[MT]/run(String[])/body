@@ -1,0 +1,48 @@
+{
+  if (args.length < 1) {
+    System.err.println("Usage: CrawlDb <crawldb> (-dir <segments> | <seg1> <seg2> ...) [-force] [-normalize] [-filter] [-noAdditions]");
+    System.err.println("\tcrawldb\tCrawlDb to update");
+    System.err.println("\t-dir segments\tparent directory containing all segments to update from");
+    System.err.println("\tseg1 seg2 ...\tlist of segment names to update from");
+    System.err.println("\t-force\tforce update even if CrawlDb appears to be locked (CAUTION advised)");
+    System.err.println("\t-normalize\tuse URLNormalizer on urls in CrawlDb and segment (usually not needed)");
+    System.err.println("\t-filter\tuse URLFilters on urls in CrawlDb and segment");
+    System.err.println("\t-noAdditions\tonly update already existing URLs, don't add any newly discovered URLs");
+    return -1;
+  }
+  boolean normalize=getConf().getBoolean(CrawlDbFilter.URL_NORMALIZING,false);
+  boolean filter=getConf().getBoolean(CrawlDbFilter.URL_FILTERING,false);
+  boolean additionsAllowed=getConf().getBoolean(CRAWLDB_ADDITIONS_ALLOWED,true);
+  boolean force=false;
+  final FileSystem fs=FileSystem.get(getConf());
+  HashSet<Path> dirs=new HashSet<Path>();
+  for (int i=1; i < args.length; i++) {
+    if (args[i].equals("-normalize")) {
+      normalize=true;
+    }
+ else     if (args[i].equals("-filter")) {
+      filter=true;
+    }
+ else     if (args[i].equals("-force")) {
+      force=true;
+    }
+ else     if (args[i].equals("-noAdditions")) {
+      additionsAllowed=false;
+    }
+ else     if (args[i].equals("-dir")) {
+      FileStatus[] paths=fs.listStatus(new Path(args[++i]),HadoopFSUtil.getPassDirectoriesFilter(fs));
+      dirs.addAll(Arrays.asList(HadoopFSUtil.getPaths(paths)));
+    }
+ else {
+      dirs.add(new Path(args[i]));
+    }
+  }
+  try {
+    update(new Path(args[0]),dirs.toArray(new Path[dirs.size()]),normalize,filter,additionsAllowed,force);
+    return 0;
+  }
+ catch (  Exception e) {
+    LOG.error("CrawlDb update: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+}

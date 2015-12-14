@@ -1,0 +1,7 @@
+int seeds
+int depth
+int threads
+int maxPerHost
+long topN
+boolean delete
+String plugins

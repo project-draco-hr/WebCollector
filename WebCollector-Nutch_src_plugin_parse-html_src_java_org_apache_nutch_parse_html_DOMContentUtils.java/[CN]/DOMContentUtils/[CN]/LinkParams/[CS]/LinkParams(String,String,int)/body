@@ -1,0 +1,5 @@
+{
+  this.elName=elName;
+  this.attrName=attrName;
+  this.childLen=childLen;
+}

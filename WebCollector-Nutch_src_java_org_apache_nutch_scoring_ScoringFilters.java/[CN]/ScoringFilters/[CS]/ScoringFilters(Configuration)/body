@@ -1,0 +1,4 @@
+{
+  super(conf);
+  this.filters=(ScoringFilter[])PluginRepository.get(conf).getOrderedPlugins(ScoringFilter.class,ScoringFilter.X_POINT_ID,"scoring.filter.order");
+}

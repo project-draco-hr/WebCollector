@@ -1,0 +1,26 @@
+{
+  Node currentNode=m_currentNode;
+  if (null != currentNode) {
+    currentNode.appendChild(newNode);
+  }
+ else   if (null != m_docFrag) {
+    m_docFrag.appendChild(newNode);
+  }
+ else {
+    boolean ok=true;
+    short type=newNode.getNodeType();
+    if (type == Node.TEXT_NODE) {
+      String data=newNode.getNodeValue();
+      if ((null != data) && (data.trim().length() > 0)) {
+        throw new org.xml.sax.SAXException("Warning: can't output text before document element!  Ignoring...");
+      }
+      ok=false;
+    }
+ else     if (type == Node.ELEMENT_NODE) {
+      if (m_doc.getDocumentElement() != null) {
+        throw new org.xml.sax.SAXException("Can't have more than one root on a DOM!");
+      }
+    }
+    if (ok)     m_doc.appendChild(newNode);
+  }
+}

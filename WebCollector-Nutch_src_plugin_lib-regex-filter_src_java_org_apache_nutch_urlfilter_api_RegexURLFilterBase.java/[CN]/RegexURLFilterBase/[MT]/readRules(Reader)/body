@@ -1,0 +1,33 @@
+{
+  BufferedReader in=new BufferedReader(reader);
+  List<RegexRule> rules=new ArrayList<RegexRule>();
+  String line;
+  while ((line=in.readLine()) != null) {
+    if (line.length() == 0) {
+      continue;
+    }
+    char first=line.charAt(0);
+    boolean sign=false;
+switch (first) {
+case '+':
+      sign=true;
+    break;
+case '-':
+  sign=false;
+break;
+case ' ':
+case '\n':
+case '#':
+continue;
+default :
+throw new IOException("Invalid first character: " + line);
+}
+String regex=line.substring(1);
+if (LOG.isTraceEnabled()) {
+LOG.trace("Adding rule [" + regex + "]");
+}
+RegexRule rule=createRule(sign,regex);
+rules.add(rule);
+}
+return rules;
+}

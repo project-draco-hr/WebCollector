@@ -1,0 +1,19 @@
+{
+  int newDepth=DEFAULT_MAX_DEPTH;
+  if (old != null) {
+    IntWritable oldDepth=(IntWritable)old.getMetaData().get(DEPTH_KEY_W);
+    if (oldDepth != null) {
+      newDepth=oldDepth.get();
+    }
+ else {
+      initialScore(url,old);
+    }
+  }
+  for (  CrawlDatum lnk : inlinked) {
+    IntWritable depth=(IntWritable)lnk.getMetaData().get(DEPTH_KEY_W);
+    if (depth != null && depth.get() < newDepth) {
+      newDepth=depth.get();
+    }
+  }
+  datum.getMetaData().put(DEPTH_KEY_W,new IntWritable(newDepth));
+}

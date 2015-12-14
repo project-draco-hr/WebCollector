@@ -1,0 +1,9 @@
+{
+  int childLen=(currentChildren != null) ? currentChildren.getLength() : 0;
+  for (int i=0; i < childLen; i++) {
+    Node child=nodes.peek();
+    if (child.equals(currentChildren.item(i))) {
+      nodes.pop();
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  JobConf inverter=new NutchJob(getConf());
+  inverter.setJobName("LinkAnalysis Inverter");
+  FileInputFormat.addInputPath(inverter,nodeDb);
+  FileInputFormat.addInputPath(inverter,outlinkDb);
+  if (loopDb != null) {
+    FileInputFormat.addInputPath(inverter,loopDb);
+  }
+  FileOutputFormat.setOutputPath(inverter,output);
+  inverter.setInputFormat(SequenceFileInputFormat.class);
+  inverter.setMapperClass(Inverter.class);
+  inverter.setReducerClass(Inverter.class);
+  inverter.setMapOutputKeyClass(Text.class);
+  inverter.setMapOutputValueClass(ObjectWritable.class);
+  inverter.setOutputKeyClass(Text.class);
+  inverter.setOutputValueClass(LinkDatum.class);
+  inverter.setOutputFormat(SequenceFileOutputFormat.class);
+  inverter.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs",false);
+  LOG.info("Starting inverter job");
+  try {
+    JobClient.runJob(inverter);
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  LOG.info("Finished inverter job.");
+}

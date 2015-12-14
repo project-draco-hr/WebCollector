@@ -1,0 +1,10 @@
+{
+  CrawlDatum res=get(crawlDb,url,config);
+  System.out.println("URL: " + url);
+  if (res != null) {
+    System.out.println(res);
+  }
+ else {
+    System.out.println("not found");
+  }
+}

@@ -1,0 +1,3 @@
+{
+  new TestBasicURLNormalizer().testNormalizer();
+}

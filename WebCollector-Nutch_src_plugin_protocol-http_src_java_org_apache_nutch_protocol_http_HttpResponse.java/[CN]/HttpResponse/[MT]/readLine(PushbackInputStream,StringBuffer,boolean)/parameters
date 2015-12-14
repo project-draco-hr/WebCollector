@@ -1,0 +1,3 @@
+PushbackInputStream in
+StringBuffer line
+boolean allowContinuedLine

@@ -1,0 +1,3 @@
+{
+  return getMimeType(url,Files.toByteArray(file),contentType,useMagic);
+}

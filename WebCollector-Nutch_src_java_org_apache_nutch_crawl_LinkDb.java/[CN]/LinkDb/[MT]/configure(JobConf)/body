@@ -1,0 +1,10 @@
+{
+  maxAnchorLength=job.getInt("db.max.anchor.length",100);
+  ignoreInternalLinks=job.getBoolean(IGNORE_INTERNAL_LINKS,true);
+  if (job.getBoolean(LinkDbFilter.URL_FILTERING,false)) {
+    urlFilters=new URLFilters(job);
+  }
+  if (job.getBoolean(LinkDbFilter.URL_NORMALIZING,false)) {
+    urlNormalizers=new URLNormalizers(job,URLNormalizers.SCOPE_LINKDB);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  String string;
+synchronized (format) {
+    string=format.format(date);
+  }
+  return string;
+}

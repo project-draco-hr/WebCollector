@@ -1,0 +1,32 @@
+{
+  HashMap<String,List<Rule>> scopedRules=getScopedRules();
+  List<Rule> curRules=scopedRules.get(scope);
+  if (curRules == null) {
+    String configFile=getConf().get("urlnormalizer.regex.file." + scope);
+    if (configFile != null) {
+      LOG.debug("resource for scope '" + scope + "': "+ configFile);
+      try {
+        Reader reader=getConf().getConfResourceAsReader(configFile);
+        curRules=readConfiguration(reader);
+        scopedRules.put(scope,curRules);
+      }
+ catch (      Exception e) {
+        LOG.warn("Couldn't load resource '" + configFile + "': "+ e);
+      }
+    }
+    if (curRules == EMPTY_RULES || curRules == null) {
+      LOG.info("can't find rules for scope '" + scope + "', using default");
+      scopedRules.put(scope,EMPTY_RULES);
+    }
+  }
+  if (curRules == EMPTY_RULES || curRules == null) {
+    curRules=defaultRules;
+  }
+  Iterator<Rule> i=curRules.iterator();
+  while (i.hasNext()) {
+    Rule r=(Rule)i.next();
+    Matcher matcher=r.pattern.matcher(urlString);
+    urlString=matcher.replaceAll(r.substitution);
+  }
+  return urlString;
+}

@@ -1,0 +1,28 @@
+{
+  Options options=new Options();
+  OptionBuilder.withArgName("help");
+  OptionBuilder.withDescription("show this help message");
+  Option helpOpts=OptionBuilder.create("help");
+  options.addOption(helpOpts);
+  OptionBuilder.withArgName("webgraphdb");
+  OptionBuilder.hasArg();
+  OptionBuilder.withDescription("the web graph database to use");
+  Option webGraphDbOpts=OptionBuilder.create("webgraphdb");
+  options.addOption(webGraphDbOpts);
+  CommandLineParser parser=new GnuParser();
+  try {
+    CommandLine line=parser.parse(options,args);
+    if (line.hasOption("help") || !line.hasOption("webgraphdb")) {
+      HelpFormatter formatter=new HelpFormatter();
+      formatter.printHelp("Loops",options);
+      return -1;
+    }
+    String webGraphDb=line.getOptionValue("webgraphdb");
+    findLoops(new Path(webGraphDb));
+    return 0;
+  }
+ catch (  Exception e) {
+    LOG.error("Loops: " + StringUtils.stringifyException(e));
+    return -2;
+  }
+}

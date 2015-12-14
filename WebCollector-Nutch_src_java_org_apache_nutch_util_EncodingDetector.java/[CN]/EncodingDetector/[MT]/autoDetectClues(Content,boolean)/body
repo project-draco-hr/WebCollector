@@ -1,0 +1,22 @@
+{
+  byte[] data=content.getContent();
+  if (minConfidence >= 0 && DETECTABLES.contains(content.getContentType()) && data.length > MIN_LENGTH) {
+    CharsetMatch[] matches=null;
+    try {
+      detector.enableInputFilter(filter);
+      if (data.length > MIN_LENGTH) {
+        detector.setText(data);
+        matches=detector.detectAll();
+      }
+    }
+ catch (    Exception e) {
+      LOG.debug("Exception from ICU4J (ignoring): ",e);
+    }
+    if (matches != null) {
+      for (      CharsetMatch match : matches) {
+        addClue(match.getName(),"detect",match.getConfidence());
+      }
+    }
+  }
+  addClue(parseCharacterEncoding(content.getMetadata().get(Response.CONTENT_TYPE)),"header");
+}

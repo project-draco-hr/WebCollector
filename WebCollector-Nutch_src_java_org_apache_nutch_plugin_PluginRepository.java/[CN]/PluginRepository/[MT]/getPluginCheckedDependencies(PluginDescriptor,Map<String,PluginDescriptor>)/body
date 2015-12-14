@@ -1,0 +1,6 @@
+{
+  Map<String,PluginDescriptor> dependencies=new HashMap<String,PluginDescriptor>();
+  Map<String,PluginDescriptor> branch=new HashMap<String,PluginDescriptor>();
+  getPluginCheckedDependencies(plugin,plugins,dependencies,branch);
+  return dependencies;
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    return tika.detect(f);
+  }
+ catch (  Exception e) {
+    LOG.error("Exception getting mime type for file: [" + f.getPath() + "]: Message: "+ e.getMessage());
+    return null;
+  }
+}

@@ -1,0 +1,4 @@
+Text key
+Iterator<Writable> values
+OutputCollector<Text,Writable> output
+Reporter reporter

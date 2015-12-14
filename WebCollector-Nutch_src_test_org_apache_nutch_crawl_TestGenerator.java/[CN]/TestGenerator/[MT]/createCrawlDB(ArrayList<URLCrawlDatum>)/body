@@ -1,0 +1,7 @@
+{
+  dbDir=new Path(testdir,"crawldb");
+  segmentsDir=new Path(testdir,"segments");
+  fs.mkdirs(dbDir);
+  fs.mkdirs(segmentsDir);
+  CrawlDBTestUtil.createCrawlDb(conf,fs,dbDir,list);
+}

@@ -1,0 +1,5 @@
+{
+  URI uri=new File(getPluginPath() + File.separator + pLibPath).toURI();
+  URL url=uri.toURL();
+  fExportedLibs.add(url);
+}

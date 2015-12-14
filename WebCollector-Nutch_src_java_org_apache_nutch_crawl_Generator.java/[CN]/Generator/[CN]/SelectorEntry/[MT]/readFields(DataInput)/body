@@ -1,0 +1,5 @@
+{
+  url.readFields(in);
+  datum.readFields(in);
+  segnum.readFields(in);
+}

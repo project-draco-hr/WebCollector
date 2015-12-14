@@ -1,0 +1,4 @@
+{
+  if (parserImpl.equalsIgnoreCase("tagsoup"))   return parseTagSoup(input);
+ else   return parseNeko(input);
+}

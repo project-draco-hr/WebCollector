@@ -1,0 +1,4 @@
+Text key
+Iterator<ObjectWritable> values
+OutputCollector<Text,LinkNode> output
+Reporter reporter

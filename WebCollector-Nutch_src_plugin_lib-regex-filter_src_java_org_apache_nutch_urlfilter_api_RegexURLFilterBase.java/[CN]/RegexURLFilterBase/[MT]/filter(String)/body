@@ -1,0 +1,9 @@
+{
+  for (  RegexRule rule : rules) {
+    if (rule.match(url)) {
+      return rule.accept() ? url : null;
+    }
+  }
+  ;
+  return null;
+}

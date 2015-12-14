@@ -1,0 +1,38 @@
+{
+  RegexURLNormalizer normalizer=new RegexURLNormalizer();
+  normalizer.setConf(NutchConfiguration.create());
+  HashMap<String,List<Rule>> scopedRules=normalizer.getScopedRules();
+  Iterator<Rule> i=normalizer.defaultRules.iterator();
+  System.out.println("* Rules for 'DEFAULT' scope:");
+  while (i.hasNext()) {
+    Rule r=i.next();
+    System.out.print("  " + r.pattern.pattern() + " -> ");
+    System.out.println(r.substitution);
+  }
+  if (args.length > 1) {
+    normalizer.normalize("http://test.com",args[1]);
+  }
+  if (scopedRules.size() > 1) {
+    Iterator<String> it=scopedRules.keySet().iterator();
+    while (it.hasNext()) {
+      String scope=it.next();
+      if (URLNormalizers.SCOPE_DEFAULT.equals(scope))       continue;
+      System.out.println("* Rules for '" + scope + "' scope:");
+      i=((List<Rule>)scopedRules.get(scope)).iterator();
+      while (i.hasNext()) {
+        Rule r=(Rule)i.next();
+        System.out.print("  " + r.pattern.pattern() + " -> ");
+        System.out.println(r.substitution);
+      }
+    }
+  }
+  if (args.length > 0) {
+    System.out.println("\n---------- Normalizer test -----------");
+    String scope=URLNormalizers.SCOPE_DEFAULT;
+    if (args.length > 1)     scope=args[1];
+    System.out.println("Scope: " + scope);
+    System.out.println("Input url:  '" + args[0] + "'");
+    System.out.println("Output url: '" + normalizer.normalize(args[0],scope) + "'");
+  }
+  System.exit(0);
+}

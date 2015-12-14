@@ -1,0 +1,5 @@
+{
+  ParseText parseText=new ParseText();
+  parseText.readFields(in);
+  return parseText;
+}

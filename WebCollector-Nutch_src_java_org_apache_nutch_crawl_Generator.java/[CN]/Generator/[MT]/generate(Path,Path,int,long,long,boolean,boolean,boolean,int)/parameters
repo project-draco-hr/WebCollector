@@ -1,0 +1,9 @@
+Path dbDir
+Path segments
+int numLists
+long topN
+long curTime
+boolean filter
+boolean norm
+boolean force
+int maxNumSegments

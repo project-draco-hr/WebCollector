@@ -1,0 +1,17 @@
+{
+  byte version=in.readByte();
+switch (version) {
+case 1:
+    code=in.readByte();
+  lastModified=in.readLong();
+args=WritableUtils.readCompressedStringArray(in);
+break;
+case VERSION:
+code=in.readByte();
+lastModified=in.readLong();
+args=WritableUtils.readStringArray(in);
+break;
+default :
+throw new VersionMismatchException(VERSION,version);
+}
+}

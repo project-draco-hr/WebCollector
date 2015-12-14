@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < this.indexWriters.length; i++) {
+    try {
+      this.indexWriters[i].delete(key);
+    }
+ catch (    IOException ioe) {
+      throw ioe;
+    }
+  }
+}

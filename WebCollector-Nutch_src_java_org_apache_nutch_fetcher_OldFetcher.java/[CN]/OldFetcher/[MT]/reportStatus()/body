@@ -1,0 +1,8 @@
+{
+  String status;
+synchronized (this) {
+    long elapsed=(System.currentTimeMillis() - start) / 1000;
+    status=pages + " pages, " + errors+ " errors, "+ Math.round(((float)pages * 10) / elapsed) / 10.0 + " pages/s, " + Math.round(((((float)bytes) * 8) / 1024) / elapsed) + " kb/s, ";
+  }
+  reporter.setStatus(status);
+}

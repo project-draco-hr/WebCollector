@@ -1,0 +1,25 @@
+{
+  normalizer=new RegexURLNormalizer();
+  conf=NutchConfiguration.create();
+  normalizer.setConf(conf);
+  File[] configs=new File(sampleDir).listFiles(new FileFilter(){
+    public boolean accept(    File f){
+      if (f.getName().endsWith(".xml") && f.getName().startsWith("regex-normalize-"))       return true;
+      return false;
+    }
+  }
+);
+  for (int i=0; i < configs.length; i++) {
+    try {
+      FileReader reader=new FileReader(configs[i]);
+      String cname=configs[i].getName();
+      cname=cname.substring(16,cname.indexOf(".xml"));
+      normalizer.setConfiguration(reader,cname);
+      NormalizedURL[] urls=readTestFile(cname);
+      testData.put(cname,urls);
+    }
+ catch (    Exception e) {
+      LOG.warn("Could load config from '" + configs[i] + "': "+ e.toString());
+    }
+  }
+}

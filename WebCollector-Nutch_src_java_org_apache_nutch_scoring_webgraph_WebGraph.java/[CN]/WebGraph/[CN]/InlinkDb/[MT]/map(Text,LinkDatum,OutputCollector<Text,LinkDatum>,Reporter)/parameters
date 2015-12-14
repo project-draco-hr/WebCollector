@@ -1,0 +1,4 @@
+Text key
+LinkDatum datum
+OutputCollector<Text,LinkDatum> output
+Reporter reporter

@@ -1,0 +1,3 @@
+{
+  return fRegisteredPlugins.toArray(new PluginDescriptor[fRegisteredPlugins.size()]);
+}

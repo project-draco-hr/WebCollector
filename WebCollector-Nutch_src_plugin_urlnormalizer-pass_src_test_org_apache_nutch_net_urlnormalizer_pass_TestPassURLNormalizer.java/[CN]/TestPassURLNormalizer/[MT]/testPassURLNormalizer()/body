@@ -1,0 +1,14 @@
+{
+  Configuration conf=NutchConfiguration.create();
+  PassURLNormalizer normalizer=new PassURLNormalizer();
+  normalizer.setConf(conf);
+  String url="http://www.example.com/test/..//";
+  String result=null;
+  try {
+    result=normalizer.normalize(url,URLNormalizers.SCOPE_DEFAULT);
+  }
+ catch (  MalformedURLException mue) {
+    Assert.fail(mue.toString());
+  }
+  Assert.assertEquals(url,result);
+}

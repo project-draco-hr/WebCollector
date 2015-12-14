@@ -1,0 +1,28 @@
+{
+  init1.add(url10);
+  init1.add(url11);
+  init2.add(url20);
+  init2.add(url21);
+  long time=System.currentTimeMillis();
+  cd1=new CrawlDatum();
+  cd1.setFetchInterval(1.0f);
+  cd1.setFetchTime(time);
+  cd1.getMetaData().put(new Text("name"),new Text("cd1"));
+  cd1.getMetaData().put(new Text("cd1"),new Text("cd1"));
+  cd2=new CrawlDatum();
+  cd2.setFetchInterval(1.0f);
+  cd2.setFetchTime(time + 10000);
+  cd2.getMetaData().put(new Text("name"),new Text("cd2"));
+  cd3=new CrawlDatum();
+  cd3.setFetchInterval(1.0f);
+  cd3.setFetchTime(time + 10000);
+  cd3.getMetaData().putAll(cd1.getMetaData());
+  cd3.getMetaData().putAll(cd2.getMetaData());
+  expected.put(url10,cd3);
+  expected.put(url11,cd1);
+  expected.put(url21,cd2);
+  conf=NutchConfiguration.create();
+  fs=FileSystem.get(conf);
+  testDir=new Path("test-crawldb-" + new java.util.Random().nextInt());
+  fs.mkdirs(testDir);
+}

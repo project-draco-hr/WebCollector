@@ -1,0 +1,8 @@
+{
+  int len=minLen + (int)(Math.random() * (maxLen - minLen));
+  char[] chars=new char[len];
+  for (int pos=0; pos < len; pos++) {
+    chars[pos]=alphabet[(int)(Math.random() * alphabet.length)];
+  }
+  return new String(chars);
+}

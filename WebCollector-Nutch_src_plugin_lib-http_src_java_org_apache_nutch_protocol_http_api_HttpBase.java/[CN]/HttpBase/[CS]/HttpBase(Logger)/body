@@ -1,0 +1,6 @@
+{
+  if (logger != null) {
+    this.logger=logger;
+  }
+  robots=new HttpRobotRulesParser();
+}

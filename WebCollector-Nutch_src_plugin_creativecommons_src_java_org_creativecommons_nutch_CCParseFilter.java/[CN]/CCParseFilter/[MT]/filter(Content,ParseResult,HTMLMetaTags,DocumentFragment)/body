@@ -1,0 +1,21 @@
+{
+  Parse parse=parseResult.get(content.getUrl());
+  URL base;
+  try {
+    base=new URL(content.getBaseUrl());
+  }
+ catch (  MalformedURLException e) {
+    Parse emptyParse=new ParseStatus(e).getEmptyParse(getConf());
+    parseResult.put(content.getUrl(),new ParseText(emptyParse.getText()),emptyParse.getData());
+    return parseResult;
+  }
+  try {
+    Walker.walk(doc,base,parse.getData().getParseMeta(),getConf());
+  }
+ catch (  ParseException e) {
+    Parse emptyParse=new ParseStatus(e).getEmptyParse(getConf());
+    parseResult.put(content.getUrl(),new ParseText(emptyParse.getText()),emptyParse.getData());
+    return parseResult;
+  }
+  return parseResult;
+}

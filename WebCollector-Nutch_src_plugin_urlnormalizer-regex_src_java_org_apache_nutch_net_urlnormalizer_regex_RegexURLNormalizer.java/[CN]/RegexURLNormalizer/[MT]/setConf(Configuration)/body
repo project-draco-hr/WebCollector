@@ -1,0 +1,28 @@
+{
+  super.setConf(conf);
+  if (conf == null)   return;
+  String filename=getConf().get("urlnormalizer.regex.file");
+  String stringRules=getConf().get("urlnormalizer.regex.rules");
+  Reader reader=null;
+  if (stringRules != null) {
+    reader=new StringReader(stringRules);
+  }
+ else {
+    reader=getConf().getConfResourceAsReader(filename);
+  }
+  List<Rule> rules=null;
+  if (reader == null) {
+    LOG.warn("Can't load the default rules! ");
+    rules=EMPTY_RULES;
+  }
+ else {
+    try {
+      rules=readConfiguration(reader);
+    }
+ catch (    Exception e) {
+      LOG.warn("Couldn't read default config: " + e);
+      rules=EMPTY_RULES;
+    }
+  }
+  defaultRules=rules;
+}

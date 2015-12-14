@@ -1,0 +1,4 @@
+Text key
+Iterator<Inlinks> values
+OutputCollector<Text,Inlinks> output
+Reporter reporter

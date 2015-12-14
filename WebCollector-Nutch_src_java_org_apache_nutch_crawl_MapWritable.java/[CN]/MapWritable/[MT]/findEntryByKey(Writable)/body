@@ -1,0 +1,7 @@
+{
+  KeyValueEntry entry=fFirst;
+  while (entry != null && !entry.fKey.equals(key)) {
+    entry=entry.fNextEntry;
+  }
+  return entry;
+}

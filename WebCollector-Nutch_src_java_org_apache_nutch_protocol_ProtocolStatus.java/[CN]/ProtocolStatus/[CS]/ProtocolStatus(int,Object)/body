@@ -1,0 +1,3 @@
+{
+  this(code,message,0L);
+}

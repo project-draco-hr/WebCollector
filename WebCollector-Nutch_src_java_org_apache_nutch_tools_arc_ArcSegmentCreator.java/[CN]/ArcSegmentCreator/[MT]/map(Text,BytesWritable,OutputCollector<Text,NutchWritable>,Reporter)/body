@@ -1,0 +1,39 @@
+{
+  String[] headers=key.toString().split("\\s+");
+  String urlStr=headers[0];
+  String version=headers[2];
+  String contentType=headers[3];
+  if (urlStr.startsWith("filedesc://")) {
+    LOG.info("Ignoring file header: " + urlStr);
+    return;
+  }
+  LOG.info("Processing: " + urlStr);
+  Text url=new Text();
+  CrawlDatum datum=new CrawlDatum(CrawlDatum.STATUS_DB_FETCHED,interval,1.0f);
+  String segmentName=getConf().get(Nutch.SEGMENT_NAME_KEY);
+  try {
+    urlStr=normalizers.normalize(urlStr,URLNormalizers.SCOPE_FETCHER);
+    urlStr=urlFilters.filter(urlStr);
+  }
+ catch (  Exception e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Skipping " + url + ":"+ e);
+    }
+    urlStr=null;
+  }
+  if (urlStr != null) {
+    url.set(urlStr);
+    try {
+      ProtocolStatus status=ProtocolStatus.STATUS_SUCCESS;
+      Content content=new Content(urlStr,urlStr,bytes.getBytes(),contentType,new Metadata(),getConf());
+      content.getMetadata().set(URL_VERSION,version);
+      ParseStatus pstatus=null;
+      pstatus=output(output,segmentName,url,datum,content,status,CrawlDatum.STATUS_FETCH_SUCCESS);
+      reporter.progress();
+    }
+ catch (    Throwable t) {
+      logError(url,t);
+      output(output,segmentName,url,datum,null,null,CrawlDatum.STATUS_FETCH_RETRY);
+    }
+  }
+}

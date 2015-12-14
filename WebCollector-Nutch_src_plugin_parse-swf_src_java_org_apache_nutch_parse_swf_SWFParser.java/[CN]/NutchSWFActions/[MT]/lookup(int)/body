@@ -1,0 +1,6 @@
+{
+  if (dict != null && var >= 0 && var < dict.length) {
+    stack.push(dict[var]);
+  }
+  super.lookup(var);
+}

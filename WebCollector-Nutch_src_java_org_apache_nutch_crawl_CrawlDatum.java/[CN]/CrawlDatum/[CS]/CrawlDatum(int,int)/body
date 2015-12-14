@@ -1,0 +1,5 @@
+{
+  this();
+  this.status=(byte)status;
+  this.fetchInterval=fetchInterval;
+}

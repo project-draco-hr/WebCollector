@@ -1,0 +1,12 @@
+{
+  Text tKey=key;
+  Text tValue=value;
+  if (!sequenceFileRecordReader.next(innerKey,innerValue)) {
+    return false;
+  }
+  tKey.set(innerKey.toString());
+  String contentAsStr=new String(innerValue.getContent());
+  contentAsStr=contentAsStr.replaceAll("\n"," ");
+  value.set(contentAsStr);
+  return true;
+}

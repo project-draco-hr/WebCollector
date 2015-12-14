@@ -1,0 +1,17 @@
+{
+  DomainSuffixes tlds=DomainSuffixes.getInstance();
+  String host=url.getHost();
+  if (IP_PATTERN.matcher(host).matches())   return null;
+  int index=0;
+  String candidate=host;
+  for (; index >= 0; ) {
+    index=candidate.indexOf('.');
+    String subCandidate=candidate.substring(index + 1);
+    DomainSuffix d=tlds.get(subCandidate);
+    if (d != null) {
+      return d;
+    }
+    candidate=subCandidate;
+  }
+  return null;
+}

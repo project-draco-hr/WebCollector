@@ -1,0 +1,4 @@
+{
+  stack.push("" + arg0);
+  super.push(arg0);
+}

@@ -1,0 +1,33 @@
+{
+  newUrl=normalizers.normalize(newUrl,URLNormalizers.SCOPE_FETCHER);
+  newUrl=urlFilters.filter(newUrl);
+  if (newUrl != null && !newUrl.equals(urlString)) {
+    reprUrl=URLUtil.chooseRepr(reprUrl,newUrl,temp);
+    url=new Text(newUrl);
+    if (maxRedirect > 0) {
+      redirecting=true;
+      redirectCount++;
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(" - " + redirType + " redirect to "+ url+ " (fetching now)");
+      }
+      return url;
+    }
+ else {
+      CrawlDatum newDatum=new CrawlDatum();
+      if (reprUrl != null) {
+        newDatum.getMetaData().put(Nutch.WRITABLE_REPR_URL_KEY,new Text(reprUrl));
+      }
+      output(url,newDatum,null,null,CrawlDatum.STATUS_LINKED);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(" - " + redirType + " redirect to "+ url+ " (fetching later)");
+      }
+      return null;
+    }
+  }
+ else {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(" - " + redirType + " redirect skipped: "+ (newUrl != null ? "to same url" : "filtered"));
+    }
+    return null;
+  }
+}

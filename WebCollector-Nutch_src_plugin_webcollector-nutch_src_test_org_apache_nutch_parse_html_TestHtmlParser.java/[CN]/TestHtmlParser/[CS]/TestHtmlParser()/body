@@ -1,0 +1,5 @@
+{
+  conf=NutchConfiguration.create();
+  parser=new HtmlParser();
+  parser.setConf(conf);
+}

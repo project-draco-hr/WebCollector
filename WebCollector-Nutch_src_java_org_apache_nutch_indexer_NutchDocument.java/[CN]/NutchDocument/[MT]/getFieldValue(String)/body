@@ -1,0 +1,10 @@
+{
+  NutchField field=fields.get(name);
+  if (field == null) {
+    return null;
+  }
+  if (field.getValues().size() == 0) {
+    return null;
+  }
+  return field.getValues().get(0);
+}

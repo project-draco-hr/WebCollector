@@ -1,0 +1,6 @@
+{
+synchronized (crawlLock) {
+    if (crawl == null)     crawl=getReaders(CrawlDatum.FETCH_DIR_NAME);
+  }
+  return (CrawlDatum)getEntry(crawl,url,new CrawlDatum());
+}

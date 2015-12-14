@@ -1,0 +1,4 @@
+ByteWritable key
+Iterator<Text> values
+OutputCollector<Text,ByteWritable> output
+Reporter reporter

@@ -1,0 +1,3 @@
+{
+  htmlParseFilters=(HtmlParseFilter[])PluginRepository.get(conf).getOrderedPlugins(HtmlParseFilter.class,HtmlParseFilter.X_POINT_ID,HTMLPARSEFILTER_ORDER);
+}

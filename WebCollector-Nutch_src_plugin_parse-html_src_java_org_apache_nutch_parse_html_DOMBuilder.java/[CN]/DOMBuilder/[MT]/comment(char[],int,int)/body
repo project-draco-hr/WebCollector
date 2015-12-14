@@ -1,0 +1,4 @@
+{
+  if (ch == null || start < 0 || length >= (ch.length - start) || length < 0)   return;
+  append(m_doc.createComment(new String(ch,start,length)));
+}

@@ -1,0 +1,25 @@
+{
+  if (argv.length != 3) {
+    System.err.println("Usage: RobotRulesParser <robots-file> <url-file> <agent-names>\n");
+    System.err.println("\tThe <robots-file> will be parsed as a robots.txt file,");
+    System.err.println("\tusing the given <agent-name> to select rules.  URLs ");
+    System.err.println("\twill be read (one per line) from <url-file>, and tested");
+    System.err.println("\tagainst the rules. Multiple agent names can be provided using");
+    System.err.println("\tcomma as a delimiter without any spaces.");
+    System.exit(-1);
+  }
+  try {
+    byte[] robotsBytes=Files.toByteArray(new File(argv[0]));
+    BaseRobotRules rules=robotParser.parseContent(argv[0],robotsBytes,"text/plain",argv[2]);
+    LineNumberReader testsIn=new LineNumberReader(new FileReader(argv[1]));
+    String testPath=testsIn.readLine().trim();
+    while (testPath != null) {
+      System.out.println((rules.isAllowed(testPath) ? "allowed" : "not allowed") + ":\t" + testPath);
+      testPath=testsIn.readLine();
+    }
+    testsIn.close();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+}

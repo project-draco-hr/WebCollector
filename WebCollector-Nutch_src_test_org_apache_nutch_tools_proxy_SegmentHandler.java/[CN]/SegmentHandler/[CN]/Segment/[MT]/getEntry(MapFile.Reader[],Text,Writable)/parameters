@@ -1,0 +1,3 @@
+MapFile.Reader[] readers
+Text url
+Writable entry

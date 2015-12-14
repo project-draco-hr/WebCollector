@@ -1,0 +1,3 @@
+{
+  LOG.info("Completed parse.  Found " + pages + " pages.");
+}

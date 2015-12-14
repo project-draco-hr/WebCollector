@@ -1,0 +1,3 @@
+{
+  return "fetchlist-" + value.segnum.toString() + "/"+ name;
+}

@@ -1,0 +1,20 @@
+{
+  if (args == null || args.length < 2) {
+    System.out.println("LinkDumper$Reader usage: <webgraphdb> <url>");
+    return;
+  }
+  Configuration conf=NutchConfiguration.create();
+  FileSystem fs=FileSystem.get(conf);
+  Path webGraphDb=new Path(args[0]);
+  String url=args[1];
+  MapFile.Reader[] readers=MapFileOutputFormat.getReaders(fs,new Path(webGraphDb,DUMP_DIR),conf);
+  Text key=new Text(url);
+  LinkNodes nodes=new LinkNodes();
+  MapFileOutputFormat.getEntry(readers,new HashPartitioner<Text,LinkNodes>(),key,nodes);
+  LinkNode[] linkNodesAr=nodes.getLinks();
+  System.out.println(url + ":");
+  for (  LinkNode node : linkNodesAr) {
+    System.out.println("  " + node.getUrl() + " - "+ node.getNode().toString());
+  }
+  FSUtils.closeReaders(readers);
+}

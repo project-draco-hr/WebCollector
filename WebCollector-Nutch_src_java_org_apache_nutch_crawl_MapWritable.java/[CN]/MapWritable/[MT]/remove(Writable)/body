@@ -1,0 +1,24 @@
+{
+  Writable oldValue=null;
+  KeyValueEntry entry=fFirst;
+  KeyValueEntry predecessor=null;
+  while (entry != null) {
+    if (entry.fKey.equals(key)) {
+      oldValue=entry.fValue;
+      if (predecessor == null) {
+        fFirst=fFirst.fNextEntry;
+      }
+ else {
+        predecessor.fNextEntry=entry.fNextEntry;
+      }
+      if (fLast.equals(entry)) {
+        fLast=predecessor;
+      }
+      fSize--;
+      return oldValue;
+    }
+    predecessor=entry;
+    entry=entry.fNextEntry;
+  }
+  return oldValue;
+}

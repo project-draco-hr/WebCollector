@@ -1,0 +1,45 @@
+{
+  NodeWalker walker=new NodeWalker(node);
+  while (walker.hasNext()) {
+    Node currentNode=walker.nextNode();
+    String nodeName=currentNode.getNodeName();
+    short nodeType=currentNode.getNodeType();
+    if (nodeType == Node.ELEMENT_NODE) {
+      if (htmlAttribute == null) {
+        htmlAttribute=parseLanguage(((Element)currentNode).getAttribute("lang"));
+      }
+      if ("meta".equalsIgnoreCase(nodeName)) {
+        NamedNodeMap attrs=currentNode.getAttributes();
+        if (dublinCore == null) {
+          for (int i=0; i < attrs.getLength(); i++) {
+            Node attrnode=attrs.item(i);
+            if ("name".equalsIgnoreCase(attrnode.getNodeName())) {
+              if ("dc.language".equalsIgnoreCase(attrnode.getNodeValue())) {
+                Node valueattr=attrs.getNamedItem("content");
+                if (valueattr != null) {
+                  dublinCore=parseLanguage(valueattr.getNodeValue());
+                }
+              }
+            }
+          }
+        }
+        if (httpEquiv == null) {
+          for (int i=0; i < attrs.getLength(); i++) {
+            Node attrnode=attrs.item(i);
+            if ("http-equiv".equalsIgnoreCase(attrnode.getNodeName())) {
+              if ("content-language".equals(attrnode.getNodeValue().toLowerCase())) {
+                Node valueattr=attrs.getNamedItem("content");
+                if (valueattr != null) {
+                  httpEquiv=parseLanguage(valueattr.getNodeValue());
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    if ((dublinCore != null) && (htmlAttribute != null) && (httpEquiv != null)) {
+      return;
+    }
+  }
+}

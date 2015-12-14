@@ -1,0 +1,5 @@
+{
+  if (initialText != null) {
+    strings.add(initialText);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  Text.skip(in);
+  Text.skip(in);
+  boolean hasMD=in.readBoolean();
+  if (hasMD) {
+    MapWritable metadata=new org.apache.hadoop.io.MapWritable();
+    metadata.readFields(in);
+    ;
+  }
+}

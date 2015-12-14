@@ -1,0 +1,28 @@
+{
+  this.setDaemon(true);
+  this.setName("FetcherThread");
+  this.conf=conf;
+  this.urlFilters=new URLFilters(conf);
+  this.scfilters=new ScoringFilters(conf);
+  this.parseUtil=new ParseUtil(conf);
+  this.skipTruncated=conf.getBoolean(ParseSegment.SKIP_TRUNCATED,true);
+  this.protocolFactory=new ProtocolFactory(conf);
+  this.normalizers=new URLNormalizers(conf,URLNormalizers.SCOPE_FETCHER);
+  this.maxCrawlDelay=conf.getInt("fetcher.max.crawl.delay",30) * 1000;
+  queueMode=conf.get("fetcher.queue.mode",FetchItemQueues.QUEUE_MODE_HOST);
+  if (!queueMode.equals(FetchItemQueues.QUEUE_MODE_IP) && !queueMode.equals(FetchItemQueues.QUEUE_MODE_DOMAIN) && !queueMode.equals(FetchItemQueues.QUEUE_MODE_HOST)) {
+    LOG.error("Unknown partition mode : " + queueMode + " - forcing to byHost");
+    queueMode=FetchItemQueues.QUEUE_MODE_HOST;
+  }
+  LOG.info("Using queue mode : " + queueMode);
+  this.maxRedirect=conf.getInt("http.redirect.max",3);
+  this.ignoreExternalLinks=conf.getBoolean("db.ignore.external.links",false);
+  maxOutlinksPerPage=conf.getInt("db.max.outlinks.per.page",100);
+  maxOutlinks=(maxOutlinksPerPage < 0) ? Integer.MAX_VALUE : maxOutlinksPerPage;
+  interval=conf.getInt("db.fetch.interval.default",2592000);
+  ignoreExternalLinks=conf.getBoolean("db.ignore.external.links",false);
+  maxOutlinkDepth=conf.getInt("fetcher.follow.outlinks.depth",-1);
+  outlinksIgnoreExternal=conf.getBoolean("fetcher.follow.outlinks.ignore.external",false);
+  maxOutlinkDepthNumLinks=conf.getInt("fetcher.follow.outlinks.num.links",4);
+  outlinksDepthDivisor=conf.getInt("fetcher.follow.outlinks.depth.divisor",2);
+}

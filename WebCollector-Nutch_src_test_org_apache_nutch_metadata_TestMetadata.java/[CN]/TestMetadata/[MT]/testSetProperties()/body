@@ -1,0 +1,22 @@
+{
+  String[] values=null;
+  Metadata meta=new Metadata();
+  Properties props=new Properties();
+  meta.setAll(props);
+  Assert.assertEquals(0,meta.size());
+  props.setProperty("name-one","value1.1");
+  meta.setAll(props);
+  Assert.assertEquals(1,meta.size());
+  values=meta.getValues("name-one");
+  Assert.assertEquals(1,values.length);
+  Assert.assertEquals("value1.1",values[0]);
+  props.setProperty("name-two","value2.1");
+  meta.setAll(props);
+  Assert.assertEquals(2,meta.size());
+  values=meta.getValues("name-one");
+  Assert.assertEquals(1,values.length);
+  Assert.assertEquals("value1.1",values[0]);
+  values=meta.getValues("name-two");
+  Assert.assertEquals(1,values.length);
+  Assert.assertEquals("value2.1",values[0]);
+}

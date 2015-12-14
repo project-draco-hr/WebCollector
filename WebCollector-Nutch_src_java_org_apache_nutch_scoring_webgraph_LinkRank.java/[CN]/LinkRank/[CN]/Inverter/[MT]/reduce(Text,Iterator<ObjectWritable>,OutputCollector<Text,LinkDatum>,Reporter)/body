@@ -1,0 +1,42 @@
+{
+  String fromUrl=key.toString();
+  List<LinkDatum> outlinks=new ArrayList<LinkDatum>();
+  Node node=null;
+  LoopSet loops=null;
+  while (values.hasNext()) {
+    ObjectWritable write=values.next();
+    Object obj=write.get();
+    if (obj instanceof Node) {
+      node=(Node)obj;
+    }
+ else     if (obj instanceof LinkDatum) {
+      outlinks.add(WritableUtils.clone((LinkDatum)obj,conf));
+    }
+ else     if (obj instanceof LoopSet) {
+      loops=(LoopSet)obj;
+    }
+  }
+  if (node == null && loops != null) {
+    LOG.warn("LoopSet without Node object received for " + key.toString() + " . You should either not use Loops as input of the LinkRank program or rerun the Loops program over the WebGraph.");
+    return;
+  }
+  int numOutlinks=node.getNumOutlinks();
+  float inlinkScore=node.getInlinkScore();
+  float outlinkScore=node.getOutlinkScore();
+  LOG.debug(fromUrl + ": num outlinks " + numOutlinks);
+  if (numOutlinks > 0) {
+    Set<String> loopSet=(loops != null) ? loops.getLoopSet() : null;
+    for (int i=0; i < outlinks.size(); i++) {
+      LinkDatum outlink=outlinks.get(i);
+      String toUrl=outlink.getUrl();
+      if (loopSet != null && loopSet.contains(toUrl)) {
+        LOG.debug(fromUrl + ": Skipping inverting inlink from loop " + toUrl);
+        continue;
+      }
+      outlink.setUrl(fromUrl);
+      outlink.setScore(outlinkScore);
+      output.collect(new Text(toUrl),outlink);
+      LOG.debug(toUrl + ": inverting inlink from " + fromUrl+ " origscore: "+ inlinkScore+ " numOutlinks: "+ numOutlinks+ " inlinkscore: "+ outlinkScore);
+    }
+  }
+}

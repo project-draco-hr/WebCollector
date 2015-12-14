@@ -1,0 +1,4 @@
+{
+  fMimeTypeToPluginMap=new HashMap<String,List<String>>();
+  aliases=new HashMap<String,String>();
+}

@@ -1,0 +1,4 @@
+{
+  SolrServer server=SolrUtils.getCommonsHttpSolrServer(job);
+  init(server,job);
+}

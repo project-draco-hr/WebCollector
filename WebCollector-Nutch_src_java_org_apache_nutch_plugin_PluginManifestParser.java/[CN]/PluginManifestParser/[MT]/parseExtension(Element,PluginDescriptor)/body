@@ -1,0 +1,31 @@
+{
+  NodeList extensions=pRootElement.getElementsByTagName("extension");
+  if (extensions != null) {
+    for (int i=0; i < extensions.getLength(); i++) {
+      Element oneExtension=(Element)extensions.item(i);
+      String pointId=oneExtension.getAttribute("point");
+      NodeList extensionImplementations=oneExtension.getChildNodes();
+      if (extensionImplementations != null) {
+        for (int j=0; j < extensionImplementations.getLength(); j++) {
+          Node node=extensionImplementations.item(j);
+          if (!node.getNodeName().equals("implementation")) {
+            continue;
+          }
+          Element oneImplementation=(Element)node;
+          String id=oneImplementation.getAttribute(ATTR_ID);
+          String extensionClass=oneImplementation.getAttribute(ATTR_CLASS);
+          LOG.debug("impl: point=" + pointId + " class="+ extensionClass);
+          Extension extension=new Extension(pPluginDescriptor,pointId,id,extensionClass,this.conf,this.pluginRepository);
+          NodeList parameters=oneImplementation.getElementsByTagName("parameter");
+          if (parameters != null) {
+            for (int k=0; k < parameters.getLength(); k++) {
+              Element param=(Element)parameters.item(k);
+              extension.addAttribute(param.getAttribute(ATTR_NAME),param.getAttribute("value"));
+            }
+          }
+          pPluginDescriptor.addExtension(extension);
+        }
+      }
+    }
+  }
+}

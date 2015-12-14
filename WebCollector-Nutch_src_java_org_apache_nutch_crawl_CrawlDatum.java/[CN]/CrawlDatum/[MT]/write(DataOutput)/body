@@ -1,0 +1,23 @@
+{
+  out.writeByte(CUR_VERSION);
+  out.writeByte(status);
+  out.writeLong(fetchTime);
+  out.writeByte(retries);
+  out.writeInt(fetchInterval);
+  out.writeFloat(score);
+  out.writeLong(modifiedTime);
+  if (signature == null) {
+    out.writeByte(0);
+  }
+ else {
+    out.writeByte(signature.length);
+    out.write(signature);
+  }
+  if (metaData != null && metaData.size() > 0) {
+    out.writeBoolean(true);
+    metaData.write(out);
+  }
+ else {
+    out.writeBoolean(false);
+  }
+}

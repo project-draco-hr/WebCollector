@@ -1,0 +1,5 @@
+{
+  this.value=value.toLowerCase();
+  this.source=source;
+  this.confidence=confidence;
+}

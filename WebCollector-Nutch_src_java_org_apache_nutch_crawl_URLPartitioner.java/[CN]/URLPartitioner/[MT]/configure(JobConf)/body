@@ -1,0 +1,9 @@
+{
+  seed=job.getInt("partition.url.seed",0);
+  mode=job.get(PARTITION_MODE_KEY,PARTITION_MODE_HOST);
+  if (!mode.equals(PARTITION_MODE_IP) && !mode.equals(PARTITION_MODE_DOMAIN) && !mode.equals(PARTITION_MODE_HOST)) {
+    LOG.error("Unknown partition mode : " + mode + " - forcing to byHost");
+    mode=PARTITION_MODE_HOST;
+  }
+  normalizers=new URLNormalizers(job,URLNormalizers.SCOPE_PARTITION);
+}

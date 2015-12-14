@@ -1,0 +1,11 @@
+{
+  NutchField tlds=doc.getField("tld");
+  float boost=1.0f;
+  if (tlds != null) {
+    for (    Object tld : tlds.getValues()) {
+      DomainSuffix entry=tldEntries.get(tld.toString());
+      if (entry != null)       boost*=entry.getBoost();
+    }
+  }
+  return initScore * boost;
+}

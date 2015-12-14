@@ -1,0 +1,11 @@
+{
+  noIndex=false;
+  noFollow=false;
+  noCache=false;
+  refresh=false;
+  refreshTime=0;
+  baseHref=null;
+  refreshHref=null;
+  generalTags.clear();
+  httpEquivTags.clear();
+}

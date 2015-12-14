@@ -1,0 +1,39 @@
+{
+  out.writeByte('"');
+  out.writeBytes(key.toString());
+  out.writeByte('"');
+  out.writeByte(';');
+  out.writeBytes(Integer.toString(value.getStatus()));
+  out.writeByte(';');
+  out.writeByte('"');
+  out.writeBytes(CrawlDatum.getStatusName(value.getStatus()));
+  out.writeByte('"');
+  out.writeByte(';');
+  out.writeBytes(new Date(value.getFetchTime()).toString());
+  out.writeByte(';');
+  out.writeBytes(new Date(value.getModifiedTime()).toString());
+  out.writeByte(';');
+  out.writeBytes(Integer.toString(value.getRetriesSinceFetch()));
+  out.writeByte(';');
+  out.writeBytes(Float.toString(value.getFetchInterval()));
+  out.writeByte(';');
+  out.writeBytes(Float.toString((value.getFetchInterval() / FetchSchedule.SECONDS_PER_DAY)));
+  out.writeByte(';');
+  out.writeBytes(Float.toString(value.getScore()));
+  out.writeByte(';');
+  out.writeByte('"');
+  out.writeBytes(value.getSignature() != null ? StringUtil.toHexString(value.getSignature()) : "null");
+  out.writeByte('"');
+  out.writeByte(';');
+  out.writeByte('"');
+  if (value.getMetaData() != null) {
+    for (    Entry<Writable,Writable> e : value.getMetaData().entrySet()) {
+      out.writeBytes(e.getKey().toString());
+      out.writeByte(':');
+      out.writeBytes(e.getValue().toString());
+      out.writeBytes("|||");
+    }
+  }
+  out.writeByte('"');
+  out.writeByte('\n');
+}

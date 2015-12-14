@@ -1,0 +1,9 @@
+{
+  int idx=string.indexOf('/');
+  if (idx == -1) {
+    throw new IOException("Invalid SegmentPart: '" + string + "'");
+  }
+  String segment=string.substring(0,idx);
+  String part=string.substring(idx + 1);
+  return new SegmentPart(segment,part);
+}

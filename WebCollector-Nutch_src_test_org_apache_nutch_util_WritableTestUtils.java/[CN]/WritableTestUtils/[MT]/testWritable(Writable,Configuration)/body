@@ -1,0 +1,3 @@
+{
+  Assert.assertEquals(before,writeRead(before,conf));
+}

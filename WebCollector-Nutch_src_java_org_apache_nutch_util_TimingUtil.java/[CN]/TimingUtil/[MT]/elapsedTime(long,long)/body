@@ -1,0 +1,20 @@
+{
+  if (start > end) {
+    return null;
+  }
+  long[] elapsedTime=new long[TIME_FACTOR.length];
+  for (int i=0; i < TIME_FACTOR.length; i++) {
+    elapsedTime[i]=start > end ? -1 : (end - start) / TIME_FACTOR[i];
+    start+=TIME_FACTOR[i] * elapsedTime[i];
+  }
+  NumberFormat nf=NumberFormat.getInstance();
+  nf.setMinimumIntegerDigits(2);
+  StringBuffer buf=new StringBuffer();
+  for (int i=0; i < elapsedTime.length; i++) {
+    if (i > 0) {
+      buf.append(":");
+    }
+    buf.append(nf.format(elapsedTime[i]));
+  }
+  return buf.toString();
+}

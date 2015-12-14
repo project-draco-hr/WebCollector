@@ -1,0 +1,17 @@
+{
+  mimeMap=new HashMap<String,AdaptiveRate>();
+  BufferedReader reader=new BufferedReader(mimeFile);
+  String line=null;
+  String[] splits=null;
+  while ((line=reader.readLine()) != null) {
+    if (StringUtils.isNotBlank(line) && !line.startsWith("#")) {
+      splits=line.split("\t");
+      if (splits.length == 3) {
+        mimeMap.put(StringUtils.lowerCase(splits[0]),new AdaptiveRate(new Float(splits[1]),new Float(splits[2])));
+      }
+ else {
+        LOG.warn("Invalid configuration line in: " + line);
+      }
+    }
+  }
+}

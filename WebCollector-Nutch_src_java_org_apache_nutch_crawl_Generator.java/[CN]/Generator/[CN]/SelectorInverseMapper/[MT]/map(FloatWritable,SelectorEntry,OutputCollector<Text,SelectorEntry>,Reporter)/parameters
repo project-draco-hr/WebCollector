@@ -1,0 +1,4 @@
+FloatWritable key
+SelectorEntry value
+OutputCollector<Text,SelectorEntry> output
+Reporter reporter

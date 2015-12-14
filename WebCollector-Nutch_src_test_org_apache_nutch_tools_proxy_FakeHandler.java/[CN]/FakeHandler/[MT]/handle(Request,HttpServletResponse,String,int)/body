@@ -1,0 +1,50 @@
+{
+  HttpURI u=req.getUri();
+  String uri=u.toString();
+  addMyHeader(res,"URI",uri);
+  req.setHandled(true);
+  res.addHeader("X-Handled-By",getClass().getSimpleName());
+  if (uri.endsWith("/robots.txt")) {
+    return;
+  }
+  res.setContentType("text/html");
+  try {
+    OutputStream os=res.getOutputStream();
+    byte[] bytes=testA.getBytes("UTF-8");
+    os.write(bytes);
+    String p="<p>URI: " + uri + "</p>\r\n";
+    os.write(p.getBytes());
+    String base;
+    if (u.getPath().length() > 5) {
+      base=u.getPath().substring(0,u.getPath().length() - 5);
+    }
+ else {
+      base=u.getPath();
+    }
+    String prefix=u.getScheme() + "://" + u.getHost();
+    if (u.getPort() != 80 && u.getPort() != -1)     base+=":" + u.getPort();
+    if (!base.startsWith("/"))     prefix+="/";
+    prefix=prefix + base;
+    for (int i=0; i < 10; i++) {
+      String link="<p><a href='" + prefix;
+      if (!prefix.endsWith("/")) {
+        link+="/";
+      }
+      link+=i + ".html'>outlink " + i+ "</a></p>\r\n";
+      os.write(link.getBytes());
+    }
+    for (int i=0; i < 5; i++) {
+      int h=r.nextInt(1000000);
+      String link="<p><a href='http://www.fake-" + h + ".com/'>fake host "+ h+ "</a></p>\r\n";
+      os.write(link.getBytes());
+    }
+    String link="<p><a href='" + u.getScheme() + "://"+ u.getHost();
+    if (u.getPort() != 80 && u.getPort() != -1)     link+=":" + u.getPort();
+    link+="/'>site " + u.getHost() + "</a></p>\r\n";
+    os.write(link.getBytes());
+    os.write(testB.getBytes());
+    res.flushBuffer();
+  }
+ catch (  IOException ioe) {
+  }
+}

@@ -1,0 +1,12 @@
+{
+  String initialString=urlString;
+  for (int k=0; k < loopCount; k++) {
+    for (int i=0; i < this.normalizers.length; i++) {
+      if (urlString == null)       return null;
+      urlString=this.normalizers[i].normalize(urlString,scope);
+    }
+    if (initialString.equals(urlString))     break;
+    initialString=urlString;
+  }
+  return urlString;
+}

@@ -1,0 +1,6 @@
+{
+  Configuration conf=NutchConfiguration.create();
+  conf.setBoolean("mime.type.magic",useMagic);
+  MimeUtil mimeUtil=new MimeUtil(conf);
+  return mimeUtil.autoResolveContentType(contentType,url,bytes);
+}

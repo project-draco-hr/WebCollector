@@ -1,0 +1,13 @@
+{
+  Iterator<String> i=blackList.iterator();
+  while (i.hasNext()) {
+    String row=(String)i.next();
+    if (urlString.contains(row))     return null;
+  }
+  i=whiteList.iterator();
+  while (i.hasNext()) {
+    String row=(String)i.next();
+    if (urlString.contains(row))     return urlString;
+  }
+  return null;
+}

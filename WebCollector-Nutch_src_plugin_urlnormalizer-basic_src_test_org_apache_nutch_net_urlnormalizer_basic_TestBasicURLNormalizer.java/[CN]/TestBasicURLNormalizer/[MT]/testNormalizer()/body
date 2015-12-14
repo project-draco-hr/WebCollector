@@ -1,0 +1,31 @@
+{
+  normalizeTest(" http://foo.com/ ","http://foo.com/");
+  normalizeTest("HTTP://foo.com/","http://foo.com/");
+  normalizeTest("http://Foo.Com/index.html","http://foo.com/index.html");
+  normalizeTest("http://Foo.Com/index.html","http://foo.com/index.html");
+  normalizeTest("http://foo.com:80/index.html","http://foo.com/index.html");
+  normalizeTest("http://foo.com:81/","http://foo.com:81/");
+  normalizeTest("http://foo.com","http://foo.com/");
+  normalizeTest("http://foo.com/foo.html#ref","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/aa/./foo.html","http://foo.com/aa/foo.html");
+  normalizeTest("http://foo.com/aa/../","http://foo.com/");
+  normalizeTest("http://foo.com/aa/bb/../","http://foo.com/aa/");
+  normalizeTest("http://foo.com/aa/..","http://foo.com/aa/..");
+  normalizeTest("http://foo.com/aa/bb/cc/../../foo.html","http://foo.com/aa/foo.html");
+  normalizeTest("http://foo.com/aa/bb/../cc/dd/../ee/foo.html","http://foo.com/aa/cc/ee/foo.html");
+  normalizeTest("http://foo.com/../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/../../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/../aa/../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/aa/../../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/aa/../bb/../foo.html/../../","http://foo.com/");
+  normalizeTest("http://foo.com/../aa/foo.html","http://foo.com/aa/foo.html");
+  normalizeTest("http://foo.com/../aa/../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/a..a/foo.html","http://foo.com/a..a/foo.html");
+  normalizeTest("http://foo.com/a..a/../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com/foo.foo/../foo.html","http://foo.com/foo.html");
+  normalizeTest("http://foo.com//aa/bb/foo.html","http://foo.com/aa/bb/foo.html");
+  normalizeTest("http://foo.com/aa//bb/foo.html","http://foo.com/aa/bb/foo.html");
+  normalizeTest("http://foo.com/aa/bb//foo.html","http://foo.com/aa/bb/foo.html");
+  normalizeTest("http://foo.com//aa//bb//foo.html","http://foo.com/aa/bb/foo.html");
+  normalizeTest("http://foo.com////aa////bb////foo.html","http://foo.com/aa/bb/foo.html");
+}

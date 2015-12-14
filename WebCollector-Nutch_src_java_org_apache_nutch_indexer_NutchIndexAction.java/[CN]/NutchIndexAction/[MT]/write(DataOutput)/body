@@ -1,0 +1,4 @@
+{
+  out.write(action);
+  doc.write(out);
+}

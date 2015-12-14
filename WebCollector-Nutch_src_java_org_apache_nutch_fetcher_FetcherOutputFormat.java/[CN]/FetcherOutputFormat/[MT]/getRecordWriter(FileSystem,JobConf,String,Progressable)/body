@@ -1,0 +1,35 @@
+{
+  Path out=FileOutputFormat.getOutputPath(job);
+  final Path fetch=new Path(new Path(out,CrawlDatum.FETCH_DIR_NAME),name);
+  final Path content=new Path(new Path(out,Content.DIR_NAME),name);
+  final CompressionType compType=SequenceFileOutputFormat.getOutputCompressionType(job);
+  final MapFile.Writer fetchOut=new MapFile.Writer(job,fs,fetch.toString(),Text.class,CrawlDatum.class,compType,progress);
+  return new RecordWriter<Text,NutchWritable>(){
+    private MapFile.Writer contentOut;
+    private RecordWriter<Text,Parse> parseOut;
+{
+      if (Fetcher.isStoringContent(job)) {
+        contentOut=new MapFile.Writer(job,fs,content.toString(),Text.class,Content.class,compType,progress);
+      }
+      if (Fetcher.isParsing(job)) {
+        parseOut=new ParseOutputFormat().getRecordWriter(fs,job,name,progress);
+      }
+    }
+    public void write(    Text key,    NutchWritable value) throws IOException {
+      Writable w=value.get();
+      if (w instanceof CrawlDatum)       fetchOut.append(key,w);
+ else       if (w instanceof Content && contentOut != null)       contentOut.append(key,w);
+ else       if (w instanceof Parse && parseOut != null)       parseOut.write(key,(Parse)w);
+    }
+    public void close(    Reporter reporter) throws IOException {
+      fetchOut.close();
+      if (contentOut != null) {
+        contentOut.close();
+      }
+      if (parseOut != null) {
+        parseOut.close(reporter);
+      }
+    }
+  }
+;
+}

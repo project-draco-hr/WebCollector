@@ -1,0 +1,3 @@
+{
+  return new Content(orig,base,(content != null ? content : EMPTY_CONTENT),getHeader(Response.CONTENT_TYPE),headers,this.conf);
+}

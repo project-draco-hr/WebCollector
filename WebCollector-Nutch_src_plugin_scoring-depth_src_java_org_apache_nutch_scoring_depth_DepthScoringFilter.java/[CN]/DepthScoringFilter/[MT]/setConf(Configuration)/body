@@ -1,0 +1,8 @@
+{
+  super.setConf(conf);
+  if (conf == null)   return;
+  defaultMaxDepth=conf.getInt("scoring.depth.max",DEFAULT_MAX_DEPTH);
+  if (defaultMaxDepth <= 0) {
+    defaultMaxDepth=DEFAULT_MAX_DEPTH;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (FTPReply.isPositiveCompletion(type(fileType))) {
+    return true;
+  }
+  return false;
+}

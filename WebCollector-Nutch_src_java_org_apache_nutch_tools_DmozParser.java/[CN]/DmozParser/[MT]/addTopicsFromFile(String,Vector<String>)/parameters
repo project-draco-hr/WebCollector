@@ -1,0 +1,2 @@
+String topicFile
+Vector<String> topics

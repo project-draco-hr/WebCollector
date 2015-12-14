@@ -1,0 +1,4 @@
+Path crawlDb
+Path linkDb
+Collection<Path> segments
+JobConf job

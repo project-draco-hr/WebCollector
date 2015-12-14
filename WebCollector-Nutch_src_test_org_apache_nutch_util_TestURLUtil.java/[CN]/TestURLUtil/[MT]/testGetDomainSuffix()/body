@@ -1,0 +1,31 @@
+{
+  URL url=null;
+  url=new URL("http://lucene.apache.org/nutch");
+  Assert.assertEquals("org",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://140.211.11.130/foundation/contributing.html");
+  Assert.assertNull(URLUtil.getDomainSuffix(url));
+  url=new URL("http://www.example.co.uk:8080/index.html");
+  Assert.assertEquals("co.uk",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://com");
+  Assert.assertEquals("com",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://www.example.co.uk.com");
+  Assert.assertEquals("com",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://example.com.nn");
+  Assert.assertNull(URLUtil.getDomainSuffix(url));
+  url=new URL("http://");
+  Assert.assertNull(URLUtil.getDomainSuffix(url));
+  url=new URL("http://www.edu.tr.xyz");
+  Assert.assertNull(URLUtil.getDomainSuffix(url));
+  url=new URL("http://subdomain.example.edu.tr");
+  Assert.assertEquals("edu.tr",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://subdomain.example.presse.fr");
+  Assert.assertEquals("presse.fr",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://subdomain.example.presse.tr");
+  Assert.assertEquals("tr",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://www.example.plc.co.im");
+  Assert.assertEquals("plc.co.im",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://www.example.2000.hu");
+  Assert.assertEquals("2000.hu",URLUtil.getDomainSuffix(url).getDomain());
+  url=new URL("http://www.example.??????.tw");
+  Assert.assertEquals("??????.tw",URLUtil.getDomainSuffix(url).getDomain());
+}

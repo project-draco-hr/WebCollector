@@ -1,0 +1,5 @@
+{
+  ProtocolStatus res=new ProtocolStatus();
+  res.readFields(in);
+  return res;
+}

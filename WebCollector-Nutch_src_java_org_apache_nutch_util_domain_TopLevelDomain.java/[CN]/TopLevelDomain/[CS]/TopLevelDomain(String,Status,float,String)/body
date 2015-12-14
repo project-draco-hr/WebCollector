@@ -1,0 +1,5 @@
+{
+  super(domain,status,boost);
+  this.type=Type.COUNTRY;
+  this.countryName=countryName;
+}

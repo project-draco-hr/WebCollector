@@ -1,0 +1,5 @@
+{
+  int presize=queue.size();
+  queue.clear();
+  return presize;
+}

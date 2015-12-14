@@ -1,0 +1,3 @@
+{
+  this.metaData=new org.apache.hadoop.io.MapWritable(mapWritable);
+}

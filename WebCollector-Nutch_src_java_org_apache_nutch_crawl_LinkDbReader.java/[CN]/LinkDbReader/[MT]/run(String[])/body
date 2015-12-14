@@ -1,0 +1,36 @@
+{
+  if (args.length < 2) {
+    System.err.println("Usage: LinkDbReader <linkdb> (-dump <out_dir> | -url <url>)");
+    System.err.println("\t-dump <out_dir>\tdump whole link db to a text file in <out_dir>");
+    System.err.println("\t-url <url>\tprint information about <url> to System.out");
+    return -1;
+  }
+  try {
+    if (args[1].equals("-dump")) {
+      processDumpJob(args[0],args[2]);
+      return 0;
+    }
+ else     if (args[1].equals("-url")) {
+      init(new Path(args[0]));
+      Inlinks links=getInlinks(new Text(args[2]));
+      if (links == null) {
+        System.out.println(" - no link information.");
+      }
+ else {
+        Iterator<Inlink> it=links.iterator();
+        while (it.hasNext()) {
+          System.out.println(it.next().toString());
+        }
+      }
+      return 0;
+    }
+ else {
+      System.err.println("Error: wrong argument " + args[1]);
+      return -1;
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("LinkDbReader: " + StringUtils.stringifyException(e));
+    return -1;
+  }
+}

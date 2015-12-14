@@ -1,0 +1,5 @@
+String crawlDb
+long topN
+float min
+String output
+Configuration config

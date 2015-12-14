@@ -1,0 +1,10 @@
+{
+  String urlString=filterUrl(normalizeUrl(key.toString()));
+  if (urlString == null) {
+    return;
+  }
+ else {
+    key.set(urlString);
+  }
+  output.collect(key,new NutchWritable(value));
+}

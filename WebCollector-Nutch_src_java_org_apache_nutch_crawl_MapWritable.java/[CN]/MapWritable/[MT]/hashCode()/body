@@ -1,0 +1,11 @@
+{
+  final int seed=23;
+  int hash=0;
+  KeyValueEntry entry=fFirst;
+  while (entry != null) {
+    hash+=entry.fKey.hashCode() * seed;
+    hash+=entry.fValue.hashCode() * seed;
+    entry=entry.fNextEntry;
+  }
+  return hash;
+}

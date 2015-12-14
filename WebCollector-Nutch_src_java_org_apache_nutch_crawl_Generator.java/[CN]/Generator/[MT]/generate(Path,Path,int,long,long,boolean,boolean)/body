@@ -1,0 +1,3 @@
+{
+  return generate(dbDir,segments,numLists,topN,curTime,filter,true,force,1);
+}

@@ -1,0 +1,9 @@
+{
+  this.weight=weight;
+  if (value instanceof Collection) {
+    values.addAll((Collection<?>)value);
+  }
+ else {
+    values.add(value);
+  }
+}

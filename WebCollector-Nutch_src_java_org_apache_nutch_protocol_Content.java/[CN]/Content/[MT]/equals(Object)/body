@@ -1,0 +1,7 @@
+{
+  if (!(o instanceof Content)) {
+    return false;
+  }
+  Content that=(Content)o;
+  return this.url.equals(that.url) && this.base.equals(that.base) && Arrays.equals(this.getContent(),that.getContent())&& this.contentType.equals(that.contentType)&& this.metadata.equals(that.metadata);
+}

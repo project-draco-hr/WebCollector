@@ -1,0 +1,5 @@
+{
+  action=in.readByte();
+  doc=new NutchDocument();
+  doc.readFields(in);
+}

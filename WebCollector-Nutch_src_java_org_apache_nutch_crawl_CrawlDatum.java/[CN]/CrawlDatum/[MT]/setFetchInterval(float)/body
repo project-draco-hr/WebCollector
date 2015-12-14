@@ -1,0 +1,3 @@
+{
+  this.fetchInterval=Math.round(fetchInterval);
+}

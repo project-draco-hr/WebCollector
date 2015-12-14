@@ -1,0 +1,5 @@
+{
+  String host=url.getHost();
+  if (IP_PATTERN.matcher(host).matches())   return new String[]{host};
+  return host.split("\\.");
+}

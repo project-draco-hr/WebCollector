@@ -1,0 +1,7 @@
+{
+  Outlink[] outlinks=OutlinkExtractor.getOutlinks("Test with http://www.nutch.org/index.html is it found? " + "What about www.google.com at http://www.google.de " + "A longer URL could be http://www.sybit.com/solutions/portals.html",conf);
+  Assert.assertTrue("Url not found!",outlinks.length == 3);
+  Assert.assertEquals("Wrong URL","http://www.nutch.org/index.html",outlinks[0].getToUrl());
+  Assert.assertEquals("Wrong URL","http://www.google.de",outlinks[1].getToUrl());
+  Assert.assertEquals("Wrong URL","http://www.sybit.com/solutions/portals.html",outlinks[2].getToUrl());
+}

@@ -1,0 +1,22 @@
+{
+  if (args.length != 1) {
+    System.err.println("Usage: FeedParser <feed>");
+    System.exit(1);
+  }
+  String name=args[0];
+  String url="file:" + name;
+  Configuration conf=NutchConfiguration.create();
+  FeedParser parser=new FeedParser();
+  parser.setConf(conf);
+  File file=new File(name);
+  byte[] bytes=new byte[(int)file.length()];
+  DataInputStream in=new DataInputStream(new FileInputStream(file));
+  in.readFully(bytes);
+  ParseResult parseResult=parser.getParse(new Content(url,url,bytes,"application/rss+xml",new Metadata(),conf));
+  for (  Entry<Text,Parse> entry : parseResult) {
+    System.out.println("key: " + entry.getKey());
+    Parse parse=entry.getValue();
+    System.out.println("data: " + parse.getData());
+    System.out.println("text: " + parse.getText() + "\n");
+  }
+}

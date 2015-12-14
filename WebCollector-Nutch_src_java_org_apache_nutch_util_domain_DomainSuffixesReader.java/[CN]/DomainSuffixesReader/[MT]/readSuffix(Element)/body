@@ -1,0 +1,6 @@
+{
+  String domain=el.getAttribute("domain");
+  Status status=readStatus(el);
+  float boost=readBoost(el);
+  return new DomainSuffix(domain,status,boost);
+}

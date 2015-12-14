@@ -1,0 +1,3 @@
+{
+  return code == ACCESS_DENIED || code == EXCEPTION || code == REDIR_EXCEEDED || code == RETRY || code == TEMP_MOVED || code == WOULDBLOCK || code == PROTO_NOT_FOUND;
+}

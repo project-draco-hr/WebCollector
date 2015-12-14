@@ -1,0 +1,18 @@
+{
+  Parse parse=parseResult.get(content.getUrl());
+  Metadata metadata=parse.getData().getParseMeta();
+  for (  String mdName : metadata.names()) {
+    addIndexedMetatags(metadata,mdName,metadata.getValues(mdName));
+  }
+  Metadata generalMetaTags=metaTags.getGeneralTags();
+  for (  String tagName : generalMetaTags.names()) {
+    addIndexedMetatags(metadata,tagName,generalMetaTags.getValues(tagName));
+  }
+  Properties httpequiv=metaTags.getHttpEquivTags();
+  for (Enumeration<?> tagNames=httpequiv.propertyNames(); tagNames.hasMoreElements(); ) {
+    String name=(String)tagNames.nextElement();
+    String value=httpequiv.getProperty(name);
+    addIndexedMetatags(metadata,name,value);
+  }
+  return parseResult;
+}

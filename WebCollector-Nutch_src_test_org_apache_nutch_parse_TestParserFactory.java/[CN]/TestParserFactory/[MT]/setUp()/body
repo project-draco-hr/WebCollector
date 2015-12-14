@@ -1,0 +1,6 @@
+{
+  conf=NutchConfiguration.create();
+  conf.set("plugin.includes",".*");
+  conf.set("parse.plugin.file","org/apache/nutch/parse/parse-plugin-test.xml");
+  parserFactory=new ParserFactory(conf);
+}

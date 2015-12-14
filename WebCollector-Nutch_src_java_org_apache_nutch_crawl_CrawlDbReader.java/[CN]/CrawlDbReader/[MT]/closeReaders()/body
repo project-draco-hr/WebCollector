@@ -1,0 +1,10 @@
+{
+  if (readers == null)   return;
+  for (int i=0; i < readers.length; i++) {
+    try {
+      readers[i].close();
+    }
+ catch (    Exception e) {
+    }
+  }
+}

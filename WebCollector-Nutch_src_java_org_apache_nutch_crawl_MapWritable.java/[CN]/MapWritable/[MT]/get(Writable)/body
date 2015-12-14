@@ -1,0 +1,7 @@
+{
+  KeyValueEntry entry=findEntryByKey(key);
+  if (entry != null) {
+    return entry.fValue;
+  }
+  return null;
+}

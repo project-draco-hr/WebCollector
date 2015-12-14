@@ -1,0 +1,35 @@
+{
+  Options options=new Options();
+  OptionBuilder.withArgName("help");
+  OptionBuilder.withDescription("show this help message");
+  Option helpOpts=OptionBuilder.create("help");
+  options.addOption(helpOpts);
+  OptionBuilder.withArgName("webgraphdb");
+  OptionBuilder.hasArg();
+  OptionBuilder.withDescription("the webgraphdb to use");
+  Option webGraphOpts=OptionBuilder.create("webgraphdb");
+  options.addOption(webGraphOpts);
+  OptionBuilder.withArgName("url");
+  OptionBuilder.hasOptionalArg();
+  OptionBuilder.withDescription("the url to dump");
+  Option urlOpts=OptionBuilder.create("url");
+  options.addOption(urlOpts);
+  CommandLineParser parser=new GnuParser();
+  try {
+    CommandLine line=parser.parse(options,args);
+    if (line.hasOption("help") || !line.hasOption("webgraphdb") || !line.hasOption("url")) {
+      HelpFormatter formatter=new HelpFormatter();
+      formatter.printHelp("WebGraphReader",options);
+      return;
+    }
+    String webGraphDb=line.getOptionValue("webgraphdb");
+    String url=line.getOptionValue("url");
+    LoopReader reader=new LoopReader(NutchConfiguration.create());
+    reader.dumpUrl(new Path(webGraphDb),url);
+    return;
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    return;
+  }
+}

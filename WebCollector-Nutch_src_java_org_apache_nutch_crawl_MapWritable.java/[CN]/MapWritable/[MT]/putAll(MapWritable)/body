@@ -1,0 +1,11 @@
+{
+  if (map == null || map.size() == 0) {
+    return;
+  }
+  Iterator<Writable> iterator=map.keySet().iterator();
+  while (iterator.hasNext()) {
+    Writable key=iterator.next();
+    Writable value=map.get(key);
+    put(key,value);
+  }
+}

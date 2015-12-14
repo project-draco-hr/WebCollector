@@ -1,0 +1,6 @@
+{
+  this.toUrl=toUrl;
+  if (anchor == null)   anchor="";
+  this.anchor=anchor;
+  md=null;
+}

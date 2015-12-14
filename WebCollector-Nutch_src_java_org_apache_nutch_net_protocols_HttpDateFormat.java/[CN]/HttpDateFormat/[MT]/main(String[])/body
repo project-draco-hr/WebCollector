@@ -1,0 +1,7 @@
+{
+  Date now=new Date(System.currentTimeMillis());
+  String string=HttpDateFormat.toString(now);
+  long time=HttpDateFormat.toLong(string);
+  System.out.println(string);
+  System.out.println(HttpDateFormat.toString(time));
+}

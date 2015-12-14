@@ -1,0 +1,8 @@
+{
+  String string=getPluginFolder();
+  File file=new File(string);
+  if (!file.exists()) {
+    file.mkdir();
+  }
+  Assert.assertTrue(file.exists());
+}

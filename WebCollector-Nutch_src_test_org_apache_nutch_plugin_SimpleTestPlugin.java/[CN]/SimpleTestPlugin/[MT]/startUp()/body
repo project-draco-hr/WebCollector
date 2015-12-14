@@ -1,0 +1,3 @@
+{
+  System.err.println("start up Plugin: " + getDescriptor().getPluginId());
+}

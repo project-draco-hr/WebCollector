@@ -1,0 +1,17 @@
+{
+  BufferedReader reader=new BufferedReader(conf.getConfResourceAsReader("contenttype-mapping.txt"));
+  String line;
+  String parts[];
+  mimeMap=new HashMap<String,String>();
+  while ((line=reader.readLine()) != null) {
+    if (StringUtils.isNotBlank(line) && !line.startsWith("#")) {
+      line.trim();
+      parts=line.split("\t");
+      if (parts.length > 1) {
+        for (int i=1; i < parts.length; i++) {
+          mimeMap.put(parts[i].trim(),parts[0].trim());
+        }
+      }
+    }
+  }
+}

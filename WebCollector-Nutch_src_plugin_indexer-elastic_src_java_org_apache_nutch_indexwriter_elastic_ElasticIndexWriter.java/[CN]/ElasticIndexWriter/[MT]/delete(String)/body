@@ -1,0 +1,12 @@
+{
+  try {
+    DeleteRequestBuilder builder=client.prepareDelete();
+    builder.setIndex(defaultIndex);
+    builder.setType("doc");
+    builder.setId(key);
+    builder.execute().actionGet();
+  }
+ catch (  ElasticsearchException e) {
+    throw makeIOException(e);
+  }
+}

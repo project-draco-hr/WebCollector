@@ -1,0 +1,8 @@
+{
+  if (meta == null)   return null;
+  String lang=meta.get("dc.language");
+  if (lang != null)   return lang;
+  lang=meta.get("content-language");
+  if (lang != null)   return lang;
+  return meta.get("lang");
+}

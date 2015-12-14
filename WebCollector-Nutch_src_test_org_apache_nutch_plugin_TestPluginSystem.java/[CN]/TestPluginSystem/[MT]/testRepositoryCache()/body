@@ -1,0 +1,14 @@
+{
+  Configuration config=NutchConfiguration.create();
+  PluginRepository repo=PluginRepository.get(config);
+  JobConf job=new NutchJob(config);
+  PluginRepository repo1=PluginRepository.get(job);
+  Assert.assertTrue(repo == repo1);
+  config=new Configuration();
+  config.addResource("nutch-default.xml");
+  config.addResource("nutch-site.xml");
+  repo=PluginRepository.get(config);
+  job=new NutchJob(config);
+  repo1=PluginRepository.get(job);
+  Assert.assertTrue(repo1 != repo);
+}

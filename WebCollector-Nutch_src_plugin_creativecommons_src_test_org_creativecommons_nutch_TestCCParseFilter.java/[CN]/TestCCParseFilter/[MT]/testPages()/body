@@ -1,0 +1,5 @@
+{
+  pageTest(new File(testDir,"anchor.html"),"http://foo.com/","http://creativecommons.org/licenses/by-nc-sa/1.0","a",null);
+  pageTest(new File(testDir,"rel.html"),"http://foo.com/","http://creativecommons.org/licenses/by-nc/2.0","rel",null);
+  pageTest(new File(testDir,"rdf.html"),"http://foo.com/","http://creativecommons.org/licenses/by-nc/1.0","rdf","text");
+}

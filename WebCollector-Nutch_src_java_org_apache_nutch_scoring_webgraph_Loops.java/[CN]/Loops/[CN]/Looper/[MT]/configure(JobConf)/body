@@ -1,0 +1,4 @@
+{
+  this.conf=conf;
+  this.last=conf.getBoolean("last",false);
+}

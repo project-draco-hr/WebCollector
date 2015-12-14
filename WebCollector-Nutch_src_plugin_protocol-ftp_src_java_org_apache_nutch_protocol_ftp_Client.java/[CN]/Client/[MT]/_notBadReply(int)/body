@@ -1,0 +1,16 @@
+{
+  if (FTPReply.isPositiveCompletion(reply)) {
+  }
+ else   if (reply == 426) {
+  }
+ else   if (reply == 450) {
+  }
+ else   if (reply == 451) {
+  }
+ else   if (reply == 451) {
+  }
+ else {
+    return false;
+  }
+  return true;
+}

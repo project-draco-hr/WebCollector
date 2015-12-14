@@ -1,0 +1,9 @@
+{
+  if (testDOMs[0] == null)   setup();
+  for (int i=0; i < testPages.length; i++) {
+    StringBuffer sb=new StringBuffer();
+    utils.getTitle(sb,testDOMs[i]);
+    String text=sb.toString();
+    Assert.assertTrue("expecting text: " + answerText[i] + System.getProperty("line.separator")+ System.getProperty("line.separator")+ "got text: "+ text,equalsIgnoreWhitespace(answerTitle[i],text));
+  }
+}

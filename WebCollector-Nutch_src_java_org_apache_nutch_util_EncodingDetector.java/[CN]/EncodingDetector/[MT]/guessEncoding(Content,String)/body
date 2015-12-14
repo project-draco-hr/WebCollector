@@ -1,0 +1,27 @@
+{
+  String base=content.getBaseUrl();
+  if (LOG.isTraceEnabled()) {
+    findDisagreements(base,clues);
+  }
+  EncodingClue defaultClue=new EncodingClue(defaultValue,"default");
+  EncodingClue bestClue=defaultClue;
+  for (  EncodingClue clue : clues) {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace(base + ": charset " + clue);
+    }
+    String charset=clue.value;
+    if (minConfidence >= 0 && clue.confidence >= minConfidence) {
+      if (LOG.isTraceEnabled()) {
+        LOG.trace(base + ": Choosing encoding: " + charset+ " with confidence "+ clue.confidence);
+      }
+      return resolveEncodingAlias(charset).toLowerCase();
+    }
+ else     if (clue.confidence == NO_THRESHOLD && bestClue == defaultClue) {
+      bestClue=clue;
+    }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace(base + ": Choosing encoding: " + bestClue);
+  }
+  return bestClue.value.toLowerCase();
+}

@@ -1,0 +1,4 @@
+WritableComparable<?> key
+Content content
+OutputCollector<Text,ParseImpl> output
+Reporter reporter

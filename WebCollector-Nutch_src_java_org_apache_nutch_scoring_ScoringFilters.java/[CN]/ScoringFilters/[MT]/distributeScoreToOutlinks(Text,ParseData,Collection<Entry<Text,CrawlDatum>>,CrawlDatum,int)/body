@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < this.filters.length; i++) {
+    adjust=this.filters[i].distributeScoreToOutlinks(fromUrl,parseData,targets,adjust,allCount);
+  }
+  return adjust;
+}

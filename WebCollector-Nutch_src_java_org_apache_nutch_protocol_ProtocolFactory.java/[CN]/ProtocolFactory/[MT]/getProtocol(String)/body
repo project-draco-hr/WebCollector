@@ -1,0 +1,26 @@
+{
+  ObjectCache objectCache=ObjectCache.get(conf);
+  try {
+    URL url=new URL(urlString);
+    String protocolName=url.getProtocol();
+    if (protocolName == null)     throw new ProtocolNotFound(urlString);
+    String cacheId=Protocol.X_POINT_ID + protocolName;
+    Protocol protocol=(Protocol)objectCache.getObject(cacheId);
+    if (protocol != null) {
+      return protocol;
+    }
+    Extension extension=findExtension(protocolName);
+    if (extension == null) {
+      throw new ProtocolNotFound(protocolName);
+    }
+    protocol=(Protocol)extension.getExtensionInstance();
+    objectCache.setObject(cacheId,protocol);
+    return protocol;
+  }
+ catch (  MalformedURLException e) {
+    throw new ProtocolNotFound(urlString,e.toString());
+  }
+catch (  PluginRuntimeException e) {
+    throw new ProtocolNotFound(urlString,e.toString());
+  }
+}

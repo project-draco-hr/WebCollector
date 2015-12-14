@@ -1,0 +1,61 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  LOG.info("NodeDumper: starting at " + sdf.format(start));
+  Configuration conf=getConf();
+  FileSystem fs=FileSystem.get(conf);
+  Path linkdump=new Path(webGraphDb,DUMP_DIR);
+  Path nodeDb=new Path(webGraphDb,WebGraph.NODE_DIR);
+  Path loopSetDb=new Path(webGraphDb,Loops.LOOPS_DIR);
+  boolean loopsExists=fs.exists(loopSetDb);
+  Path outlinkDb=new Path(webGraphDb,WebGraph.OUTLINK_DIR);
+  Path tempInverted=new Path(webGraphDb,"inverted-" + Integer.toString(new Random().nextInt(Integer.MAX_VALUE)));
+  JobConf inverter=new NutchJob(conf);
+  inverter.setJobName("LinkDumper: inverter");
+  FileInputFormat.addInputPath(inverter,nodeDb);
+  if (loopsExists) {
+    FileInputFormat.addInputPath(inverter,loopSetDb);
+  }
+  FileInputFormat.addInputPath(inverter,outlinkDb);
+  inverter.setInputFormat(SequenceFileInputFormat.class);
+  inverter.setMapperClass(Inverter.class);
+  inverter.setReducerClass(Inverter.class);
+  inverter.setMapOutputKeyClass(Text.class);
+  inverter.setMapOutputValueClass(ObjectWritable.class);
+  inverter.setOutputKeyClass(Text.class);
+  inverter.setOutputValueClass(LinkNode.class);
+  FileOutputFormat.setOutputPath(inverter,tempInverted);
+  inverter.setOutputFormat(SequenceFileOutputFormat.class);
+  try {
+    LOG.info("LinkDumper: running inverter");
+    JobClient.runJob(inverter);
+    LOG.info("LinkDumper: finished inverter");
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  JobConf merger=new NutchJob(conf);
+  merger.setJobName("LinkDumper: merger");
+  FileInputFormat.addInputPath(merger,tempInverted);
+  merger.setInputFormat(SequenceFileInputFormat.class);
+  merger.setReducerClass(Merger.class);
+  merger.setMapOutputKeyClass(Text.class);
+  merger.setMapOutputValueClass(LinkNode.class);
+  merger.setOutputKeyClass(Text.class);
+  merger.setOutputValueClass(LinkNodes.class);
+  FileOutputFormat.setOutputPath(merger,linkdump);
+  merger.setOutputFormat(MapFileOutputFormat.class);
+  try {
+    LOG.info("LinkDumper: running merger");
+    JobClient.runJob(merger);
+    LOG.info("LinkDumper: finished merger");
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  fs.delete(tempInverted,true);
+  long end=System.currentTimeMillis();
+  LOG.info("LinkDumper: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+}

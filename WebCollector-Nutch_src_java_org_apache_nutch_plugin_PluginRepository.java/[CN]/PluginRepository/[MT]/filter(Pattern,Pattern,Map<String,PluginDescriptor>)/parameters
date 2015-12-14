@@ -1,0 +1,3 @@
+Pattern excludes
+Pattern includes
+Map<String,PluginDescriptor> plugins

@@ -1,0 +1,37 @@
+{
+  if (args.length == 0) {
+    System.err.println("TestRegexURLNormalizer [-bench <iter>] <scope>");
+    System.exit(-1);
+  }
+  boolean bench=false;
+  int iter=-1;
+  String scope=null;
+  for (int i=0; i < args.length; i++) {
+    if (args[i].equals("-bench")) {
+      bench=true;
+      iter=Integer.parseInt(args[++i]);
+    }
+ else     scope=args[i];
+  }
+  if (scope == null) {
+    System.err.println("Missing required scope name.");
+    System.exit(-1);
+  }
+  if (bench && iter < 0) {
+    System.err.println("Invalid number of iterations: " + iter);
+    System.exit(-1);
+  }
+  TestRegexURLNormalizer test=new TestRegexURLNormalizer();
+  NormalizedURL[] urls=(NormalizedURL[])test.testData.get(scope);
+  if (urls == null) {
+    LOG.warn("Missing test data for scope '" + scope + "', using default scope.");
+    scope=URLNormalizers.SCOPE_DEFAULT;
+    urls=(NormalizedURL[])test.testData.get(scope);
+  }
+  if (bench) {
+    test.bench(iter,scope);
+  }
+ else {
+    test.normalizeTest(urls,scope);
+  }
+}

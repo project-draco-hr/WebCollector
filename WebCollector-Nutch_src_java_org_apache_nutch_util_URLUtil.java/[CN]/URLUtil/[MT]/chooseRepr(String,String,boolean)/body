@@ -1,0 +1,55 @@
+{
+  URL srcUrl;
+  URL dstUrl;
+  try {
+    srcUrl=new URL(src);
+    dstUrl=new URL(dst);
+  }
+ catch (  MalformedURLException e) {
+    return dst;
+  }
+  String srcDomain=URLUtil.getDomainName(srcUrl);
+  String dstDomain=URLUtil.getDomainName(dstUrl);
+  String srcHost=srcUrl.getHost();
+  String dstHost=dstUrl.getHost();
+  String srcFile=srcUrl.getFile();
+  String dstFile=dstUrl.getFile();
+  boolean srcRoot=(srcFile.equals("/") || srcFile.length() == 0);
+  boolean destRoot=(dstFile.equals("/") || dstFile.length() == 0);
+  if (!srcDomain.equals(dstDomain)) {
+    return dst;
+  }
+  if (!temp) {
+    if (srcRoot) {
+      return src;
+    }
+ else {
+      return dst;
+    }
+  }
+ else {
+    if (srcRoot && !destRoot) {
+      return src;
+    }
+ else     if (!srcRoot && destRoot) {
+      return dst;
+    }
+ else     if (!srcRoot && !destRoot && (srcHost.equals(dstHost))) {
+      int numSrcPaths=srcFile.split("/").length;
+      int numDstPaths=dstFile.split("/").length;
+      if (numSrcPaths != numDstPaths) {
+        return (numDstPaths < numSrcPaths ? dst : src);
+      }
+ else {
+        int srcPathLength=srcFile.length();
+        int dstPathLength=dstFile.length();
+        return (dstPathLength < srcPathLength ? dst : src);
+      }
+    }
+ else {
+      int numSrcSubs=srcHost.split("\\.").length;
+      int numDstSubs=dstHost.split("\\.").length;
+      return (numDstSubs < numSrcSubs ? dst : src);
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  final int res=ToolRunner.run(NutchConfiguration.create(),new IndexingJob(),args);
+  System.exit(res);
+}

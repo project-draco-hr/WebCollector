@@ -1,0 +1,8 @@
+{
+  fAttributes=new HashMap<String,String>();
+  setDescriptor(pDescriptor);
+  setExtensionPoint(pExtensionPoint);
+  setId(pId);
+  setClazz(pExtensionClass);
+  this.conf=conf;
+}

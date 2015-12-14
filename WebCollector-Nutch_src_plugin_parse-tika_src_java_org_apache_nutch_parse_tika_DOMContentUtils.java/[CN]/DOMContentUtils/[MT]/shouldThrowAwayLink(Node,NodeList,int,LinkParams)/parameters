@@ -1,0 +1,4 @@
+Node node
+NodeList children
+int childLen
+LinkParams params

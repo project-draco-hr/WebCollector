@@ -1,0 +1,12 @@
+{
+  SpellCheckedMetadata readed=new SpellCheckedMetadata();
+  try {
+    ByteArrayOutputStream out=new ByteArrayOutputStream();
+    meta.write(new DataOutputStream(out));
+    readed.readFields(new DataInputStream(new ByteArrayInputStream(out.toByteArray())));
+  }
+ catch (  IOException ioe) {
+    Assert.fail(ioe.toString());
+  }
+  return readed;
+}

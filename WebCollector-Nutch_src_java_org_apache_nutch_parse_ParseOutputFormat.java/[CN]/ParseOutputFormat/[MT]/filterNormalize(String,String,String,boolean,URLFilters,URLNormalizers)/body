@@ -1,0 +1,3 @@
+{
+  return filterNormalize(fromUrl,toUrl,fromHost,ignoreExternalLinks,filters,normalizers,URLNormalizers.SCOPE_OUTLINK);
+}

@@ -1,0 +1,34 @@
+{
+  SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  long start=System.currentTimeMillis();
+  LOG.info("Indexer: starting at " + sdf.format(start));
+  final JobConf job=new NutchJob(getConf());
+  job.setJobName("Indexer");
+  LOG.info("Indexer: deleting gone documents: " + deleteGone);
+  LOG.info("Indexer: URL filtering: " + filter);
+  LOG.info("Indexer: URL normalizing: " + normalize);
+  IndexWriters writers=new IndexWriters(getConf());
+  LOG.info(writers.describe());
+  IndexerMapReduce.initMRJob(crawlDb,linkDb,segments,job);
+  job.setBoolean(IndexerMapReduce.INDEXER_DELETE,deleteGone);
+  job.setBoolean(IndexerMapReduce.URL_FILTERING,filter);
+  job.setBoolean(IndexerMapReduce.URL_NORMALIZING,normalize);
+  if (params != null) {
+    job.set(IndexerMapReduce.INDEXER_PARAMS,params);
+  }
+  job.setReduceSpeculativeExecution(false);
+  final Path tmp=new Path("tmp_" + System.currentTimeMillis() + "-"+ new Random().nextInt());
+  FileOutputFormat.setOutputPath(job,tmp);
+  try {
+    JobClient.runJob(job);
+    if (!noCommit) {
+      writers.open(job,"commit");
+      writers.commit();
+    }
+    long end=System.currentTimeMillis();
+    LOG.info("Indexer: finished at " + sdf.format(end) + ", elapsed: "+ TimingUtil.elapsedTime(start,end));
+  }
+  finally {
+    FileSystem.get(job).delete(tmp,true);
+  }
+}

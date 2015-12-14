@@ -1,0 +1,6 @@
+{
+  setConf(job);
+  this.segmentName=job.get(Nutch.SEGMENT_NAME_KEY);
+  this.storingContent=isStoringContent(job);
+  this.parsing=isParsing(job);
+}

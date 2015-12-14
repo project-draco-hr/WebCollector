@@ -1,0 +1,28 @@
+{
+  Socket socket=__openPassiveDataConnection(FTPCommand.LIST,path);
+  if (socket == null)   throw new FtpExceptionCanNotHaveDataConnection("LIST " + ((path == null) ? "" : path));
+  BufferedReader reader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+  int count=0;
+  String line=parser.readNextEntry(reader);
+  while (line != null) {
+    FTPFile ftpFile=parser.parseFTPEntry(line);
+    if (ftpFile == null) {
+      line=parser.readNextEntry(reader);
+      continue;
+    }
+    entries.add(ftpFile);
+    count+=line.length();
+    if (limit >= 0 && count > limit) {
+      break;
+    }
+    line=parser.readNextEntry(reader);
+  }
+  socket.close();
+  try {
+    int reply=getReply();
+    if (!_notBadReply(reply))     throw new FtpExceptionUnknownForcedDataClose(getReplyString());
+  }
+ catch (  FTPConnectionClosedException e) {
+    throw new FtpExceptionControlClosedByForcedDataClose(e.getMessage());
+  }
+}

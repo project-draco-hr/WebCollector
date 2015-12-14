@@ -1,0 +1,6 @@
+{
+  ULCONTENT[0]="crawl several billion pages per month";
+  ULCONTENT[1]="maintain an index of these pages";
+  ULCONTENT[2]="search that index up to 1000 times per second";
+  ULCONTENT[3]="operate at minimal cost";
+}

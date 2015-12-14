@@ -1,0 +1,125 @@
+{
+  datum.setStatus(status);
+  datum.setFetchTime(System.currentTimeMillis());
+  if (pstatus != null)   datum.getMetaData().put(Nutch.WRITABLE_PROTO_STATUS_KEY,pstatus);
+  ParseResult parseResult=null;
+  if (content != null) {
+    Metadata metadata=content.getMetadata();
+    if (content.getContentType() != null)     datum.getMetaData().put(new Text(Metadata.CONTENT_TYPE),new Text(content.getContentType()));
+    metadata.set(Nutch.SEGMENT_NAME_KEY,segmentName);
+    try {
+      scfilters.passScoreBeforeParsing(key,datum,content);
+    }
+ catch (    Exception e) {
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("Couldn't pass score, url " + key + " ("+ e+ ")");
+      }
+    }
+    if (parsing && status == CrawlDatum.STATUS_FETCH_SUCCESS) {
+      if (!skipTruncated || (skipTruncated && !ParseSegment.isTruncated(content))) {
+        try {
+          parseResult=this.parseUtil.parse(content);
+        }
+ catch (        Exception e) {
+          LOG.warn("Error parsing: " + key + ": "+ StringUtils.stringifyException(e));
+        }
+      }
+      if (parseResult == null) {
+        byte[] signature=SignatureFactory.getSignature(getConf()).calculate(content,new ParseStatus().getEmptyParse(conf));
+        datum.setSignature(signature);
+      }
+    }
+    content.getMetadata().add(Nutch.FETCH_STATUS_KEY,Integer.toString(status));
+  }
+  try {
+    output.collect(key,new NutchWritable(datum));
+    if (content != null && storingContent)     output.collect(key,new NutchWritable(content));
+    if (parseResult != null) {
+      for (      Entry<Text,Parse> entry : parseResult) {
+        Text url=entry.getKey();
+        Parse parse=entry.getValue();
+        ParseStatus parseStatus=parse.getData().getStatus();
+        ParseData parseData=parse.getData();
+        if (!parseStatus.isSuccess()) {
+          LOG.warn("Error parsing: " + key + ": "+ parseStatus);
+          parse=parseStatus.getEmptyParse(getConf());
+        }
+        byte[] signature=SignatureFactory.getSignature(getConf()).calculate(content,parse);
+        parseData.getContentMeta().set(Nutch.SEGMENT_NAME_KEY,segmentName);
+        parseData.getContentMeta().set(Nutch.SIGNATURE_KEY,StringUtil.toHexString(signature));
+        parseData.getContentMeta().set(Nutch.FETCH_TIME_KEY,Long.toString(datum.getFetchTime()));
+        if (url.equals(key))         datum.setSignature(signature);
+        try {
+          scfilters.passScoreAfterParsing(url,content,parse);
+        }
+ catch (        Exception e) {
+          if (LOG.isWarnEnabled()) {
+            LOG.warn("Couldn't pass score, url " + key + " ("+ e+ ")");
+          }
+        }
+        String fromHost;
+        Outlink[] links=parseData.getOutlinks();
+        int outlinksToStore=Math.min(maxOutlinks,links.length);
+        if (ignoreExternalLinks) {
+          try {
+            fromHost=new URL(url.toString()).getHost().toLowerCase();
+          }
+ catch (          MalformedURLException e) {
+            fromHost=null;
+          }
+        }
+ else {
+          fromHost=null;
+        }
+        int validCount=0;
+        List<Outlink> outlinkList=new ArrayList<Outlink>(outlinksToStore);
+        HashSet<String> outlinks=new HashSet<String>(outlinksToStore);
+        for (int i=0; i < links.length && validCount < outlinksToStore; i++) {
+          String toUrl=links[i].getToUrl();
+          toUrl=ParseOutputFormat.filterNormalize(url.toString(),toUrl,fromHost,ignoreExternalLinks,urlFilters,normalizers);
+          if (toUrl == null) {
+            continue;
+          }
+          validCount++;
+          links[i].setUrl(toUrl);
+          outlinkList.add(links[i]);
+          outlinks.add(toUrl);
+        }
+        if (maxOutlinkDepth > 0 && outlinkDepth < maxOutlinkDepth) {
+          reporter.incrCounter("FetcherOutlinks","outlinks_detected",outlinks.size());
+          int outlinkCounter=0;
+          int maxOutlinksByDepth=(int)Math.floor(outlinksDepthDivisor / (outlinkDepth + 1) * maxOutlinkDepthNumLinks);
+          String followUrl;
+          Iterator<String> iter=outlinks.iterator();
+          while (iter.hasNext() && outlinkCounter < maxOutlinkDepthNumLinks) {
+            followUrl=iter.next();
+            if (outlinksIgnoreExternal) {
+              if (!URLUtil.getHost(url.toString()).equals(URLUtil.getHost(followUrl))) {
+                continue;
+              }
+            }
+            reporter.incrCounter("FetcherOutlinks","outlinks_following",1);
+            FetchItem fit=FetchItem.create(new Text(followUrl),new CrawlDatum(CrawlDatum.STATUS_LINKED,interval),queueMode,outlinkDepth + 1);
+            fetchQueues.addFetchItem(fit);
+            outlinkCounter++;
+          }
+        }
+        parseData.setOutlinks(outlinkList.toArray(new Outlink[outlinkList.size()]));
+        output.collect(url,new NutchWritable(new ParseImpl(new ParseText(parse.getText()),parseData,parse.isCanonical())));
+      }
+    }
+  }
+ catch (  IOException e) {
+    if (LOG.isErrorEnabled()) {
+      LOG.error("fetcher caught:" + e.toString());
+    }
+  }
+  if (parseResult != null && !parseResult.isEmpty()) {
+    Parse p=parseResult.get(content.getUrl());
+    if (p != null) {
+      reporter.incrCounter("ParserStatus",ParseStatus.majorCodes[p.getData().getStatus().getMajorCode()],1);
+      return p.getData().getStatus();
+    }
+  }
+  return null;
+}

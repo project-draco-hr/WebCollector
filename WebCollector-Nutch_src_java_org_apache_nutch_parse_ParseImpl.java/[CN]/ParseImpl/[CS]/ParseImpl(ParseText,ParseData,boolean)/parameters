@@ -1,0 +1,3 @@
+ParseText text
+ParseData data
+boolean isCanonical

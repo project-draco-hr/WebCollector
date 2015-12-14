@@ -1,0 +1,27 @@
+{
+  JobConf analyzer=new NutchJob(getConf());
+  analyzer.set("link.analyze.iteration",String.valueOf(iteration + 1));
+  analyzer.setJobName("LinkAnalysis Analyzer, iteration " + (iteration + 1) + " of "+ numIterations);
+  FileInputFormat.addInputPath(analyzer,nodeDb);
+  FileInputFormat.addInputPath(analyzer,inverted);
+  FileOutputFormat.setOutputPath(analyzer,output);
+  analyzer.set("link.analyze.rank.one",String.valueOf(rankOne));
+  analyzer.setMapOutputKeyClass(Text.class);
+  analyzer.setMapOutputValueClass(ObjectWritable.class);
+  analyzer.setInputFormat(SequenceFileInputFormat.class);
+  analyzer.setMapperClass(Analyzer.class);
+  analyzer.setReducerClass(Analyzer.class);
+  analyzer.setOutputKeyClass(Text.class);
+  analyzer.setOutputValueClass(Node.class);
+  analyzer.setOutputFormat(MapFileOutputFormat.class);
+  analyzer.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs",false);
+  LOG.info("Starting analysis job");
+  try {
+    JobClient.runJob(analyzer);
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  LOG.info("Finished analysis job.");
+}

@@ -1,0 +1,7 @@
+{
+  String parts[]=where.split("[, ]");
+  for (int i=0; i < parts.length; i++) {
+    if (parts[i].equals(what))     return true;
+  }
+  return false;
+}

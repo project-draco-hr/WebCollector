@@ -1,0 +1,12 @@
+{
+  Extension[] extensions=repository.getExtensionPoint(getGetExtensionId()).getExtensions();
+  Assert.assertEquals(extensions.length,fPluginCount);
+  for (int i=0; i < extensions.length; i++) {
+    Extension extension=extensions[i];
+    Object object=extension.getExtensionInstance();
+    if (!(object instanceof HelloWorldExtension))     Assert.fail(" object is not a instance of HelloWorldExtension");
+    ((ITestExtension)object).testGetExtension("Bla ");
+    String string=((ITestExtension)object).testGetExtension("Hello");
+    Assert.assertEquals("Hello World",string);
+  }
+}

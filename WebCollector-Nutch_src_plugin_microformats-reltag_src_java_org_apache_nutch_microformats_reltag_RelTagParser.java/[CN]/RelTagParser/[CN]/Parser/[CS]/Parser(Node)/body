@@ -1,0 +1,4 @@
+{
+  tags=new TreeSet<String>();
+  parse(node);
+}

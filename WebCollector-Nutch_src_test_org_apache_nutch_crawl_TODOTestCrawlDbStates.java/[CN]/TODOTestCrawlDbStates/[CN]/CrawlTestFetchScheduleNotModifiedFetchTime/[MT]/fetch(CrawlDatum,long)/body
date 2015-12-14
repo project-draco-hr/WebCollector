@@ -1,0 +1,4 @@
+{
+  fetchTime=currentTime;
+  return super.fetch(datum,currentTime);
+}

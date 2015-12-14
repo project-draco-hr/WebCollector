@@ -1,0 +1,97 @@
+{
+  if (args.length < 2) {
+    usage();
+    return;
+  }
+  int mode=-1;
+  if (args[0].equals("-dump"))   mode=MODE_DUMP;
+ else   if (args[0].equals("-list"))   mode=MODE_LIST;
+ else   if (args[0].equals("-get"))   mode=MODE_GET;
+  boolean co=true;
+  boolean fe=true;
+  boolean ge=true;
+  boolean pa=true;
+  boolean pd=true;
+  boolean pt=true;
+  for (int i=1; i < args.length; i++) {
+    if (args[i].equals("-nocontent")) {
+      co=false;
+      args[i]=null;
+    }
+ else     if (args[i].equals("-nofetch")) {
+      fe=false;
+      args[i]=null;
+    }
+ else     if (args[i].equals("-nogenerate")) {
+      ge=false;
+      args[i]=null;
+    }
+ else     if (args[i].equals("-noparse")) {
+      pa=false;
+      args[i]=null;
+    }
+ else     if (args[i].equals("-noparsedata")) {
+      pd=false;
+      args[i]=null;
+    }
+ else     if (args[i].equals("-noparsetext")) {
+      pt=false;
+      args[i]=null;
+    }
+  }
+  Configuration conf=NutchConfiguration.create();
+  final FileSystem fs=FileSystem.get(conf);
+  SegmentReader segmentReader=new SegmentReader(conf,co,fe,ge,pa,pd,pt);
+switch (mode) {
+case MODE_DUMP:
+    String input=args[1];
+  if (input == null) {
+    System.err.println("Missing required argument: <segment_dir>");
+    usage();
+    return;
+  }
+String output=args.length > 2 ? args[2] : null;
+if (output == null) {
+System.err.println("Missing required argument: <output>");
+usage();
+return;
+}
+segmentReader.dump(new Path(input),new Path(output));
+return;
+case MODE_LIST:
+ArrayList<Path> dirs=new ArrayList<Path>();
+for (int i=1; i < args.length; i++) {
+if (args[i] == null) continue;
+if (args[i].equals("-dir")) {
+Path dir=new Path(args[++i]);
+FileStatus[] fstats=fs.listStatus(dir,HadoopFSUtil.getPassDirectoriesFilter(fs));
+Path[] files=HadoopFSUtil.getPaths(fstats);
+if (files != null && files.length > 0) {
+dirs.addAll(Arrays.asList(files));
+}
+}
+ else dirs.add(new Path(args[i]));
+}
+segmentReader.list(dirs,new OutputStreamWriter(System.out,"UTF-8"));
+return;
+case MODE_GET:
+input=args[1];
+if (input == null) {
+System.err.println("Missing required argument: <segment_dir>");
+usage();
+return;
+}
+String key=args.length > 2 ? args[2] : null;
+if (key == null) {
+System.err.println("Missing required argument: <keyValue>");
+usage();
+return;
+}
+segmentReader.get(new Path(input),new Text(key),new OutputStreamWriter(System.out,"UTF-8"),new HashMap<String,List<Writable>>());
+return;
+default :
+System.err.println("Invalid operation: " + args[0]);
+usage();
+return;
+}
+}

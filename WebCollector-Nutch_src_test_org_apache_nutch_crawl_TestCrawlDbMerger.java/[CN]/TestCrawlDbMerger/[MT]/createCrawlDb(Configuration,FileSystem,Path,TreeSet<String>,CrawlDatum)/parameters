@@ -1,0 +1,5 @@
+Configuration config
+FileSystem fs
+Path crawldb
+TreeSet<String> init
+CrawlDatum cd

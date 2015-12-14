@@ -1,0 +1,17 @@
+{
+  if (args.length < 2) {
+    System.err.println(JSParseFilter.class.getName() + " file.js baseURL");
+    return;
+  }
+  InputStream in=new FileInputStream(args[0]);
+  BufferedReader br=new BufferedReader(new InputStreamReader(in,"UTF-8"));
+  StringBuffer sb=new StringBuffer();
+  String line=null;
+  while ((line=br.readLine()) != null)   sb.append(line + "\n");
+  br.close();
+  JSParseFilter parseFilter=new JSParseFilter();
+  parseFilter.setConf(NutchConfiguration.create());
+  Outlink[] links=parseFilter.getJSLinks(sb.toString(),"",args[1]);
+  System.out.println("Outlinks extracted: " + links.length);
+  for (int i=0; i < links.length; i++)   System.out.println(" - " + links[i]);
+}

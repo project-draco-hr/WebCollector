@@ -1,0 +1,9 @@
+{
+  String[] tags=parse.getData().getParseMeta().getValues(RelTagParser.REL_TAG);
+  if (tags != null) {
+    for (int i=0; i < tags.length; i++) {
+      doc.add("tag",tags[i]);
+    }
+  }
+  return doc;
+}

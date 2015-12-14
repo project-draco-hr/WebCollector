@@ -1,0 +1,3 @@
+{
+  return RobotRulesParser.EMPTY_RULES;
+}

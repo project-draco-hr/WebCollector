@@ -1,0 +1,13 @@
+{
+  float number=0;
+  if (inlinks) {
+    number=node.getNumInlinks();
+  }
+ else   if (outlinks) {
+    number=node.getNumOutlinks();
+  }
+ else {
+    number=node.getInlinkScore();
+  }
+  output.collect(new FloatWritable(-number),key);
+}

@@ -1,0 +1,8 @@
+Path webGraphDb
+DumpType type
+long topN
+Path output
+boolean asEff
+NameType nameType
+AggrType aggrType
+boolean asSequenceFile

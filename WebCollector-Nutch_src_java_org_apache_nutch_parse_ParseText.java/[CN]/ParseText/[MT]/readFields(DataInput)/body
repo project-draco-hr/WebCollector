@@ -1,0 +1,13 @@
+{
+  byte version=in.readByte();
+switch (version) {
+case 1:
+    text=WritableUtils.readCompressedString(in);
+  break;
+case VERSION:
+text=Text.readString(in);
+break;
+default :
+throw new VersionMismatchException(VERSION,version);
+}
+}

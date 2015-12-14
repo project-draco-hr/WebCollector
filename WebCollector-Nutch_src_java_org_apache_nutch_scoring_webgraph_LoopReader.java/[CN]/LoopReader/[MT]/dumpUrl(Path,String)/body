@@ -1,0 +1,12 @@
+{
+  fs=FileSystem.get(getConf());
+  loopReaders=MapFileOutputFormat.getReaders(fs,new Path(webGraphDb,Loops.LOOPS_DIR),getConf());
+  Text key=new Text(url);
+  LoopSet loop=new LoopSet();
+  MapFileOutputFormat.getEntry(loopReaders,new HashPartitioner<Text,LoopSet>(),key,loop);
+  System.out.println(url + ":");
+  for (  String loopUrl : loop.getLoopSet()) {
+    System.out.println("  " + loopUrl);
+  }
+  FSUtils.closeReaders(loopReaders);
+}

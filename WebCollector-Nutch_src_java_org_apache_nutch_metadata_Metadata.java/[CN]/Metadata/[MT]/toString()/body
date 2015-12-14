@@ -1,0 +1,11 @@
+{
+  StringBuffer buf=new StringBuffer();
+  String[] names=names();
+  for (int i=0; i < names.length; i++) {
+    String[] values=_getValues(names[i]);
+    for (int j=0; j < values.length; j++) {
+      buf.append(names[i]).append("=").append(values[j]).append(" ");
+    }
+  }
+  return buf.toString();
+}

@@ -1,0 +1,12 @@
+{
+  ByteArrayOutputStream outStream=new ByteArrayOutputStream(EXPECTED_COMPRESSION_RATIO * in.length);
+  InflaterInputStream inStream=new InflaterInputStream(new ByteArrayInputStream(in));
+  byte[] buf=new byte[BUF_SIZE];
+  while (true) {
+    int size=inStream.read(buf);
+    if (size <= 0)     break;
+    outStream.write(buf,0,size);
+  }
+  outStream.close();
+  return outStream.toByteArray();
+}

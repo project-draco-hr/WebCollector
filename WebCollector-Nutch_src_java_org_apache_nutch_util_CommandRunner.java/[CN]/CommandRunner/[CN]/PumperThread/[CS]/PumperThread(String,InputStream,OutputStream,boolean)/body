@@ -1,0 +1,6 @@
+{
+  super(name);
+  _is=is;
+  _os=os;
+  _closeInput=closeInput;
+}

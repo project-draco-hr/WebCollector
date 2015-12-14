@@ -1,0 +1,36 @@
+{
+  boolean oldSet=false;
+  boolean injectedSet=false;
+  while (values.hasNext()) {
+    CrawlDatum val=values.next();
+    if (val.getStatus() == CrawlDatum.STATUS_INJECTED) {
+      injected.set(val);
+      injected.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+      injectedSet=true;
+    }
+ else {
+      old.set(val);
+      oldSet=true;
+    }
+  }
+  CrawlDatum res=null;
+  if (injectedSet && !oldSet) {
+    res=injected;
+  }
+ else {
+    res=old;
+  }
+  if (injectedSet && oldSet) {
+    reporter.getCounter("injector","urls_merged").increment(1);
+  }
+  if (injectedSet && oldSet && update&& !overwrite) {
+    res=old;
+    old.putAllMetaData(injected);
+    old.setScore(injected.getScore() != scoreInjected ? injected.getScore() : old.getScore());
+    old.setFetchInterval(injected.getFetchInterval() != interval ? injected.getFetchInterval() : old.getFetchInterval());
+  }
+  if (injectedSet && oldSet && overwrite) {
+    res=injected;
+  }
+  output.collect(key,res);
+}

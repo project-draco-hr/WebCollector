@@ -1,0 +1,20 @@
+{
+  String[] values=null;
+  Metadata meta=new Metadata();
+  values=meta.getValues(CONTENTTYPE);
+  Assert.assertEquals(0,values.length);
+  meta.set(CONTENTTYPE,"value1");
+  values=meta.getValues(CONTENTTYPE);
+  Assert.assertEquals(1,values.length);
+  Assert.assertEquals("value1",values[0]);
+  meta.set(CONTENTTYPE,"value2");
+  values=meta.getValues(CONTENTTYPE);
+  Assert.assertEquals(1,values.length);
+  Assert.assertEquals("value2",values[0]);
+  meta.set(CONTENTTYPE,"new value 1");
+  meta.add("contenttype","new value 2");
+  values=meta.getValues(CONTENTTYPE);
+  Assert.assertEquals(2,values.length);
+  Assert.assertEquals("new value 1",values[0]);
+  Assert.assertEquals("new value 2",values[1]);
+}

@@ -1,0 +1,6 @@
+PluginDescriptor pDescriptor
+String pExtensionPoint
+String pId
+String pExtensionClass
+Configuration conf
+PluginRepository pluginRepository

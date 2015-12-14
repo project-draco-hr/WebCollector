@@ -1,0 +1,3 @@
+{
+  fMimeTypeToPluginMap.put(mimeType,l);
+}

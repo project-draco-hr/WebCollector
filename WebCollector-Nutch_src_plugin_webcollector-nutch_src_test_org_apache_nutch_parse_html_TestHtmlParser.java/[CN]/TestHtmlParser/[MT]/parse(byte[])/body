@@ -1,0 +1,4 @@
+{
+  String dummyUrl="http://dummy.url/";
+  return parser.getParse(new Content(dummyUrl,dummyUrl,contentBytes,"text/html",new Metadata(),conf)).get(dummyUrl);
+}

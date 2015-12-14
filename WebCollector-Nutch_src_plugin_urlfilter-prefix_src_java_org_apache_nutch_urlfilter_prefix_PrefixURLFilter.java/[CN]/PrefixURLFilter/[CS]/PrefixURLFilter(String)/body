@@ -1,0 +1,3 @@
+{
+  trie=readConfiguration(new StringReader(stringRules));
+}

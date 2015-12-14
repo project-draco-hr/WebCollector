@@ -1,0 +1,8 @@
+{
+  if (redirect) {
+    createSegment(segment,status,false,true);
+  }
+ else {
+    createSegment(segment,status,true,false);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  this.blString=list;
+  parseList(blackList,list);
+}

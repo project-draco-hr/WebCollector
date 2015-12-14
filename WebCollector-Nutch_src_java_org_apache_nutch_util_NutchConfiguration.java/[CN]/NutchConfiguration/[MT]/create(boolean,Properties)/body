@@ -1,0 +1,11 @@
+{
+  Configuration conf=new Configuration();
+  setUUID(conf);
+  if (addNutchResources) {
+    addNutchResources(conf);
+  }
+  for (  Entry<Object,Object> e : nutchProperties.entrySet()) {
+    conf.set(e.getKey().toString(),e.getValue().toString());
+  }
+  return conf;
+}

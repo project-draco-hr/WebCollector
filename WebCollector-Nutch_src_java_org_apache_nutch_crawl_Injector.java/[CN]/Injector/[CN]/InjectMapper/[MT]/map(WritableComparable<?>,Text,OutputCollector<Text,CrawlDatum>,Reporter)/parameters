@@ -1,0 +1,4 @@
+WritableComparable<?> key
+Text value
+OutputCollector<Text,CrawlDatum> output
+Reporter reporter

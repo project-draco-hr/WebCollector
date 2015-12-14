@@ -1,0 +1,5 @@
+{
+  this.conf=conf;
+  headings=conf.getStrings("headings");
+  multiValued=conf.getBoolean("headings.multivalued",false);
+}

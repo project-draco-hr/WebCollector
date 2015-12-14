@@ -1,0 +1,5 @@
+NutchDocument doc
+Parse parse
+Text url
+CrawlDatum datum
+Inlinks inlinks

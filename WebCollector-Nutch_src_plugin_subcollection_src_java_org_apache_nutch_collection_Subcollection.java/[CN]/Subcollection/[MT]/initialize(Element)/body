@@ -1,0 +1,15 @@
+{
+  this.id=DOMUtil.getChildText(collection.getElementsByTagName(TAG_ID).item(0)).trim();
+  this.name=DOMUtil.getChildText(collection.getElementsByTagName(TAG_NAME).item(0)).trim();
+  this.wlString=DOMUtil.getChildText(collection.getElementsByTagName(TAG_WHITELIST).item(0)).trim();
+  parseList(this.whiteList,wlString);
+  NodeList nodeList=collection.getElementsByTagName(TAG_BLACKLIST);
+  if (nodeList.getLength() > 0) {
+    this.blString=DOMUtil.getChildText(nodeList.item(0)).trim();
+    parseList(this.blackList,blString);
+  }
+  nodeList=collection.getElementsByTagName(TAG_KEY);
+  if (nodeList.getLength() == 1) {
+    this.key=DOMUtil.getChildText(nodeList.item(0)).trim();
+  }
+}

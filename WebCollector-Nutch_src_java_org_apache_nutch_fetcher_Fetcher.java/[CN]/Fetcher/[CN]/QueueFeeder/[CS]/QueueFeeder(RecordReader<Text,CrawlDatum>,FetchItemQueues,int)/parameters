@@ -1,0 +1,3 @@
+RecordReader<Text,CrawlDatum> reader
+FetchItemQueues queues
+int size

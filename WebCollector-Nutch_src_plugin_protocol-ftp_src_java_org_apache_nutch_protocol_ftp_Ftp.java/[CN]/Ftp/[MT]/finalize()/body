@@ -1,0 +1,10 @@
+{
+  try {
+    if (this.client != null && this.client.isConnected()) {
+      this.client.logout();
+      this.client.disconnect();
+    }
+  }
+ catch (  IOException e) {
+  }
+}

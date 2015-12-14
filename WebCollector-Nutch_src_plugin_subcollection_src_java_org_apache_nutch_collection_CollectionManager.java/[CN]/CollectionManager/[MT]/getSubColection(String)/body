@@ -1,0 +1,3 @@
+{
+  return (Subcollection)collectionMap.get(id);
+}

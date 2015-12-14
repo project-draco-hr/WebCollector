@@ -1,0 +1,3 @@
+{
+  return MapFileOutputFormat.getEntry(readers,PARTITIONER,url,entry);
+}

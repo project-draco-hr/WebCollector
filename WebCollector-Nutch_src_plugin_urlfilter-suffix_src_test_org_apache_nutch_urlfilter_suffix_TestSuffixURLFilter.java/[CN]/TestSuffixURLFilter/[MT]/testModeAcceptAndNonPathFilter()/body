@@ -1,0 +1,7 @@
+{
+  filter.setModeAccept(true);
+  filter.setFilterFromPath(false);
+  for (int i=0; i < urls.length; i++) {
+    Assert.assertTrue(urlsModeAcceptAndNonPathFilter[i] == filter.filter(urls[i]));
+  }
+}

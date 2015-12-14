@@ -1,0 +1,4 @@
+{
+  SelectorEntry entry=value;
+  output.collect(entry.url,entry);
+}

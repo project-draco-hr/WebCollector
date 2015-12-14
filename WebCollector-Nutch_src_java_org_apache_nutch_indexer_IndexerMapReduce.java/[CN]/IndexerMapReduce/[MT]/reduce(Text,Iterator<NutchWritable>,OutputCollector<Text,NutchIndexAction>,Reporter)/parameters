@@ -1,0 +1,4 @@
+Text key
+Iterator<NutchWritable> values
+OutputCollector<Text,NutchIndexAction> output
+Reporter reporter

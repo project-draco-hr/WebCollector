@@ -1,0 +1,42 @@
+{
+  String k=key.toString();
+  if (k.equals("T")) {
+    long sum=0;
+    while (values.hasNext()) {
+      sum+=values.next().get();
+    }
+    output.collect(key,new LongWritable(sum));
+  }
+ else   if (k.startsWith("status") || k.startsWith("retry")) {
+    LongWritable cnt=new LongWritable();
+    while (values.hasNext()) {
+      LongWritable val=values.next();
+      cnt.set(cnt.get() + val.get());
+    }
+    output.collect(key,cnt);
+  }
+ else   if (k.equals("scx")) {
+    LongWritable cnt=new LongWritable(Long.MIN_VALUE);
+    while (values.hasNext()) {
+      LongWritable val=values.next();
+      if (cnt.get() < val.get())       cnt.set(val.get());
+    }
+    output.collect(key,cnt);
+  }
+ else   if (k.equals("scn")) {
+    LongWritable cnt=new LongWritable(Long.MAX_VALUE);
+    while (values.hasNext()) {
+      LongWritable val=values.next();
+      if (cnt.get() > val.get())       cnt.set(val.get());
+    }
+    output.collect(key,cnt);
+  }
+ else   if (k.equals("sct")) {
+    LongWritable cnt=new LongWritable();
+    while (values.hasNext()) {
+      LongWritable val=values.next();
+      cnt.set(cnt.get() + val.get());
+    }
+    output.collect(key,cnt);
+  }
+}

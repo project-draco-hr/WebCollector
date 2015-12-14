@@ -1,0 +1,8 @@
+{
+  FetchItemQueue fiq=queues.get(id);
+  if (fiq == null) {
+    fiq=new FetchItemQueue(conf,maxThreads,crawlDelay,minCrawlDelay);
+    queues.put(id,fiq);
+  }
+  return fiq;
+}

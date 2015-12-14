@@ -1,0 +1,3 @@
+{
+  topN=job.getLong("db.reader.topn",100) / job.getNumReduceTasks();
+}

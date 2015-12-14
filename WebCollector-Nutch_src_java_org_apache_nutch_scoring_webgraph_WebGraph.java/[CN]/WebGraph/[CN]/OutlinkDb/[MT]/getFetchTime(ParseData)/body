@@ -1,0 +1,11 @@
+{
+  long fetchTime=System.currentTimeMillis();
+  String fetchTimeStr=data.getContentMeta().get(Nutch.FETCH_TIME_KEY);
+  try {
+    fetchTime=Long.parseLong(fetchTimeStr);
+  }
+ catch (  Exception e) {
+    fetchTime=System.currentTimeMillis();
+  }
+  return fetchTime;
+}

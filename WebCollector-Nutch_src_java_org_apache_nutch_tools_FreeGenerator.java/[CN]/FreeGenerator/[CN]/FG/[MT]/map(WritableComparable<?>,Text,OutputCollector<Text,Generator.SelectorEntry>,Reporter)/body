@@ -1,0 +1,29 @@
+{
+  String urlString=value.toString();
+  try {
+    if (normalizers != null) {
+      urlString=normalizers.normalize(urlString,URLNormalizers.SCOPE_INJECT);
+    }
+    if (urlString != null && filters != null) {
+      urlString=filters.filter(urlString);
+    }
+    if (urlString != null) {
+      url.set(urlString);
+      scfilters.injectedScore(url,datum);
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Error adding url '" + value.toString() + "', skipping: "+ StringUtils.stringifyException(e));
+    return;
+  }
+  if (urlString == null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("- skipping " + value.toString());
+    }
+    return;
+  }
+  entry.datum=datum;
+  entry.url=url;
+  entry.datum.setFetchInterval(defaultInterval);
+  output.collect(url,entry);
+}

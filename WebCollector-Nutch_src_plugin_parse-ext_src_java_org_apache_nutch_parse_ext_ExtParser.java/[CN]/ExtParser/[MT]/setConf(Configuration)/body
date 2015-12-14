@@ -1,0 +1,18 @@
+{
+  this.conf=conf;
+  Extension[] extensions=PluginRepository.get(conf).getExtensionPoint("org.apache.nutch.parse.Parser").getExtensions();
+  String contentType, command, timeoutString, encoding;
+  for (int i=0; i < extensions.length; i++) {
+    Extension extension=extensions[i];
+    if (!extension.getDescriptor().getPluginId().equals("parse-ext"))     continue;
+    contentType=extension.getAttribute("contentType");
+    if (contentType == null || contentType.equals(""))     continue;
+    command=extension.getAttribute("command");
+    if (command == null || command.equals(""))     continue;
+    encoding=extension.getAttribute("encoding");
+    if (encoding == null)     encoding=Charset.defaultCharset().name();
+    timeoutString=extension.getAttribute("timeout");
+    if (timeoutString == null || timeoutString.equals(""))     timeoutString="" + TIMEOUT_DEFAULT;
+    TYPE_PARAMS_MAP.put(contentType,new String[]{command,timeoutString,encoding});
+  }
+}

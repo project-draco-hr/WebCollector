@@ -1,0 +1,31 @@
+{
+  String fromUrl=key.toString();
+  List<LinkDatum> outlinks=new ArrayList<LinkDatum>();
+  Node node=null;
+  LoopSet loops=null;
+  while (values.hasNext()) {
+    ObjectWritable write=values.next();
+    Object obj=write.get();
+    if (obj instanceof Node) {
+      node=(Node)obj;
+    }
+ else     if (obj instanceof LinkDatum) {
+      outlinks.add(WritableUtils.clone((LinkDatum)obj,conf));
+    }
+ else     if (obj instanceof LoopSet) {
+      loops=(LoopSet)obj;
+    }
+  }
+  int numOutlinks=node.getNumOutlinks();
+  if (numOutlinks > 0) {
+    Set<String> loopSet=(loops != null) ? loops.getLoopSet() : null;
+    for (int i=0; i < outlinks.size(); i++) {
+      LinkDatum outlink=outlinks.get(i);
+      String toUrl=outlink.getUrl();
+      if (loopSet != null && loopSet.contains(toUrl)) {
+        continue;
+      }
+      output.collect(new Text(toUrl),new LinkNode(fromUrl,node));
+    }
+  }
+}

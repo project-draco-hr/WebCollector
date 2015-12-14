@@ -1,0 +1,61 @@
+{
+  String fromUrl=key.toString();
+  String fromHost=getHost(fromUrl);
+  if (urlNormalizers != null) {
+    try {
+      fromUrl=urlNormalizers.normalize(fromUrl,URLNormalizers.SCOPE_LINKDB);
+    }
+ catch (    Exception e) {
+      LOG.warn("Skipping " + fromUrl + ":"+ e);
+      fromUrl=null;
+    }
+  }
+  if (fromUrl != null && urlFilters != null) {
+    try {
+      fromUrl=urlFilters.filter(fromUrl);
+    }
+ catch (    Exception e) {
+      LOG.warn("Skipping " + fromUrl + ":"+ e);
+      fromUrl=null;
+    }
+  }
+  if (fromUrl == null)   return;
+  Outlink[] outlinks=parseData.getOutlinks();
+  Inlinks inlinks=new Inlinks();
+  for (int i=0; i < outlinks.length; i++) {
+    Outlink outlink=outlinks[i];
+    String toUrl=outlink.getToUrl();
+    if (ignoreInternalLinks) {
+      String toHost=getHost(toUrl);
+      if (toHost == null || toHost.equals(fromHost)) {
+        continue;
+      }
+    }
+    if (urlNormalizers != null) {
+      try {
+        toUrl=urlNormalizers.normalize(toUrl,URLNormalizers.SCOPE_LINKDB);
+      }
+ catch (      Exception e) {
+        LOG.warn("Skipping " + toUrl + ":"+ e);
+        toUrl=null;
+      }
+    }
+    if (toUrl != null && urlFilters != null) {
+      try {
+        toUrl=urlFilters.filter(toUrl);
+      }
+ catch (      Exception e) {
+        LOG.warn("Skipping " + toUrl + ":"+ e);
+        toUrl=null;
+      }
+    }
+    if (toUrl == null)     continue;
+    inlinks.clear();
+    String anchor=outlink.getAnchor();
+    if (anchor.length() > maxAnchorLength) {
+      anchor=anchor.substring(0,maxAnchorLength);
+    }
+    inlinks.add(new Inlink(fromUrl,anchor));
+    output.collect(new Text(toUrl),inlinks);
+  }
+}

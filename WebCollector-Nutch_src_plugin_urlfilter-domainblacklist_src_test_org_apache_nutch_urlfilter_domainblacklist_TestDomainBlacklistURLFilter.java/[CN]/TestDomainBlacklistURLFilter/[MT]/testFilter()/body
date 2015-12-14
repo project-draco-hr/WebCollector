@@ -1,0 +1,16 @@
+{
+  String domainBlacklistFile=SAMPLES + SEPARATOR + "hosts.txt";
+  Configuration conf=NutchConfiguration.create();
+  DomainBlacklistURLFilter domainBlacklistFilter=new DomainBlacklistURLFilter(domainBlacklistFile);
+  domainBlacklistFilter.setConf(conf);
+  Assert.assertNull(domainBlacklistFilter.filter("http://lucene.apache.org"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://hadoop.apache.org"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://www.apache.org"));
+  Assert.assertNotNull(domainBlacklistFilter.filter("http://www.google.com"));
+  Assert.assertNotNull(domainBlacklistFilter.filter("http://mail.yahoo.com"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://www.foobar.net"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://www.foobas.net"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://www.yahoo.com"));
+  Assert.assertNull(domainBlacklistFilter.filter("http://www.foobar.be"));
+  Assert.assertNotNull(domainBlacklistFilter.filter("http://www.adobe.com"));
+}

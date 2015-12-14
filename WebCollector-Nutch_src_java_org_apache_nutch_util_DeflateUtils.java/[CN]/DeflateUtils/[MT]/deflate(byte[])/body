@@ -1,0 +1,17 @@
+{
+  ByteArrayOutputStream byteOut=new ByteArrayOutputStream(in.length / EXPECTED_COMPRESSION_RATIO);
+  DeflaterOutputStream outStream=new DeflaterOutputStream(byteOut);
+  try {
+    outStream.write(in);
+  }
+ catch (  Exception e) {
+    LOG.error("Error compressing: ",e);
+  }
+  try {
+    outStream.close();
+  }
+ catch (  IOException e) {
+    LOG.error("Error closing: ",e);
+  }
+  return byteOut.toByteArray();
+}

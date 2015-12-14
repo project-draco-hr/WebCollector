@@ -1,0 +1,6 @@
+{
+synchronized (cLock) {
+    if (content == null)     content=getReaders(Content.DIR_NAME);
+  }
+  return (Content)getEntry(content,url,new Content());
+}

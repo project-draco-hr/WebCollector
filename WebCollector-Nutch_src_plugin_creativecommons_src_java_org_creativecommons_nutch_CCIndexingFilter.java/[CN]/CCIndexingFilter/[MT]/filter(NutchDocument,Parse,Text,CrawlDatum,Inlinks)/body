@@ -1,0 +1,20 @@
+{
+  Metadata metadata=parse.getData().getParseMeta();
+  String licenseUrl=metadata.get(CreativeCommons.LICENSE_URL);
+  if (licenseUrl != null) {
+    if (LOG.isInfoEnabled()) {
+      LOG.info("CC: indexing " + licenseUrl + " for: "+ url.toString());
+    }
+    addFeature(doc,"license=" + licenseUrl);
+    addUrlFeatures(doc,licenseUrl);
+  }
+  String licenseLocation=metadata.get(CreativeCommons.LICENSE_LOCATION);
+  if (licenseLocation != null) {
+    addFeature(doc,"meta=" + licenseLocation);
+  }
+  String workType=metadata.get(CreativeCommons.WORK_TYPE);
+  if (workType != null) {
+    addFeature(doc,workType);
+  }
+  return doc;
+}

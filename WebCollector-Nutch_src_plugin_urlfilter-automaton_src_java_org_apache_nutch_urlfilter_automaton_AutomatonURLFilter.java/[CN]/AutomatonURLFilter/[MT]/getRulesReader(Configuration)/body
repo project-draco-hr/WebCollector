@@ -1,0 +1,8 @@
+{
+  String stringRules=conf.get(URLFILTER_AUTOMATON_RULES);
+  if (stringRules != null) {
+    return new StringReader(stringRules);
+  }
+  String fileRules=conf.get(URLFILTER_AUTOMATON_FILE);
+  return conf.getConfResourceAsReader(fileRules);
+}

@@ -1,0 +1,28 @@
+{
+  try {
+    final FileOutputStream fos=new FileOutputStream(new File(configfile.getFile()));
+    final Document doc=new DocumentImpl();
+    final Element collections=doc.createElement(Subcollection.TAG_COLLECTIONS);
+    final Iterator iterator=collectionMap.values().iterator();
+    while (iterator.hasNext()) {
+      final Subcollection subCol=(Subcollection)iterator.next();
+      final Element collection=doc.createElement(Subcollection.TAG_COLLECTION);
+      collections.appendChild(collection);
+      final Element name=doc.createElement(Subcollection.TAG_NAME);
+      name.setNodeValue(subCol.getName());
+      collection.appendChild(name);
+      final Element whiteList=doc.createElement(Subcollection.TAG_WHITELIST);
+      whiteList.setNodeValue(subCol.getWhiteListString());
+      collection.appendChild(whiteList);
+      final Element blackList=doc.createElement(Subcollection.TAG_BLACKLIST);
+      blackList.setNodeValue(subCol.getBlackListString());
+      collection.appendChild(blackList);
+    }
+    DomUtil.saveDom(fos,collections);
+    fos.flush();
+    fos.close();
+  }
+ catch (  FileNotFoundException e) {
+    throw new IOException(e.toString());
+  }
+}

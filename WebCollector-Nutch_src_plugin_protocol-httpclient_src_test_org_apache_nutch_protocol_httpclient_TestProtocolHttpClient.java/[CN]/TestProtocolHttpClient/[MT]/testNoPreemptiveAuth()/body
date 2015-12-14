@@ -1,0 +1,4 @@
+{
+  startServer(47500);
+  fetchPage("/noauth.jsp",200);
+}

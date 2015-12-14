@@ -1,0 +1,31 @@
+{
+  Map<String,String> aliases=new HashMap<String,String>();
+  NodeList aliasRoot=parsePluginsRoot.getElementsByTagName("aliases");
+  if (aliasRoot == null || (aliasRoot != null && aliasRoot.getLength() == 0)) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("No aliases defined in parse-plugins.xml!");
+    }
+    return aliases;
+  }
+  if (aliasRoot.getLength() > 1) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("There should only be one \"aliases\" tag in parse-plugins.xml");
+    }
+  }
+  Element aliasRootElem=(Element)aliasRoot.item(0);
+  NodeList aliasElements=aliasRootElem.getElementsByTagName("alias");
+  if (aliasElements != null && aliasElements.getLength() > 0) {
+    for (int i=0; i < aliasElements.getLength(); i++) {
+      Element aliasElem=(Element)aliasElements.item(i);
+      String parsePluginId=aliasElem.getAttribute("name");
+      String extensionId=aliasElem.getAttribute("extension-id");
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("Found alias: plugin-id: " + parsePluginId + ", extension-id: "+ extensionId);
+      }
+      if (parsePluginId != null && extensionId != null) {
+        aliases.put(parsePluginId,extensionId);
+      }
+    }
+  }
+  return aliases;
+}

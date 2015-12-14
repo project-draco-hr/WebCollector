@@ -1,0 +1,8 @@
+{
+  Extension ext=parserFactory.getExtensions("text/html").get(0);
+  Assert.assertEquals("parse-tika",ext.getDescriptor().getPluginId());
+  ext=parserFactory.getExtensions("text/html; charset=ISO-8859-1").get(0);
+  Assert.assertEquals("parse-tika",ext.getDescriptor().getPluginId());
+  ext=parserFactory.getExtensions("foo/bar").get(0);
+  Assert.assertEquals("parse-tika",ext.getDescriptor().getPluginId());
+}

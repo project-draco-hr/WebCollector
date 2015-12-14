@@ -1,0 +1,48 @@
+{
+  String url=normalizeUrl(key.toString());
+  if (url == null) {
+    return;
+  }
+  if (filterUrl(url) == null) {
+    return;
+  }
+  key.set(url);
+  if (value instanceof CrawlDatum) {
+    CrawlDatum datum=(CrawlDatum)value;
+    if (datum.getStatus() == CrawlDatum.STATUS_FETCH_REDIR_TEMP || datum.getStatus() == CrawlDatum.STATUS_FETCH_REDIR_PERM || datum.getStatus() == CrawlDatum.STATUS_FETCH_GONE) {
+      output.collect(key,new NutchWritable(new BooleanWritable(true)));
+    }
+  }
+ else   if (value instanceof ParseData) {
+    ParseData data=(ParseData)value;
+    long fetchTime=getFetchTime(data);
+    Outlink[] outlinkAr=data.getOutlinks();
+    Map<String,String> outlinkMap=new LinkedHashMap<String,String>();
+    if (outlinkAr != null && outlinkAr.length > 0) {
+      for (int i=0; i < outlinkAr.length; i++) {
+        Outlink outlink=outlinkAr[i];
+        String toUrl=normalizeUrl(outlink.getToUrl());
+        if (filterUrl(toUrl) == null) {
+          continue;
+        }
+        boolean existingUrl=outlinkMap.containsKey(toUrl);
+        if (toUrl != null && (!existingUrl || (existingUrl && outlinkMap.get(toUrl) == null))) {
+          outlinkMap.put(toUrl,outlink.getAnchor());
+        }
+      }
+    }
+    for (    String outlinkUrl : outlinkMap.keySet()) {
+      String anchor=outlinkMap.get(outlinkUrl);
+      LinkDatum datum=new LinkDatum(outlinkUrl,anchor,fetchTime);
+      output.collect(key,new NutchWritable(datum));
+    }
+  }
+ else   if (value instanceof LinkDatum) {
+    LinkDatum datum=(LinkDatum)value;
+    String linkDatumUrl=normalizeUrl(datum.getUrl());
+    if (filterUrl(linkDatumUrl) != null) {
+      datum.setUrl(linkDatumUrl);
+      output.collect(key,new NutchWritable(datum));
+    }
+  }
+}

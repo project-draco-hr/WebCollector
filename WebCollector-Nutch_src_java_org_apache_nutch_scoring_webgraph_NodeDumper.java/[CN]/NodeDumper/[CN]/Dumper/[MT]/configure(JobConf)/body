@@ -1,0 +1,11 @@
+{
+  this.conf=conf;
+  this.inlinks=conf.getBoolean("inlinks",false);
+  this.outlinks=conf.getBoolean("outlinks",false);
+  this.scores=conf.getBoolean("scores",true);
+  this.topn=conf.getLong("topn",Long.MAX_VALUE);
+  this.host=conf.getBoolean("host",false);
+  this.domain=conf.getBoolean("domain",false);
+  this.sum=conf.getBoolean("sum",false);
+  this.max=conf.getBoolean("max",false);
+}

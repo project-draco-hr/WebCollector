@@ -1,0 +1,3 @@
+{
+  return (numOutlinks > 0) ? inlinkScore / numOutlinks : inlinkScore;
+}

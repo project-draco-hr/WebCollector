@@ -1,0 +1,7 @@
+{
+  Text.writeString(out,url);
+  Text.writeString(out,anchor != null ? anchor : "");
+  out.writeFloat(score);
+  out.writeLong(timestamp);
+  out.writeByte(linkType);
+}

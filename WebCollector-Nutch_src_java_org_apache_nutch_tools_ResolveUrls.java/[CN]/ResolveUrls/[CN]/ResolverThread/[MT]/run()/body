@@ -1,0 +1,18 @@
+{
+  numTotal.incrementAndGet();
+  String host=URLUtil.getHost(url);
+  long start=System.currentTimeMillis();
+  try {
+    InetAddress.getByName(host);
+    LOG.info("Resolved: " + host);
+    numResolved.incrementAndGet();
+  }
+ catch (  Exception uhe) {
+    LOG.info("Error Resolving: " + host);
+    numErrored.incrementAndGet();
+  }
+  long end=System.currentTimeMillis();
+  long total=(end - start);
+  totalTime.addAndGet(total);
+  LOG.info(", " + total + " millis");
+}

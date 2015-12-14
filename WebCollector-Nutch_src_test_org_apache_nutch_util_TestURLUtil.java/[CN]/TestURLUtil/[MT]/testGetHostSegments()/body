@@ -1,0 +1,24 @@
+{
+  URL url;
+  String[] segments;
+  url=new URL("http://subdomain.example.edu.tr");
+  segments=URLUtil.getHostSegments(url);
+  Assert.assertEquals("subdomain",segments[0]);
+  Assert.assertEquals("example",segments[1]);
+  Assert.assertEquals("edu",segments[2]);
+  Assert.assertEquals("tr",segments[3]);
+  url=new URL("http://");
+  segments=URLUtil.getHostSegments(url);
+  Assert.assertEquals(1,segments.length);
+  Assert.assertEquals("",segments[0]);
+  url=new URL("http://140.211.11.130/foundation/contributing.html");
+  segments=URLUtil.getHostSegments(url);
+  Assert.assertEquals(1,segments.length);
+  Assert.assertEquals("140.211.11.130",segments[0]);
+  url=new URL("http://www.example.??????.tw");
+  segments=URLUtil.getHostSegments(url);
+  Assert.assertEquals("www",segments[0]);
+  Assert.assertEquals("example",segments[1]);
+  Assert.assertEquals("??????",segments[2]);
+  Assert.assertEquals("tw",segments[3]);
+}

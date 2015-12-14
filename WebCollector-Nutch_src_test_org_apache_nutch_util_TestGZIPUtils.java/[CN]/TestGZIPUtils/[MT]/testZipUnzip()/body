@@ -1,0 +1,8 @@
+{
+  byte[] testBytes=SHORT_TEST_STRING.getBytes();
+  testZipUnzip(testBytes);
+  testBytes=LONGER_TEST_STRING.getBytes();
+  testZipUnzip(testBytes);
+  testBytes=WEBPAGE.getBytes();
+  testZipUnzip(testBytes);
+}

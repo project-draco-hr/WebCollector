@@ -1,0 +1,5 @@
+{
+  url.write(out);
+  datum.write(out);
+  segnum.write(out);
+}

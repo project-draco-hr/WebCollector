@@ -1,0 +1,8 @@
+{
+  if (splitEnd == splitStart) {
+    return 0.0f;
+  }
+ else {
+    return Math.min(1.0f,(getPos() - splitStart) / (float)splitLen);
+  }
+}

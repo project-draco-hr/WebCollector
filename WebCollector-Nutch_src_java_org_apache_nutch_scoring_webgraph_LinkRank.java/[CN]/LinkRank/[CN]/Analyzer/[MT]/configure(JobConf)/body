@@ -1,0 +1,14 @@
+{
+  try {
+    this.conf=conf;
+    this.dampingFactor=conf.getFloat("link.analyze.damping.factor",0.85f);
+    this.rankOne=conf.getFloat("link.analyze.rank.one",0.0f);
+    this.itNum=conf.getInt("link.analyze.iteration",0);
+    limitPages=conf.getBoolean("link.ignore.limit.page",true);
+    limitDomains=conf.getBoolean("link.ignore.limit.domain",true);
+  }
+ catch (  Exception e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw new IllegalArgumentException(e);
+  }
+}

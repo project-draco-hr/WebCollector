@@ -1,0 +1,10 @@
+{
+  String protocol=url.getProtocol().toLowerCase();
+  String host=url.getHost().toLowerCase();
+  int port=url.getPort();
+  if (port == -1) {
+    port=url.getDefaultPort();
+  }
+  String cacheKey=protocol + ":" + host+ ":"+ port;
+  return cacheKey;
+}

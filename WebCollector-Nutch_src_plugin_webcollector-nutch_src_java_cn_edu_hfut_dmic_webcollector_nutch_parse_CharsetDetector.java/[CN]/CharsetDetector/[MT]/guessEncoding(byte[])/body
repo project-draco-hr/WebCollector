@@ -1,0 +1,16 @@
+{
+  String encoding;
+  try {
+    encoding=guessEncodingByNutch(content);
+  }
+ catch (  Exception ex) {
+    return guessEncodingByMozilla(content);
+  }
+  if (encoding == null) {
+    encoding=guessEncodingByMozilla(content);
+    return encoding;
+  }
+ else {
+    return encoding;
+  }
+}

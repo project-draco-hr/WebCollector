@@ -1,0 +1,4 @@
+Text key
+Writable value
+OutputCollector<Text,ObjectWritable> output
+Reporter reporter

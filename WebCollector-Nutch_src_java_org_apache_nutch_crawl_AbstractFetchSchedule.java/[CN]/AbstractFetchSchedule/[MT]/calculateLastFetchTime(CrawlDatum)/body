@@ -1,0 +1,3 @@
+{
+  return datum.getFetchTime() - (long)datum.getFetchInterval() * 1000;
+}

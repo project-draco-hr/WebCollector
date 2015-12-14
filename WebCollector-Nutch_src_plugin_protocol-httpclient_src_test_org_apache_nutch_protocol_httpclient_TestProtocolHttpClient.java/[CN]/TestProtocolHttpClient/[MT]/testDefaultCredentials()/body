@@ -1,0 +1,4 @@
+{
+  startServer(47502);
+  fetchPage("/basic.jsp",200);
+}

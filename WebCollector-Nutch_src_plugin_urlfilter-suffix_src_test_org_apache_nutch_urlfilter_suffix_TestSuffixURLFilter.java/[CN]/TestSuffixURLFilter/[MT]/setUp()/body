@@ -1,0 +1,3 @@
+{
+  filter=new SuffixURLFilter(new StringReader(suffixes));
+}

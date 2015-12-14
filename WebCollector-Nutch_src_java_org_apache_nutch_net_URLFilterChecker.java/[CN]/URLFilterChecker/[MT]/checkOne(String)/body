@@ -1,0 +1,31 @@
+{
+  URLFilter filter=null;
+  ExtensionPoint point=PluginRepository.get(conf).getExtensionPoint(URLFilter.X_POINT_ID);
+  if (point == null)   throw new RuntimeException(URLFilter.X_POINT_ID + " not found.");
+  Extension[] extensions=point.getExtensions();
+  for (int i=0; i < extensions.length; i++) {
+    Extension extension=extensions[i];
+    filter=(URLFilter)extension.getExtensionInstance();
+    if (filter.getClass().getName().equals(filterName)) {
+      break;
+    }
+ else {
+      filter=null;
+    }
+  }
+  if (filter == null)   throw new RuntimeException("Filter " + filterName + " not found.");
+  System.out.println("Checking URLFilter " + filterName);
+  BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+  String line;
+  while ((line=in.readLine()) != null) {
+    String out=filter.filter(line);
+    if (out != null) {
+      System.out.print("+");
+      System.out.println(out);
+    }
+ else {
+      System.out.print("-");
+      System.out.println(line);
+    }
+  }
+}

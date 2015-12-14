@@ -1,0 +1,10 @@
+{
+  IntWritable depth=(IntWritable)datum.getMetaData().get(DEPTH_KEY_W);
+  if (depth != null) {
+    content.getMetadata().set(DEPTH_KEY,depth.toString());
+  }
+  IntWritable maxdepth=(IntWritable)datum.getMetaData().get(MAX_DEPTH_KEY_W);
+  if (maxdepth != null) {
+    content.getMetadata().set(MAX_DEPTH_KEY,maxdepth.toString());
+  }
+}

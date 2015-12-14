@@ -1,0 +1,6 @@
+Path crawlDb
+Path linkDb
+List<Path> segments
+boolean noCommit
+boolean deleteGone
+String params

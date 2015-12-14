@@ -1,0 +1,6 @@
+{
+  NodeList children=el.getElementsByTagName("tld");
+  for (int i=0; i < children.getLength(); i++) {
+    tldEntries.addDomainSuffix(readGTLD((Element)children.item(i),Type.GENERIC));
+  }
+}

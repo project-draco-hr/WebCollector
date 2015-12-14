@@ -1,0 +1,11 @@
+{
+  if (metaData == null || metaData.size() == 0) {
+    return otherMetaData == null || otherMetaData.size() == 0;
+  }
+  if (otherMetaData == null) {
+    return false;
+  }
+  HashSet<Entry<Writable,Writable>> set1=new HashSet<Entry<Writable,Writable>>(metaData.entrySet());
+  HashSet<Entry<Writable,Writable>> set2=new HashSet<Entry<Writable,Writable>>(otherMetaData.entrySet());
+  return set1.equals(set2);
+}

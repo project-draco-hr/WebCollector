@@ -1,0 +1,25 @@
+{
+  String usage="Usage: URLNormalizerChecker [-normalizer <normalizerName>] [-scope <scope>]" + "\n\tscope can be one of: default,partition,generate_host_count,fetcher,crawldb,linkdb,inject,outlink";
+  String normalizerName=null;
+  String scope=URLNormalizers.SCOPE_DEFAULT;
+  for (int i=0; i < args.length; i++) {
+    if (args[i].equals("-normalizer")) {
+      normalizerName=args[++i];
+    }
+ else     if (args[i].equals("-scope")) {
+      scope=args[++i];
+    }
+ else {
+      System.err.println(usage);
+      System.exit(-1);
+    }
+  }
+  URLNormalizerChecker checker=new URLNormalizerChecker(NutchConfiguration.create());
+  if (normalizerName != null) {
+    checker.checkOne(normalizerName,scope);
+  }
+ else {
+    checker.checkAll(scope);
+  }
+  System.exit(0);
+}

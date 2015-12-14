@@ -1,0 +1,3 @@
+{
+  filter=new PrefixURLFilter(prefixes);
+}

@@ -1,0 +1,10 @@
+{
+  writers=new IndexWriters(job);
+  try {
+    writers.open(job,"Deletion");
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  noCommit=job.getBoolean("noCommit",false);
+}

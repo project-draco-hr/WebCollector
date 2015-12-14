@@ -1,0 +1,10 @@
+{
+  JobConf job=new NutchJob(getConf());
+  job.setBoolean("segment.reader.co",this.co);
+  job.setBoolean("segment.reader.fe",this.fe);
+  job.setBoolean("segment.reader.ge",this.ge);
+  job.setBoolean("segment.reader.pa",this.pa);
+  job.setBoolean("segment.reader.pd",this.pd);
+  job.setBoolean("segment.reader.pt",this.pt);
+  return job;
+}

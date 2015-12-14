@@ -1,0 +1,8 @@
+{
+  CrawlDatum p=new CrawlDatum();
+  p.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+  p.setFetchInterval(interval);
+  p.setScore(1.0f);
+  p.setFetchTime(0);
+  return p;
+}

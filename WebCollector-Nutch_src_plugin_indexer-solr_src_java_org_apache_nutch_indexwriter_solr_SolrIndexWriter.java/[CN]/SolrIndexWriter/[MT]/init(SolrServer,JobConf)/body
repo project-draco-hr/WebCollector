@@ -1,0 +1,18 @@
+{
+  solr=server;
+  batchSize=job.getInt(SolrConstants.COMMIT_SIZE,1000);
+  solrMapping=SolrMappingReader.getInstance(job);
+  delete=job.getBoolean(IndexerMapReduce.INDEXER_DELETE,false);
+  params=new ModifiableSolrParams();
+  String paramString=job.get(IndexerMapReduce.INDEXER_PARAMS);
+  if (paramString != null) {
+    String[] values=paramString.split("&");
+    for (    String v : values) {
+      String[] kv=v.split("=");
+      if (kv.length < 2) {
+        continue;
+      }
+      params.add(kv[0],kv[1]);
+    }
+  }
+}

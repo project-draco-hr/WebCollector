@@ -1,0 +1,14 @@
+{
+  readLine(in,line,false);
+  int codeStart=line.indexOf(" ");
+  int codeEnd=line.indexOf(" ",codeStart + 1);
+  if (codeEnd == -1)   codeEnd=line.length();
+  int code;
+  try {
+    code=Integer.parseInt(line.substring(codeStart + 1,codeEnd));
+  }
+ catch (  NumberFormatException e) {
+    throw new HttpException("bad status line '" + line + "': "+ e.getMessage(),e);
+  }
+  return code;
+}

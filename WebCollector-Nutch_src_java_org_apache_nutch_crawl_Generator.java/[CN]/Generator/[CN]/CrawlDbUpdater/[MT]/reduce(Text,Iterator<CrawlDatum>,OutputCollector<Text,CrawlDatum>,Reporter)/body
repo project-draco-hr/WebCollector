@@ -1,0 +1,22 @@
+{
+  genTime.set(0L);
+  while (values.hasNext()) {
+    CrawlDatum val=values.next();
+    if (val.getMetaData().containsKey(Nutch.WRITABLE_GENERATE_TIME_KEY)) {
+      LongWritable gt=(LongWritable)val.getMetaData().get(Nutch.WRITABLE_GENERATE_TIME_KEY);
+      genTime.set(gt.get());
+      if (genTime.get() != generateTime) {
+        orig.set(val);
+        genTime.set(0L);
+        continue;
+      }
+    }
+ else {
+      orig.set(val);
+    }
+  }
+  if (genTime.get() != 0L) {
+    orig.getMetaData().put(Nutch.WRITABLE_GENERATE_TIME_KEY,genTime);
+  }
+  output.collect(key,orig);
+}

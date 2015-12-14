@@ -1,0 +1,13 @@
+{
+  datum=super.fetch(datum,currentTime);
+  counter++;
+  if (counter % 2 == 1) {
+    fetchState=STATUS_FETCH_SUCCESS;
+  }
+ else {
+    fetchState=noContentStates[(counter % 6) / 2][0];
+  }
+  LOG.info("Step " + counter + ": fetched with "+ getStatusName(fetchState));
+  datum.setStatus(fetchState);
+  return datum;
+}

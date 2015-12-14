@@ -1,0 +1,3 @@
+{
+  seg=new Segment(FileSystem.get(conf),name,conf);
+}

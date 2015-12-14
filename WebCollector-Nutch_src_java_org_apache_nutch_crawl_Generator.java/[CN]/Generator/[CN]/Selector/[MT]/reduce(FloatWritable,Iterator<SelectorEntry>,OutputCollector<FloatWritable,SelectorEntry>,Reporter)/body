@@ -1,0 +1,66 @@
+{
+  while (values.hasNext()) {
+    if (count == limit) {
+      if (currentsegmentnum < maxNumSegments) {
+        count=0;
+        currentsegmentnum++;
+      }
+ else       break;
+    }
+    SelectorEntry entry=values.next();
+    Text url=entry.url;
+    String urlString=url.toString();
+    URL u=null;
+    String hostordomain=null;
+    try {
+      if (normalise && normalizers != null) {
+        urlString=normalizers.normalize(urlString,URLNormalizers.SCOPE_GENERATE_HOST_COUNT);
+      }
+      u=new URL(urlString);
+      if (byDomain) {
+        hostordomain=URLUtil.getDomainName(u);
+      }
+ else {
+        hostordomain=new URL(urlString).getHost();
+      }
+    }
+ catch (    Exception e) {
+      LOG.warn("Malformed URL: '" + urlString + "', skipping ("+ StringUtils.stringifyException(e)+ ")");
+      reporter.getCounter("Generator","MALFORMED_URL").increment(1);
+      continue;
+    }
+    hostordomain=hostordomain.toLowerCase();
+    if (maxCount > 0) {
+      int[] hostCount=hostCounts.get(hostordomain);
+      if (hostCount == null) {
+        hostCount=new int[]{1,0};
+        hostCounts.put(hostordomain,hostCount);
+      }
+      hostCount[1]++;
+      while (segCounts[hostCount[0] - 1] >= limit && hostCount[0] < maxNumSegments) {
+        hostCount[0]++;
+        hostCount[1]=0;
+      }
+      if (hostCount[1] >= maxCount) {
+        if (hostCount[0] < maxNumSegments) {
+          hostCount[0]++;
+          hostCount[1]=0;
+        }
+ else {
+          if (hostCount[1] == maxCount + 1 && LOG.isInfoEnabled()) {
+            LOG.info("Host or domain " + hostordomain + " has more than "+ maxCount+ " URLs for all "+ maxNumSegments+ " segments. Additional URLs won't be included in the fetchlist.");
+          }
+          continue;
+        }
+      }
+      entry.segnum=new IntWritable(hostCount[0]);
+      segCounts[hostCount[0] - 1]++;
+    }
+ else {
+      entry.segnum=new IntWritable(currentsegmentnum);
+      segCounts[currentsegmentnum - 1]++;
+    }
+    output.collect(key,entry);
+    count++;
+  }
+}

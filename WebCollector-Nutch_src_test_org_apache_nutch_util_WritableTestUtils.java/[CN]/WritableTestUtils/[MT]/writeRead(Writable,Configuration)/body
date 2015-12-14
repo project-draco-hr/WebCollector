@@ -1,0 +1,12 @@
+{
+  DataOutputBuffer dob=new DataOutputBuffer();
+  before.write(dob);
+  DataInputBuffer dib=new DataInputBuffer();
+  dib.reset(dob.getData(),dob.getLength());
+  Writable after=(Writable)before.getClass().newInstance();
+  if (conf != null) {
+    ((Configurable)after).setConf(conf);
+  }
+  after.readFields(dib);
+  return after;
+}

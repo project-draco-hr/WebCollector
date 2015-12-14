@@ -1,0 +1,4 @@
+{
+  super(sign,regex);
+  automaton=new RunAutomaton(new RegExp(regex,RegExp.ALL).toAutomaton());
+}

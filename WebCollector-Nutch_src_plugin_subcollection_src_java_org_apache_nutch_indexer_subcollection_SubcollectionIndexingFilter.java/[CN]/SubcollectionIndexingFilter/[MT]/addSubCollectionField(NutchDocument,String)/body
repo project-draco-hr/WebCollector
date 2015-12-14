@@ -1,0 +1,10 @@
+{
+  for (  Subcollection coll : CollectionManager.getCollectionManager(getConf()).getSubCollections(url)) {
+    if (coll.getKey() == null) {
+      doc.add(fieldName,coll.getName());
+    }
+ else {
+      doc.add(coll.getKey(),coll.getName());
+    }
+  }
+}

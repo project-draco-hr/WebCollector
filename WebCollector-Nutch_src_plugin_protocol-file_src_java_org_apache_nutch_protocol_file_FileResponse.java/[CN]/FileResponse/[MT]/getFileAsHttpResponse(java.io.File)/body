@@ -1,0 +1,26 @@
+{
+  long size=f.length();
+  if (size > Integer.MAX_VALUE) {
+    throw new FileException("file is too large, size: " + size);
+  }
+  int len=(int)size;
+  if (this.file.maxContentLength >= 0 && len > this.file.maxContentLength)   len=this.file.maxContentLength;
+  this.content=new byte[len];
+  java.io.InputStream is=new java.io.FileInputStream(f);
+  int offset=0;
+  int n=0;
+  while (offset < len && (n=is.read(this.content,offset,len - offset)) >= 0) {
+    offset+=n;
+  }
+  if (offset < len) {
+    if (File.LOG.isWarnEnabled()) {
+      File.LOG.warn("not enough bytes read from file: " + f.getPath());
+    }
+  }
+  is.close();
+  headers.set(Response.CONTENT_LENGTH,new Long(size).toString());
+  headers.set(Response.LAST_MODIFIED,HttpDateFormat.toString(f.lastModified()));
+  String mimeType=tika.detect(f);
+  headers.set(Response.CONTENT_TYPE,mimeType != null ? mimeType : "");
+  this.code=200;
+}

@@ -1,0 +1,18 @@
+{
+  int colonIndex=line.indexOf(":");
+  if (colonIndex == -1) {
+    int i;
+    for (i=0; i < line.length(); i++)     if (!Character.isWhitespace(line.charAt(i)))     break;
+    if (i == line.length())     return;
+    throw new HttpException("No colon in header:" + line);
+  }
+  String key=line.substring(0,colonIndex);
+  int valueStart=colonIndex + 1;
+  while (valueStart < line.length()) {
+    int c=line.charAt(valueStart);
+    if (c != ' ' && c != '\t')     break;
+    valueStart++;
+  }
+  String value=line.substring(valueStart);
+  headers.set(key,value);
+}

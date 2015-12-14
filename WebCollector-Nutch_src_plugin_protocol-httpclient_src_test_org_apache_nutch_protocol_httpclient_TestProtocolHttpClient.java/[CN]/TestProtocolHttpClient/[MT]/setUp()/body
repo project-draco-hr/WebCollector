@@ -1,0 +1,16 @@
+{
+  ContextHandler context=new ContextHandler();
+  context.setContextPath("/");
+  context.setResourceBase(RES_DIR);
+  ServletHandler sh=new ServletHandler();
+  sh.addServlet("org.apache.jasper.servlet.JspServlet","*.jsp");
+  context.addHandler(sh);
+  context.addHandler(new SessionHandler());
+  server=new Server();
+  server.addHandler(context);
+  conf=new Configuration();
+  conf.addResource("nutch-default.xml");
+  conf.addResource("nutch-site-test.xml");
+  http=new Http();
+  http.setConf(conf);
+}

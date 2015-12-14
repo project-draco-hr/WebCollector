@@ -1,0 +1,30 @@
+{
+  String depthString=parseData.getMeta(DEPTH_KEY);
+  if (depthString == null) {
+    LOG.warn("Missing depth, removing all outlinks from url " + fromUrl);
+    targets.clear();
+    return adjust;
+  }
+  int curDepth=Integer.parseInt(depthString);
+  int curMaxDepth=defaultMaxDepth;
+  IntWritable customMaxDepth=null;
+  String maxDepthString=parseData.getMeta(MAX_DEPTH_KEY);
+  if (maxDepthString != null) {
+    curMaxDepth=Integer.parseInt(maxDepthString);
+    customMaxDepth=new IntWritable(curMaxDepth);
+  }
+  if (curDepth >= curMaxDepth) {
+    LOG.info("Depth limit (" + curMaxDepth + ") reached, ignoring outlinks for "+ fromUrl);
+    targets.clear();
+    return adjust;
+  }
+  Iterator<Entry<Text,CrawlDatum>> it=targets.iterator();
+  while (it.hasNext()) {
+    Entry<Text,CrawlDatum> e=it.next();
+    e.getValue().getMetaData().put(DEPTH_KEY_W,new IntWritable(curDepth + 1));
+    if (customMaxDepth != null) {
+      e.getValue().getMetaData().put(MAX_DEPTH_KEY_W,customMaxDepth);
+    }
+  }
+  return adjust;
+}

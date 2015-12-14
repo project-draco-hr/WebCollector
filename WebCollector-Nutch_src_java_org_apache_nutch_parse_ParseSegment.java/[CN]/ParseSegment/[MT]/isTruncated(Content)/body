@@ -1,0 +1,29 @@
+{
+  byte[] contentBytes=content.getContent();
+  if (contentBytes == null)   return false;
+  Metadata metadata=content.getMetadata();
+  if (metadata == null)   return false;
+  String lengthStr=metadata.get(Response.CONTENT_LENGTH);
+  if (lengthStr != null)   lengthStr=lengthStr.trim();
+  if (StringUtil.isEmpty(lengthStr)) {
+    return false;
+  }
+  int inHeaderSize;
+  String url=content.getUrl();
+  try {
+    inHeaderSize=Integer.parseInt(lengthStr);
+  }
+ catch (  NumberFormatException e) {
+    LOG.warn("Wrong contentlength format for " + url,e);
+    return false;
+  }
+  int actualSize=contentBytes.length;
+  if (inHeaderSize > actualSize) {
+    LOG.info(url + " skipped. Content of size " + inHeaderSize+ " was truncated to "+ actualSize);
+    return true;
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug(url + " actualSize=" + actualSize+ " inHeaderSize="+ inHeaderSize);
+  }
+  return false;
+}

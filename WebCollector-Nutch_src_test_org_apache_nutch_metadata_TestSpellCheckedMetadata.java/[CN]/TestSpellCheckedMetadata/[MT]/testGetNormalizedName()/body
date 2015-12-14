@@ -1,0 +1,8 @@
+{
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("Content-Type"));
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("ContentType"));
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("Content-type"));
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("contenttype"));
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("contentype"));
+  Assert.assertEquals("Content-Type",SpellCheckedMetadata.getNormalizedName("contntype"));
+}

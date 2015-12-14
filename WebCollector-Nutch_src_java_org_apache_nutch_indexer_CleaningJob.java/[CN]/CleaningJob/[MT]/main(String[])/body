@@ -1,0 +1,4 @@
+{
+  int result=ToolRunner.run(NutchConfiguration.create(),new CleaningJob(),args);
+  System.exit(result);
+}

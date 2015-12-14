@@ -1,0 +1,10 @@
+{
+  try {
+    url=url.toLowerCase();
+    String queryStr=new URL(url).getQuery();
+    return (queryStr != null) ? url.replace("?" + queryStr,"") : url;
+  }
+ catch (  MalformedURLException e) {
+    return null;
+  }
+}

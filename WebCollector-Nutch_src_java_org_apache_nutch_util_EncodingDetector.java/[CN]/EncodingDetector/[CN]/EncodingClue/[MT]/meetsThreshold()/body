@@ -1,0 +1,3 @@
+{
+  return (confidence < 0 || (minConfidence >= 0 && confidence >= minConfidence));
+}

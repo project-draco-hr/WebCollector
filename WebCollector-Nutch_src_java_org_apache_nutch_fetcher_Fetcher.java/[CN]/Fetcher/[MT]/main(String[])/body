@@ -1,0 +1,4 @@
+{
+  int res=ToolRunner.run(NutchConfiguration.create(),new Fetcher(),args);
+  System.exit(res);
+}

@@ -1,0 +1,52 @@
+{
+  List<Rule> rules=new ArrayList<Rule>();
+  try {
+    Document doc=DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(reader));
+    Element root=doc.getDocumentElement();
+    if ((!"regex-normalize".equals(root.getTagName())) && (LOG.isErrorEnabled())) {
+      LOG.error("bad conf file: top-level element not <regex-normalize>");
+    }
+    NodeList regexes=root.getChildNodes();
+    for (int i=0; i < regexes.getLength(); i++) {
+      Node regexNode=regexes.item(i);
+      if (!(regexNode instanceof Element))       continue;
+      Element regex=(Element)regexNode;
+      if ((!"regex".equals(regex.getTagName())) && (LOG.isWarnEnabled())) {
+        LOG.warn("bad conf file: element not <regex>");
+      }
+      NodeList fields=regex.getChildNodes();
+      String patternValue=null;
+      String subValue=null;
+      for (int j=0; j < fields.getLength(); j++) {
+        Node fieldNode=fields.item(j);
+        if (!(fieldNode instanceof Element))         continue;
+        Element field=(Element)fieldNode;
+        if ("pattern".equals(field.getTagName()) && field.hasChildNodes())         patternValue=((Text)field.getFirstChild()).getData();
+        if ("substitution".equals(field.getTagName()) && field.hasChildNodes())         subValue=((Text)field.getFirstChild()).getData();
+        if (!field.hasChildNodes())         subValue="";
+      }
+      if (patternValue != null && subValue != null) {
+        Rule rule=new Rule();
+        try {
+          rule.pattern=Pattern.compile(patternValue);
+        }
+ catch (        PatternSyntaxException e) {
+          if (LOG.isErrorEnabled()) {
+            LOG.error("skipped rule: " + patternValue + " -> "+ subValue+ " : invalid regular expression pattern: "+ e);
+          }
+          continue;
+        }
+        rule.substitution=subValue;
+        rules.add(rule);
+      }
+    }
+  }
+ catch (  Exception e) {
+    if (LOG.isErrorEnabled()) {
+      LOG.error("error parsing conf file: " + e);
+    }
+    return EMPTY_RULES;
+  }
+  if (rules.size() == 0)   return EMPTY_RULES;
+  return rules;
+}

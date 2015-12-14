@@ -1,0 +1,25 @@
+{
+  String urlString=key.toString();
+  URL url=null;
+  int hashCode=urlString.hashCode();
+  try {
+    urlString=normalizers.normalize(urlString,URLNormalizers.SCOPE_PARTITION);
+    url=new URL(urlString);
+    hashCode=url.getHost().hashCode();
+  }
+ catch (  MalformedURLException e) {
+    LOG.warn("Malformed URL: '" + urlString + "'");
+  }
+  if (mode.equals(PARTITION_MODE_DOMAIN) && url != null)   hashCode=URLUtil.getDomainName(url).hashCode();
+ else   if (mode.equals(PARTITION_MODE_IP)) {
+    try {
+      InetAddress address=InetAddress.getByName(url.getHost());
+      hashCode=address.getHostAddress().hashCode();
+    }
+ catch (    UnknownHostException e) {
+      Generator.LOG.info("Couldn't find IP for host: " + url.getHost());
+    }
+  }
+  hashCode^=seed;
+  return (hashCode & Integer.MAX_VALUE) % numReduceTasks;
+}

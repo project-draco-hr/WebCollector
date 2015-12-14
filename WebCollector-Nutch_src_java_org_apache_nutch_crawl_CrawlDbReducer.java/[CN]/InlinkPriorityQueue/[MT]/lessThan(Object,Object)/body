@@ -1,0 +1,5 @@
+{
+  CrawlDatum candidate=(CrawlDatum)arg0;
+  CrawlDatum least=(CrawlDatum)arg1;
+  return candidate.getScore() > least.getScore();
+}

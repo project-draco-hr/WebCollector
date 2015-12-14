@@ -1,0 +1,12 @@
+{
+  if (!filter) {
+    return url;
+  }
+  try {
+    url=filters.filter(url);
+  }
+ catch (  Exception e) {
+    url=null;
+  }
+  return url;
+}

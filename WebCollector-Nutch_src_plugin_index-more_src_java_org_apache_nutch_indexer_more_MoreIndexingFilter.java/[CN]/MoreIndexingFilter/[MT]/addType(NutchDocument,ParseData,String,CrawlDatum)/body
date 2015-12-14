@@ -1,0 +1,32 @@
+{
+  String mimeType=null;
+  String contentType=null;
+  Writable tcontentType=datum.getMetaData().get(new Text(Response.CONTENT_TYPE));
+  if (tcontentType != null) {
+    contentType=tcontentType.toString();
+  }
+ else   contentType=data.getMeta(Response.CONTENT_TYPE);
+  if (contentType == null) {
+    mimeType=tika.detect(url);
+  }
+ else {
+    mimeType=MIME.forName(MimeUtil.cleanMimeType(contentType));
+  }
+  if (mimeType == null) {
+    return doc;
+  }
+  if (mapMimes) {
+    if (mimeMap.containsKey(mimeType)) {
+      mimeType=mimeMap.get(mimeType);
+    }
+  }
+  contentType=mimeType;
+  doc.add("type",contentType);
+  if (conf.getBoolean("moreIndexingFilter.indexMimeTypeParts",true)) {
+    String[] parts=getParts(contentType);
+    for (    String part : parts) {
+      doc.add("type",part);
+    }
+  }
+  return doc;
+}

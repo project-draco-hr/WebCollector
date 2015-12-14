@@ -1,0 +1,9 @@
+{
+  try {
+    int del=random ? r.nextInt(delay) : delay;
+    Thread.sleep(del);
+    addMyHeader(res,"Delay",String.valueOf(del));
+  }
+ catch (  Exception e) {
+  }
+}

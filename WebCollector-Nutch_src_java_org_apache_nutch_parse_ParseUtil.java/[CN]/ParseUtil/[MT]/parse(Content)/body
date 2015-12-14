@@ -1,0 +1,25 @@
+{
+  Parser[] parsers=null;
+  try {
+    parsers=this.parserFactory.getParsers(content.getContentType(),content.getUrl() != null ? content.getUrl() : "");
+  }
+ catch (  ParserNotFound e) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("No suitable parser found when trying to parse content " + content.getUrl() + " of type "+ content.getContentType());
+    }
+    throw new ParseException(e.getMessage());
+  }
+  ParseResult parseResult=null;
+  for (int i=0; i < parsers.length; i++) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Parsing [" + content.getUrl() + "] with ["+ parsers[i]+ "]");
+    }
+    if (maxParseTime != -1)     parseResult=runParser(parsers[i],content);
+ else     parseResult=parsers[i].getParse(content);
+    if (parseResult != null && !parseResult.isEmpty())     return parseResult;
+  }
+  if (LOG.isWarnEnabled()) {
+    LOG.warn("Unable to successfully parse content " + content.getUrl() + " of type "+ content.getContentType());
+  }
+  return new ParseStatus(new ParseException("Unable to successfully parse content")).getEmptyParseResult(content.getUrl(),null);
+}

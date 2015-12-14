@@ -1,0 +1,8 @@
+{
+  byte[] testBytes=SHORT_TEST_STRING.getBytes();
+  testTruncation(testBytes);
+  testBytes=LONGER_TEST_STRING.getBytes();
+  testTruncation(testBytes);
+  testBytes=WEBPAGE.getBytes();
+  testTruncation(testBytes);
+}

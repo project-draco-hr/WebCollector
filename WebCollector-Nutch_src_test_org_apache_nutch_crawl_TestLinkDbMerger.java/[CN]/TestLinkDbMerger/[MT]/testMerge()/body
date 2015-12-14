@@ -1,0 +1,35 @@
+{
+  Configuration conf=NutchConfiguration.create();
+  FileSystem fs=FileSystem.get(conf);
+  fs.mkdirs(testDir);
+  Path linkdb1=new Path(testDir,"linkdb1");
+  Path linkdb2=new Path(testDir,"linkdb2");
+  Path output=new Path(testDir,"output");
+  createLinkDb(conf,fs,linkdb1,init1);
+  createLinkDb(conf,fs,linkdb2,init2);
+  LinkDbMerger merger=new LinkDbMerger(conf);
+  LOG.fine("* merging linkdbs to " + output);
+  merger.merge(output,new Path[]{linkdb1,linkdb2},false,false);
+  LOG.fine("* reading linkdb: " + output);
+  reader=new LinkDbReader(conf,output);
+  Iterator<String> it=expected.keySet().iterator();
+  while (it.hasNext()) {
+    String url=it.next();
+    LOG.fine("url=" + url);
+    String[] vals=expected.get(url);
+    Inlinks inlinks=reader.getInlinks(new Text(url));
+    Assert.assertNotNull(inlinks);
+    ArrayList<String> links=new ArrayList<String>();
+    Iterator<?> it2=inlinks.iterator();
+    while (it2.hasNext()) {
+      Inlink in=(Inlink)it2.next();
+      links.add(in.getFromUrl());
+    }
+    for (int i=0; i < vals.length; i++) {
+      LOG.fine(" -> " + vals[i]);
+      Assert.assertTrue(links.contains(vals[i]));
+    }
+  }
+  reader.close();
+  fs.delete(testDir,true);
+}

@@ -1,0 +1,31 @@
+{
+  if (LOG.isInfoEnabled()) {
+    LOG.info("CrawlDb dump: starting");
+    LOG.info("CrawlDb db: " + crawlDb);
+  }
+  Path outFolder=new Path(output);
+  JobConf job=new NutchJob(config);
+  job.setJobName("dump " + crawlDb);
+  FileInputFormat.addInputPath(job,new Path(crawlDb,CrawlDb.CURRENT_NAME));
+  job.setInputFormat(SequenceFileInputFormat.class);
+  FileOutputFormat.setOutputPath(job,outFolder);
+  if (format.equals("csv")) {
+    job.setOutputFormat(CrawlDatumCsvOutputFormat.class);
+  }
+ else   if (format.equals("crawldb")) {
+    job.setOutputFormat(MapFileOutputFormat.class);
+  }
+ else {
+    job.setOutputFormat(TextOutputFormat.class);
+  }
+  if (status != null)   job.set("status",status);
+  if (regex != null)   job.set("regex",regex);
+  if (retry != null)   job.setInt("retry",retry);
+  job.setMapperClass(CrawlDbDumpMapper.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(CrawlDatum.class);
+  JobClient.runJob(job);
+  if (LOG.isInfoEnabled()) {
+    LOG.info("CrawlDb dump: done");
+  }
+}

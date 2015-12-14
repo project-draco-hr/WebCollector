@@ -1,0 +1,4 @@
+{
+  String type=(linkType == INLINK ? "inlink" : (linkType == OUTLINK) ? "outlink" : "unknown");
+  return "url: " + url + ", anchor: "+ anchor+ ", score: "+ score+ ", timestamp: "+ timestamp+ ", link type: "+ type;
+}

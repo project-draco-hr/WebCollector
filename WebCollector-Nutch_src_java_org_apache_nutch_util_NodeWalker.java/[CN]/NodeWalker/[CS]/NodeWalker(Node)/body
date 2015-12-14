@@ -1,0 +1,4 @@
+{
+  nodes=new Stack<Node>();
+  nodes.add(rootNode);
+}

@@ -1,0 +1,27 @@
+{
+  this.conf=conf;
+  this.tikaConfig=null;
+  String customConfFile=conf.get("tika.config.file");
+  if (customConfFile != null) {
+    try {
+      URL customTikaConfig=conf.getResource(customConfFile);
+      if (customTikaConfig != null)       tikaConfig=new TikaConfig(customTikaConfig);
+    }
+ catch (    Exception e1) {
+      String message="Problem loading custom Tika configuration from " + customConfFile;
+      LOG.error(message,e1);
+    }
+  }
+ else {
+    try {
+      tikaConfig=new TikaConfig(this.getClass().getClassLoader());
+    }
+ catch (    Exception e2) {
+      String message="Problem loading default Tika configuration";
+      LOG.error(message,e2);
+    }
+  }
+  this.htmlParseFilters=new HtmlParseFilters(getConf());
+  this.utils=new DOMContentUtils(conf);
+  this.cachingPolicy=getConf().get("parser.caching.forbidden.policy",Nutch.CACHING_FORBIDDEN_CONTENT);
+}

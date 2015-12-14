@@ -1,0 +1,16 @@
+{
+  Iterator<Map.Entry<String,FetchItemQueue>> it=queues.entrySet().iterator();
+  while (it.hasNext()) {
+    FetchItemQueue fiq=it.next().getValue();
+    if (fiq.getQueueSize() == 0 && fiq.getInProgressSize() == 0) {
+      it.remove();
+      continue;
+    }
+    FetchItem fit=fiq.getFetchItem();
+    if (fit != null) {
+      totalSize.decrementAndGet();
+      return fit;
+    }
+  }
+  return null;
+}

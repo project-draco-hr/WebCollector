@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < sampleFiles.length; i++) {
+    String found=getTextContent(sampleFiles[i]);
+    Assert.assertTrue("text found : '" + found + "'",found.startsWith(expectedText));
+  }
+}

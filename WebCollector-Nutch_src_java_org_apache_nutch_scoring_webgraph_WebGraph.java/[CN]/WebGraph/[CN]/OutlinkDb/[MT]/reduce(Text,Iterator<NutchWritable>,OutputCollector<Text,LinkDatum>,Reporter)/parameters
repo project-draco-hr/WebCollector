@@ -1,0 +1,4 @@
+Text key
+Iterator<NutchWritable> values
+OutputCollector<Text,LinkDatum> output
+Reporter reporter

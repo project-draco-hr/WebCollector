@@ -1,0 +1,4 @@
+{
+  this.fromUrl=fromUrl;
+  this.anchor=anchor;
+}

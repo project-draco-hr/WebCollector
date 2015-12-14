@@ -1,0 +1,19 @@
+{
+  SpellCheckedMetadata meta=new SpellCheckedMetadata();
+  meta.remove("name-one");
+  Assert.assertEquals(0,meta.size());
+  meta.add("name-one","value-1.1");
+  meta.add("name-one","value-1.2");
+  meta.add("name-two","value-2.2");
+  Assert.assertEquals(2,meta.size());
+  Assert.assertNotNull(meta.get("name-one"));
+  Assert.assertNotNull(meta.get("name-two"));
+  meta.remove("name-one");
+  Assert.assertEquals(1,meta.size());
+  Assert.assertNull(meta.get("name-one"));
+  Assert.assertNotNull(meta.get("name-two"));
+  meta.remove("name-two");
+  Assert.assertEquals(0,meta.size());
+  Assert.assertNull(meta.get("name-one"));
+  Assert.assertNull(meta.get("name-two"));
+}

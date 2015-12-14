@@ -1,0 +1,6 @@
+{
+  stack.pop();
+  String name=(String)stack.pop();
+  strings.remove(name);
+  super.setMember();
+}

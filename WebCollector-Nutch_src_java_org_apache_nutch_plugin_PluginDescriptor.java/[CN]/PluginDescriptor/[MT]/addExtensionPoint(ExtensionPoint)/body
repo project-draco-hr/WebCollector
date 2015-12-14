@@ -1,0 +1,3 @@
+{
+  fExtensionPoints.add(extensionPoint);
+}

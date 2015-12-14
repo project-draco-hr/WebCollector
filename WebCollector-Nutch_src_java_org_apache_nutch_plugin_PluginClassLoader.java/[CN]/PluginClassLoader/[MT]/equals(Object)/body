@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  final PluginClassLoader other=(PluginClassLoader)obj;
+  if (parent == null) {
+    if (other.parent != null)     return false;
+  }
+ else   if (!parent.equals(other.parent))   return false;
+  if (!Arrays.equals(urls,other.urls))   return false;
+  return true;
+}

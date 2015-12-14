@@ -1,0 +1,6 @@
+{
+  super(instance);
+  if (metadata == null)   metadata=new Metadata();
+  this.metadata=metadata;
+  setConf(conf);
+}

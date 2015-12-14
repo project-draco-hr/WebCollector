@@ -1,0 +1,16 @@
+{
+  this.conf=conf;
+  ObjectCache objectCache=ObjectCache.get(conf);
+  this.extensionPoint=PluginRepository.get(conf).getExtensionPoint(Parser.X_POINT_ID);
+  this.parsePluginList=(ParsePluginList)objectCache.getObject(ParsePluginList.class.getName());
+  if (this.parsePluginList == null) {
+    this.parsePluginList=new ParsePluginsReader().parse(conf);
+    objectCache.setObject(ParsePluginList.class.getName(),this.parsePluginList);
+  }
+  if (this.extensionPoint == null) {
+    throw new RuntimeException("x point " + Parser.X_POINT_ID + " not found.");
+  }
+  if (this.parsePluginList == null) {
+    throw new RuntimeException("Parse Plugins preferences could not be loaded.");
+  }
+}

@@ -1,0 +1,4 @@
+{
+  this.conf=conf;
+  fieldName=conf.get("subcollection.default.fieldname","subcollection");
+}

@@ -1,0 +1,41 @@
+{
+  Path numLinksPath=new Path(webGraphDb,NUM_NODES);
+  Path nodeDb=new Path(webGraphDb,WebGraph.NODE_DIR);
+  JobConf counter=new NutchJob(getConf());
+  counter.setJobName("LinkRank Counter");
+  FileInputFormat.addInputPath(counter,nodeDb);
+  FileOutputFormat.setOutputPath(counter,numLinksPath);
+  counter.setInputFormat(SequenceFileInputFormat.class);
+  counter.setMapperClass(Counter.class);
+  counter.setCombinerClass(Counter.class);
+  counter.setReducerClass(Counter.class);
+  counter.setMapOutputKeyClass(Text.class);
+  counter.setMapOutputValueClass(LongWritable.class);
+  counter.setOutputKeyClass(Text.class);
+  counter.setOutputValueClass(LongWritable.class);
+  counter.setNumReduceTasks(1);
+  counter.setOutputFormat(TextOutputFormat.class);
+  counter.setBoolean("mapreduce.fileoutputcommitter.marksuccessfuljobs",false);
+  LOG.info("Starting link counter job");
+  try {
+    JobClient.runJob(counter);
+  }
+ catch (  IOException e) {
+    LOG.error(StringUtils.stringifyException(e));
+    throw e;
+  }
+  LOG.info("Finished link counter job");
+  LOG.info("Reading numlinks temp file");
+  FSDataInputStream readLinks=fs.open(new Path(numLinksPath,"part-00000"));
+  BufferedReader buffer=new BufferedReader(new InputStreamReader(readLinks));
+  String numLinksLine=buffer.readLine();
+  readLinks.close();
+  if (numLinksLine == null || numLinksLine.length() == 0) {
+    fs.delete(numLinksPath,true);
+    throw new IOException("No links to process, is the webgraph empty?");
+  }
+  LOG.info("Deleting numlinks temp file");
+  fs.delete(numLinksPath,true);
+  String numLinks=numLinksLine.split("\\s+")[1];
+  return Integer.parseInt(numLinks);
+}

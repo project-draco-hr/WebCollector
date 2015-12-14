@@ -1,0 +1,6 @@
+{
+  conf=NutchConfiguration.create();
+  conf.set("plugin.includes",".*");
+  conf.set("http.agent.name","test-bot");
+  factory=new ProtocolFactory(conf);
+}

@@ -1,0 +1,17 @@
+{
+  LOG.fine("* creating linkdb: " + linkdb);
+  Path dir=new Path(linkdb,LinkDb.CURRENT_NAME);
+  MapFile.Writer writer=new MapFile.Writer(config,fs,new Path(dir,"part-00000").toString(),Text.class,Inlinks.class);
+  Iterator<String> it=init.keySet().iterator();
+  while (it.hasNext()) {
+    String key=it.next();
+    Inlinks inlinks=new Inlinks();
+    String[] vals=init.get(key);
+    for (int i=0; i < vals.length; i++) {
+      Inlink in=new Inlink(vals[i],vals[i]);
+      inlinks.add(in);
+    }
+    writer.append(new Text(key),inlinks);
+  }
+  writer.close();
+}

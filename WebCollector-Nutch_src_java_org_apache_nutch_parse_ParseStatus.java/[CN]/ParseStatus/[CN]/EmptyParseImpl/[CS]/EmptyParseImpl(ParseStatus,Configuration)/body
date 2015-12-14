@@ -1,0 +1,3 @@
+{
+  data=new ParseData(status,"",new Outlink[0],new Metadata(),new Metadata());
+}

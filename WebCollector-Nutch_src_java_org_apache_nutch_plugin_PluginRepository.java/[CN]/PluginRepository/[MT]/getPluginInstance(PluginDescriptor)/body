@@ -1,0 +1,28 @@
+{
+  if (fActivatedPlugins.containsKey(pDescriptor.getPluginId()))   return fActivatedPlugins.get(pDescriptor.getPluginId());
+  try {
+synchronized (pDescriptor) {
+      Class<?> pluginClass=getCachedClass(pDescriptor,pDescriptor.getPluginClass());
+      Constructor<?> constructor=pluginClass.getConstructor(new Class<?>[]{PluginDescriptor.class,Configuration.class});
+      Plugin plugin=(Plugin)constructor.newInstance(new Object[]{pDescriptor,this.conf});
+      plugin.startUp();
+      fActivatedPlugins.put(pDescriptor.getPluginId(),plugin);
+      return plugin;
+    }
+  }
+ catch (  ClassNotFoundException e) {
+    throw new PluginRuntimeException(e);
+  }
+catch (  InstantiationException e) {
+    throw new PluginRuntimeException(e);
+  }
+catch (  IllegalAccessException e) {
+    throw new PluginRuntimeException(e);
+  }
+catch (  NoSuchMethodException e) {
+    throw new PluginRuntimeException(e);
+  }
+catch (  InvocationTargetException e) {
+    throw new PluginRuntimeException(e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (fs.exists(lockFile)) {
+    if (!accept)     throw new IOException("lock file " + lockFile + " already exists.");
+    if (fs.getFileStatus(lockFile).isDir())     throw new IOException("lock file " + lockFile + " already exists and is a directory.");
+  }
+ else {
+    fs.mkdirs(lockFile.getParent());
+    fs.createNewFile(lockFile);
+  }
+}

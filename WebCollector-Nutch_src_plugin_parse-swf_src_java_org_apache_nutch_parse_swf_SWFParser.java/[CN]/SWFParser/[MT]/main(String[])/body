@@ -1,0 +1,13 @@
+{
+  FileInputStream in=new FileInputStream(args[0]);
+  byte[] buf=new byte[in.available()];
+  in.read(buf);
+  in.close();
+  SWFParser parser=new SWFParser();
+  ParseResult parseResult=parser.getParse(new Content("file:" + args[0],"file:" + args[0],buf,"application/x-shockwave-flash",new Metadata(),NutchConfiguration.create()));
+  Parse p=parseResult.get("file:" + args[0]);
+  System.out.println("Parse Text:");
+  System.out.println(p.getText());
+  System.out.println("Parse Data:");
+  System.out.println(p.getData());
+}

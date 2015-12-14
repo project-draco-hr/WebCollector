@@ -1,0 +1,21 @@
+{
+  if (dependencies == null) {
+    dependencies=new HashMap<String,PluginDescriptor>();
+  }
+  if (branch == null) {
+    branch=new HashMap<String,PluginDescriptor>();
+  }
+  branch.put(plugin.getPluginId(),plugin);
+  for (  String id : plugin.getDependencies()) {
+    PluginDescriptor dependency=plugins.get(id);
+    if (dependency == null) {
+      throw new MissingDependencyException("Missing dependency " + id + " for plugin "+ plugin.getPluginId());
+    }
+    if (branch.containsKey(id)) {
+      throw new CircularDependencyException("Circular dependency detected " + id + " for plugin "+ plugin.getPluginId());
+    }
+    dependencies.put(id,dependency);
+    getPluginCheckedDependencies(plugins.get(id),plugins,dependencies,branch);
+  }
+  branch.remove(plugin.getPluginId());
+}

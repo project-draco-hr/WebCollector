@@ -1,0 +1,18 @@
+{
+  MapFile.Reader[] readers=MapFileOutputFormat.getReaders(fs,new Path(mergedSegment,CrawlDatum.FETCH_DIR_NAME),conf);
+  Text key=new Text();
+  CrawlDatum value=new CrawlDatum();
+  byte finalStatus=0x0;
+  for (  MapFile.Reader reader : readers) {
+    while (reader.next(key,value)) {
+      LOG.info("Reading status for: " + key.toString() + " > "+ CrawlDatum.getStatusName(value.getStatus()));
+      if (CrawlDatum.hasFetchStatus(value) && key.toString().equals("http://nutch.apache.org/")) {
+        finalStatus=value.getStatus();
+      }
+    }
+    reader.close();
+  }
+  fs.delete(testDir,true);
+  LOG.info("Final fetch status for: http://nutch.apache.org/ > " + CrawlDatum.getStatusName(finalStatus));
+  return finalStatus;
+}

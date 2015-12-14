@@ -1,0 +1,5 @@
+{
+  normalizer=new BasicURLNormalizer();
+  conf=NutchConfiguration.create();
+  normalizer.setConf(conf);
+}

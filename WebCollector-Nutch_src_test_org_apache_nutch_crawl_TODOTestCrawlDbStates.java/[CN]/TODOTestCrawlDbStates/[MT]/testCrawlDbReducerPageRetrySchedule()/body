@@ -1,0 +1,7 @@
+{
+  LOG.info("NUTCH-578: test long running continuous crawl with fetch_retry");
+  ContinuousCrawlTestUtil crawlUtil=new ContinuousCrawlTestFetchRetry();
+  if (!crawlUtil.run(150)) {
+    fail("fetch_retry did not result in a db_gone if retry counter > maxRetries (NUTCH-578)");
+  }
+}

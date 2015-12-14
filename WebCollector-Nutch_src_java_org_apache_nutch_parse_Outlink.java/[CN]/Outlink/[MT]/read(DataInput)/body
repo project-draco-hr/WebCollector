@@ -1,0 +1,5 @@
+{
+  Outlink outlink=new Outlink();
+  outlink.readFields(in);
+  return outlink;
+}

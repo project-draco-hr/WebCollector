@@ -1,0 +1,123 @@
+{
+synchronized (OldFetcher.this) {
+    activeThreads++;
+  }
+  try {
+    Text key=new Text();
+    CrawlDatum datum=new CrawlDatum();
+    while (true) {
+      try {
+        if (!input.next(key,datum)) {
+          break;
+        }
+      }
+ catch (      IOException e) {
+        if (LOG.isErrorEnabled()) {
+          LOG.error("fetcher caught:" + e.toString());
+        }
+        break;
+      }
+synchronized (OldFetcher.this) {
+        lastRequestStart=System.currentTimeMillis();
+      }
+      Text url=new Text(key);
+      Text reprUrlWritable=(Text)datum.getMetaData().get(Nutch.WRITABLE_REPR_URL_KEY);
+      if (reprUrlWritable == null) {
+        reprUrl=key.toString();
+      }
+ else {
+        reprUrl=reprUrlWritable.toString();
+      }
+      try {
+        if (LOG.isInfoEnabled()) {
+          LOG.info("fetching " + url);
+        }
+        redirectCount=0;
+        do {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("redirectCount=" + redirectCount);
+          }
+          redirecting=false;
+          Protocol protocol=this.protocolFactory.getProtocol(url.toString());
+          ProtocolOutput output=protocol.getProtocolOutput(url,datum);
+          ProtocolStatus status=output.getStatus();
+          Content content=output.getContent();
+          ParseStatus pstatus=null;
+          String urlString=url.toString();
+          if (reprUrl != null && !reprUrl.equals(urlString)) {
+            datum.getMetaData().put(Nutch.WRITABLE_REPR_URL_KEY,new Text(reprUrl));
+          }
+switch (status.getCode()) {
+case ProtocolStatus.SUCCESS:
+            pstatus=output(url,datum,content,status,CrawlDatum.STATUS_FETCH_SUCCESS);
+          updateStatus(content.getContent().length);
+        if (pstatus != null && pstatus.isSuccess() && pstatus.getMinorCode() == ParseStatus.SUCCESS_REDIRECT) {
+          String newUrl=pstatus.getMessage();
+          int refreshTime=Integer.valueOf(pstatus.getArgs()[1]);
+          url=handleRedirect(url,datum,urlString,newUrl,refreshTime < PERM_REFRESH_TIME,CONTENT_REDIR);
+        }
+      break;
+case ProtocolStatus.MOVED:
+case ProtocolStatus.TEMP_MOVED:
+    int code;
+  boolean temp;
+if (status.getCode() == ProtocolStatus.MOVED) {
+  code=CrawlDatum.STATUS_FETCH_REDIR_PERM;
+  temp=false;
+}
+ else {
+  code=CrawlDatum.STATUS_FETCH_REDIR_TEMP;
+  temp=true;
+}
+output(url,datum,content,status,code);
+String newUrl=status.getMessage();
+url=handleRedirect(url,datum,urlString,newUrl,temp,PROTOCOL_REDIR);
+break;
+case ProtocolStatus.EXCEPTION:
+logError(url,status.getMessage());
+case ProtocolStatus.RETRY:
+case ProtocolStatus.WOULDBLOCK:
+case ProtocolStatus.BLOCKED:
+output(url,datum,null,status,CrawlDatum.STATUS_FETCH_RETRY);
+break;
+case ProtocolStatus.GONE:
+case ProtocolStatus.NOTFOUND:
+case ProtocolStatus.ACCESS_DENIED:
+case ProtocolStatus.ROBOTS_DENIED:
+output(url,datum,null,status,CrawlDatum.STATUS_FETCH_GONE);
+break;
+case ProtocolStatus.NOTMODIFIED:
+output(url,datum,null,status,CrawlDatum.STATUS_FETCH_NOTMODIFIED);
+break;
+default :
+if (LOG.isWarnEnabled()) {
+LOG.warn("Unknown ProtocolStatus: " + status.getCode());
+}
+output(url,datum,null,status,CrawlDatum.STATUS_FETCH_GONE);
+}
+if (redirecting && redirectCount >= maxRedirect) {
+if (LOG.isInfoEnabled()) {
+LOG.info(" - redirect count exceeded " + url);
+}
+output(url,datum,null,status,CrawlDatum.STATUS_FETCH_GONE);
+}
+}
+ while (redirecting && (redirectCount < maxRedirect));
+}
+ catch (Throwable t) {
+logError(url,t.toString());
+output(url,datum,null,null,CrawlDatum.STATUS_FETCH_RETRY);
+}
+}
+}
+ catch (Throwable e) {
+if (LOG.isErrorEnabled()) {
+LOG.error("fetcher caught:" + e.toString());
+}
+}
+ finally {
+synchronized (OldFetcher.this) {
+activeThreads--;
+}
+}
+}

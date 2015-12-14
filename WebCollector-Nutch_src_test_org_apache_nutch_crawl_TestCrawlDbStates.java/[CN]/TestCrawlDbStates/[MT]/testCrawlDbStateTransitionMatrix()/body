@@ -1,0 +1,78 @@
+{
+  LOG.info("Test CrawlDatum state transitions");
+  Configuration conf=CrawlDBTestUtil.createConfiguration();
+  CrawlDbUpdateUtil<CrawlDbReducer> updateDb=new CrawlDbUpdateUtil<CrawlDbReducer>(new CrawlDbReducer(),conf);
+  int retryMax=conf.getInt("db.fetch.retry.max",3);
+  for (  String sched : schedules) {
+    LOG.info("Testing state transitions with " + sched);
+    conf.set("db.fetch.schedule.class","org.apache.nutch.crawl." + sched);
+    FetchSchedule schedule=FetchScheduleFactory.getFetchSchedule(new JobConf(conf));
+    for (int i=0; i < fetchDbStatusPairs.length; i++) {
+      byte fromDbStatus=fetchDbStatusPairs[i][1];
+      for (int j=0; j < fetchDbStatusPairs.length; j++) {
+        byte fetchStatus=fetchDbStatusPairs[j][0];
+        CrawlDatum fromDb=null;
+        if (fromDbStatus == -1) {
+        }
+ else {
+          fromDb=new CrawlDatum();
+          fromDb.setStatus(fromDbStatus);
+          schedule.initializeSchedule(CrawlDbUpdateUtil.dummyURL,fromDb);
+        }
+        byte toDbStatus=fetchDbStatusPairs[j][1];
+        if (fetchStatus == -1) {
+          if (fromDbStatus == -1) {
+            toDbStatus=STATUS_DB_UNFETCHED;
+          }
+ else {
+            toDbStatus=fromDbStatus;
+          }
+        }
+ else         if (fetchStatus == STATUS_FETCH_RETRY) {
+          if (fromDb == null || fromDb.getRetriesSinceFetch() < retryMax) {
+            toDbStatus=STATUS_DB_UNFETCHED;
+          }
+ else {
+            toDbStatus=STATUS_DB_GONE;
+          }
+        }
+        String fromDbStatusName=(fromDbStatus == -1 ? "<not in CrawlDb>" : getStatusName(fromDbStatus));
+        String fetchStatusName=(fetchStatus == -1 ? "<only inlinks>" : CrawlDatum.getStatusName(fetchStatus));
+        LOG.info(fromDbStatusName + " + " + fetchStatusName+ " => "+ getStatusName(toDbStatus));
+        List<CrawlDatum> values=new ArrayList<CrawlDatum>();
+        for (int l=0; l <= 2; l++) {
+          CrawlDatum fetch=null;
+          if (fetchStatus == -1) {
+            if (l == 0)             continue;
+          }
+ else {
+            fetch=new CrawlDatum();
+            if (fromDb != null) {
+              fetch.set(fromDb);
+            }
+ else {
+              schedule.initializeSchedule(CrawlDbUpdateUtil.dummyURL,fetch);
+            }
+            fetch.setStatus(fetchStatus);
+            fetch.setFetchTime(System.currentTimeMillis());
+          }
+          if (fromDb != null)           values.add(fromDb);
+          if (fetch != null)           values.add(fetch);
+          for (int n=0; n < l; n++) {
+            values.add(linked);
+          }
+          List<CrawlDatum> res=updateDb.update(values);
+          if (res.size() != 1) {
+            fail("CrawlDb update didn't result in one single CrawlDatum per URL");
+            continue;
+          }
+          byte status=res.get(0).getStatus();
+          if (status != toDbStatus) {
+            fail("CrawlDb update for " + fromDbStatusName + " and "+ fetchStatusName+ " and "+ l+ " inlinks results in "+ getStatusName(status)+ " (expected: "+ getStatusName(toDbStatus)+ ")");
+          }
+          values.clear();
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  this.conf=conf;
+  initialScore=conf.getFloat("link.analyze.initial.score",1.0f);
+}

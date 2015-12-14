@@ -1,0 +1,5 @@
+{
+  StringBuffer sb=new StringBuffer(s);
+  for (int i=length - s.length(); i > 0; i--)   sb.append(" ");
+  return sb.toString();
+}

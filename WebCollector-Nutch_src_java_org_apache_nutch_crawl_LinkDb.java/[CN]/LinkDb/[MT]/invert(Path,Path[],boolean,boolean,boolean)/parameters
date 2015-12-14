@@ -1,0 +1,5 @@
+Path linkDb
+Path[] segments
+boolean normalize
+boolean filter
+boolean force

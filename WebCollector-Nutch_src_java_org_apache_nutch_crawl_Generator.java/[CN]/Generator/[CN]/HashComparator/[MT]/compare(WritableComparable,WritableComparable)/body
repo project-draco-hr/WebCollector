@@ -1,0 +1,7 @@
+{
+  Text url1=(Text)a;
+  Text url2=(Text)b;
+  int hash1=hash(url1.getBytes(),0,url1.getLength());
+  int hash2=hash(url2.getBytes(),0,url2.getLength());
+  return (hash1 < hash2 ? -1 : (hash1 == hash2 ? 0 : 1));
+}

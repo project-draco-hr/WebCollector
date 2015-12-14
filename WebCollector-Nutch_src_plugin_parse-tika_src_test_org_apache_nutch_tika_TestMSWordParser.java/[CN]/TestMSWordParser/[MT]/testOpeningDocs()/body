@@ -1,0 +1,7 @@
+{
+  String[] filenames=new File(sampleDir).list();
+  for (int i=0; i < filenames.length; i++) {
+    if (filenames[i].endsWith(".doc") == false)     continue;
+    Assert.assertTrue("cann't read content of " + filenames[i],getTextContent(filenames[i]).length() > 0);
+  }
+}

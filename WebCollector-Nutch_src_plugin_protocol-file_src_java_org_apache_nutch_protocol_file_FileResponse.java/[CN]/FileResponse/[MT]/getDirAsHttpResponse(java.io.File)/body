@@ -1,0 +1,9 @@
+{
+  String path=f.toString();
+  if (this.file.crawlParents)   this.content=list2html(f.listFiles(),path,"/".equals(path) ? false : true);
+ else   this.content=list2html(f.listFiles(),path,false);
+  headers.set(Response.CONTENT_LENGTH,new Integer(this.content.length).toString());
+  headers.set(Response.CONTENT_TYPE,"text/html");
+  headers.set(Response.LAST_MODIFIED,HttpDateFormat.toString(f.lastModified()));
+  this.code=200;
+}

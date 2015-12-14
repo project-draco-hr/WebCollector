@@ -1,0 +1,4 @@
+{
+  out.write(VERSION);
+  Text.writeString(out,text);
+}

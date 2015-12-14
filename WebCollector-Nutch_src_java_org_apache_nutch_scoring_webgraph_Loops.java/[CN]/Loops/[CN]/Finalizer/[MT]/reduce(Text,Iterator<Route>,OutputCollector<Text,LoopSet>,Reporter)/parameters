@@ -1,0 +1,4 @@
+Text key
+Iterator<Route> values
+OutputCollector<Text,LoopSet> output
+Reporter reporter

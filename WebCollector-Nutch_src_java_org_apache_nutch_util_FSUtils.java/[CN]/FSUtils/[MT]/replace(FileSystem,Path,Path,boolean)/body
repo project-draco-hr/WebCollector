@@ -1,0 +1,10 @@
+{
+  Path old=new Path(current + ".old");
+  if (fs.exists(current)) {
+    fs.rename(current,old);
+  }
+  fs.rename(replacement,current);
+  if (fs.exists(old) && removeOld) {
+    fs.delete(old,true);
+  }
+}

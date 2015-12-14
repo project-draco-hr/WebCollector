@@ -1,0 +1,4 @@
+{
+  server.stop();
+  fs.delete(testdir,true);
+}

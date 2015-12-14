@@ -1,0 +1,10 @@
+{
+  ((HttpServletResponse)res).addHeader("X-Handled-By","AsyncProxyHandler");
+  ((HttpServletResponse)res).addHeader("X-TestbedHandlers","AsyncProxyHandler");
+  try {
+    chain.doFilter(req,res);
+  }
+ catch (  Throwable e) {
+    ((HttpServletResponse)res).sendError(HttpServletResponse.SC_BAD_REQUEST,e.toString());
+  }
+}

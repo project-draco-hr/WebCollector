@@ -1,0 +1,7 @@
+{
+  this.conf=conf;
+  this.maxThreads=maxThreads;
+  this.crawlDelay=crawlDelay;
+  this.minCrawlDelay=minCrawlDelay;
+  setEndTime(System.currentTimeMillis() - crawlDelay);
+}

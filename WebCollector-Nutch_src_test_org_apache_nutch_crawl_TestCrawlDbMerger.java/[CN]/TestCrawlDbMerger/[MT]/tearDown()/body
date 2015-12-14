@@ -1,0 +1,12 @@
+{
+  try {
+    if (fs.exists(testDir))     fs.delete(testDir,true);
+  }
+ catch (  Exception e) {
+  }
+  try {
+    reader.close();
+  }
+ catch (  Exception e) {
+  }
+}

@@ -1,0 +1,10 @@
+{
+  HashSet<Writable> set=new HashSet<Writable>();
+  if (isEmpty())   return set;
+  set.add(fFirst.fKey);
+  KeyValueEntry entry=fFirst;
+  while ((entry=entry.fNextEntry) != null) {
+    set.add(entry.fKey);
+  }
+  return set;
+}

@@ -1,0 +1,13 @@
+{
+  if (fFirst != null) {
+    StringBuffer buffer=new StringBuffer();
+    KeyValueEntry entry=fFirst;
+    while (entry != null) {
+      buffer.append(entry.toString());
+      buffer.append(" ");
+      entry=entry.fNextEntry;
+    }
+    return buffer.toString();
+  }
+  return null;
+}

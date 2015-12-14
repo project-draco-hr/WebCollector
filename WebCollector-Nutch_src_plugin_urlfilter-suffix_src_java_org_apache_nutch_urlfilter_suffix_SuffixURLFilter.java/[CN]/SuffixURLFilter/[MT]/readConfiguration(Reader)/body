@@ -1,0 +1,46 @@
+{
+  if (reader == null) {
+    if (LOG.isWarnEnabled()) {
+      LOG.warn("Missing urlfilter.suffix.file, all URLs will be rejected!");
+    }
+    suffixes=new SuffixStringMatcher(new String[0]);
+    modeAccept=false;
+    ignoreCase=false;
+    return;
+  }
+  BufferedReader in=new BufferedReader(reader);
+  List<String> aSuffixes=new ArrayList<String>();
+  boolean allow=false;
+  boolean ignore=false;
+  String line;
+  while ((line=in.readLine()) != null) {
+    if (line.length() == 0)     continue;
+    char first=line.charAt(0);
+switch (first) {
+case ' ':
+case '\n':
+case '#':
+      break;
+case '-':
+    allow=false;
+  if (line.contains("P"))   filterFromPath=true;
+if (line.contains("I")) ignore=true;
+break;
+case '+':
+allow=true;
+if (line.contains("P")) filterFromPath=true;
+if (line.contains("I")) ignore=true;
+break;
+default :
+aSuffixes.add(line);
+}
+}
+if (ignore) {
+for (int i=0; i < aSuffixes.size(); i++) {
+aSuffixes.set(i,((String)aSuffixes.get(i)).toLowerCase());
+}
+}
+suffixes=new SuffixStringMatcher(aSuffixes);
+modeAccept=allow;
+ignoreCase=ignore;
+}

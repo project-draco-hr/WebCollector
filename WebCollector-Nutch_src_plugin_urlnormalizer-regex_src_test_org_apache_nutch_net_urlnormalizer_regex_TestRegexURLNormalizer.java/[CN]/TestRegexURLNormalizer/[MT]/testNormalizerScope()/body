@@ -1,0 +1,7 @@
+{
+  Iterator<String> it=testData.keySet().iterator();
+  while (it.hasNext()) {
+    String scope=it.next();
+    normalizeTest((NormalizedURL[])testData.get(scope),scope);
+  }
+}

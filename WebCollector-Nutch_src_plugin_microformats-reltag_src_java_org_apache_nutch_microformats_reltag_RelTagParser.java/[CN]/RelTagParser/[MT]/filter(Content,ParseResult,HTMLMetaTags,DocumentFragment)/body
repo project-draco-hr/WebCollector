@@ -1,0 +1,9 @@
+{
+  Parse parse=parseResult.get(content.getUrl());
+  Parser parser=new Parser(doc);
+  Set<?> tags=parser.getRelTags();
+  Iterator<?> iter=tags.iterator();
+  Metadata metadata=parse.getData().getParseMeta();
+  while (iter.hasNext())   metadata.add(REL_TAG,(String)iter.next());
+  return parseResult;
+}

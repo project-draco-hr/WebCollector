@@ -1,0 +1,9 @@
+{
+  String title="The Foo Page";
+  Outlink[] outlinks=new Outlink[]{new Outlink("http://foo.com/","Foo"),new Outlink("http://bar.com/","Bar")};
+  Metadata metaData=new Metadata();
+  metaData.add("Language","en/us");
+  metaData.add("Charset","UTF-8");
+  ParseData r=new ParseData(ParseStatus.STATUS_SUCCESS,title,outlinks,metaData);
+  WritableTestUtils.testWritable(r,null);
+}

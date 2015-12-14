@@ -1,0 +1,27 @@
+{
+  if (execute != null) {
+    long beforeWait=System.currentTimeMillis();
+    BulkResponse actionGet=execute.actionGet();
+    if (actionGet.hasFailures()) {
+      for (      BulkItemResponse item : actionGet) {
+        if (item.isFailed()) {
+          throw new RuntimeException("First failure in bulk: " + item.getFailureMessage());
+        }
+      }
+    }
+    long msWaited=System.currentTimeMillis() - beforeWait;
+    LOG.info("Previous took in ms " + actionGet.getTookInMillis() + ", including wait "+ msWaited);
+    execute=null;
+  }
+  if (bulk != null) {
+    if (bulkDocs > 0) {
+      execute=bulk.execute();
+    }
+    bulk=null;
+  }
+  if (createNewBulk) {
+    bulk=client.prepareBulk();
+    bulkDocs=0;
+    bulkLength=0;
+  }
+}

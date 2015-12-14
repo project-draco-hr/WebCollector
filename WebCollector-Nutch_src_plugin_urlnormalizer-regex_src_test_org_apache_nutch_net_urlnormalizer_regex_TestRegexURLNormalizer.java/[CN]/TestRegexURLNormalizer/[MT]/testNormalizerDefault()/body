@@ -1,0 +1,3 @@
+{
+  normalizeTest((NormalizedURL[])testData.get(URLNormalizers.SCOPE_DEFAULT),URLNormalizers.SCOPE_DEFAULT);
+}

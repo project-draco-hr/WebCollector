@@ -1,0 +1,7 @@
+{
+  try {
+    fs.delete(p,true);
+  }
+ catch (  IOException e) {
+  }
+}

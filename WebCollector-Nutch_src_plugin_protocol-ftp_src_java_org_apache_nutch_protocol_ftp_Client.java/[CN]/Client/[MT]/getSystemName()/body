@@ -1,0 +1,9 @@
+{
+  if (__systemName == null && FTPReply.isPositiveCompletion(syst())) {
+    __systemName=(getReplyStrings()[0]).substring(4);
+  }
+ else {
+    throw new FtpExceptionBadSystResponse("Bad response of SYST: " + getReplyString());
+  }
+  return __systemName;
+}

@@ -1,0 +1,23 @@
+{
+  try {
+    ByteArrayOutputStream byteOut=new ByteArrayOutputStream(in.length / EXPECTED_COMPRESSION_RATIO);
+    GZIPOutputStream outStream=new GZIPOutputStream(byteOut);
+    try {
+      outStream.write(in);
+    }
+ catch (    Exception e) {
+      LOG.error("Error writing outStream: ",e);
+    }
+    try {
+      outStream.close();
+    }
+ catch (    IOException e) {
+      LOG.error("Error closing outStream: ",e);
+    }
+    return byteOut.toByteArray();
+  }
+ catch (  IOException e) {
+    LOG.error("Error: ",e);
+    return null;
+  }
+}

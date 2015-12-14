@@ -1,0 +1,8 @@
+{
+  conf=NutchConfiguration.create();
+  parse=new ParseImpl();
+  url=new Text("http://nutch.apache.org/index.html");
+  crawlDatum=new CrawlDatum();
+  inlinks=new Inlinks();
+  filter=new StaticFieldIndexer();
+}

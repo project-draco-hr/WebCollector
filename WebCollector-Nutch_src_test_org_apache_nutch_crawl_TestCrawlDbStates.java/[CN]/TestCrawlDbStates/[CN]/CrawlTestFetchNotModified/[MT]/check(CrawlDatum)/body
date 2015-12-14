@@ -1,0 +1,45 @@
+{
+  if (lastFetchTime > 0 && (currFetchTime - lastFetchTime) > maxFetchInterval) {
+    LOG.error("last effective fetch (HTTP 200, not HTTP 304), at " + new Date(lastFetchTime) + ", took place more than db.fetch.interval.max time, "+ "segment containing fetched content may have been deleted");
+    return false;
+  }
+switch (result.getStatus()) {
+case STATUS_DB_NOTMODIFIED:
+    if ((previousDbState == STATUS_DB_FETCHED || previousDbState == STATUS_DB_NOTMODIFIED)) {
+      if (lastSignature != null && result.getSignature() != null && SignatureComparator._compare(lastSignature,result.getSignature()) != 0) {
+        LOG.error("document has changed (signature changed) but state is still " + getStatusName(STATUS_DB_NOTMODIFIED));
+        return false;
+      }
+      LOG.info("ok: " + result);
+      return checkModifiedTime(result,firstFetchTime);
+    }
+  LOG.warn("notmodified without previous fetch");
+break;
+case STATUS_DB_FETCHED:
+if (previousDbState == STATUS_DB_UNFETCHED) {
+LOG.info("ok (first fetch): " + result);
+return checkModifiedTime(result,firstFetchTime);
+}
+ else if (lastSignature != null && result.getSignature() != null && SignatureComparator._compare(lastSignature,result.getSignature()) != 0) {
+LOG.info("ok (content changed): " + result);
+return checkModifiedTime(result,currFetchTime);
+}
+ else {
+LOG.warn("document has not changed, db_notmodified expected");
+}
+break;
+case STATUS_DB_UNFETCHED:
+if (schedule.getClass() == AdaptiveFetchSchedule.class) {
+LOG.info("state set to unfetched by AdaptiveFetchSchedule");
+if (result.getSignature() != null) {
+LOG.warn("must reset signature: " + result);
+return false;
+}
+LOG.info("ok: " + result);
+firstFetchTime=0;
+return true;
+}
+}
+LOG.warn("wrong result: " + result);
+return false;
+}

@@ -1,0 +1,18 @@
+{
+  final IndexWriters writers=new IndexWriters(job);
+  writers.open(job,name);
+  return new RecordWriter<Text,NutchIndexAction>(){
+    public void close(    Reporter reporter) throws IOException {
+      writers.close();
+    }
+    public void write(    Text key,    NutchIndexAction indexAction) throws IOException {
+      if (indexAction.action == NutchIndexAction.ADD) {
+        writers.write(indexAction.doc);
+      }
+ else       if (indexAction.action == NutchIndexAction.DELETE) {
+        writers.delete(key.toString());
+      }
+    }
+  }
+;
+}

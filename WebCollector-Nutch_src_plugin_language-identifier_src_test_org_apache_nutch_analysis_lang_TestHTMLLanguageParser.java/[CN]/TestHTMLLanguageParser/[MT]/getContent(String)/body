@@ -1,0 +1,5 @@
+{
+  Metadata meta=new Metadata();
+  meta.add("Content-Type","text/html");
+  return new Content(URL,BASE,text.getBytes(),"text/html",meta,NutchConfiguration.create());
+}

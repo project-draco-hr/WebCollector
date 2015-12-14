@@ -1,0 +1,18 @@
+{
+  BufferedReader in=new BufferedReader(reader);
+  List<String> urlprefixes=new ArrayList<String>();
+  String line;
+  while ((line=in.readLine()) != null) {
+    if (line.length() == 0)     continue;
+    char first=line.charAt(0);
+switch (first) {
+case ' ':
+case '\n':
+case '#':
+      continue;
+default :
+    urlprefixes.add(line);
+}
+}
+return new PrefixStringMatcher(urlprefixes);
+}

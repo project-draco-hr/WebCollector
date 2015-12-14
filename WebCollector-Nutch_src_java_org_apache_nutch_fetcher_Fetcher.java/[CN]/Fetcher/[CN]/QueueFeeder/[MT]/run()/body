@@ -1,0 +1,50 @@
+{
+  boolean hasMore=true;
+  int cnt=0;
+  int timelimitcount=0;
+  while (hasMore) {
+    if (System.currentTimeMillis() >= timelimit && timelimit != -1) {
+      try {
+        Text url=new Text();
+        CrawlDatum datum=new CrawlDatum();
+        hasMore=reader.next(url,datum);
+        timelimitcount++;
+      }
+ catch (      IOException e) {
+        LOG.error("QueueFeeder error reading input, record " + cnt,e);
+        return;
+      }
+      continue;
+    }
+    int feed=size - queues.getTotalSize();
+    if (feed <= 0) {
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      Exception e) {
+      }
+      ;
+      continue;
+    }
+ else {
+      LOG.debug("-feeding " + feed + " input urls ...");
+      while (feed > 0 && hasMore) {
+        try {
+          Text url=new Text();
+          CrawlDatum datum=new CrawlDatum();
+          hasMore=reader.next(url,datum);
+          if (hasMore) {
+            queues.addFetchItem(url,datum);
+            cnt++;
+            feed--;
+          }
+        }
+ catch (        IOException e) {
+          LOG.error("QueueFeeder error reading input, record " + cnt,e);
+          return;
+        }
+      }
+    }
+  }
+  LOG.info("QueueFeeder finished: total " + cnt + " records + hit by time limit :"+ timelimitcount);
+}

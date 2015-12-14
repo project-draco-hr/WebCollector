@@ -1,0 +1,26 @@
+{
+  String parsePluginFile=null;
+  String usage="ParsePluginsReader [--file <parse plugin file location>]";
+  if ((args.length != 0 && args.length != 2) || (args.length == 2 && !"--file".equals(args[0]))) {
+    System.err.println(usage);
+    System.exit(1);
+  }
+  for (int i=0; i < args.length; i++) {
+    if (args[i].equals("--file")) {
+      parsePluginFile=args[++i];
+    }
+  }
+  ParsePluginsReader reader=new ParsePluginsReader();
+  if (parsePluginFile != null) {
+    reader.setFParsePluginsFile(parsePluginFile);
+  }
+  ParsePluginList prefs=reader.parse(NutchConfiguration.create());
+  for (  String mimeType : prefs.getSupportedMimeTypes()) {
+    System.out.println("MIMETYPE: " + mimeType);
+    List<String> plugList=prefs.getPluginList(mimeType);
+    System.out.println("EXTENSION IDs:");
+    for (    String j : plugList) {
+      System.out.println(j);
+    }
+  }
+}

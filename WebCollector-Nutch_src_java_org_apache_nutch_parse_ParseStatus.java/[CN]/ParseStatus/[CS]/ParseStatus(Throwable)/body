@@ -1,0 +1,3 @@
+{
+  this(FAILED,FAILED_EXCEPTION,new String[]{t.toString()});
+}

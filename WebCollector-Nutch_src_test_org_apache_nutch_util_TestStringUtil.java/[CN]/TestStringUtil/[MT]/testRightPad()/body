@@ -1,0 +1,11 @@
+{
+  String s="my string";
+  String ps=StringUtil.rightPad(s,0);
+  Assert.assertTrue(s.equals(ps));
+  ps=StringUtil.rightPad(s,9);
+  Assert.assertTrue(s.equals(ps));
+  ps=StringUtil.rightPad(s,10);
+  Assert.assertTrue((s + " ").equals(ps));
+  ps=StringUtil.rightPad(s,15);
+  Assert.assertTrue((s + "      ").equals(ps));
+}

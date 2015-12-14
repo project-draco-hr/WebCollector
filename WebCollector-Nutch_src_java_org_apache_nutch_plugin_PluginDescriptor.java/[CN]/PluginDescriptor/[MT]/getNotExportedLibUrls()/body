@@ -1,0 +1,3 @@
+{
+  return fNotExportedLibs.toArray(new URL[fNotExportedLibs.size()]);
+}

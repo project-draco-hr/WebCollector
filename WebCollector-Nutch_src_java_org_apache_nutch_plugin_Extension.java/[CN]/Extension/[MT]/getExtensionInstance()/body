@@ -1,0 +1,23 @@
+{
+synchronized (getId()) {
+    try {
+      PluginRepository pluginRepository=PluginRepository.get(conf);
+      Class extensionClazz=pluginRepository.getCachedClass(fDescriptor,getClazz());
+      pluginRepository.getPluginInstance(getDescriptor());
+      Object object=extensionClazz.newInstance();
+      if (object instanceof Configurable) {
+        ((Configurable)object).setConf(this.conf);
+      }
+      return object;
+    }
+ catch (    ClassNotFoundException e) {
+      throw new PluginRuntimeException(e);
+    }
+catch (    InstantiationException e) {
+      throw new PluginRuntimeException(e);
+    }
+catch (    IllegalAccessException e) {
+      throw new PluginRuntimeException(e);
+    }
+  }
+}

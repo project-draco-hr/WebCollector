@@ -1,0 +1,4 @@
+{
+  this.fKey=key;
+  this.fValue=value;
+}

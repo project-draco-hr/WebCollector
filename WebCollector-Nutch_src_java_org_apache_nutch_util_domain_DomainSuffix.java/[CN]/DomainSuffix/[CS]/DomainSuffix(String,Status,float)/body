@@ -1,0 +1,5 @@
+{
+  this.domain=domain;
+  this.status=status;
+  this.boost=boost;
+}

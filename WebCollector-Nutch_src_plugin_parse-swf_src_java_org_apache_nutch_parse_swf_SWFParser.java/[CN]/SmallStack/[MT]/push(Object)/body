@@ -1,0 +1,7 @@
+{
+  if (this.size() > maxSize) {
+    String val=(String)remove(0);
+    strings.remove(val);
+  }
+  return super.push(o);
+}

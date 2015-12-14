@@ -1,0 +1,4 @@
+{
+  stack.pop();
+  super.getProperty();
+}

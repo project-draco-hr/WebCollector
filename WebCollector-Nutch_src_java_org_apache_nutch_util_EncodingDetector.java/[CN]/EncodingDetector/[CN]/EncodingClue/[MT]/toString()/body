@@ -1,0 +1,3 @@
+{
+  return value + " (" + source+ ((confidence >= 0) ? ", " + confidence + "% confidence" : "")+ ")";
+}

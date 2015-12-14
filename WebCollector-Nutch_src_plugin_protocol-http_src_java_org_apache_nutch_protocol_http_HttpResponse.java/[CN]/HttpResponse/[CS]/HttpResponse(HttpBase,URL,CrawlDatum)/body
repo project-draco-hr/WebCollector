@@ -1,0 +1,131 @@
+{
+  this.http=http;
+  this.url=url;
+  this.orig=url.toString();
+  this.base=url.toString();
+  Scheme scheme=null;
+  if ("http".equals(url.getProtocol())) {
+    scheme=Scheme.HTTP;
+  }
+ else   if ("https".equals(url.getProtocol())) {
+    scheme=Scheme.HTTPS;
+  }
+ else {
+    throw new HttpException("Unknown scheme (not http/https) for url:" + url);
+  }
+  if (Http.LOG.isTraceEnabled()) {
+    Http.LOG.trace("fetching " + url);
+  }
+  String path="".equals(url.getFile()) ? "/" : url.getFile();
+  String host=url.getHost();
+  int port;
+  String portString;
+  if (url.getPort() == -1) {
+    if (scheme == Scheme.HTTP) {
+      port=80;
+    }
+ else {
+      port=443;
+    }
+    portString="";
+  }
+ else {
+    port=url.getPort();
+    portString=":" + port;
+  }
+  Socket socket=null;
+  try {
+    socket=new Socket();
+    socket.setSoTimeout(http.getTimeout());
+    String sockHost=http.useProxy() ? http.getProxyHost() : host;
+    int sockPort=http.useProxy() ? http.getProxyPort() : port;
+    InetSocketAddress sockAddr=new InetSocketAddress(sockHost,sockPort);
+    socket.connect(sockAddr,http.getTimeout());
+    if (scheme == Scheme.HTTPS) {
+      SSLSocketFactory factory=(SSLSocketFactory)SSLSocketFactory.getDefault();
+      SSLSocket sslsocket=(SSLSocket)factory.createSocket(socket,sockHost,sockPort,true);
+      sslsocket.setUseClientMode(true);
+      Set<String> protocols=new HashSet<String>(Arrays.asList(sslsocket.getSupportedProtocols()));
+      Set<String> ciphers=new HashSet<String>(Arrays.asList(sslsocket.getSupportedCipherSuites()));
+      protocols.retainAll(http.getTlsPreferredProtocols());
+      ciphers.retainAll(http.getTlsPreferredCipherSuites());
+      sslsocket.setEnabledProtocols(protocols.toArray(new String[protocols.size()]));
+      sslsocket.setEnabledCipherSuites(ciphers.toArray(new String[ciphers.size()]));
+      sslsocket.startHandshake();
+      socket=sslsocket;
+    }
+    this.conf=http.getConf();
+    if (sockAddr != null && conf.getBoolean("store.ip.address",false) == true) {
+      headers.add("_ip_",sockAddr.getAddress().getHostAddress());
+    }
+    OutputStream req=socket.getOutputStream();
+    StringBuffer reqStr=new StringBuffer("GET ");
+    if (http.useProxy()) {
+      reqStr.append(url.getProtocol() + "://" + host+ portString+ path);
+    }
+ else {
+      reqStr.append(path);
+    }
+    reqStr.append(" HTTP/1.0\r\n");
+    reqStr.append("Host: ");
+    reqStr.append(host);
+    reqStr.append(portString);
+    reqStr.append("\r\n");
+    reqStr.append("Accept-Encoding: x-gzip, gzip, deflate\r\n");
+    String userAgent=http.getUserAgent();
+    if ((userAgent == null) || (userAgent.length() == 0)) {
+      if (Http.LOG.isErrorEnabled()) {
+        Http.LOG.error("User-agent is not set!");
+      }
+    }
+ else {
+      reqStr.append("User-Agent: ");
+      reqStr.append(userAgent);
+      reqStr.append("\r\n");
+    }
+    reqStr.append("Accept-Language: ");
+    reqStr.append(this.http.getAcceptLanguage());
+    reqStr.append("\r\n");
+    reqStr.append("Accept: ");
+    reqStr.append(this.http.getAccept());
+    reqStr.append("\r\n");
+    if (datum.getModifiedTime() > 0) {
+      reqStr.append("If-Modified-Since: " + HttpDateFormat.toString(datum.getModifiedTime()));
+      reqStr.append("\r\n");
+    }
+    reqStr.append("\r\n");
+    byte[] reqBytes=reqStr.toString().getBytes();
+    req.write(reqBytes);
+    req.flush();
+    PushbackInputStream in=new PushbackInputStream(new BufferedInputStream(socket.getInputStream(),Http.BUFFER_SIZE),Http.BUFFER_SIZE);
+    StringBuffer line=new StringBuffer();
+    boolean haveSeenNonContinueStatus=false;
+    while (!haveSeenNonContinueStatus) {
+      this.code=parseStatusLine(in,line);
+      parseHeaders(in,line);
+      haveSeenNonContinueStatus=code != 100;
+    }
+    String transferEncoding=getHeader(Response.TRANSFER_ENCODING);
+    if (transferEncoding != null && "chunked".equalsIgnoreCase(transferEncoding.trim())) {
+      readChunkedContent(in,line);
+    }
+ else {
+      readPlainContent(in);
+    }
+    String contentEncoding=getHeader(Response.CONTENT_ENCODING);
+    if ("gzip".equals(contentEncoding) || "x-gzip".equals(contentEncoding)) {
+      content=http.processGzipEncoded(content,url);
+    }
+ else     if ("deflate".equals(contentEncoding)) {
+      content=http.processDeflateEncoded(content,url);
+    }
+ else {
+      if (Http.LOG.isTraceEnabled()) {
+        Http.LOG.trace("fetched " + content.length + " bytes from "+ url);
+      }
+    }
+  }
+  finally {
+    if (socket != null)     socket.close();
+  }
+}

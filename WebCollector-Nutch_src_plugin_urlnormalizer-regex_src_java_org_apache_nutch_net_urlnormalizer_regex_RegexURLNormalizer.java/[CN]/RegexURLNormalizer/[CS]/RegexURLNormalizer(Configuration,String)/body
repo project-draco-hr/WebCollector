@@ -1,0 +1,7 @@
+{
+  super(conf);
+  List<Rule> rules=readConfigurationFile(filename);
+  if (rules != null) {
+    defaultRules=rules;
+  }
+}

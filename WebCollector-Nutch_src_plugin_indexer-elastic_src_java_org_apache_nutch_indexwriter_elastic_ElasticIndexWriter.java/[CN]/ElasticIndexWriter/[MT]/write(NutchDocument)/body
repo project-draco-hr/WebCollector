@@ -1,0 +1,28 @@
+{
+  String id=(String)doc.getFieldValue("id");
+  String type=doc.getDocumentMeta().get("type");
+  if (type == null)   type="doc";
+  IndexRequestBuilder request=client.prepareIndex(defaultIndex,type,id);
+  Map<String,Object> source=new HashMap<String,Object>();
+  for (  String fieldName : doc.getFieldNames()) {
+    if (doc.getField(fieldName).getValues().size() > 1) {
+      source.put(fieldName,doc.getFieldValue(fieldName));
+      for (      Object value : doc.getField(fieldName).getValues()) {
+        bulkLength+=value.toString().length();
+      }
+    }
+ else {
+      source.put(fieldName,doc.getFieldValue(fieldName));
+      bulkLength+=doc.getFieldValue(fieldName).toString().length();
+    }
+  }
+  request.setSource(source);
+  bulk.add(request);
+  indexedDocs++;
+  bulkDocs++;
+  if (bulkDocs >= maxBulkDocs || bulkLength >= maxBulkLength) {
+    LOG.info("Processing bulk request [docs = " + bulkDocs + ", length = "+ bulkLength+ ", total docs = "+ indexedDocs+ ", last doc in bulk = '"+ id+ "']");
+    createNewBulk=true;
+    commit();
+  }
+}

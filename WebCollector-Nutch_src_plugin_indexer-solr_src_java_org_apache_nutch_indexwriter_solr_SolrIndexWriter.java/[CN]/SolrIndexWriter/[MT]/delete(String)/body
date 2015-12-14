@@ -1,0 +1,11 @@
+{
+  if (delete) {
+    try {
+      solr.deleteById(key);
+      numDeletes++;
+    }
+ catch (    final SolrServerException e) {
+      throw makeIOException(e);
+    }
+  }
+}

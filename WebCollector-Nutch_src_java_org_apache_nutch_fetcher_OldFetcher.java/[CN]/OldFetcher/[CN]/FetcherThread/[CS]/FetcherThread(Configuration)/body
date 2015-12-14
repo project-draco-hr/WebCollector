@@ -1,0 +1,10 @@
+{
+  this.setDaemon(true);
+  this.setName("FetcherThread");
+  this.conf=conf;
+  this.urlFilters=new URLFilters(conf);
+  this.scfilters=new ScoringFilters(conf);
+  this.parseUtil=new ParseUtil(conf);
+  this.protocolFactory=new ProtocolFactory(conf);
+  this.normalizers=new URLNormalizers(conf,URLNormalizers.SCOPE_FETCHER);
+}

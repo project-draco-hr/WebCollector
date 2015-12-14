@@ -1,0 +1,8 @@
+{
+  port=portno;
+  SocketConnector listener=new SocketConnector();
+  listener.setHost("127.0.0.1");
+  listener.setPort(port);
+  server.addConnector(listener);
+  server.start();
+}

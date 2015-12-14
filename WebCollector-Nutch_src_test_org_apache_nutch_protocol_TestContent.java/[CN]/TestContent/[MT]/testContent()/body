@@ -1,0 +1,12 @@
+{
+  String page="<HTML><BODY><H1>Hello World</H1><P>The Quick Brown Fox Jumped Over the Lazy Fox.</BODY></HTML>";
+  String url="http://www.foo.com/";
+  SpellCheckedMetadata metaData=new SpellCheckedMetadata();
+  metaData.add("Host","www.foo.com");
+  metaData.add("Content-Type","text/html");
+  Content r=new Content(url,url,page.getBytes("UTF8"),"text/html",metaData,conf);
+  WritableTestUtils.testWritable(r);
+  Assert.assertEquals("text/html",r.getMetadata().get("Content-Type"));
+  Assert.assertEquals("text/html",r.getMetadata().get("content-type"));
+  Assert.assertEquals("text/html",r.getMetadata().get("CONTENTYPE"));
+}

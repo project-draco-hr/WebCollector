@@ -1,0 +1,5 @@
+{
+  final IOException ioe=new IOException();
+  ioe.initCause(e);
+  return ioe;
+}

@@ -1,0 +1,28 @@
+{
+  if (childLen == 0) {
+    if (params.childLen == 0)     return false;
+ else     return true;
+  }
+ else   if ((childLen == 1) && (children.item(0).getNodeType() == Node.ELEMENT_NODE) && (params.elName.equalsIgnoreCase(children.item(0).getNodeName()))) {
+    return true;
+  }
+ else   if (childLen == 2) {
+    Node c0=children.item(0);
+    Node c1=children.item(1);
+    if ((c0.getNodeType() == Node.ELEMENT_NODE) && (params.elName.equalsIgnoreCase(c0.getNodeName())) && (c1.getNodeType() == Node.TEXT_NODE)&& hasOnlyWhiteSpace(c1)) {
+      return true;
+    }
+    if ((c1.getNodeType() == Node.ELEMENT_NODE) && (params.elName.equalsIgnoreCase(c1.getNodeName())) && (c0.getNodeType() == Node.TEXT_NODE)&& hasOnlyWhiteSpace(c0)) {
+      return true;
+    }
+  }
+ else   if (childLen == 3) {
+    Node c0=children.item(0);
+    Node c1=children.item(1);
+    Node c2=children.item(2);
+    if ((c1.getNodeType() == Node.ELEMENT_NODE) && (params.elName.equalsIgnoreCase(c1.getNodeName())) && (c0.getNodeType() == Node.TEXT_NODE)&& (c2.getNodeType() == Node.TEXT_NODE)&& hasOnlyWhiteSpace(c0)&& hasOnlyWhiteSpace(c2)) {
+      return true;
+    }
+  }
+  return false;
+}

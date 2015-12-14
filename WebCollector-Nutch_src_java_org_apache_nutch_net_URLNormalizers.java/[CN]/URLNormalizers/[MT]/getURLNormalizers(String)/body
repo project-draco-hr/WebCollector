@@ -1,0 +1,26 @@
+{
+  List<Extension> extensions=getExtensions(scope);
+  ObjectCache objectCache=ObjectCache.get(conf);
+  if (extensions == EMPTY_EXTENSION_LIST) {
+    return EMPTY_NORMALIZERS;
+  }
+  List<URLNormalizer> normalizers=new Vector<URLNormalizer>(extensions.size());
+  Iterator<Extension> it=extensions.iterator();
+  while (it.hasNext()) {
+    Extension ext=it.next();
+    URLNormalizer normalizer=null;
+    try {
+      normalizer=(URLNormalizer)objectCache.getObject(ext.getId());
+      if (normalizer == null) {
+        normalizer=(URLNormalizer)ext.getExtensionInstance();
+        objectCache.setObject(ext.getId(),normalizer);
+      }
+      normalizers.add(normalizer);
+    }
+ catch (    PluginRuntimeException e) {
+      e.printStackTrace();
+      LOG.warn("URLNormalizers:PluginRuntimeException when " + "initializing url normalizer plugin " + ext.getDescriptor().getPluginId() + " instance in getURLNormalizers "+ "function: attempting to continue instantiating plugins");
+    }
+  }
+  return normalizers.toArray(new URLNormalizer[normalizers.size()]);
+}

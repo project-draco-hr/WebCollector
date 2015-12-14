@@ -1,0 +1,10 @@
+{
+  try {
+    __logIt(event);
+  }
+ catch (  IOException e) {
+    if (__logger.isInfoEnabled()) {
+      __logger.info("PrintCommandListener.protocolCommandSent(): " + e);
+    }
+  }
+}

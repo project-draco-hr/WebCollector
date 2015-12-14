@@ -1,0 +1,54 @@
+{
+  int timeout=Integer.MIN_VALUE;
+  int maxContentLength=Integer.MIN_VALUE;
+  String logLevel="info";
+  boolean followTalk=false;
+  boolean keepConnection=false;
+  boolean dumpContent=false;
+  String urlString=null;
+  String usage="Usage: Ftp [-logLevel level] [-followTalk] [-keepConnection] [-timeout N] [-maxContentLength L] [-dumpContent] url";
+  if (args.length == 0) {
+    System.err.println(usage);
+    System.exit(-1);
+  }
+  for (int i=0; i < args.length; i++) {
+    if (args[i].equals("-logLevel")) {
+      logLevel=args[++i];
+    }
+ else     if (args[i].equals("-followTalk")) {
+      followTalk=true;
+    }
+ else     if (args[i].equals("-keepConnection")) {
+      keepConnection=true;
+    }
+ else     if (args[i].equals("-timeout")) {
+      timeout=Integer.parseInt(args[++i]) * 1000;
+    }
+ else     if (args[i].equals("-maxContentLength")) {
+      maxContentLength=Integer.parseInt(args[++i]);
+    }
+ else     if (args[i].equals("-dumpContent")) {
+      dumpContent=true;
+    }
+ else     if (i != args.length - 1) {
+      System.err.println(usage);
+      System.exit(-1);
+    }
+ else {
+      urlString=args[i];
+    }
+  }
+  Ftp ftp=new Ftp();
+  ftp.setFollowTalk(followTalk);
+  ftp.setKeepConnection(keepConnection);
+  if (timeout != Integer.MIN_VALUE)   ftp.setTimeout(timeout);
+  if (maxContentLength != Integer.MIN_VALUE)   ftp.setMaxContentLength(maxContentLength);
+  Content content=ftp.getProtocolOutput(new Text(urlString),new CrawlDatum()).getContent();
+  System.err.println("Content-Type: " + content.getContentType());
+  System.err.println("Content-Length: " + content.getMetadata().get(Response.CONTENT_LENGTH));
+  System.err.println("Last-Modified: " + content.getMetadata().get(Response.LAST_MODIFIED));
+  if (dumpContent) {
+    System.out.print(new String(content.getContent()));
+  }
+  ftp=null;
+}

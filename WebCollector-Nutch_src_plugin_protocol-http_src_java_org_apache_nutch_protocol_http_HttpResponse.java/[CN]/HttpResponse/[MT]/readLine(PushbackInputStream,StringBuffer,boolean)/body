@@ -1,0 +1,24 @@
+{
+  line.setLength(0);
+  for (int c=in.read(); c != -1; c=in.read()) {
+switch (c) {
+case '\r':
+      if (peek(in) == '\n') {
+        in.read();
+      }
+case '\n':
+    if (line.length() > 0) {
+      if (allowContinuedLine) switch (peek(in)) {
+case ' ':
+case '\t':
+        in.read();
+      continue;
+  }
+}
+return line.length();
+default :
+line.append((char)c);
+}
+}
+throw new EOFException();
+}

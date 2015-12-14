@@ -1,0 +1,11 @@
+{
+  config=conf;
+  String cluster=conf.get(ElasticConstants.CLUSTER);
+  String host=conf.get(ElasticConstants.HOST);
+  if (StringUtils.isBlank(cluster) && StringUtils.isBlank(host)) {
+    String message="Missing elastic.cluster and elastic.host. At least one of them should be set in nutch-site.xml ";
+    message+="\n" + describe();
+    LOG.error(message);
+    throw new RuntimeException(message);
+  }
+}

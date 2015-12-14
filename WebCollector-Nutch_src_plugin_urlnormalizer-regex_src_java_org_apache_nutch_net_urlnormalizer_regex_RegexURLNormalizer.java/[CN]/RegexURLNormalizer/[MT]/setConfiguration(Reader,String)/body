@@ -1,0 +1,5 @@
+{
+  List<Rule> rules=readConfiguration(reader);
+  getScopedRules().put(scope,rules);
+  LOG.debug("Set config for scope '" + scope + "': "+ rules.size()+ " rules.");
+}

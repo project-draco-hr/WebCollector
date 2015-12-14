@@ -1,0 +1,20 @@
+{
+  if (obj instanceof MapWritable) {
+    MapWritable map=(MapWritable)obj;
+    if (fSize != map.fSize)     return false;
+    HashSet<KeyValueEntry> set1=new HashSet<KeyValueEntry>();
+    KeyValueEntry e1=fFirst;
+    while (e1 != null) {
+      set1.add(e1);
+      e1=e1.fNextEntry;
+    }
+    HashSet<KeyValueEntry> set2=new HashSet<KeyValueEntry>();
+    KeyValueEntry e2=map.fFirst;
+    while (e2 != null) {
+      set2.add(e2);
+      e2=e2.fNextEntry;
+    }
+    return set1.equals(set2);
+  }
+  return false;
+}
