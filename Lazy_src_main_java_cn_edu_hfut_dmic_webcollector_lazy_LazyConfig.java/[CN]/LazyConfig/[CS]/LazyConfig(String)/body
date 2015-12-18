@@ -50,9 +50,15 @@
       LOG.info("set proxys=no proxy");
     }
  else {
+      proxys=new Proxys();
       for (int i=0; i < proxysJA.length(); i++) {
         String proxy=proxysJA.getString(i);
-        proxys.add(proxy);
+        if (proxy.equals("direct")) {
+          proxys.addEmpty();
+        }
+ else {
+          proxys.add(proxy);
+        }
         LOG.info("add proxy:" + proxy);
       }
     }
@@ -76,5 +82,10 @@
   if (confJson.has("retry")) {
     retry=confJson.getInt("retry");
     LOG.info("set retry=" + retry);
+  }
+  if (confJson.has("max_receive_size")) {
+    maxReceiveSize=confJson.getInt("max_receive_size");
+    LOG.info("set max_receive_size=" + maxReceiveSize);
+    Config.MAX_RECEIVE_SIZE=maxReceiveSize;
   }
 }
