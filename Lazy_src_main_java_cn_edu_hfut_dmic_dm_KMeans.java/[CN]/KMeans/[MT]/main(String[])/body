@@ -1,0 +1,6 @@
+{
+  double[][] vectors=new double[][]{{1,2},{1,1.2},{4,1},{100,101},{99,98},{97,87}};
+  KMeans kMeans=new KMeans(vectors,2);
+  kMeans.start(5);
+  kMeans.showResult();
+}

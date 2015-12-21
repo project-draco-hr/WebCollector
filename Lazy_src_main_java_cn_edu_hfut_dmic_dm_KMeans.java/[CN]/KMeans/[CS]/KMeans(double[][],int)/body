@@ -1,8 +1,13 @@
 {
   this.vectors=vectors;
   this.k=k;
-  centors=new double[k][];
+  vectorLen=vectors[0].length;
+  centers=new double[k][];
+  labelCount=new int[k];
+  vectorSum=new double[k][];
   for (int i=0; i < k; i++) {
-    centors[i]=vectors[i];
+    vectorSum[i]=new double[vectorLen];
+    centers[i]=vectors[i].clone();
   }
+  labels=new int[vectors.length];
 }

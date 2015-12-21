@@ -1,0 +1,12 @@
+{
+  double minDis=Double.MAX_VALUE;
+  int label=-1;
+  for (int i=0; i < centers.length; i++) {
+    double dis=dis(vector,centers[i]);
+    if (dis < minDis) {
+      label=i;
+      minDis=dis;
+    }
+  }
+  return label;
+}

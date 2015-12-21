@@ -1,2 +1,28 @@
 {
+  for (int i=0; i < k; i++) {
+    labelCount[i]=0;
+    for (int j=0; j < vectorLen; j++) {
+      vectorSum[i][j]=0;
+    }
+  }
+  for (int row=0; row < vectors.length; row++) {
+    double[] vector=vectors[row];
+    int label=computeLabel(vector);
+    labels[row]=label;
+    labelCount[label]++;
+    for (int col=0; col < vectorLen; col++) {
+      vectorSum[label][col]+=vector[col];
+    }
+  }
+  boolean hasComplete=true;
+  for (int i=0; i < k; i++) {
+    for (int j=0; j < vectorLen; j++) {
+      double ave=(double)vectorSum[i][j] / labelCount[i];
+      if (ave != centers[i][j]) {
+        hasComplete=false;
+      }
+      centers[i][j]=ave;
+    }
+  }
+  return hasComplete;
 }

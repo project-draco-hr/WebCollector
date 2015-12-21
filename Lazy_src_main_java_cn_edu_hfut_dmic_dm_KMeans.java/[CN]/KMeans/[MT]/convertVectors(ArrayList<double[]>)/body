@@ -1,0 +1,7 @@
+{
+  double[][] result=new double[vectorList.size()][];
+  for (int row=0; row < vectorList.size(); row++) {
+    result[row]=vectorList.get(row);
+  }
+  return result;
+}
