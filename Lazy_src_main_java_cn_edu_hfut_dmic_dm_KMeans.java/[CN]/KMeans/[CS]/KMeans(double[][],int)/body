@@ -1,0 +1,8 @@
+{
+  this.vectors=vectors;
+  this.k=k;
+  centors=new double[k][];
+  for (int i=0; i < k; i++) {
+    centors[i]=vectors[i];
+  }
+}
