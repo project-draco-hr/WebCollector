@@ -3,12 +3,23 @@
   if (page.getStatus() == Page.STATUS_FETCH_SUCCESS) {
     crawlDatum.setStatus(CrawlDatum.STATUS_DB_FETCHED);
     crawlDatum.setHttpCode(page.getResponse().getCode());
-    try {
-      visitor.visit(page,next);
+    if (!page.getResponse().isNotFound()) {
+      try {
+        visitor.visit(page,next);
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception when visit URL: " + url,ex);
+        return false;
+      }
     }
- catch (    Exception ex) {
-      LOG.info("Exception when visit URL: " + url,ex);
-      return false;
+ else {
+      try {
+        visitor.notFound(page,next);
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception when not found URL: " + url,ex);
+        return false;
+      }
     }
     try {
       visitor.afterVisit(page,next);

@@ -13,7 +13,9 @@
   this.headerMap=lazyConfig.getHeaderMap();
   this.proxys=lazyConfig.getProxys();
   this.setRetry(lazyConfig.getRetry());
+  this.setMaxRetry(lazyConfig.getMaxRetry());
   this.setVisitInterval(lazyConfig.getVisitInterval());
   this.setRetryInterval(lazyConfig.getRetryInterval());
   this.setThreads(lazyConfig.getThreads());
+  Config.MAX_RECEIVE_SIZE=lazyConfig.getMaxReceiveSize();
 }

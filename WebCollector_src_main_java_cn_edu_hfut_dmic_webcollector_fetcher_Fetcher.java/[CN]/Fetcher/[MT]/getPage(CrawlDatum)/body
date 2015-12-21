@@ -43,7 +43,12 @@ Thread.sleep(retryInterval);
 }
 }
 if (response != null) {
+if (!response.isNotFound()) {
 LOG.info("fetch URL: " + url);
+}
+ else {
+LOG.info("ignore URL: " + url + " (not found)");
+}
 page=Page.createSuccessPage(crawlDatum,retryCount,response);
 }
  else {
