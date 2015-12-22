@@ -1,0 +1,29 @@
+{
+  centers[0]=vectors[0].clone();
+  int centersSize=1;
+  Random random=new Random();
+  for (int i=1; i < k; i++) {
+    double[] p=new double[vectors.length];
+    double sum=0;
+    for (int row=0; row < vectors.length; row++) {
+      double disSum=0;
+      for (int j=0; j < centersSize; j++) {
+        disSum+=dis(centers[j],vectors[row]);
+      }
+      sum+=disSum;
+      p[row]=sum;
+    }
+    for (int row=0; row < vectors.length; row++) {
+      p[row]=p[row] / sum;
+    }
+    double r;
+    while ((r=random.nextDouble()) == 0)     ;
+    for (int row=0; row < vectors.length; row++) {
+      if (p[row] >= r) {
+        centers[centersSize]=vectors[row].clone();
+        centersSize++;
+        break;
+      }
+    }
+  }
+}

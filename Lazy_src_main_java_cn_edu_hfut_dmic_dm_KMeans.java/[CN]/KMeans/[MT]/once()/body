@@ -1,4 +1,5 @@
 {
+  System.out.println("start once");
   for (int i=0; i < k; i++) {
     labelCount[i]=0;
     for (int j=0; j < vectorLen; j++) {

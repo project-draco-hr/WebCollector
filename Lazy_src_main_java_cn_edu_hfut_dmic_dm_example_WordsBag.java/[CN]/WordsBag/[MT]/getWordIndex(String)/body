@@ -1,0 +1,10 @@
+{
+  Integer index=wordIndexMap.get(word);
+  if (index == null) {
+    wordIndexMap.put(word,currentInex++);
+    return currentInex - 1;
+  }
+ else {
+    return index;
+  }
+}

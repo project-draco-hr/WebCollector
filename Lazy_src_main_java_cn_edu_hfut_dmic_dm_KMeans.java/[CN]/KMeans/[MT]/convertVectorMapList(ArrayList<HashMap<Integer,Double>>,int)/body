@@ -1,0 +1,12 @@
+{
+  double[][] result=new double[vectorMapList.size()][vectorLen];
+  for (int row=0; row < vectorMapList.size(); row++) {
+    for (int col=0; col < vectorLen; col++) {
+      result[row][col]=0;
+    }
+    for (    Map.Entry<Integer,Double> entry : vectorMapList.get(row).entrySet()) {
+      result[row][entry.getKey()]=entry.getValue();
+    }
+  }
+  return result;
+}

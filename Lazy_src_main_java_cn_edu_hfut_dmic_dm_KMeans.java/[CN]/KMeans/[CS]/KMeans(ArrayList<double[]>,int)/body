@@ -1,3 +1,3 @@
 {
-  this(convertVectors(vectorList),k);
+  this(convertVectorList(vectorList),k);
 }

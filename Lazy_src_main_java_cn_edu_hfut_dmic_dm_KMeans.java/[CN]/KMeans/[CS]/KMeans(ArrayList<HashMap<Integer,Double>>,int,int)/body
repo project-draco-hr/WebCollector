@@ -1,0 +1,3 @@
+{
+  this(convertVectorMapList(vectorMapList,vectorLen),k);
+}

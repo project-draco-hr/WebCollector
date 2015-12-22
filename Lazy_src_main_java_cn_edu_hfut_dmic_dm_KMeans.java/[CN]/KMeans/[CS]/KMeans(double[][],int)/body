@@ -5,9 +5,9 @@
   centers=new double[k][];
   labelCount=new int[k];
   vectorSum=new double[k][];
+  labels=new int[vectors.length];
   for (int i=0; i < k; i++) {
     vectorSum[i]=new double[vectorLen];
-    centers[i]=vectors[i].clone();
   }
-  labels=new int[vectors.length];
+  initCenters();
 }

@@ -1,0 +1,18 @@
+{
+  HashMap<Integer,Double> result=new HashMap<Integer,Double>();
+  MMSeg mmSeg=new MMSeg(new StringReader(text),seg);
+  Word word=null;
+  while ((word=mmSeg.next()) != null) {
+    String wordStr=word.getString();
+    if (!stopWords.isStopWord(wordStr)) {
+      int index=getWordIndex(wordStr);
+      Double count=result.get(wordStr);
+      if (count == null) {
+        count=0.0;
+      }
+      count++;
+      result.put(index,count);
+    }
+  }
+  return result;
+}

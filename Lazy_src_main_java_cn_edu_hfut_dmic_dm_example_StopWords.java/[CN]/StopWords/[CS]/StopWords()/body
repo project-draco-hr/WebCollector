@@ -1,0 +1,8 @@
+{
+  BufferedReader br=new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/stopwords.txt"),"utf-8"));
+  String line;
+  while ((line=br.readLine()) != null) {
+    words.put(line,1);
+  }
+  br.close();
+}
