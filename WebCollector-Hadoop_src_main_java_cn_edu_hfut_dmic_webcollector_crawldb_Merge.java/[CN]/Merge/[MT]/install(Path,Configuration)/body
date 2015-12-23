@@ -1,0 +1,14 @@
+{
+  FileSystem fs=FileSystem.get(conf);
+  Path crawldbPath=new Path(crawlPath,"crawldb");
+  Path newdb=new Path(crawldbPath,"new");
+  Path currentdb=new Path(crawldbPath,"current");
+  Path olddb=new Path(crawldbPath,"old");
+  if (fs.exists(currentdb)) {
+    if (fs.exists(olddb)) {
+      fs.delete(olddb);
+    }
+    fs.rename(currentdb,olddb);
+  }
+  fs.rename(newdb,currentdb);
+}

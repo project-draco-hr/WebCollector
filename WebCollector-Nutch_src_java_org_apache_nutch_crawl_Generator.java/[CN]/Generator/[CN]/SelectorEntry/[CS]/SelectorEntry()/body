@@ -1,5 +1,0 @@
-{
-  url=new Text();
-  datum=new CrawlDatum();
-  segnum=new IntWritable(0);
-}

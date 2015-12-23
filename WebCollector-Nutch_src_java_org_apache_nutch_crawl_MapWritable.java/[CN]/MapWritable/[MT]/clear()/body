@@ -1,5 +1,0 @@
-{
-  fOld=fFirst;
-  fFirst=fLast=null;
-  fSize=0;
-}

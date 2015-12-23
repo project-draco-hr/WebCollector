@@ -1,5 +1,0 @@
-{
-  NodeList list=el.getElementsByTagName("status");
-  if (list == null || list.getLength() == 0)   return DomainSuffix.DEFAULT_STATUS;
-  return Status.valueOf(list.item(0).getFirstChild().getNodeValue());
-}

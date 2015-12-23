@@ -1,0 +1,3 @@
+{
+  conf.set("requester.class",requesterClass.getName());
+}

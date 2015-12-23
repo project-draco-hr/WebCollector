@@ -1,8 +1,0 @@
-{
-  conf=CrawlDBTestUtil.createConfiguration();
-  urlPath=new Path(testdir,"urls");
-  crawldbPath=new Path(testdir,"crawldb");
-  fs=FileSystem.get(conf);
-  if (fs.exists(urlPath))   fs.delete(urlPath,false);
-  if (fs.exists(crawldbPath))   fs.delete(crawldbPath,true);
-}

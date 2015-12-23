@@ -1,8 +1,0 @@
-{
-  super(conf);
-  minInterval=conf.getLong("db.fetch.schedule.adaptive.min_interval",86400);
-  maxInterval=conf.getLong("db.fetch.schedule.adaptive.max_interval",604800);
-  if (conf.getLong("db.fetch.interval.max",604800) < maxInterval) {
-    maxInterval=conf.getLong("db.fetch.interval.max",604800);
-  }
-}

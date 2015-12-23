@@ -1,4 +1,0 @@
-{
-  fontCodes.put(new Integer(id),(codes != null) ? codes : new int[0]);
-  return null;
-}

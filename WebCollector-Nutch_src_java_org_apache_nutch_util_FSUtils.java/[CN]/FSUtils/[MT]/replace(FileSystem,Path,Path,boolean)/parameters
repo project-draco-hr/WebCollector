@@ -1,4 +1,0 @@
-FileSystem fs
-Path current
-Path replacement
-boolean removeOld

@@ -1,4 +1,0 @@
-WritableComparable<?> key
-Text value
-OutputCollector<Text,Generator.SelectorEntry> output
-Reporter reporter

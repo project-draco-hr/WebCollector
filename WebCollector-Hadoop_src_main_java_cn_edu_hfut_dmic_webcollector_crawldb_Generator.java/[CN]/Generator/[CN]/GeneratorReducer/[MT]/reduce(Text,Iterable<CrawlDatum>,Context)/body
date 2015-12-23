@@ -1,0 +1,11 @@
+{
+  Iterator<CrawlDatum> ite=values.iterator();
+  while (ite.hasNext() && count < limit) {
+    CrawlDatum value=ite.next();
+    if (value.getStatus() == CrawlDatum.STATUS_DB_UNFETCHED && value.getRetry() <= 20) {
+      context.write(key,value);
+      count++;
+      context.getCounter("generator","count").increment(1);
+    }
+  }
+}

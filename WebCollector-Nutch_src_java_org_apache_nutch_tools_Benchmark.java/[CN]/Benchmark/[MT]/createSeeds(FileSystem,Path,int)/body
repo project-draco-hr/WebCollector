@@ -1,9 +1,0 @@
-{
-  OutputStream os=fs.create(new Path(seedsDir,"seeds"));
-  for (int i=0; i < count; i++) {
-    String url="http://www.test-" + i + ".com/\r\n";
-    os.write(url.getBytes());
-  }
-  os.flush();
-  os.close();
-}

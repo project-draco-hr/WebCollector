@@ -1,5 +1,0 @@
-{
-  startServer(47500);
-  fetchPage("/cookies.jsp",200);
-  fetchPage("/cookies.jsp?cookie=yes",200);
-}

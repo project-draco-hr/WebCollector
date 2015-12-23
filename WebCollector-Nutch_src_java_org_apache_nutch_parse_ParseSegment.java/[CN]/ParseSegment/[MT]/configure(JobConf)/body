@@ -1,5 +1,0 @@
-{
-  setConf(job);
-  this.scfilters=new ScoringFilters(job);
-  skipTruncated=job.getBoolean(SKIP_TRUNCATED,true);
-}

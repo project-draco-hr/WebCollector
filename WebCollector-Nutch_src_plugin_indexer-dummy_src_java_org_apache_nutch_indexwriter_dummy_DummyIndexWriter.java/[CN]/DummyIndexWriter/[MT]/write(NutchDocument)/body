@@ -1,3 +1,0 @@
-{
-  writer.write("add\t" + doc.getFieldValue("id") + "\n");
-}

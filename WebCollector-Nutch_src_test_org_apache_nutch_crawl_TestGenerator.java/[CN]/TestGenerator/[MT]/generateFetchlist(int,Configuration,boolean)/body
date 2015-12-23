@@ -1,6 +1,0 @@
-{
-  Generator g=new Generator(config);
-  Path[] generatedSegment=g.generate(dbDir,segmentsDir,-1,numResults,Long.MAX_VALUE,filter,false);
-  if (generatedSegment == null)   return null;
-  return generatedSegment[0];
-}

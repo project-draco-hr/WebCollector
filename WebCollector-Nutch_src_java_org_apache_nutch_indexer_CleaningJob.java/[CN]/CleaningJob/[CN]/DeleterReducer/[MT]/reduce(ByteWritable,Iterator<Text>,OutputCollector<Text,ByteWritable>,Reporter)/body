@@ -1,8 +1,0 @@
-{
-  while (values.hasNext()) {
-    Text document=values.next();
-    writers.delete(document.toString());
-    totalDeleted++;
-    reporter.incrCounter("CleaningJobStatus","Deleted documents",1);
-  }
-}

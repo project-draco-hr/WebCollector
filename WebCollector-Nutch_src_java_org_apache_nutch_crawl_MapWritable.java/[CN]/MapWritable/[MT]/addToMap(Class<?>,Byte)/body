@@ -1,4 +1,0 @@
-{
-  CLASS_ID_MAP.put(clazz,byteId);
-  ID_CLASS_MAP.put(byteId,clazz);
-}

@@ -1,7 +1,0 @@
-{
-  this.reader=reader;
-  this.subsetDenom=subsetDenom;
-  this.includeAdult=includeAdult;
-  this.topicPattern=topicPattern;
-  this.hashSkew=skew != 0 ? skew : new Random().nextInt();
-}

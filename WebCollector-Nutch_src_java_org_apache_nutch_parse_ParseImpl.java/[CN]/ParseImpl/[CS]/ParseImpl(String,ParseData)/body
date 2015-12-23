@@ -1,3 +1,0 @@
-{
-  this(new ParseText(text),data,true);
-}

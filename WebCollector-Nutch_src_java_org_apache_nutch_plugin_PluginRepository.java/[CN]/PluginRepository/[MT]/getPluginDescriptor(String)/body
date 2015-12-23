@@ -1,6 +1,0 @@
-{
-  for (  PluginDescriptor descriptor : fRegisteredPlugins) {
-    if (descriptor.getPluginId().equals(pPluginId))     return descriptor;
-  }
-  return null;
-}

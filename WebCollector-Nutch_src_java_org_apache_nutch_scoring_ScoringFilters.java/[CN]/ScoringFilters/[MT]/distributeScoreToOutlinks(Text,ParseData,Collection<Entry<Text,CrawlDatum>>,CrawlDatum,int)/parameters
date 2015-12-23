@@ -1,5 +1,0 @@
-Text fromUrl
-ParseData parseData
-Collection<Entry<Text,CrawlDatum>> targets
-CrawlDatum adjust
-int allCount

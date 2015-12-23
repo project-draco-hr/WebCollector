@@ -1,8 +1,0 @@
-{
-  Configuration conf=NutchConfiguration.create();
-  conf.addResource("nutch-default.xml");
-  conf.addResource("crawl-tests.xml");
-  IndexingFilters filters=new IndexingFilters(conf);
-  NutchDocument doc=filters.filter(null,new ParseImpl("text",new ParseData(new ParseStatus(),"title",new Outlink[0],new Metadata())),new Text("http://www.example.com/"),new CrawlDatum(),new Inlinks());
-  Assert.assertNull(doc);
-}

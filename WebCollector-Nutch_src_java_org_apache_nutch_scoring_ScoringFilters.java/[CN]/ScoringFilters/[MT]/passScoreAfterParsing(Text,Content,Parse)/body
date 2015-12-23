@@ -1,5 +1,0 @@
-{
-  for (int i=0; i < this.filters.length; i++) {
-    this.filters[i].passScoreAfterParsing(url,content,parse);
-  }
-}

@@ -1,6 +1,0 @@
-Path nodeDb
-Path inverted
-Path output
-int iteration
-int numIterations
-float rankOne

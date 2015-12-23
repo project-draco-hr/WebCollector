@@ -1,5 +1,0 @@
-{
-  for (int i=0; i < urls.length; i++) {
-    assertTrue(urlsModeAccept[i] == filter.filter(urls[i]));
-  }
-}

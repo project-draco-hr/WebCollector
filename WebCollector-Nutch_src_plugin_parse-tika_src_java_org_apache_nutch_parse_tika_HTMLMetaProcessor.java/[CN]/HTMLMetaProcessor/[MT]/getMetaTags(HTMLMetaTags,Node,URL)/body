@@ -1,4 +1,0 @@
-{
-  metaTags.reset();
-  getMetaTagsHelper(metaTags,node,currURL);
-}

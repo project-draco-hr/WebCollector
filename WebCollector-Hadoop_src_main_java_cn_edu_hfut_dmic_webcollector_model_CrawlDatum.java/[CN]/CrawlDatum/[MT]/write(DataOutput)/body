@@ -1,0 +1,14 @@
+{
+  d.writeUTF(getKey());
+  d.writeUTF(url);
+  d.writeInt(status);
+  d.writeLong(fetchTime);
+  d.writeInt(httpCode);
+  d.writeInt(retry);
+  int metaLen=metaData.size();
+  d.writeInt(metaLen);
+  for (  Entry<String,String> entry : metaData.entrySet()) {
+    d.writeUTF(entry.getKey());
+    d.writeUTF(entry.getValue());
+  }
+}

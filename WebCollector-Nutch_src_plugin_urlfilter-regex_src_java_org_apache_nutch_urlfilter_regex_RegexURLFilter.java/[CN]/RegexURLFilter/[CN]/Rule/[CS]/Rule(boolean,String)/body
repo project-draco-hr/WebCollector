@@ -1,4 +1,0 @@
-{
-  super(sign,regex);
-  pattern=Pattern.compile(regex);
-}

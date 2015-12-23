@@ -1,3 +1,0 @@
-{
-  return code == FAILED || code == GONE || code == MOVED || code == NOTFOUND || code == ROBOTS_DENIED;
-}

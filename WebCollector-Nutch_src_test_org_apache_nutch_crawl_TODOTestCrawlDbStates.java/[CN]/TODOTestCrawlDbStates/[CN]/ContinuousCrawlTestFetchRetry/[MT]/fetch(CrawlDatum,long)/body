@@ -1,6 +1,0 @@
-{
-  datum.setStatus(fetchStatus);
-  datum.setFetchTime(currentTime);
-  totalRetries++;
-  return datum;
-}

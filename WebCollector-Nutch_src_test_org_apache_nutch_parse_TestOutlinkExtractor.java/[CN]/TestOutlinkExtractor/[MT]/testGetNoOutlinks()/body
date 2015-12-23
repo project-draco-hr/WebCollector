@@ -1,9 +1,0 @@
-{
-  Outlink[] outlinks=null;
-  outlinks=OutlinkExtractor.getOutlinks(null,conf);
-  Assert.assertNotNull(outlinks);
-  Assert.assertEquals(0,outlinks.length);
-  outlinks=OutlinkExtractor.getOutlinks("",conf);
-  Assert.assertNotNull(outlinks);
-  Assert.assertEquals(0,outlinks.length);
-}

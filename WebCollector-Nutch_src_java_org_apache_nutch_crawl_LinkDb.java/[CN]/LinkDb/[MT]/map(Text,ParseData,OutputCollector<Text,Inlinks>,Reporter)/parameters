@@ -1,4 +1,0 @@
-Text key
-ParseData parseData
-OutputCollector<Text,Inlinks> output
-Reporter reporter

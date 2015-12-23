@@ -1,7 +1,0 @@
-{
-  for (int i=0; i < fFolders.size(); i++) {
-    File folder=fFolders.get(i);
-    delete(folder);
-    folder.delete();
-  }
-}

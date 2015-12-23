@@ -1,5 +1,0 @@
-{
-  if (this.nodeChar < other.nodeChar)   return -1;
-  if (this.nodeChar == other.nodeChar)   return 0;
-  return 1;
-}

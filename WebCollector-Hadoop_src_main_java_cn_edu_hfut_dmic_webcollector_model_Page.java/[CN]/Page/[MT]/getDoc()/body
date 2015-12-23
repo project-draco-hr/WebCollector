@@ -1,0 +1,13 @@
+{
+  if (doc != null) {
+    return doc;
+  }
+  try {
+    this.doc=Jsoup.parse(getHtml(),getUrl());
+    return doc;
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+    return null;
+  }
+}

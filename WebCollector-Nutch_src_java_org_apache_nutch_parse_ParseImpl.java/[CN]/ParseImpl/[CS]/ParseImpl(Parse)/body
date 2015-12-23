@@ -1,3 +1,0 @@
-{
-  this(new ParseText(parse.getText()),parse.getData(),true);
-}

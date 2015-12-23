@@ -1,4 +1,0 @@
-Text key
-Writable value
-OutputCollector<Text,NutchWritable> output
-Reporter reporter

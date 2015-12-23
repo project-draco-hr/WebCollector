@@ -1,4 +1,0 @@
-WritableComparable<?> key
-Writable value
-OutputCollector<Text,NutchWritable> collector
-Reporter reporter

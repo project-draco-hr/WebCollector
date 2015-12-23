@@ -1,3 +1,0 @@
-{
-  return fExtensions.toArray(new Extension[fExtensions.size()]);
-}

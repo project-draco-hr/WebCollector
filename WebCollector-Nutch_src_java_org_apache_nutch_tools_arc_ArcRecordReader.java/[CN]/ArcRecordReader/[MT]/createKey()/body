@@ -1,3 +1,0 @@
-{
-  return ReflectionUtils.newInstance(Text.class,conf);
-}

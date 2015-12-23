@@ -1,4 +1,0 @@
-{
-  strings.remove(var);
-  return super._try(var);
-}

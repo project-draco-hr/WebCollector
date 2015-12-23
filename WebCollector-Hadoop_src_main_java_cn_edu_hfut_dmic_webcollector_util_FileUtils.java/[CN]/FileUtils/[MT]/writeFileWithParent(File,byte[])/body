@@ -1,0 +1,9 @@
+{
+  File parent=file.getParentFile();
+  if (!parent.exists()) {
+    parent.mkdirs();
+  }
+  FileOutputStream fos=new FileOutputStream(file);
+  fos.write(content);
+  fos.close();
+}

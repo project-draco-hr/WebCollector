@@ -1,4 +1,0 @@
-{
-  this.conf=conf;
-  normalizedScore=conf.getFloat("link.analyze.normalize.score",1.00f);
-}

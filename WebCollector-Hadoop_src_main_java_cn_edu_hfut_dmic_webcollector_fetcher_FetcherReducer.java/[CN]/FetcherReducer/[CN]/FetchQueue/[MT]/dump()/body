@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < queue.size(); i++) {
+    CrawlDatum item=queue.get(i);
+    LOG.info("  " + i + ". "+ item.getKey());
+  }
+}

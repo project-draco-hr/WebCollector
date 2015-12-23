@@ -1,4 +1,0 @@
-{
-  this.segmentName=segmentName;
-  this.partName=partName;
-}

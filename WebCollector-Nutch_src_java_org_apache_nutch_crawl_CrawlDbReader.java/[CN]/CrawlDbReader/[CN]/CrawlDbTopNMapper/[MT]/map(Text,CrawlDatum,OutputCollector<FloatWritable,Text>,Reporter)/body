@@ -1,5 +1,0 @@
-{
-  if (value.getScore() < min)   return;
-  fw.set(-value.getScore());
-  output.collect(fw,key);
-}

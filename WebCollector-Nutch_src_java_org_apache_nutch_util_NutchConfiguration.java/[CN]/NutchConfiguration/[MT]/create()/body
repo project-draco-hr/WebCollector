@@ -1,6 +1,0 @@
-{
-  Configuration conf=new Configuration();
-  setUUID(conf);
-  addNutchResources(conf);
-  return conf;
-}

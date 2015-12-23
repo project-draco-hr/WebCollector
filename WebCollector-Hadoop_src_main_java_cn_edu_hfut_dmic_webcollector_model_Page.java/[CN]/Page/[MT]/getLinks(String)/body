@@ -1,0 +1,4 @@
+{
+  Links links=new Links().addBySelector(doc,cssSelector);
+  return links;
+}

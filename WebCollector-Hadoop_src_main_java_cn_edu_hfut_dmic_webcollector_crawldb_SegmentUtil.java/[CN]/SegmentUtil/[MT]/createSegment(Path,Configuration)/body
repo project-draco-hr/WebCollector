@@ -1,0 +1,7 @@
+{
+  String segmentName=createSegmentName();
+  FileSystem fs=FileSystem.get(conf);
+  Path segmentPath=new Path(crawlPath,"segments/" + segmentName);
+  fs.mkdirs(segmentPath);
+  return segmentName;
+}

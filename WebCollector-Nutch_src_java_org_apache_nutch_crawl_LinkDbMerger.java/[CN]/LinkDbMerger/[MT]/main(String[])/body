@@ -1,4 +1,0 @@
-{
-  int res=ToolRunner.run(NutchConfiguration.create(),new LinkDbMerger(),args);
-  System.exit(res);
-}

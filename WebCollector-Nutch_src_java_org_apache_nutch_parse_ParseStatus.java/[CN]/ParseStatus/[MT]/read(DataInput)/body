@@ -1,5 +1,0 @@
-{
-  ParseStatus res=new ParseStatus();
-  res.readFields(in);
-  return res;
-}

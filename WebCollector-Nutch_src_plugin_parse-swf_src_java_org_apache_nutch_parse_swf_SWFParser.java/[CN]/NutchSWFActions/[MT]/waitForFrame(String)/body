@@ -1,5 +1,0 @@
-{
-  stack.push(var);
-  strings.remove(var);
-  super.waitForFrame(var);
-}

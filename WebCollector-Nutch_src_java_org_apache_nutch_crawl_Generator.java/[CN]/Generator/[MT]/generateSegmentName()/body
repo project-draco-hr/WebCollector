@@ -1,9 +1,0 @@
-{
-  try {
-    Thread.sleep(1000);
-  }
- catch (  Throwable t) {
-  }
-  ;
-  return sdf.format(new Date(System.currentTimeMillis()));
-}

@@ -1,5 +1,0 @@
-{
-  if (LOG.isWarnEnabled()) {
-    LOG.warn("Warning: " + spe.toString() + ": "+ spe.getMessage());
-  }
-}

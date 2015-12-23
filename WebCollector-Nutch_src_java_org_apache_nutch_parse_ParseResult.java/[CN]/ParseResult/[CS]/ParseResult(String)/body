@@ -1,4 +1,0 @@
-{
-  parseMap=new HashMap<Text,Parse>();
-  this.originalUrl=originalUrl;
-}

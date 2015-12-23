@@ -1,9 +1,0 @@
-{
-  this.jobConf=job;
-  urlNormalizers=new URLNormalizers(job,URLNormalizers.SCOPE_INJECT);
-  interval=jobConf.getInt("db.fetch.interval.default",2592000);
-  filters=new URLFilters(jobConf);
-  scfilters=new ScoringFilters(jobConf);
-  scoreInjected=jobConf.getFloat("db.score.injected",1.0f);
-  curTime=job.getLong("injector.current.time",System.currentTimeMillis());
-}

@@ -1,7 +1,0 @@
-{
-  for (int i=0; i < values.length; i++) {
-    if (!strings.contains(values[i]))     strings.add(values[i]);
-  }
-  super.lookupTable(values);
-  dict=values;
-}

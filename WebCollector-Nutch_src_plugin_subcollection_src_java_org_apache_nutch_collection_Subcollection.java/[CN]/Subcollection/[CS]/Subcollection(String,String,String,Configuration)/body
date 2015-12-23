@@ -1,6 +1,0 @@
-{
-  this(conf);
-  this.id=id;
-  this.key=key;
-  this.name=name;
-}

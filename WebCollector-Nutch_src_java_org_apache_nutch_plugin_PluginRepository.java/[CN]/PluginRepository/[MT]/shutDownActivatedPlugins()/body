@@ -1,5 +1,0 @@
-{
-  for (  Plugin plugin : fActivatedPlugins.values()) {
-    plugin.shutDown();
-  }
-}

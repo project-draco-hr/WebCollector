@@ -1,7 +1,0 @@
-{
-  this.conf=NutchConfiguration.create();
-  conf.set("plugin.includes",".*");
-  fPluginCount=5;
-  createDummyPlugins(fPluginCount);
-  this.repository=PluginRepository.get(conf);
-}

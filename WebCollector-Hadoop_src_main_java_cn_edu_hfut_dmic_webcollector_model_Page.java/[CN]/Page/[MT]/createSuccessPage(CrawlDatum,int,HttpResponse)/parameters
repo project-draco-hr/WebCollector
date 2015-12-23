@@ -1,0 +1,3 @@
+CrawlDatum crawlDatum
+int retry
+HttpResponse response

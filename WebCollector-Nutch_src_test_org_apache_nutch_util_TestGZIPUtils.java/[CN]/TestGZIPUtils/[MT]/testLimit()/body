@@ -1,8 +1,0 @@
-{
-  byte[] testBytes=SHORT_TEST_STRING.getBytes();
-  testLimit(testBytes);
-  testBytes=LONGER_TEST_STRING.getBytes();
-  testLimit(testBytes);
-  testBytes=WEBPAGE.getBytes();
-  testLimit(testBytes);
-}

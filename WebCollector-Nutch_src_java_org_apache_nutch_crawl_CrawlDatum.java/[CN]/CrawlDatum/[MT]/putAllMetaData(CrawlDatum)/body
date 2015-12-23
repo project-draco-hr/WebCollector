@@ -1,5 +1,0 @@
-{
-  for (  Entry<Writable,Writable> e : other.getMetaData().entrySet()) {
-    getMetaData().put(e.getKey(),e.getValue());
-  }
-}

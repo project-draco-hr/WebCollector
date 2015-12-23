@@ -1,7 +1,0 @@
-{
-  String urlString="file:" + sampleDir + fileSeparator+ fileName;
-  Protocol protocol=new ProtocolFactory(conf).getProtocol(urlString);
-  Content content=protocol.getProtocolOutput(new Text(urlString),new CrawlDatum()).getContent();
-  Parse parse=new ParseUtil(conf).parseByExtensionId("parse-tika",content).get(content.getUrl());
-  return parse.getText();
-}

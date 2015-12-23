@@ -1,4 +1,0 @@
-String url
-String html
-Document doc
-ArrayList<Outlink> next

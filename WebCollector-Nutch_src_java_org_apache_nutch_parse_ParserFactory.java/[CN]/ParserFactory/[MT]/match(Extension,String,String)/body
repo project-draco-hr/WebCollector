@@ -1,3 +1,0 @@
-{
-  return ((id.equals(extension.getId())) && (extension.getAttribute("contentType").equals("*") || type.matches(escapeContentType(extension.getAttribute("contentType"))) || type.equals(DEFAULT_PLUGIN)));
-}

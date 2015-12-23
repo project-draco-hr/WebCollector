@@ -1,7 +1,0 @@
-{
-  StringBuilder builder=new StringBuilder();
-  for (  String loop : loopSet) {
-    builder.append(loop + ",");
-  }
-  return builder.substring(0,builder.length() - 1);
-}

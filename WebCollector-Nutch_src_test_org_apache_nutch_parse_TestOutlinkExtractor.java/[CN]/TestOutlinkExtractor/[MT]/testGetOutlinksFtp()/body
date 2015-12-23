@@ -1,6 +1,0 @@
-{
-  Outlink[] outlinks=OutlinkExtractor.getOutlinks("Test with ftp://www.nutch.org is it found? " + "What about www.google.com at ftp://www.google.de",conf);
-  Assert.assertTrue("Url not found!",outlinks.length > 1);
-  Assert.assertEquals("Wrong URL","ftp://www.nutch.org",outlinks[0].getToUrl());
-  Assert.assertEquals("Wrong URL","ftp://www.google.de",outlinks[1].getToUrl());
-}

@@ -1,8 +1,0 @@
-{
-  try {
-    return getProtocol(new URL(url));
-  }
- catch (  Exception e) {
-    return null;
-  }
-}

@@ -1,9 +1,0 @@
-{
-  try {
-    return new AutomatonURLFilter(rules);
-  }
- catch (  IOException e) {
-    Assert.fail(e.toString());
-    return null;
-  }
-}

@@ -1,9 +1,0 @@
-{
-  Configuration conf=NutchConfiguration.create();
-  Metadata metadata=new Metadata();
-  metadata.add(Response.CONTENT_DISPOSITION,"filename=filename.ext");
-  MoreIndexingFilter filter=new MoreIndexingFilter();
-  filter.setConf(conf);
-  NutchDocument doc=filter.filter(new NutchDocument(),new ParseImpl("text",new ParseData(new ParseStatus(),"title",new Outlink[0],metadata)),new Text("http://www.example.com/"),new CrawlDatum(),new Inlinks());
-  Assert.assertEquals("content-disposition not detected","filename.ext",doc.getFieldValue("title"));
-}

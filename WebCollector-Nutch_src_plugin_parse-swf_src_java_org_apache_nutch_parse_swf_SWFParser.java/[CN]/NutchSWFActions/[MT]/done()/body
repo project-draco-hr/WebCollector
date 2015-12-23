@@ -1,5 +1,0 @@
-{
-  while (stack.size() > 0) {
-    strings.remove(stack.pop());
-  }
-}

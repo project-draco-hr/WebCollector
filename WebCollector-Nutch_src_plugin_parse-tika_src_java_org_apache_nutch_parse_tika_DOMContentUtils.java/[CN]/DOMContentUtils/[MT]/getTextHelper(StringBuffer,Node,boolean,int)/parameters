@@ -1,4 +1,0 @@
-StringBuffer sb
-Node node
-boolean abortOnNestedAnchors
-int anchorDepth

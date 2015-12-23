@@ -1,6 +1,0 @@
-{
-  setId(pId);
-  setName(pName);
-  setSchema(pSchema);
-  fExtensions=new ArrayList<Extension>();
-}

@@ -1,0 +1,15 @@
+{
+  Path segmentPath=new Path(crawlPath,"segments/" + segmentName);
+  Path generatePath=new Path(segmentPath,"generate");
+  Job job=new Job(conf);
+  job.setJobName("fetch " + crawlPath.toString());
+  job.setJarByClass(Fetcher.class);
+  job.setReducerClass(FetcherReducer.class);
+  job.setInputFormatClass(SequenceFileInputFormat.class);
+  job.setOutputFormatClass(FetcherOutputFormat.class);
+  job.setMapOutputKeyClass(Text.class);
+  job.setMapOutputValueClass(CrawlDatum.class);
+  FileInputFormat.addInputPath(job,generatePath);
+  FileOutputFormat.setOutputPath(job,segmentPath);
+  job.waitForCompletion(true);
+}

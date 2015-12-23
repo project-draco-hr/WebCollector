@@ -1,4 +1,0 @@
-{
-  stack.push("");
-  super.pushNull();
-}

@@ -1,7 +1,0 @@
-{
-  this.conf=conf;
-  this.inlinks=conf.getBoolean("inlinks",false);
-  this.outlinks=conf.getBoolean("outlinks",false);
-  this.scores=conf.getBoolean("scores",true);
-  this.topn=conf.getLong("topn",Long.MAX_VALUE);
-}

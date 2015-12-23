@@ -1,6 +1,0 @@
-{
-  datum.setStatus(CrawlDatum.STATUS_DB_DUPLICATE);
-  Text key=(Text)datum.getMetaData().remove(urlKey);
-  reporter.incrCounter("DeduplicationJobStatus","Documents marked as duplicate",1);
-  output.collect(key,datum);
-}

@@ -1,3 +1,0 @@
-{
-  return "LP[el=" + elName + ",attr="+ attrName+ ",len="+ childLen+ "]";
-}

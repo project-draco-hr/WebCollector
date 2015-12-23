@@ -1,8 +1,0 @@
-{
-  for (int i=0; i < list.length; i++) {
-    if (id.equals(list[i].getId())) {
-      return list[i];
-    }
-  }
-  return null;
-}

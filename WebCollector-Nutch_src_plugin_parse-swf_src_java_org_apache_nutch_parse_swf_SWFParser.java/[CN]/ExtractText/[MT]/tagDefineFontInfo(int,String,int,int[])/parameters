@@ -1,4 +1,0 @@
-int fontId
-String fontName
-int flags
-int[] codes

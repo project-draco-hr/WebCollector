@@ -1,9 +1,0 @@
-{
-  @SuppressWarnings("unused") SpellCheckedMetadata result;
-  long start=System.currentTimeMillis();
-  for (int i=0; i < NUM_ITERATIONS; i++) {
-    SpellCheckedMetadata scmd=constructSpellCheckedMetadata();
-    result=writeRead(scmd);
-  }
-  System.out.println(NUM_ITERATIONS + " spellchecked metadata I/O time:" + (System.currentTimeMillis() - start)+ "ms.");
-}

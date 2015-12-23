@@ -1,4 +1,0 @@
-{
-  NutchSWFActions actions=new NutchSWFActions(actionStrings,urls);
-  return actions;
-}

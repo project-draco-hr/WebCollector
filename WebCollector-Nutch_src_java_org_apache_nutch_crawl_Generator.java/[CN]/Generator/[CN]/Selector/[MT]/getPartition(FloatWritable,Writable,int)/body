@@ -1,3 +1,0 @@
-{
-  return partitioner.getPartition(((SelectorEntry)value).url,key,numReduceTasks);
-}

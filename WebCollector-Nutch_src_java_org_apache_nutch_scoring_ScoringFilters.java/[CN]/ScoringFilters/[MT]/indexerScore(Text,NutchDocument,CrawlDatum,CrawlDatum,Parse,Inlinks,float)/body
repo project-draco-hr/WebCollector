@@ -1,6 +1,0 @@
-{
-  for (int i=0; i < this.filters.length; i++) {
-    initScore=this.filters[i].indexerScore(url,doc,dbDatum,fetchDatum,parse,inlinks,initScore);
-  }
-  return initScore;
-}

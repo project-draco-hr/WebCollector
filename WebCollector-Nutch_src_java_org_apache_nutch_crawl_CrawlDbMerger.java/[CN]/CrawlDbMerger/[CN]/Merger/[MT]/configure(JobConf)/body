@@ -1,3 +1,0 @@
-{
-  schedule=FetchScheduleFactory.getFetchSchedule(conf);
-}

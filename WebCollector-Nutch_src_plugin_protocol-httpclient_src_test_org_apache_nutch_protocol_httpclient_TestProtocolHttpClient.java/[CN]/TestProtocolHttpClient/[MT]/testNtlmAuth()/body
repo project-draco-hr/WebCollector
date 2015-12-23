@@ -1,4 +1,0 @@
-{
-  startServer(47501);
-  fetchPage("/ntlm.jsp",200);
-}

@@ -1,8 +1,0 @@
-{
-  Path out=new Path(testDir,"out");
-  SegmentMerger merger=new SegmentMerger(conf);
-  merger.merge(out,segments,false,false,-1);
-  FileStatus[] stats=fs.listStatus(out);
-  Assert.assertEquals(1,stats.length);
-  return stats[0].getPath();
-}

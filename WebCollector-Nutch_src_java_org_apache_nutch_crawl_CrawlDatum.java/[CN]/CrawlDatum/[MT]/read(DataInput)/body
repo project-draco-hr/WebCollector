@@ -1,5 +1,0 @@
-{
-  CrawlDatum result=new CrawlDatum();
-  result.readFields(in);
-  return result;
-}

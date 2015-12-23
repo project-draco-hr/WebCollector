@@ -1,0 +1,4 @@
+{
+  next=new CrawlDatums();
+  next.readFields(di);
+}

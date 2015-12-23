@@ -1,0 +1,6 @@
+{
+  if (headerMap == null) {
+    return null;
+  }
+  return headerMap.get(key);
+}

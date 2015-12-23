@@ -1,9 +1,0 @@
-{
-  ObjectCache objectCache=CACHE.get(conf);
-  if (objectCache == null) {
-    LOG.debug("No object cache found for conf=" + conf + ", instantiating a new object cache");
-    objectCache=new ObjectCache();
-    CACHE.put(conf,objectCache);
-  }
-  return objectCache;
-}

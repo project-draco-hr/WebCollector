@@ -1,5 +1,0 @@
-{
-  this(conf);
-  this.fetchStatus=fetchStatus;
-  this.expectedDbStatus=expectedDbStatus;
-}

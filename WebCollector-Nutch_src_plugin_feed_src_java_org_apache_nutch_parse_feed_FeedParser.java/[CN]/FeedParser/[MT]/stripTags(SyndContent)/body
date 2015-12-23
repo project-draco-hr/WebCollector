@@ -1,8 +1,0 @@
-{
-  if (c == null)   return "";
-  String value=c.getValue();
-  String[] parts=value.split("<[^>]*>");
-  StringBuffer buf=new StringBuffer();
-  for (  String part : parts)   buf.append(part);
-  return buf.toString().trim();
-}

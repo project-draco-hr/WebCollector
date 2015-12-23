@@ -1,7 +1,0 @@
-Text fromUrl
-Text toUrl
-ParseData parseData
-CrawlDatum target
-CrawlDatum adjust
-int allCount
-int validCount

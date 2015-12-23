@@ -1,3 +1,0 @@
-{
-  return inflateBestEffort(in,Integer.MAX_VALUE);
-}

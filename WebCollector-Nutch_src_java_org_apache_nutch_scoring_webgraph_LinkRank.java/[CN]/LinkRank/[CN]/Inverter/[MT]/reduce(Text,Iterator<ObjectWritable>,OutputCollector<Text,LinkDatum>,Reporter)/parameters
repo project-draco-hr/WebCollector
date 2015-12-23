@@ -1,4 +1,0 @@
-Text key
-Iterator<ObjectWritable> values
-OutputCollector<Text,LinkDatum> output
-Reporter reporter

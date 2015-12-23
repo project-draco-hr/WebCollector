@@ -1,4 +1,0 @@
-Text key
-Iterator<MetaWrapper> values
-OutputCollector<Text,MetaWrapper> output
-Reporter reporter

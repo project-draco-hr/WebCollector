@@ -1,6 +1,0 @@
-{
-  for (int i=0; i < o.length; i++) {
-    sb.append(o[i].toString());
-    sb.append(System.getProperty("line.separator"));
-  }
-}

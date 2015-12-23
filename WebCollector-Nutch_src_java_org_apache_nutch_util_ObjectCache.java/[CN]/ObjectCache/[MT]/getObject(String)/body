@@ -1,3 +1,0 @@
-{
-  return objectMap.get(key);
-}

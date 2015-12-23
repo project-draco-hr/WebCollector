@@ -1,3 +1,0 @@
-{
-  LOG.info("-- " + req.getMethod() + " "+ req.getUri().toString()+ "\n"+ req.getConnection().getRequestFields());
-}

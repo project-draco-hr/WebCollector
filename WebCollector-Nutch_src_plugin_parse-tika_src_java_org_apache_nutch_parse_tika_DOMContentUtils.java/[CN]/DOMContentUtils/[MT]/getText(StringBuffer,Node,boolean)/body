@@ -1,6 +1,0 @@
-{
-  if (getTextHelper(sb,node,abortOnNestedAnchors,0)) {
-    return true;
-  }
-  return false;
-}

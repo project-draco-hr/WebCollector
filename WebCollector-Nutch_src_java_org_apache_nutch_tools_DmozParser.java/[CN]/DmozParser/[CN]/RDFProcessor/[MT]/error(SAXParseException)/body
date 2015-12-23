@@ -1,5 +1,0 @@
-{
-  if (LOG.isErrorEnabled()) {
-    LOG.error("Error: " + spe.toString() + ": "+ spe.getMessage());
-  }
-}

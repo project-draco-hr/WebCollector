@@ -1,0 +1,26 @@
+{
+  Iterator<CrawlDatum> ite=values.iterator();
+  CrawlDatum temp=null;
+  while (ite.hasNext()) {
+    CrawlDatum nextDatum=ite.next().copy();
+    if (nextDatum.getStatus() == CrawlDatum.STATUS_DB_FORCED_INJECT) {
+      nextDatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+      temp=nextDatum;
+      break;
+    }
+    if (nextDatum.getStatus() == CrawlDatum.STATUS_DB_INJECT) {
+      nextDatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+    }
+    if (temp == null) {
+      temp=nextDatum;
+      continue;
+    }
+    if (nextDatum.getStatus() > temp.getStatus()) {
+      temp=nextDatum;
+      continue;
+    }
+  }
+  if (temp != null) {
+    context.write(key,temp);
+  }
+}

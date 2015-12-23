@@ -1,7 +1,0 @@
-{
-  this.conf=conf;
-  String[] values=conf.getStrings("metatags.names","*");
-  for (  String val : values) {
-    metatagset.add(val.toLowerCase(Locale.ROOT));
-  }
-}

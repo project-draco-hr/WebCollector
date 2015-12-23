@@ -1,6 +1,0 @@
-{
-  byte[] data=Arrays.copyOf(content.getContent(),content.getContent().length + 1);
-  data[content.getContent().length]='2';
-  content.setContent(data);
-  LOG.info("document content changed");
-}

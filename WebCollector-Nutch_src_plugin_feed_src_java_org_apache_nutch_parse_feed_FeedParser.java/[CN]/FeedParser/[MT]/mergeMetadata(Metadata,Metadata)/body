@@ -1,8 +1,0 @@
-{
-  for (  String name : second.names()) {
-    String[] values=second.getValues(name);
-    for (    String value : values) {
-      first.add(name,value);
-    }
-  }
-}

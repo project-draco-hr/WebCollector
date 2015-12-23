@@ -1,5 +1,0 @@
-{
-  outlinkUrl=Text.readString(in);
-  lookingFor=Text.readString(in);
-  found=in.readBoolean();
-}

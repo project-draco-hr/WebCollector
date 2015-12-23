@@ -1,3 +1,0 @@
-{
-  main(new AutomatonURLFilter(),args);
-}

@@ -1,4 +1,0 @@
-FloatWritable key
-Iterator<SelectorEntry> values
-OutputCollector<FloatWritable,SelectorEntry> output
-Reporter reporter

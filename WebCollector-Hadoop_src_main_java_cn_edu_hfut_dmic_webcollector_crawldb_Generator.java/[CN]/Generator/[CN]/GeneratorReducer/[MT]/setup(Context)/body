@@ -1,0 +1,6 @@
+{
+  System.out.println("-------------------------reducer:" + context.getNumReduceTasks());
+  int topN=context.getConfiguration().getInt("generator.topN",Integer.MAX_VALUE);
+  limit=topN / context.getNumReduceTasks();
+  System.out.println("=================limit=" + limit);
+}

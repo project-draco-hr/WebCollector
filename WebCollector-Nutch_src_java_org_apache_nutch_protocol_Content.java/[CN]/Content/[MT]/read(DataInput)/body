@@ -1,5 +1,0 @@
-{
-  Content content=new Content();
-  content.readFields(in);
-  return content;
-}

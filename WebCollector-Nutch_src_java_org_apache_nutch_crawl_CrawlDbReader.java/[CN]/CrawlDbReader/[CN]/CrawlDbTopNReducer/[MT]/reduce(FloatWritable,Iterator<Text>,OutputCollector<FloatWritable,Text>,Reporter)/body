@@ -1,7 +1,0 @@
-{
-  while (values.hasNext() && count < topN) {
-    key.set(-key.get());
-    output.collect(key,values.next());
-    count++;
-  }
-}

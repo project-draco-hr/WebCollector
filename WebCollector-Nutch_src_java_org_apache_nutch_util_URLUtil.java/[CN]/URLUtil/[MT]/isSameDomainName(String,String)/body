@@ -1,3 +1,0 @@
-{
-  return isSameDomainName(new URL(url1),new URL(url2));
-}

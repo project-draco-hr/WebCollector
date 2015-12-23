@@ -1,4 +1,0 @@
-{
-  super();
-  for (int i=0; i < suffixes.length; i++)   addPatternBackward(suffixes[i]);
-}

@@ -1,4 +1,0 @@
-Path webGraphDb
-Path[] segments
-boolean normalize
-boolean filter

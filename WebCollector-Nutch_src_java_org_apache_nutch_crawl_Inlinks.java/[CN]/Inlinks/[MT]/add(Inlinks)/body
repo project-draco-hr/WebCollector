@@ -1,3 +1,0 @@
-{
-  this.inlinks.addAll(inlinks.inlinks);
-}

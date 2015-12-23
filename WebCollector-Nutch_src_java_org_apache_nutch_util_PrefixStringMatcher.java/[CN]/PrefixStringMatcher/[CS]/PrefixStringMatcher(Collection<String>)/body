@@ -1,5 +1,0 @@
-{
-  super();
-  Iterator<String> iter=prefixes.iterator();
-  while (iter.hasNext())   addPatternForward(iter.next());
-}

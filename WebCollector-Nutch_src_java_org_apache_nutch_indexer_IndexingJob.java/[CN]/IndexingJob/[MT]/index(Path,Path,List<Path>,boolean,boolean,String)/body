@@ -1,3 +1,0 @@
-{
-  index(crawlDb,linkDb,segments,noCommit,deleteGone,params,false,false);
-}

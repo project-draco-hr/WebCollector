@@ -1,8 +1,0 @@
-{
-  Subcollection subCol=null;
-  if (!collectionMap.containsKey(id)) {
-    subCol=new Subcollection(id,name,getConf());
-    collectionMap.put(id,subCol);
-  }
-  return subCol;
-}

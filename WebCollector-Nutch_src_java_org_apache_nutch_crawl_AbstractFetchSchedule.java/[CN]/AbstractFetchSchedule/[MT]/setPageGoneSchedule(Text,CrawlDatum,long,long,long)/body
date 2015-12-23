@@ -1,6 +1,0 @@
-{
-  if ((datum.getFetchInterval() * 1.5f) < maxInterval)   datum.setFetchInterval(datum.getFetchInterval() * 1.5f);
- else   datum.setFetchInterval(maxInterval * 0.9f);
-  datum.setFetchTime(fetchTime + (long)datum.getFetchInterval() * 1000);
-  return datum;
-}

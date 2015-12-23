@@ -1,5 +1,0 @@
-FileSystem fs
-Configuration conf
-Path src
-PrintWriter writer
-int currentRecordNumber

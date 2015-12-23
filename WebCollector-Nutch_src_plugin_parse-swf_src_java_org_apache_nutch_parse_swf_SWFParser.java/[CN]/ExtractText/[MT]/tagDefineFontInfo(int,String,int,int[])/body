@@ -1,3 +1,0 @@
-{
-  fontCodes.put(new Integer(fontId),codes);
-}

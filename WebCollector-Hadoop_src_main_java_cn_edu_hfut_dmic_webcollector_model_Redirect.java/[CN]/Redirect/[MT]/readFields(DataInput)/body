@@ -1,0 +1,5 @@
+{
+  datum=new CrawlDatum();
+  datum.readFields(di);
+  realUrl=di.readUTF();
+}

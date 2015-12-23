@@ -1,5 +1,0 @@
-{
-  FetchItemQueue fiq=getFetchItemQueue(it.queueID);
-  fiq.addFetchItem(it);
-  totalSize.incrementAndGet();
-}

@@ -1,3 +1,0 @@
-{
-  this(majorCode,0,new String[]{message});
-}

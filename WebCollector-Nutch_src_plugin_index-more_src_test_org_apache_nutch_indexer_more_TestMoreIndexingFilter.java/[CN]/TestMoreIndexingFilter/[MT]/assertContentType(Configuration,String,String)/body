@@ -1,8 +1,0 @@
-{
-  Metadata metadata=new Metadata();
-  metadata.add(Response.CONTENT_TYPE,source);
-  MoreIndexingFilter filter=new MoreIndexingFilter();
-  filter.setConf(conf);
-  NutchDocument doc=filter.filter(new NutchDocument(),new ParseImpl("text",new ParseData(new ParseStatus(),"title",new Outlink[0],metadata)),new Text("http://www.example.com/"),new CrawlDatum(),new Inlinks());
-  Assert.assertEquals("mime type not detected",expected,doc.getFieldValue("type"));
-}

@@ -1,4 +1,0 @@
-byte firstStatus
-byte lastStatus
-int rounds
-boolean redirect

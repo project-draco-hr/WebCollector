@@ -1,7 +1,0 @@
-{
-  long time;
-synchronized (format) {
-    time=format.parse(dateString).getTime();
-  }
-  return time;
-}

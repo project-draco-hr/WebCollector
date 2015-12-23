@@ -1,3 +1,0 @@
-{
-  return getDomainName(url1).equalsIgnoreCase(getDomainName(url2));
-}

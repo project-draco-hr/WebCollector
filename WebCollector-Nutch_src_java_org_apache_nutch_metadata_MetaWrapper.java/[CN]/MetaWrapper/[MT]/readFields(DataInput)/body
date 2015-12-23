@@ -1,5 +1,0 @@
-{
-  super.readFields(in);
-  metadata=new Metadata();
-  metadata.readFields(in);
-}

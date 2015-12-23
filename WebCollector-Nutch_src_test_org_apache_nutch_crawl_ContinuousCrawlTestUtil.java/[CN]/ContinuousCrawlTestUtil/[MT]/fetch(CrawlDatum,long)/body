@@ -1,5 +1,0 @@
-{
-  datum.setStatus(fetchStatus);
-  datum.setFetchTime(currentTime);
-  return datum;
-}

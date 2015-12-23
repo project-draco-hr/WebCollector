@@ -1,4 +1,0 @@
-{
-  this.conf=conf;
-  clearScore=conf.getFloat("link.score.updater.clear.score",0.0f);
-}

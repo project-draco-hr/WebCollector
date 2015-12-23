@@ -1,5 +1,0 @@
-{
-  super(instance);
-  metadata=new Metadata();
-  setConf(conf);
-}

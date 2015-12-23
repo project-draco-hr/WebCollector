@@ -1,5 +1,0 @@
-{
-  this.conf=conf;
-  deduplicate=conf.getBoolean("anchorIndexingFilter.deduplicate",false);
-  LOG.info("Anchor deduplication is: " + (deduplicate ? "on" : "off"));
-}

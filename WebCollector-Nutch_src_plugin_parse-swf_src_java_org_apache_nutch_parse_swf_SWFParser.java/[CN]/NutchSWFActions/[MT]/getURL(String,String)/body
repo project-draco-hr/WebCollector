@@ -1,8 +1,0 @@
-{
-  stack.push(url);
-  stack.push(target);
-  strings.remove(url);
-  strings.remove(target);
-  urls.add(url);
-  super.getURL(url,target);
-}

@@ -1,4 +1,0 @@
-Text key
-Node node
-OutputCollector<Text,Node> output
-Reporter reporter

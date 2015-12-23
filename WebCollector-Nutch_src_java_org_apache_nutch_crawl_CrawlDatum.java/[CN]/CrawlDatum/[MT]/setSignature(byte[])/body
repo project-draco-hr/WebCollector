@@ -1,4 +1,0 @@
-{
-  if (signature != null && signature.length > 256)   throw new RuntimeException("Max signature length (256) exceeded: " + signature.length);
-  this.signature=signature;
-}

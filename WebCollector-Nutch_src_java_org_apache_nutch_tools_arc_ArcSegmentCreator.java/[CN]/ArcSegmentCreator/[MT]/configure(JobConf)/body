@@ -1,8 +1,0 @@
-{
-  this.jobConf=job;
-  this.urlFilters=new URLFilters(jobConf);
-  this.scfilters=new ScoringFilters(jobConf);
-  this.parseUtil=new ParseUtil(jobConf);
-  this.normalizers=new URLNormalizers(jobConf,URLNormalizers.SCOPE_FETCHER);
-  interval=jobConf.getInt("db.fetch.interval.default",2592000);
-}

@@ -1,3 +1,0 @@
-{
-  return toHexString(buf,null,Integer.MAX_VALUE);
-}

@@ -1,3 +1,0 @@
-{
-  return getExtension(list,parsePluginList.getAliases().get(id));
-}

@@ -1,8 +1,0 @@
-{
-  try {
-    test(new FileReader(SAMPLES + SEPARATOR + file+ ".rules"),new FileReader(SAMPLES + SEPARATOR + file+ ".urls"));
-  }
- catch (  Exception e) {
-    Assert.fail(e.toString());
-  }
-}

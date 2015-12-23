@@ -1,6 +1,0 @@
-String fromUrl
-String toUrl
-String fromHost
-boolean ignoreExternalLinks
-URLFilters filters
-URLNormalizers normalizers

@@ -1,7 +1,0 @@
-{
-  super(conf);
-  maxFetchInterval=conf.getLong("db.fetch.interval.max",7776000);
-  maxFetchInterval+=(24 * 60 * 60);
-  maxFetchInterval*=1000;
-  schedule=FetchScheduleFactory.getFetchSchedule(new JobConf(conf));
-}

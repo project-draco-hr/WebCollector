@@ -1,9 +1,0 @@
-{
-  if (value == null || "".equals(value)) {
-    return;
-  }
-  value=resolveEncodingAlias(value);
-  if (value != null) {
-    clues.add(new EncodingClue(value,source,confidence));
-  }
-}

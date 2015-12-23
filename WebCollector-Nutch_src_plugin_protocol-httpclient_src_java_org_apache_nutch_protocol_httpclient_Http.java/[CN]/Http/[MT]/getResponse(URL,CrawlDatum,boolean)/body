@@ -1,4 +1,0 @@
-{
-  resolveCredentials(url);
-  return new HttpResponse(this,url,datum,redirect);
-}

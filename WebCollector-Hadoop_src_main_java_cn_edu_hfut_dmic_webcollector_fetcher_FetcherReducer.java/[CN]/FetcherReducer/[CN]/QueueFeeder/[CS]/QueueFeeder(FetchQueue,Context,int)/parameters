@@ -1,0 +1,3 @@
+FetchQueue queue
+Context context
+int size

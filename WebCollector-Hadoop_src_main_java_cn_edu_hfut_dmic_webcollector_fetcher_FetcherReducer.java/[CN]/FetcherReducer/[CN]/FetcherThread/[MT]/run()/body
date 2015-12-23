@@ -1,0 +1,72 @@
+{
+  activeThreads.incrementAndGet();
+  CrawlDatum datum;
+  try {
+    while (running) {
+      try {
+        datum=fetchQueue.getDatum();
+        if (datum == null) {
+          if (feeder.isAlive() || fetchQueue.getSize() > 0) {
+            spinWaiting.incrementAndGet();
+            try {
+              Thread.sleep(500);
+            }
+ catch (            Exception ex) {
+            }
+            spinWaiting.decrementAndGet();
+            continue;
+          }
+ else {
+            return;
+          }
+        }
+        lastRequestStart.set(System.currentTimeMillis());
+        String url=datum.getUrl();
+        Page page=getPage(datum);
+        datum.incrRetry(page.getRetry());
+        datum.setFetchTime(System.currentTimeMillis());
+        CrawlDatums next=new CrawlDatums();
+        if (visit(datum,page,next)) {
+          try {
+            Text key=new Text(datum.getKey());
+            context.write(key,datum);
+            if (page.getResponse() == null) {
+              continue;
+            }
+            if (page.getResponse().isRedirect()) {
+              if (page.getResponse().getRealUrl() != null) {
+                context.write(key,new Redirect(datum,page.getResponse().getRealUrl().toString()));
+              }
+            }
+            if (page.getResponse().getContent() != null) {
+              Content content=new Content(datum.getKey(),page.getResponse().getContent());
+              context.write(key,content);
+            }
+            if (!next.isEmpty()) {
+              context.write(key,new ParseData(next));
+            }
+          }
+ catch (          Exception ex) {
+            LOG.info("Exception when updating db",ex);
+          }
+        }
+        if (visitInterval > 0) {
+          try {
+            Thread.sleep(visitInterval);
+          }
+ catch (          Exception sleepEx) {
+          }
+        }
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception",ex);
+      }
+    }
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+  }
+ finally {
+    activeThreads.decrementAndGet();
+  }
+}

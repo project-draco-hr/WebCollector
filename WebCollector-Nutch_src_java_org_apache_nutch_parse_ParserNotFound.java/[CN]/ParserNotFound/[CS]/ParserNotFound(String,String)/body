@@ -1,3 +1,0 @@
-{
-  this(url,contentType,"parser not found for contentType=" + contentType + " url="+ url);
-}

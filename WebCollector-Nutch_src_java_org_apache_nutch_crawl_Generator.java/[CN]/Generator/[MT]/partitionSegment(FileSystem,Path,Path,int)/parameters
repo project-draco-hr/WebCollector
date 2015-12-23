@@ -1,4 +1,0 @@
-FileSystem fs
-Path segmentsDir
-Path inputDir
-int numLists

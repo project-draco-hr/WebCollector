@@ -1,0 +1,86 @@
+{
+  Configuration conf=context.getConfiguration();
+  String requesterClass=conf.get("requester.class",CommonRequester.class.getName());
+  try {
+    requester=Plugin.<Requester>createPlugin(requesterClass);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception when initializing requester " + requesterClass,ex);
+    return;
+  }
+  String visitorClass=conf.get("visitor.class");
+  if (visitorClass == null) {
+    LOG.info("Must specify a visitor!");
+    return;
+  }
+  try {
+    visitor=Plugin.<Visitor>createPlugin(visitorClass);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception when initializing visitor " + visitorClass,ex);
+    return;
+  }
+  try {
+    running=true;
+    lastRequestStart=new AtomicLong(System.currentTimeMillis());
+    activeThreads=new AtomicInteger(0);
+    spinWaiting=new AtomicInteger(0);
+    fetchQueue=new FetchQueue();
+    feeder=new QueueFeeder(fetchQueue,context,1000);
+    feeder.start();
+    FetcherThread[] fetcherThreads=new FetcherThread[threads];
+    for (int i=0; i < threads; i++) {
+      fetcherThreads[i]=new FetcherThread(context);
+      fetcherThreads[i].start();
+    }
+    do {
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      InterruptedException ex) {
+      }
+      LOG.info("-activeThreads=" + activeThreads.get() + ", spinWaiting="+ spinWaiting.get()+ ", fetchQueue.size="+ fetchQueue.getSize());
+      if (!feeder.isAlive() && fetchQueue.getSize() < 5) {
+        fetchQueue.dump();
+      }
+      if ((System.currentTimeMillis() - lastRequestStart.get()) > Config.THREAD_KILLER) {
+        LOG.info("Aborting with " + activeThreads + " hung threads.");
+        break;
+      }
+    }
+ while (activeThreads.get() > 0 && running);
+    running=false;
+    long waitThreadEndStartTime=System.currentTimeMillis();
+    if (activeThreads.get() > 0) {
+      LOG.info("wait for activeThreads to end");
+    }
+    while (activeThreads.get() > 0) {
+      LOG.info("-activeThreads=" + activeThreads.get());
+      try {
+        Thread.sleep(500);
+      }
+ catch (      Exception ex) {
+      }
+      if (System.currentTimeMillis() - waitThreadEndStartTime > Config.WAIT_THREAD_END_TIME) {
+        LOG.info("kill threads");
+        for (int i=0; i < fetcherThreads.length; i++) {
+          if (fetcherThreads[i].isAlive()) {
+            try {
+              fetcherThreads[i].stop();
+              LOG.info("kill thread " + i);
+            }
+ catch (            Exception ex) {
+              LOG.info("Exception",ex);
+            }
+          }
+        }
+        break;
+      }
+    }
+    LOG.info("clear all activeThread");
+    feeder.stopFeeder();
+    fetchQueue.clear();
+  }
+  finally {
+  }
+}

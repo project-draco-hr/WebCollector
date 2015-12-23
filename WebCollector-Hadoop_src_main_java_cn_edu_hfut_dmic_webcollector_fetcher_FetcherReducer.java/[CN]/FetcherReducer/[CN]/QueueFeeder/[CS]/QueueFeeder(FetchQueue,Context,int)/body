@@ -1,0 +1,5 @@
+{
+  this.queue=queue;
+  this.context=context;
+  this.size=size;
+}

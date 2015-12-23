@@ -1,5 +1,0 @@
-{
-  Configuration conf=NutchConfiguration.create();
-  assertContentType(conf,"text/html","text/html");
-  assertContentType(conf,"text/html; charset=UTF-8","text/html");
-}

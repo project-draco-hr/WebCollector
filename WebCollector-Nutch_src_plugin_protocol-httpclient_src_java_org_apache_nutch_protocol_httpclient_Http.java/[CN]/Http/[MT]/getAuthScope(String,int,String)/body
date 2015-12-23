@@ -1,3 +1,0 @@
-{
-  return getAuthScope(host,port,realm,"");
-}

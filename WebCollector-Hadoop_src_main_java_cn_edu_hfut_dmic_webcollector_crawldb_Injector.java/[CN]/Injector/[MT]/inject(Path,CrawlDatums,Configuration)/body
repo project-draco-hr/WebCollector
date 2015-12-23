@@ -1,0 +1,21 @@
+{
+  Path crawldbPath=new Path(crawlPath,"crawldb");
+  FileSystem fs=FileSystem.get(conf);
+  Path tempdb=new Path(crawldbPath,"temp");
+  if (fs.exists(tempdb)) {
+    fs.delete(tempdb);
+  }
+  SequenceFile.Writer writer=new SequenceFile.Writer(fs,conf,new Path(tempdb,"info"),Text.class,CrawlDatum.class);
+  for (  CrawlDatum datum : datums) {
+    String key=datum.getKey();
+    writer.append(new Text(key),datum);
+    LOG.info("inject:" + key);
+  }
+  writer.close();
+  Path[] mergePaths=new Path[]{tempdb};
+  Merge.merge(crawlPath,mergePaths,conf,"inject");
+  Merge.install(crawlPath,conf);
+  if (fs.exists(tempdb)) {
+    fs.delete(tempdb);
+  }
+}

@@ -1,5 +1,0 @@
-{
-  minConfidence=conf.getInt(MIN_CONFIDENCE_KEY,-1);
-  detector=new CharsetDetector();
-  clues=new ArrayList<EncodingClue>();
-}

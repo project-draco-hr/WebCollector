@@ -1,0 +1,32 @@
+{
+  boolean hasMore=true;
+  running=true;
+  int cnt=0;
+  try {
+    Iterator<CrawlDatum> ite;
+    while (hasMore && running) {
+      int feed=size - queue.getSize();
+      if (feed <= 0) {
+        try {
+          Thread.sleep(1000);
+        }
+ catch (        InterruptedException ex) {
+        }
+        continue;
+      }
+      while (feed > 0 && hasMore && running) {
+        hasMore=context.nextKey();
+        if (hasMore) {
+          ite=context.getValues().iterator();
+          CrawlDatum copy=ite.next().copy();
+          queue.addDatum(copy);
+          feed--;
+        }
+      }
+    }
+  }
+ catch (  Exception ex) {
+    LOG.error("QueueFeeder error reading input, record " + cnt,ex);
+    return;
+  }
+}

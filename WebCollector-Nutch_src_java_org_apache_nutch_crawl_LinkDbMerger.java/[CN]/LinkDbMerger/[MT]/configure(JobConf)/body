@@ -1,3 +1,0 @@
-{
-  maxInlinks=job.getInt("db.max.inlinks",10000);
-}

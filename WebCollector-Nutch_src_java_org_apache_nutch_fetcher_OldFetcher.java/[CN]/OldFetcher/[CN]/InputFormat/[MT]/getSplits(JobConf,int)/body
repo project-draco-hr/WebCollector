@@ -1,9 +1,0 @@
-{
-  FileStatus[] files=listStatus(job);
-  InputSplit[] splits=new InputSplit[files.length];
-  for (int i=0; i < files.length; i++) {
-    FileStatus cur=files[i];
-    splits[i]=new FileSplit(cur.getPath(),0,cur.getLen(),(String[])null);
-  }
-  return splits;
-}

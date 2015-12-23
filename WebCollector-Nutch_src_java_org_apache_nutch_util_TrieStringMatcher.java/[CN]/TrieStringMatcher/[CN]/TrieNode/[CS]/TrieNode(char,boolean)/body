@@ -1,5 +1,0 @@
-{
-  this.nodeChar=nodeChar;
-  this.terminal=isTerminal;
-  this.childrenList=new LinkedList<TrieNode>();
-}

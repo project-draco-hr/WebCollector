@@ -1,6 +1,0 @@
-{
-  user(username);
-  if (FTPReply.isPositiveCompletion(getReplyCode()))   return true;
-  if (!FTPReply.isPositiveIntermediate(getReplyCode()))   return false;
-  return FTPReply.isPositiveCompletion(pass(password));
-}

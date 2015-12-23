@@ -1,3 +1,0 @@
-FloatWritable key
-Writable value
-int numReduceTasks

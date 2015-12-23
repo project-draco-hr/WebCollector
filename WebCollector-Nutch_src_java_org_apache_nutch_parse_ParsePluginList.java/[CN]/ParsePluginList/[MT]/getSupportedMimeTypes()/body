@@ -1,3 +1,0 @@
-{
-  return Arrays.asList(fMimeTypeToPluginMap.keySet().toArray(new String[]{}));
-}

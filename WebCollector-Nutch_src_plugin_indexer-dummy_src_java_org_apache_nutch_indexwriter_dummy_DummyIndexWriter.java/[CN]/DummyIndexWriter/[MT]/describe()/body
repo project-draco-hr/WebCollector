@@ -1,5 +1,0 @@
-{
-  StringBuffer sb=new StringBuffer("DummyIndexWriter\n");
-  sb.append("\t").append("dummy.path : Path of the file to write to (mandatory)\n");
-  return sb.toString();
-}

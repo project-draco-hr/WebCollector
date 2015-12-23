@@ -1,4 +1,0 @@
-{
-  if (datum.getMetaData().get(MAX_DEPTH_KEY_W) == null)   datum.getMetaData().put(MAX_DEPTH_KEY_W,new IntWritable(defaultMaxDepth));
-  if (datum.getMetaData().get(DEPTH_KEY_W) == null)   datum.getMetaData().put(DEPTH_KEY_W,new IntWritable(1));
-}

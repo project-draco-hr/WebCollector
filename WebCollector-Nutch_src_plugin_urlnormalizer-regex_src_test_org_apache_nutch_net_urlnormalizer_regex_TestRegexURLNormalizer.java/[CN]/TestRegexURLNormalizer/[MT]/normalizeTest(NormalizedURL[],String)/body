@@ -1,9 +1,0 @@
-{
-  for (int i=0; i < urls.length; i++) {
-    String url=urls[i].url;
-    String normalized=normalizer.normalize(urls[i].url,scope);
-    String expected=urls[i].expectedURL;
-    LOG.info("scope: " + scope + " url: "+ url+ " | normalized: "+ normalized+ " | expected: "+ expected);
-    Assert.assertEquals(urls[i].expectedURL,normalized);
-  }
-}

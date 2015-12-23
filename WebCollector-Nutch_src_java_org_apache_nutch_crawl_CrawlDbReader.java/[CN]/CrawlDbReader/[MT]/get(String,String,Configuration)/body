@@ -1,7 +1,0 @@
-{
-  Text key=new Text(url);
-  CrawlDatum val=new CrawlDatum();
-  openReaders(crawlDb,config);
-  CrawlDatum res=(CrawlDatum)MapFileOutputFormat.getEntry(readers,new HashPartitioner<Text,CrawlDatum>(),key,val);
-  return res;
-}

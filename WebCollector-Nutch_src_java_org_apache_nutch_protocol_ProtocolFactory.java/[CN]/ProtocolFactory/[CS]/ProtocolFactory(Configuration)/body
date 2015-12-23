@@ -1,7 +1,0 @@
-{
-  this.conf=conf;
-  this.extensionPoint=PluginRepository.get(conf).getExtensionPoint(Protocol.X_POINT_ID);
-  if (this.extensionPoint == null) {
-    throw new RuntimeException("x-point " + Protocol.X_POINT_ID + " not found.");
-  }
-}

@@ -1,3 +1,0 @@
-{
-  new TestPluginSystem().createPluginManifest(1,"/");
-}

@@ -1,7 +1,0 @@
-{
-  this.conf=conf;
-  this.parserFactory=new ParserFactory(conf);
-  this.normalizers=new URLNormalizers(conf,URLNormalizers.SCOPE_OUTLINK);
-  this.filters=new URLFilters(conf);
-  this.defaultEncoding=conf.get("parser.character.encoding.default","windows-1252");
-}

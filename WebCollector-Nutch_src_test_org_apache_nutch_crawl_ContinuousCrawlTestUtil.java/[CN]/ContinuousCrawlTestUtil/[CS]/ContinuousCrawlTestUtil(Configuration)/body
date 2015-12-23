@@ -1,5 +1,0 @@
-{
-  configuration=conf;
-  schedule=FetchScheduleFactory.getFetchSchedule(new JobConf(conf));
-  signatureImpl=SignatureFactory.getSignature(conf);
-}

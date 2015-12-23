@@ -1,8 +1,0 @@
-{
-  SpellCheckedMetadata meta=new SpellCheckedMetadata();
-  Assert.assertFalse(meta.isMultiValued("key"));
-  meta.add("key","value1");
-  Assert.assertFalse(meta.isMultiValued("key"));
-  meta.add("key","value2");
-  Assert.assertTrue(meta.isMultiValued("key"));
-}

@@ -1,0 +1,11 @@
+{
+  key=di.readUTF();
+  int len=di.readInt();
+  if (len == 0) {
+    content=new byte[0];
+  }
+ else {
+    content=new byte[len];
+    di.readFully(content);
+  }
+}

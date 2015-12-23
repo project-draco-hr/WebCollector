@@ -1,5 +1,0 @@
-{
-  super.setConf(conf);
-  if (conf == null)   return;
-  urlMetaTags=conf.getStrings(CONF_PROPERTY);
-}

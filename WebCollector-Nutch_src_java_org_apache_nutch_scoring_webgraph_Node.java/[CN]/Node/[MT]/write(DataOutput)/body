@@ -1,6 +1,0 @@
-{
-  out.writeInt(numInlinks);
-  out.writeInt(numOutlinks);
-  out.writeFloat(inlinkScore);
-  metadata.write(out);
-}

@@ -1,4 +1,0 @@
-{
-  if (this.metaData == null)   this.metaData=new org.apache.hadoop.io.MapWritable();
-  return this.metaData;
-}

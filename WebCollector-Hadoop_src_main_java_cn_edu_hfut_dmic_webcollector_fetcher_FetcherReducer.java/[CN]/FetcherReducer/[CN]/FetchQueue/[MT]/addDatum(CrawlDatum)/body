@@ -1,0 +1,7 @@
+{
+  if (item == null) {
+    return;
+  }
+  queue.add(item);
+  totalSize.incrementAndGet();
+}

@@ -1,9 +1,0 @@
-{
-  for (  String id : pDescriptor.getDependencies()) {
-    PluginDescriptor descriptor=PluginRepository.get(fConf).getPluginDescriptor(id);
-    for (    URL url : descriptor.getExportedLibUrls()) {
-      pLibs.add(url);
-    }
-    collectLibs(pLibs,descriptor);
-  }
-}

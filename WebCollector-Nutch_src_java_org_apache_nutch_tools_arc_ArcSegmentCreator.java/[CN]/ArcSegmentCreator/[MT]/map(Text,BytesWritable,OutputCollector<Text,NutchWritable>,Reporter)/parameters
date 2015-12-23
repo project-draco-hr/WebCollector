@@ -1,4 +1,0 @@
-Text key
-BytesWritable bytes
-OutputCollector<Text,NutchWritable> output
-Reporter reporter

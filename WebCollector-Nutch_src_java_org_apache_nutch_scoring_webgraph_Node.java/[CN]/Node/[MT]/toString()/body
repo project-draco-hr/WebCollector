@@ -1,3 +1,0 @@
-{
-  return "num inlinks: " + numInlinks + ", num outlinks: "+ numOutlinks+ ", inlink score: "+ inlinkScore+ ", outlink score: "+ getOutlinkScore()+ ", metadata: "+ metadata.toString();
-}

@@ -1,6 +1,0 @@
-{
-  datum.setFetchTime(System.currentTimeMillis());
-  datum.setFetchInterval(defaultInterval);
-  datum.setRetriesSinceFetch(0);
-  return datum;
-}

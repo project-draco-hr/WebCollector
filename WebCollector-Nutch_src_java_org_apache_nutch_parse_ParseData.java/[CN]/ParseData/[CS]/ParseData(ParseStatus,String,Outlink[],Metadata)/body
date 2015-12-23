@@ -1,3 +1,0 @@
-{
-  this(status,title,outlinks,contentMeta,new Metadata());
-}

@@ -1,0 +1,4 @@
+{
+  config(regexRule);
+  autoParse=isAutoParse();
+}

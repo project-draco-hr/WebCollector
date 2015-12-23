@@ -1,0 +1,8 @@
+{
+  Elements eles=select(cssSelector);
+  int realIndex=index;
+  if (index < 0) {
+    realIndex=eles.size() + index;
+  }
+  return eles.get(realIndex);
+}

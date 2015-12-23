@@ -1,6 +1,0 @@
-{
-  for (  String[] testPage : textBasedFormats) {
-    String mimeType=getMimeType(urlPrefix,testPage[3].getBytes(defaultCharset),"",true);
-    assertEquals("",testPage[0],mimeType);
-  }
-}

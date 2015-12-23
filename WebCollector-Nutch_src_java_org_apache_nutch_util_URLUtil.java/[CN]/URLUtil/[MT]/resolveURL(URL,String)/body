@@ -1,7 +1,0 @@
-{
-  target=target.trim();
-  if (target.startsWith("?")) {
-    return fixPureQueryTargets(base,target);
-  }
-  return new URL(base,target);
-}

@@ -1,3 +1,0 @@
-{
-  return metadata.get(name) != null && metadata.get(name).length > 1;
-}

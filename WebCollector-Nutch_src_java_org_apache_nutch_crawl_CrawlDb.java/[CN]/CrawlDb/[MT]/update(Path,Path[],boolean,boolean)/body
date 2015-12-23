@@ -1,4 +1,0 @@
-{
-  boolean additionsAllowed=getConf().getBoolean(CRAWLDB_ADDITIONS_ALLOWED,true);
-  update(crawlDb,segments,normalize,filter,additionsAllowed,false);
-}

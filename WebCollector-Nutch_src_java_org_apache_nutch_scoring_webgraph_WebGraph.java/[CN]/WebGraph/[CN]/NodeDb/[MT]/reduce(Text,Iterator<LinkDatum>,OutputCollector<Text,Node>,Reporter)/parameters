@@ -1,4 +1,0 @@
-Text key
-Iterator<LinkDatum> values
-OutputCollector<Text,Node> output
-Reporter reporter

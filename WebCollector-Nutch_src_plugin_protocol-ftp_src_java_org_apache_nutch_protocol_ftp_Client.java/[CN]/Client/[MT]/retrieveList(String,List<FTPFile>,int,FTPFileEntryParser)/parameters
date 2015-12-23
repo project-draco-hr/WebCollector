@@ -1,4 +1,0 @@
-String path
-List<FTPFile> entries
-int limit
-FTPFileEntryParser parser

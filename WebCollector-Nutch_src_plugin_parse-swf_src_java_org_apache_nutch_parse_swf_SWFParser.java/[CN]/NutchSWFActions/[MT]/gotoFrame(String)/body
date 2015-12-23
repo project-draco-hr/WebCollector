@@ -1,5 +1,0 @@
-{
-  stack.push("" + arg0);
-  strings.remove(arg0);
-  super.gotoFrame(arg0);
-}

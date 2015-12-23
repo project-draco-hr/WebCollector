@@ -1,0 +1,12 @@
+{
+  if (key == null) {
+    throw new NullPointerException("key is null");
+  }
+  if (value == null) {
+    throw new NullPointerException("value is null");
+  }
+  initHeaderMap();
+  List<String> valueList=new ArrayList<String>();
+  valueList.add(value);
+  headerMap.put(key,valueList);
+}

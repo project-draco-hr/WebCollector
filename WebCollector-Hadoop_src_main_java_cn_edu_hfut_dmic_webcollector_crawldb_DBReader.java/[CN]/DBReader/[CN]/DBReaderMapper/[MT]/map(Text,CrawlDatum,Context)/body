@@ -1,0 +1,6 @@
+{
+  String datumStr=value.toString();
+  System.out.println(datumStr);
+  Text datumText=new Text(datumStr);
+  context.write(new Text("::"),datumText);
+}

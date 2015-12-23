@@ -1,8 +1,0 @@
-{
-  if (readers == null) {
-synchronized (this) {
-      readers=MapFileOutputFormat.getReaders(fs,new Path(directory,LinkDb.CURRENT_NAME),getConf());
-    }
-  }
-  return (Inlinks)MapFileOutputFormat.getEntry(readers,PARTITIONER,url,new Inlinks());
-}

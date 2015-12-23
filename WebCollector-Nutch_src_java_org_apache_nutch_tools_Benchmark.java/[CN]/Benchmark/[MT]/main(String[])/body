@@ -1,5 +1,0 @@
-{
-  Configuration conf=NutchConfiguration.create();
-  int res=ToolRunner.run(conf,new Benchmark(),args);
-  System.exit(res);
-}

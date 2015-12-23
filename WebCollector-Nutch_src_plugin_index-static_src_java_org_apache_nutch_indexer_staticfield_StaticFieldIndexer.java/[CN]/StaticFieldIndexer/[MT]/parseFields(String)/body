@@ -1,8 +1,0 @@
-{
-  HashMap<String,String[]> fields=new HashMap<String,String[]>();
-  for (  String field : fieldsString.split(",")) {
-    String[] entry=field.split(":");
-    if (entry.length == 2)     fields.put(entry[0].trim(),entry[1].trim().split(" "));
-  }
-  return fields;
-}

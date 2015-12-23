@@ -1,6 +1,0 @@
-{
-  if (copyMap.containsKey(key)) {
-    key=(String)copyMap.get(key);
-  }
-  return key;
-}

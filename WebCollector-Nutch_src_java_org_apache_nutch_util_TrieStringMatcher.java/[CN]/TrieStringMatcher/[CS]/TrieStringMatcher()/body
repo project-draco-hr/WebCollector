@@ -1,3 +1,0 @@
-{
-  this.root=new TrieNode('\000',false);
-}

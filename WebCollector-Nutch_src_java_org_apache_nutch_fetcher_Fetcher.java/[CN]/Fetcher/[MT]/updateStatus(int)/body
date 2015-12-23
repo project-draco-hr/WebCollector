@@ -1,4 +1,0 @@
-{
-  pages.incrementAndGet();
-  bytes.addAndGet(bytesInPage);
-}

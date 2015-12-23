@@ -1,8 +1,0 @@
-{
-  LoopSet loops=new LoopSet();
-  while (values.hasNext()) {
-    Route route=values.next();
-    loops.getLoopSet().add(route.getOutlinkUrl());
-  }
-  output.collect(key,loops);
-}

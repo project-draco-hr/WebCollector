@@ -1,0 +1,8 @@
+{
+  if (key == null) {
+    throw new NullPointerException("key is null");
+  }
+  if (headerMap != null) {
+    headerMap.remove(key);
+  }
+}

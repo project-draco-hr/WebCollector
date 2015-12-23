@@ -1,3 +1,0 @@
-{
-  return codeToName.get(this.code);
-}

@@ -1,7 +1,0 @@
-{
-  LOG.info("NUTCH-1245: test long running continuous crawl");
-  ContinuousCrawlTestUtil crawlUtil=new ContinuousCrawlTestUtil(STATUS_FETCH_GONE,STATUS_DB_GONE);
-  if (!crawlUtil.run(20)) {
-    fail("fetch_gone did not result in a db_gone (NUTCH-1245)");
-  }
-}

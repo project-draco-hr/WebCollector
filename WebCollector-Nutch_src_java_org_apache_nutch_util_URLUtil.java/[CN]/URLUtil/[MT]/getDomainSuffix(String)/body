@@ -1,3 +1,0 @@
-{
-  return getDomainSuffix(new URL(url));
-}

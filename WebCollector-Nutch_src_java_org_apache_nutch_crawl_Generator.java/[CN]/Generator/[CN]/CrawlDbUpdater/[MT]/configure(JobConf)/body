@@ -1,3 +1,0 @@
-{
-  generateTime=job.getLong(Nutch.GENERATE_TIME_KEY,0L);
-}

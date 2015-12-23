@@ -1,4 +1,0 @@
-Text key
-Iterator<FloatWritable> values
-OutputCollector<Text,FloatWritable> output
-Reporter reporter

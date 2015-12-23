@@ -1,5 +1,0 @@
-{
-  int hash1=hash(b1,s1,l1);
-  int hash2=hash(b2,s2,l2);
-  return (hash1 < hash2 ? -1 : (hash1 == hash2 ? 0 : 1));
-}

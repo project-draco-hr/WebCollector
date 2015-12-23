@@ -1,3 +1,0 @@
-{
-  return metadata.keySet().toArray(new String[metadata.keySet().size()]);
-}

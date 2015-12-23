@@ -1,6 +1,0 @@
-{
-  NutchField result=(NutchField)super.clone();
-  result.weight=weight;
-  result.values=values;
-  return result;
-}

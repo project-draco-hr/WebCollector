@@ -1,5 +1,0 @@
-{
-  this.code=code;
-  this.lastModified=lastModified;
-  if (message != null)   this.args=new String[]{String.valueOf(message)};
-}

@@ -1,0 +1,4 @@
+Path crawlPath
+Path[] mergePaths
+Configuration conf
+String jobName

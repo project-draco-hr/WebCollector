@@ -1,8 +1,0 @@
-{
-  if (titlePending) {
-    title.append(ch,start,length);
-  }
- else   if (descPending) {
-    desc.append(ch,start,length);
-  }
-}

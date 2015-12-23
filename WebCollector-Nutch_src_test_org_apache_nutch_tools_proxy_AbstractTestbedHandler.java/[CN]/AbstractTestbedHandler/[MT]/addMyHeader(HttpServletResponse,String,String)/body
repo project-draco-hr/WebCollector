@@ -1,4 +1,0 @@
-{
-  name="X-" + this.getClass().getSimpleName() + "-"+ name;
-  res.addHeader(name,value);
-}

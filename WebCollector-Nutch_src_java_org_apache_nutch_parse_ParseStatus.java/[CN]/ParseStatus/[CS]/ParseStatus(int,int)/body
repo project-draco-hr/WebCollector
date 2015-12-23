@@ -1,3 +1,0 @@
-{
-  this(majorCode,minorCode,(String[])null);
-}

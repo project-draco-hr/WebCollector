@@ -1,5 +1,0 @@
-{
-  this.conf=conf;
-  if (conf == null)   return;
-  urlMetaTags=conf.getStrings(CONF_PROPERTY);
-}

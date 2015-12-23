@@ -1,7 +1,0 @@
-{
-  int numNodes=(loopSet != null ? loopSet.size() : 0);
-  out.writeInt(numNodes);
-  for (  String loop : loopSet) {
-    Text.writeString(out,loop);
-  }
-}

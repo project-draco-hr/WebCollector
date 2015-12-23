@@ -1,4 +1,0 @@
-{
-  if (it == null)   return;
-  queue.add(it);
-}

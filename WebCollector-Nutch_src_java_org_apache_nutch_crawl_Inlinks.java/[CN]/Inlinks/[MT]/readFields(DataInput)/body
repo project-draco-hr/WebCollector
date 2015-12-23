@@ -1,7 +1,0 @@
-{
-  int length=in.readInt();
-  inlinks.clear();
-  for (int i=0; i < length; i++) {
-    add(Inlink.read(in));
-  }
-}

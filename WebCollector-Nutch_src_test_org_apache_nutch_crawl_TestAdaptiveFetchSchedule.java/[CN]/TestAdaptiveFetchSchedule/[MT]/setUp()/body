@@ -1,8 +1,0 @@
-{
-  super.setUp();
-  conf=NutchConfiguration.create();
-  inc_rate=conf.getFloat("db.fetch.schedule.adaptive.inc_rate",0.2f);
-  dec_rate=conf.getFloat("db.fetch.schedule.adaptive.dec_rate",0.2f);
-  interval=100;
-  lastModified=0;
-}

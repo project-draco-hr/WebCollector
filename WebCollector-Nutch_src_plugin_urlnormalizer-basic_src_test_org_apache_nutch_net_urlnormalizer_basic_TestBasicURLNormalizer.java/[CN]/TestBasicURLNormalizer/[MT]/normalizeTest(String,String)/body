@@ -1,3 +1,0 @@
-{
-  Assert.assertEquals(normal,normalizer.normalize(weird,URLNormalizers.SCOPE_DEFAULT));
-}

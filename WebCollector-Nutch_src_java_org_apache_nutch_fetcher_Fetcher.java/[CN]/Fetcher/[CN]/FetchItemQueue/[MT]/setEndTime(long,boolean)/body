@@ -1,4 +1,0 @@
-{
-  if (!asap)   nextFetchTime.set(endTime + (maxThreads > 1 ? minCrawlDelay : crawlDelay));
- else   nextFetchTime.set(endTime);
-}

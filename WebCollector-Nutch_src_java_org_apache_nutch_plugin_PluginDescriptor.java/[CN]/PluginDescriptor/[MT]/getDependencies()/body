@@ -1,3 +1,0 @@
-{
-  return fDependencies.toArray(new String[fDependencies.size()]);
-}

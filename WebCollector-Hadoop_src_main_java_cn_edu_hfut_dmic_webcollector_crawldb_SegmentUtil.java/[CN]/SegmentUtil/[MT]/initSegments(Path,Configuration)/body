@@ -1,0 +1,7 @@
+{
+  Path segmentsPath=new Path(crawlPath,"segments");
+  FileSystem fs=FileSystem.get(conf);
+  if (!fs.exists(segmentsPath)) {
+    fs.mkdirs(segmentsPath);
+  }
+}

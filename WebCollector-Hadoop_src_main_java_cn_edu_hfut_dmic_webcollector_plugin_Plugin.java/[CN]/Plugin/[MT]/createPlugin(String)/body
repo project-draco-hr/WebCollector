@@ -1,0 +1,4 @@
+{
+  T plugin=(T)Class.forName(className).newInstance();
+  return plugin;
+}

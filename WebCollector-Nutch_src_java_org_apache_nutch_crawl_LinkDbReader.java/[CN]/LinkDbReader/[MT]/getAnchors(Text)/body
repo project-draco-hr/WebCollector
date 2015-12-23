@@ -1,5 +1,0 @@
-{
-  Inlinks inlinks=getInlinks(url);
-  if (inlinks == null)   return null;
-  return inlinks.getAnchors();
-}

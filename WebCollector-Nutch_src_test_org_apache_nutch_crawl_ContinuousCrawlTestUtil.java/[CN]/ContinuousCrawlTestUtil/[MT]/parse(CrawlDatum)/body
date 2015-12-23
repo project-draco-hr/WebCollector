@@ -1,9 +1,0 @@
-{
-  List<CrawlDatum> parseDatums=new ArrayList<CrawlDatum>(0);
-  if (fetchDatum.getStatus() == CrawlDatum.STATUS_FETCH_SUCCESS) {
-    CrawlDatum signatureDatum=new CrawlDatum(CrawlDatum.STATUS_SIGNATURE,0);
-    signatureDatum.setSignature(getSignature());
-    parseDatums.add(signatureDatum);
-  }
-  return parseDatums;
-}

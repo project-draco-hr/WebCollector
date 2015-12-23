@@ -1,0 +1,4 @@
+{
+  addBySelector(doc,"a");
+  return this;
+}

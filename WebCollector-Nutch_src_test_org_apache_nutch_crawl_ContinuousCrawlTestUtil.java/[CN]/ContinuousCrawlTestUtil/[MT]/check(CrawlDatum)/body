@@ -1,4 +1,0 @@
-{
-  if (datum.getStatus() != expectedDbStatus)   return false;
-  return true;
-}

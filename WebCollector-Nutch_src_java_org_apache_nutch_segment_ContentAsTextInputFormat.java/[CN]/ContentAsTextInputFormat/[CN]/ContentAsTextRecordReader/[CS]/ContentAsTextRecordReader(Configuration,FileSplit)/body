@@ -1,5 +1,0 @@
-{
-  sequenceFileRecordReader=new SequenceFileRecordReader<Text,Content>(conf,split);
-  innerKey=sequenceFileRecordReader.createKey();
-  innerValue=sequenceFileRecordReader.createValue();
-}

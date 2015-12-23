@@ -1,0 +1,7 @@
+{
+  int len=size();
+  d.writeInt(len);
+  for (int i=0; i < len; i++) {
+    get(i).write(d);
+  }
+}

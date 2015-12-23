@@ -1,7 +1,0 @@
-{
-  if (key instanceof Text) {
-    newKey.set(key.toString());
-    key=newKey;
-  }
-  collector.collect((Text)key,new NutchWritable(value));
-}

@@ -1,5 +1,0 @@
-{
-  conf=NutchConfiguration.create();
-  fs=FileSystem.get(conf);
-  rnd=new Random();
-}

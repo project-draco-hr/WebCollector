@@ -1,3 +1,0 @@
-{
-  content.getMetadata().set(Nutch.SCORE_KEY,"" + datum.getScore());
-}

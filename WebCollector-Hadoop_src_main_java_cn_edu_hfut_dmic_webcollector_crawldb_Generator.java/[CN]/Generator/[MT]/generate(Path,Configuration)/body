@@ -1,0 +1,27 @@
+{
+  SegmentUtil.initSegments(crawlPath,conf);
+  String segmentName=SegmentUtil.createSegment(crawlPath,conf);
+  Path currentPath=new Path(crawlPath,"crawldb/current");
+  Path generatePath=new Path(crawlPath,"segments/" + segmentName + "/generate");
+  Job job=new Job(conf);
+  job.setJobName("generate " + crawlPath.toString());
+  job.setJarByClass(Generator.class);
+  job.setReducerClass(GeneratorReducer.class);
+  job.setInputFormatClass(SequenceFileInputFormat.class);
+  job.setOutputFormatClass(SequenceFileOutputFormat.class);
+  job.setMapOutputKeyClass(Text.class);
+  job.setMapOutputValueClass(CrawlDatum.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(CrawlDatum.class);
+  FileInputFormat.addInputPath(job,currentPath);
+  FileOutputFormat.setOutputPath(job,generatePath);
+  job.waitForCompletion(true);
+  long count=job.getCounters().findCounter("generator","count").getValue();
+  System.out.println("total generate:" + count);
+  if (count == 0) {
+    return null;
+  }
+ else {
+    return segmentName;
+  }
+}

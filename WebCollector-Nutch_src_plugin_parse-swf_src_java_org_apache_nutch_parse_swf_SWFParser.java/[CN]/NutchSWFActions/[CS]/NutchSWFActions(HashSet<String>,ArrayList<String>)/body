@@ -1,5 +1,0 @@
-{
-  this.strings=strings;
-  this.urls=urls;
-  stack=new SmallStack(100,strings);
-}

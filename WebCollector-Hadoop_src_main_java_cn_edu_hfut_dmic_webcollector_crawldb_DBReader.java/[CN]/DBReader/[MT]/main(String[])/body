@@ -1,0 +1,22 @@
+{
+  Path crawlPath=new Path("task2");
+  Path currentPath=new Path(crawlPath,"crawldb/current");
+  Path output=new Path("output");
+  Configuration config=CrawlerConfiguration.create();
+  FileSystem fs=FileSystem.get(config);
+  if (fs.exists(output)) {
+    fs.delete(output);
+  }
+  Job job=new Job(config);
+  job.setJobName("dbreader " + crawlPath.toString());
+  job.setMapperClass(DBReaderMapper.class);
+  job.setInputFormatClass(SequenceFileInputFormat.class);
+  job.setOutputFormatClass(TextOutputFormat.class);
+  job.setMapOutputKeyClass(Text.class);
+  job.setMapOutputValueClass(Text.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(Text.class);
+  FileInputFormat.addInputPath(job,currentPath);
+  FileOutputFormat.setOutputPath(job,output);
+  job.waitForCompletion(true);
+}

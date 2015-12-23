@@ -1,0 +1,2 @@
+Path crawlPath
+Class<? extends Visitor> visitorClass

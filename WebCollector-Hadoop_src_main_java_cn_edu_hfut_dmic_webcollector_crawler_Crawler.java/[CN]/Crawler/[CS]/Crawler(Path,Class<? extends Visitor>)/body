@@ -1,0 +1,5 @@
+{
+  this.crawlPath=crawlPath;
+  conf=CrawlerConfiguration.create();
+  setVisitor(visitorClass);
+}

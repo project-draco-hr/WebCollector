@@ -1,5 +1,0 @@
-{
-  super();
-  Iterator<String> iter=suffixes.iterator();
-  while (iter.hasNext())   addPatternBackward(iter.next());
-}

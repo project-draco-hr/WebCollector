@@ -1,3 +1,0 @@
-{
-  mode=context.getConfiguration().getInt("domain.statistics.mode",MODE_DOMAIN);
-}

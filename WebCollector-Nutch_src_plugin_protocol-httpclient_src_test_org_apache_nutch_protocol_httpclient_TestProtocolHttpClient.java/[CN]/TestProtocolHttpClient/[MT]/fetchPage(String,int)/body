@@ -1,7 +1,0 @@
-{
-  URL url=new URL("http","127.0.0.1",port,page);
-  Response response=null;
-  response=http.getResponse(url,new CrawlDatum(),true);
-  int code=response.getCode();
-  Assert.assertEquals("HTTP Status Code for " + url,expectedCode,code);
-}

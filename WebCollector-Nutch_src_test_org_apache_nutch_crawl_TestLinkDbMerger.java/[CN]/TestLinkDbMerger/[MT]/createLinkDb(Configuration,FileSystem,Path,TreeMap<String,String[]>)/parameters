@@ -1,4 +1,0 @@
-Configuration config
-FileSystem fs
-Path linkdb
-TreeMap<String,String[]> init

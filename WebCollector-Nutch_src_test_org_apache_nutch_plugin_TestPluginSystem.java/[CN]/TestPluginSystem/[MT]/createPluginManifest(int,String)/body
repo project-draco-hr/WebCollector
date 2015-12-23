@@ -1,7 +1,0 @@
-{
-  FileWriter out=new FileWriter(pFolderPath + File.separator + "plugin.xml");
-  String xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<!--this is just a simple plugin for testing issues.-->" + "<plugin id=\"org.apache.nutch.plugin." + i + "\" name=\""+ i+ "\" version=\"1.0\" provider-name=\"joa23\" "+ "class=\"org.apache.nutch.plugin.SimpleTestPlugin\">"+ "<extension-point id=\"aExtensioID\" "+ "name=\"simple Parser Extension\" "+ "schema=\"schema/testExtensionPoint.exsd\"/>"+ "<runtime><library name=\"libs/exported.jar\"><extport/></library>"+ "<library name=\"libs/not_exported.jar\"/></runtime>"+ "<extension point=\"aExtensioID\">"+ "<implementation name=\"simple Parser Extension\" "+ "id=\"aExtensionId.\" class=\"org.apache.nutch.plugin.HelloWorldExtension\">"+ "<parameter name=\"dummy-name\" value=\"a simple param value\"/>"+ "</implementation></extension></plugin>";
-  out.write(xml);
-  out.flush();
-  out.close();
-}

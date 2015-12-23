@@ -1,5 +1,0 @@
-{
-  NodeList list=el.getElementsByTagName("country");
-  if (list == null || list.getLength() == 0)   throw new IOException("Country name should be given");
-  return list.item(0).getNodeValue();
-}

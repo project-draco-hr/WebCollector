@@ -1,8 +1,0 @@
-{
-  this.conf=conf;
-  String fieldsString=conf.get("index.static",null);
-  if (fieldsString != null) {
-    this.addStaticFields=true;
-    this.fields=parseFields(fieldsString);
-  }
-}

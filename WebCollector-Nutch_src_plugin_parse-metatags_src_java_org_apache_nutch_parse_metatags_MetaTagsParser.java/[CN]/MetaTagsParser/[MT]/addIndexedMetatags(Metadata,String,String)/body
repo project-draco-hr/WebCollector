@@ -1,9 +1,0 @@
-{
-  String lcMetatag=metatag.toLowerCase(Locale.ROOT);
-  if (metatagset.contains("*") || metatagset.contains(lcMetatag)) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Found meta tag: " + lcMetatag + "\t"+ value);
-    }
-    metadata.add("metatag." + lcMetatag,value);
-  }
-}

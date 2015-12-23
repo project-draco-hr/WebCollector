@@ -1,4 +1,0 @@
-{
-  Text.writeString(out,fromUrl);
-  Text.writeString(out,anchor);
-}

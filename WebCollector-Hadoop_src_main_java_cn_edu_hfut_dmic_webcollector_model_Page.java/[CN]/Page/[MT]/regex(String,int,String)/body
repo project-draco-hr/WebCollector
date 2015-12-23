@@ -1,0 +1,10 @@
+{
+  Pattern pattern=Pattern.compile(regex);
+  Matcher matcher=pattern.matcher(getHtml());
+  if (matcher.find()) {
+    return matcher.group(group);
+  }
+ else {
+    return defaultResult;
+  }
+}

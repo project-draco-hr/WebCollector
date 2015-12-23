@@ -1,3 +1,0 @@
-{
-  super.set(getNormalizedName(name),value);
-}

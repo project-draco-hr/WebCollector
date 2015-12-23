@@ -1,3 +1,0 @@
-{
-  generateSeedList(fs,urlPath,urls,new ArrayList<String>());
-}

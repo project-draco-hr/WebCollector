@@ -1,7 +1,0 @@
-{
-  for (  String[] testPage : binaryFiles) {
-    File dataFile=new File(sampleDir,testPage[1]);
-    String mimeType=getMimeType(urlPrefix + testPage[1],dataFile,testPage[2],false);
-    assertEquals("",testPage[0],mimeType);
-  }
-}

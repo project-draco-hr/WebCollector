@@ -1,3 +1,0 @@
-{
-  return FTPReply.isPositiveCompletion(quit());
-}

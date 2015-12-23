@@ -1,4 +1,0 @@
-Text key
-CrawlDatum value
-OutputCollector<FloatWritable,Text> output
-Reporter reporter

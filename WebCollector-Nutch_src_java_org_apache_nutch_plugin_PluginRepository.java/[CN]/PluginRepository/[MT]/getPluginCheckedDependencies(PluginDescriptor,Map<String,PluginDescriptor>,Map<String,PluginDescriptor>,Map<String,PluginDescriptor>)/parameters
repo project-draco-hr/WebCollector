@@ -1,4 +1,0 @@
-PluginDescriptor plugin
-Map<String,PluginDescriptor> plugins
-Map<String,PluginDescriptor> dependencies
-Map<String,PluginDescriptor> branch

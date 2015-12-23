@@ -1,6 +1,0 @@
-{
-  for (int i=0; i < ULCONTENT.length; i++) {
-    if (str.contains(ULCONTENT[i]))     return true;
-  }
-  return false;
-}

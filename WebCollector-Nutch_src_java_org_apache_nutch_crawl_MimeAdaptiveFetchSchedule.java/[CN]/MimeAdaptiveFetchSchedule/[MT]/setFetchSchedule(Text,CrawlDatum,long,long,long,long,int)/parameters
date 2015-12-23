@@ -1,7 +1,0 @@
-Text url
-CrawlDatum datum
-long prevFetchTime
-long prevModifiedTime
-long fetchTime
-long modifiedTime
-int state

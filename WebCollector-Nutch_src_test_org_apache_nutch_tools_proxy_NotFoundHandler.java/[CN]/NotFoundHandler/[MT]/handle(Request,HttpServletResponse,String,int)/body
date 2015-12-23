@@ -1,6 +1,0 @@
-{
-  req.setHandled(true);
-  res.addHeader("X-Handled-By",getClass().getSimpleName());
-  addMyHeader(res,"URI",req.getUri().toString());
-  res.sendError(HttpServletResponse.SC_NOT_FOUND,"Not found: " + req.getUri().toString());
-}

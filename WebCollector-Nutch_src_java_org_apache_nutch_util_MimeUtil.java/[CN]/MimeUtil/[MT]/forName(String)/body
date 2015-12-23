@@ -1,9 +1,0 @@
-{
-  try {
-    return this.mimeTypes.forName(name).toString();
-  }
- catch (  MimeTypeException e) {
-    LOG.error("Exception getting mime type by name: [" + name + "]: Message: "+ e.getMessage());
-    return null;
-  }
-}

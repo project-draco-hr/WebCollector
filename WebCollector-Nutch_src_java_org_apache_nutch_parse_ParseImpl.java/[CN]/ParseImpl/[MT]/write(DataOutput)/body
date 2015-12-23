@@ -1,5 +1,0 @@
-{
-  out.writeBoolean(isCanonical);
-  text.write(out);
-  data.write(out);
-}

@@ -1,9 +1,0 @@
-{
-  out.writeInt(VERSION);
-  Text.writeString(out,url);
-  Text.writeString(out,base);
-  out.writeInt(content.length);
-  out.write(content);
-  Text.writeString(out,contentType);
-  metadata.write(out);
-}

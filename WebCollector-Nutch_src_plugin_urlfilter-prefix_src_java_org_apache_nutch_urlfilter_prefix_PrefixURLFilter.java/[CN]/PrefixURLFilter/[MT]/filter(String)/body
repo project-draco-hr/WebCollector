@@ -1,4 +1,0 @@
-{
-  if (trie.shortestMatch(url) == null)   return null;
- else   return url;
-}

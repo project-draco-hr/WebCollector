@@ -1,4 +1,0 @@
-{
-  FetchItem it=FetchItem.create(url,datum,queueMode);
-  if (it != null)   addFetchItem(it);
-}

@@ -1,0 +1,8 @@
+{
+  if (key == null) {
+    return getUrl();
+  }
+ else {
+    return key;
+  }
+}

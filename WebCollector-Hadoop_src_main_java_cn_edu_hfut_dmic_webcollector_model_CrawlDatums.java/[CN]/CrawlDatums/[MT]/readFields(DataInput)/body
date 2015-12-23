@@ -1,0 +1,8 @@
+{
+  int len=di.readInt();
+  for (int i=0; i < len; i++) {
+    CrawlDatum datum=new CrawlDatum();
+    datum.readFields(di);
+    add(datum);
+  }
+}

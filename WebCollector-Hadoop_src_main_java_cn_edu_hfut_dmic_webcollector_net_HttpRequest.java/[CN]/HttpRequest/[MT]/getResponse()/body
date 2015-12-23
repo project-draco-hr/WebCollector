@@ -1,0 +1,89 @@
+{
+  URL url=new URL(crawlDatum.getUrl());
+  HttpResponse response=new HttpResponse(url);
+  int code=-1;
+  int maxRedirect=Math.max(0,MAX_REDIRECT);
+  HttpURLConnection con=null;
+  InputStream is=null;
+  try {
+    for (int redirect=0; redirect <= maxRedirect; redirect++) {
+      if (proxy == null) {
+        con=(HttpURLConnection)url.openConnection();
+      }
+ else {
+        con=(HttpURLConnection)url.openConnection(proxy);
+      }
+      config(con);
+      if (outputData != null) {
+        OutputStream os=con.getOutputStream();
+        os.write(outputData);
+        os.close();
+      }
+      code=con.getResponseCode();
+      if (redirect == 0) {
+        response.setCode(code);
+      }
+      if (code == HttpURLConnection.HTTP_NOT_FOUND) {
+        response.setNotFound(true);
+        return response;
+      }
+      boolean needBreak=false;
+switch (code) {
+case HttpURLConnection.HTTP_MOVED_PERM:
+case HttpURLConnection.HTTP_MOVED_TEMP:
+        response.setRedirect(true);
+      if (redirect == MAX_REDIRECT) {
+        throw new Exception("redirect to much time");
+      }
+    String location=con.getHeaderField("Location");
+  if (location == null) {
+    throw new Exception("redirect with no location");
+  }
+String originUrl=url.toString();
+url=new URL(url,location);
+response.setRealUrl(url);
+LOG.info("redirect from " + originUrl + " to "+ url.toString());
+continue;
+default :
+needBreak=true;
+break;
+}
+if (needBreak) {
+break;
+}
+}
+is=con.getInputStream();
+String contentEncoding=con.getContentEncoding();
+if (contentEncoding != null && contentEncoding.equals("gzip")) {
+is=new GZIPInputStream(is);
+}
+byte[] buf=new byte[2048];
+int read;
+int sum=0;
+int maxsize=MAX_RECEIVE_SIZE;
+ByteArrayOutputStream bos=new ByteArrayOutputStream();
+while ((read=is.read(buf)) != -1) {
+if (maxsize > 0) {
+sum=sum + read;
+if (maxsize > 0 && sum > maxsize) {
+read=maxsize - (sum - read);
+bos.write(buf,0,read);
+break;
+}
+}
+bos.write(buf,0,read);
+}
+response.setContent(bos.toByteArray());
+response.setHeaders(con.getHeaderFields());
+bos.close();
+return response;
+}
+ catch (Exception ex) {
+throw ex;
+}
+ finally {
+if (is != null) {
+is.close();
+}
+}
+}

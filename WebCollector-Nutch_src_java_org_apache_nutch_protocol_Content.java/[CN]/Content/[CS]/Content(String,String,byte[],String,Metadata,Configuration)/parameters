@@ -1,6 +1,0 @@
-String url
-String base
-byte[] content
-String contentType
-Metadata metadata
-Configuration conf

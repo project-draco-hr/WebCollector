@@ -1,6 +1,0 @@
-{
-  if (it != null) {
-    inProgress.decrementAndGet();
-    setEndTime(System.currentTimeMillis(),asap);
-  }
-}

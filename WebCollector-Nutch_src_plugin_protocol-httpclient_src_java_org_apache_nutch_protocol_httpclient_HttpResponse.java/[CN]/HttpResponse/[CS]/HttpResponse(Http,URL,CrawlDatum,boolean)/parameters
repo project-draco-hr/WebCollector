@@ -1,4 +1,0 @@
-Http http
-URL url
-CrawlDatum datum
-boolean followRedirects

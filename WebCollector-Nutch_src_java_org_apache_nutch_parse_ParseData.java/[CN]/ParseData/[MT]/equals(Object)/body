@@ -1,5 +1,0 @@
-{
-  if (!(o instanceof ParseData))   return false;
-  ParseData other=(ParseData)o;
-  return this.status.equals(other.status) && this.title.equals(other.title) && Arrays.equals(this.outlinks,other.outlinks)&& this.contentMeta.equals(other.contentMeta)&& this.parseMeta.equals(other.parseMeta);
-}

@@ -1,7 +1,0 @@
-{
-  url=Text.readString(in);
-  anchor=Text.readString(in);
-  score=in.readFloat();
-  timestamp=in.readLong();
-  linkType=in.readByte();
-}

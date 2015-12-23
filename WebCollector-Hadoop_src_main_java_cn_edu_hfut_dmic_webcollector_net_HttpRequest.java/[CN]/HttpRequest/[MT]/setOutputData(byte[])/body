@@ -1,0 +1,4 @@
+{
+  this.outputData=outputData;
+  this.dooutput=true;
+}

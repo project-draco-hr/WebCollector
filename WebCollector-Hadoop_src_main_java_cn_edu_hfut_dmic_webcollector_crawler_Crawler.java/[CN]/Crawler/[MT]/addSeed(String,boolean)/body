@@ -1,0 +1,8 @@
+{
+  if (force) {
+    forcedSeeds.add(new CrawlDatum(url));
+  }
+ else {
+    seeds.add(new CrawlDatum(url));
+  }
+}

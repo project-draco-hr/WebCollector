@@ -1,4 +1,0 @@
-{
-  this.fs=FileSystem.get(getConf());
-  this.directory=directory;
-}

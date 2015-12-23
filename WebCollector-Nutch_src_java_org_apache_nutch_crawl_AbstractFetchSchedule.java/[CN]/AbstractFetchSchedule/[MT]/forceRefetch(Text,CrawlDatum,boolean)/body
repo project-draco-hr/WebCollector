@@ -1,9 +1,0 @@
-{
-  if (datum.getFetchInterval() > maxInterval)   datum.setFetchInterval(maxInterval * 0.9f);
-  datum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
-  datum.setRetriesSinceFetch(0);
-  datum.setSignature(null);
-  datum.setModifiedTime(0L);
-  if (asap)   datum.setFetchTime(System.currentTimeMillis());
-  return datum;
-}

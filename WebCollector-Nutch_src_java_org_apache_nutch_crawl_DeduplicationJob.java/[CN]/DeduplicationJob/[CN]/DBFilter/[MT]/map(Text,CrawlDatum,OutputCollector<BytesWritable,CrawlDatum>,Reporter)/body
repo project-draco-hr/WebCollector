@@ -1,9 +1,0 @@
-{
-  if (value.getStatus() == CrawlDatum.STATUS_DB_FETCHED || value.getStatus() == CrawlDatum.STATUS_DB_NOTMODIFIED) {
-    byte[] signature=value.getSignature();
-    if (signature == null)     return;
-    BytesWritable sig=new BytesWritable(signature);
-    value.getMetaData().put(urlKey,key);
-    output.collect(sig,value);
-  }
-}

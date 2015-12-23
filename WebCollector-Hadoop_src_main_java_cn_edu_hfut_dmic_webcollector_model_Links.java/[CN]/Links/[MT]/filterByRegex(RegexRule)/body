@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < size(); i++) {
+    String url=get(i);
+    if (!regexRule.satisfy(url)) {
+      remove(i);
+      i--;
+    }
+  }
+  return this;
+}

@@ -1,0 +1,3 @@
+{
+  conf.setInt("generator.topN",topN);
+}

@@ -1,5 +1,0 @@
-Path linkDb
-Path segmentsDir
-boolean normalize
-boolean filter
-boolean force

@@ -1,8 +1,0 @@
-{
-  list.clear();
-  StringTokenizer st=new StringTokenizer(text,"\n\r");
-  while (st.hasMoreElements()) {
-    String line=(String)st.nextElement();
-    list.add(line.trim());
-  }
-}

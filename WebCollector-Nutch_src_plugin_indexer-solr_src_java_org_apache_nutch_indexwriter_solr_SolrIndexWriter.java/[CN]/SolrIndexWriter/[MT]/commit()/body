@@ -1,8 +1,0 @@
-{
-  try {
-    solr.commit();
-  }
- catch (  SolrServerException e) {
-    throw makeIOException(e);
-  }
-}

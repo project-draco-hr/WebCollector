@@ -1,0 +1,4 @@
+{
+  int r=random.nextInt(this.size());
+  return this.get(r);
+}

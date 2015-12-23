@@ -1,5 +1,0 @@
-{
-  if (readers != null)   return;
-  FileSystem fs=FileSystem.get(config);
-  readers=MapFileOutputFormat.getReaders(fs,new Path(crawlDb,CrawlDb.CURRENT_NAME),config);
-}

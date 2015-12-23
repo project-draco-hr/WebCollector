@@ -1,5 +1,0 @@
-{
-  fields=new HashMap<String,NutchField>();
-  documentMeta=new Metadata();
-  weight=1.0f;
-}

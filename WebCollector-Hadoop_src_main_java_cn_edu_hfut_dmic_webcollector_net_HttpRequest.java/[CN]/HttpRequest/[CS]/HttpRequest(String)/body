@@ -1,0 +1,4 @@
+{
+  this.crawlDatum=new CrawlDatum(url);
+  setUserAgent(Config.DEFAULT_USER_AGENT);
+}

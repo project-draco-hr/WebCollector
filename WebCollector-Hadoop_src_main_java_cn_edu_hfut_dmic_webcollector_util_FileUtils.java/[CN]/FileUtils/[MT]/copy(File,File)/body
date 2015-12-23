@@ -1,0 +1,14 @@
+{
+  if (!newfile.getParentFile().exists()) {
+    newfile.getParentFile().mkdirs();
+  }
+  FileInputStream fis=new FileInputStream(origin);
+  FileOutputStream fos=new FileOutputStream(newfile);
+  byte[] buf=new byte[2048];
+  int read;
+  while ((read=fis.read(buf)) != -1) {
+    fos.write(buf,0,read);
+  }
+  fis.close();
+  fos.close();
+}

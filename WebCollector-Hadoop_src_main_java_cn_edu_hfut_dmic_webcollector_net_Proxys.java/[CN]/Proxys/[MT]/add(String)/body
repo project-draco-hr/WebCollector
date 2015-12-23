@@ -1,0 +1,12 @@
+{
+  try {
+    String[] infos=proxyStr.split(":");
+    String ip=infos[0];
+    int port=Integer.valueOf(infos[1]);
+    Proxy proxy=new Proxy(Proxy.Type.HTTP,new InetSocketAddress(ip,port));
+    this.add(proxy);
+  }
+ catch (  Exception ex) {
+    LOG.info("Exception",ex);
+  }
+}

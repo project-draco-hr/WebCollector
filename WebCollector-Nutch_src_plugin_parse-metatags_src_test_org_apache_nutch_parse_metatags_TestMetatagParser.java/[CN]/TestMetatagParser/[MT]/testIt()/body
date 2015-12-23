@@ -1,6 +1,0 @@
-{
-  Configuration conf=NutchConfiguration.create();
-  Metadata parseMeta=parseMeta(sampleFile,conf);
-  Assert.assertEquals(description,parseMeta.get("metatag.description"));
-  Assert.assertEquals(keywords,parseMeta.get("metatag.keywords"));
-}

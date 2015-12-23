@@ -1,7 +1,0 @@
-{
-  Assert.assertTrue(factory.contains("http","http"));
-  Assert.assertTrue(factory.contains("http","http,ftp"));
-  Assert.assertTrue(factory.contains("http","   http ,   ftp"));
-  Assert.assertTrue(factory.contains("smb","ftp,smb,http"));
-  Assert.assertFalse(factory.contains("smb","smbb"));
-}

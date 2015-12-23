@@ -1,4 +1,0 @@
-{
-  int res=ToolRunner.run(NutchConfiguration.create(),new CrawlDbMerger(),args);
-  System.exit(res);
-}

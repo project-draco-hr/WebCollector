@@ -1,0 +1,5 @@
+{
+  if (headerMap == null) {
+    headerMap=new HashMap<String,List<String>>();
+  }
+}

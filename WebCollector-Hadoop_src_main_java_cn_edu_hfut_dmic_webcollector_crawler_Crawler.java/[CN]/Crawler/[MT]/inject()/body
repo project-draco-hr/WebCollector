@@ -1,0 +1,10 @@
+{
+  for (  CrawlDatum datum : seeds) {
+    datum.setStatus(CrawlDatum.STATUS_DB_INJECT);
+  }
+  for (  CrawlDatum datum : forcedSeeds) {
+    datum.setStatus(CrawlDatum.STATUS_DB_FORCED_INJECT);
+  }
+  CrawlDatums injectSeeds=new CrawlDatums().add(seeds).add(forcedSeeds);
+  Injector.inject(crawlPath,injectSeeds,conf);
+}

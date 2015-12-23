@@ -1,8 +1,0 @@
-{
-  if (urlMetaTags == null || content == null || parse == null)   return;
-  for (  String metatag : urlMetaTags) {
-    String metaFromContent=content.getMetadata().get(metatag);
-    if (metaFromContent == null)     continue;
-    parse.getData().getParseMeta().set(metatag,metaFromContent);
-  }
-}

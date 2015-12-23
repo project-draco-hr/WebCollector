@@ -1,7 +1,0 @@
-{
-  if (isOutsideDocElem() && XMLCharacterRecognizer.isWhiteSpace(ch,start,length))   return;
-  String s=new String(ch,start,length);
-  Node n=m_currentNode.getLastChild();
-  if (n instanceof CDATASection)   ((CDATASection)n).appendData(s);
- else   if (n instanceof Comment)   ((Comment)n).appendData(s);
-}

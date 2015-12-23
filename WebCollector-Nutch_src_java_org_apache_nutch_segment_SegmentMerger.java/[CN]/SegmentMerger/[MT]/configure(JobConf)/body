@@ -1,6 +1,0 @@
-{
-  setConf(conf);
-  if (sliceSize > 0) {
-    sliceSize=sliceSize / conf.getNumReduceTasks();
-  }
-}

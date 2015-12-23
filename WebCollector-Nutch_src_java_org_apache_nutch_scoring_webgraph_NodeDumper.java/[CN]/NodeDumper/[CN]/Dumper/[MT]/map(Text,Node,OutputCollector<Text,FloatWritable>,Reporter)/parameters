@@ -1,4 +1,0 @@
-Text key
-Node node
-OutputCollector<Text,FloatWritable> output
-Reporter reporter

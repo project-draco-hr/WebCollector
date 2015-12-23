@@ -1,0 +1,12 @@
+{
+  inject();
+  for (int i=1; i <= depth; i++) {
+    String segmentName=Generator.generate(crawlPath,conf);
+    if (segmentName == null) {
+      System.out.println("no more crawldatums to crawl,stop at depth " + i);
+      break;
+    }
+    Fetcher.fetch(crawlPath,segmentName,conf);
+    DBUpdater.updateDB(crawlPath,segmentName,conf);
+  }
+}

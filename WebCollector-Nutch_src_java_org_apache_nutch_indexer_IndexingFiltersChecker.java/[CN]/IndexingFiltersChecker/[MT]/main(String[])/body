@@ -1,4 +1,0 @@
-{
-  final int res=ToolRunner.run(NutchConfiguration.create(),new IndexingFiltersChecker(),args);
-  System.exit(res);
-}

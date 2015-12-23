@@ -1,0 +1,4 @@
+{
+  this.datum=datum;
+  this.realUrl=realUrl;
+}

@@ -1,0 +1,12 @@
+{
+  if (headerMap == null) {
+    return null;
+  }
+  List<String> valueList=headerMap.get(key);
+  if (valueList.size() > 0) {
+    return valueList.get(0);
+  }
+ else {
+    return null;
+  }
+}

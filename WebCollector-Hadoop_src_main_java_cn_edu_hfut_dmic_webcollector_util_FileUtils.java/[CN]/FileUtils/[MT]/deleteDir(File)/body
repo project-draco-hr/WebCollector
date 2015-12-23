@@ -1,0 +1,12 @@
+{
+  File[] filelist=dir.listFiles();
+  for (  File file : filelist) {
+    if (file.isFile()) {
+      file.delete();
+    }
+ else {
+      deleteDir(file);
+    }
+  }
+  dir.delete();
+}

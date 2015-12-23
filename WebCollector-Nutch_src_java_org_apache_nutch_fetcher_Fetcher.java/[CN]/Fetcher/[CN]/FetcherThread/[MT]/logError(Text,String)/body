@@ -1,6 +1,0 @@
-{
-  if (LOG.isInfoEnabled()) {
-    LOG.info("fetch of " + url + " failed with: "+ message);
-  }
-  errors.incrementAndGet();
-}

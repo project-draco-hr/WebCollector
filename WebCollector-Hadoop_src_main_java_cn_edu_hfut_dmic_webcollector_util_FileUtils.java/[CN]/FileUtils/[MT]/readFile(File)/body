@@ -1,0 +1,11 @@
+{
+  FileInputStream fis=new FileInputStream(file);
+  byte[] buf=new byte[2048];
+  int read;
+  ByteArrayOutputStream bos=new ByteArrayOutputStream();
+  while ((read=fis.read(buf)) != -1) {
+    bos.write(buf,0,read);
+  }
+  fis.close();
+  return bos.toByteArray();
+}

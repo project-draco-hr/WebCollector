@@ -1,7 +1,0 @@
-{
-  if (obj instanceof KeyValueEntry) {
-    KeyValueEntry entry=(KeyValueEntry)obj;
-    return entry.fKey.equals(fKey) && entry.fValue.equals(fValue);
-  }
-  return false;
-}

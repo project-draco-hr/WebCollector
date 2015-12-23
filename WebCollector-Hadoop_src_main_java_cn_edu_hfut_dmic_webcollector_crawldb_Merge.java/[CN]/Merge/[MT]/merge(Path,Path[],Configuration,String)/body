@@ -1,0 +1,28 @@
+{
+  Job job=new Job(conf);
+  job.setJobName(jobName + "  " + crawlPath.toString());
+  job.setJarByClass(Merge.class);
+  Path crawldbPath=new Path(crawlPath,"crawldb");
+  Path newdb=new Path(crawldbPath,"new");
+  Path currentdb=new Path(crawldbPath,"current");
+  FileSystem fs=FileSystem.get(conf);
+  if (fs.exists(currentdb)) {
+    FileInputFormat.addInputPath(job,currentdb);
+  }
+  if (fs.exists(newdb)) {
+    fs.delete(newdb);
+  }
+  for (  Path mergePath : mergePaths) {
+    FileInputFormat.addInputPath(job,mergePath);
+  }
+  FileOutputFormat.setOutputPath(job,newdb);
+  job.setInputFormatClass(SequenceFileInputFormat.class);
+  job.setOutputKeyClass(Text.class);
+  job.setOutputValueClass(CrawlDatum.class);
+  job.setMapperClass(MergeMap.class);
+  job.setReducerClass(MergeReduce.class);
+  job.setMapOutputKeyClass(Text.class);
+  job.setMapOutputValueClass(CrawlDatum.class);
+  job.setOutputFormatClass(SequenceFileOutputFormat.class);
+  job.waitForCompletion(true);
+}

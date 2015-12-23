@@ -1,4 +1,0 @@
-{
-  super.setConf(conf);
-  allowForbidden=conf.getBoolean("http.robots.403.allow",true);
-}

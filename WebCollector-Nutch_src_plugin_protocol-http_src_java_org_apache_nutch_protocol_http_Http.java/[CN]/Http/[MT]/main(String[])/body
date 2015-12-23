@@ -1,5 +1,0 @@
-{
-  Http http=new Http();
-  http.setConf(NutchConfiguration.create());
-  main(http,args);
-}

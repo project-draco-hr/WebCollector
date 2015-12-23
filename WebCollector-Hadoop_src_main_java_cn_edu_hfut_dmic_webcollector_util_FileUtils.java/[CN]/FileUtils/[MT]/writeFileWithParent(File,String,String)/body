@@ -1,0 +1,10 @@
+{
+  File parent=file.getParentFile();
+  if (!parent.exists()) {
+    parent.mkdirs();
+  }
+  byte[] content=contentStr.getBytes(charset);
+  FileOutputStream fos=new FileOutputStream(file);
+  fos.write(content);
+  fos.close();
+}

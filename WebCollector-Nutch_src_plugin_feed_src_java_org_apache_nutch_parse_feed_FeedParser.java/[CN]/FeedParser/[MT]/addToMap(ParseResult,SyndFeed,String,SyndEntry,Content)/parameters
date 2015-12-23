@@ -1,5 +1,0 @@
-ParseResult parseResult
-SyndFeed feed
-String feedLink
-SyndEntry entry
-Content content

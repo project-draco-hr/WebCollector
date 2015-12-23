@@ -1,4 +1,0 @@
-Text key
-CrawlDatum value
-OutputCollector<BytesWritable,CrawlDatum> output
-Reporter reporter

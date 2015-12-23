@@ -1,0 +1,6 @@
+{
+  if (queue.isEmpty()) {
+    return null;
+  }
+  return queue.remove(0);
+}

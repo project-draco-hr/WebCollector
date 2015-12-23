@@ -1,5 +1,0 @@
-{
-  NodeList list=el.getElementsByTagName("boost");
-  if (list == null || list.getLength() == 0)   return DomainSuffix.DEFAULT_BOOST;
-  return Float.parseFloat(list.item(0).getFirstChild().getNodeValue());
-}

@@ -1,5 +1,0 @@
-{
-  this.code=code;
-  this.args=args;
-  this.lastModified=lastModified;
-}

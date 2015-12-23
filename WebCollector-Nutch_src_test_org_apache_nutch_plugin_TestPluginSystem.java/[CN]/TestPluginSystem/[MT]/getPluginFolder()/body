@@ -1,6 +1,0 @@
-{
-  String[] strings=conf.getStrings("plugin.folders");
-  if (strings == null || strings.length == 0)   Assert.fail("no plugin directory setuped..");
-  String name=strings[0];
-  return new PluginManifestParser(conf,this.repository).getPluginFolder(name).toString();
-}

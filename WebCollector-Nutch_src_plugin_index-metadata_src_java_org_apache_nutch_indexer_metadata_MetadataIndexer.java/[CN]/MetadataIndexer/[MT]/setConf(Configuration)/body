@@ -1,9 +1,0 @@
-{
-  this.conf=conf;
-  dbFieldnames=conf.getStrings(db_CONF_PROPERTY);
-  parseFieldnames=new HashMap<String,String>();
-  for (  String metatag : conf.getStrings(parse_CONF_PROPERTY)) {
-    parseFieldnames.put(metatag.toLowerCase(Locale.ROOT),metatag);
-  }
-  contentFieldnames=conf.getStrings(content_CONF_PROPERTY);
-}

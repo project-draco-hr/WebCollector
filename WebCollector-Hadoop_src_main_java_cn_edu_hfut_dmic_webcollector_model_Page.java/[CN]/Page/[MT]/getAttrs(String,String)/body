@@ -1,0 +1,10 @@
+{
+  ArrayList<String> result=new ArrayList<String>();
+  Elements eles=select(cssSelector);
+  for (  Element ele : eles) {
+    if (ele.hasAttr(attrName)) {
+      result.add(ele.attr(attrName));
+    }
+  }
+  return result;
+}

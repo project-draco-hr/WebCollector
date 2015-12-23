@@ -1,7 +1,0 @@
-{
-  Date date;
-synchronized (format) {
-    date=format.parse(dateString);
-  }
-  return date;
-}

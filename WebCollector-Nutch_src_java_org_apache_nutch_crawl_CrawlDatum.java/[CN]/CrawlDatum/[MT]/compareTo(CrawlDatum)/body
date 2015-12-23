@@ -1,9 +1,0 @@
-{
-  if (that.score != this.score)   return (that.score - this.score) > 0 ? 1 : -1;
-  if (that.status != this.status)   return this.status - that.status;
-  if (that.fetchTime != this.fetchTime)   return (that.fetchTime - this.fetchTime) > 0 ? 1 : -1;
-  if (that.retries != this.retries)   return that.retries - this.retries;
-  if (that.fetchInterval != this.fetchInterval)   return (that.fetchInterval - this.fetchInterval) > 0 ? 1 : -1;
-  if (that.modifiedTime != this.modifiedTime)   return (that.modifiedTime - this.modifiedTime) > 0 ? 1 : -1;
-  return SignatureComparator._compare(this,that);
-}

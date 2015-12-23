@@ -1,9 +1,0 @@
-{
-  StringBuffer res=new StringBuffer();
-  Iterator<String> it=strings.iterator();
-  while (it.hasNext()) {
-    if (res.length() > 0)     res.append(' ');
-    res.append(it.next());
-  }
-  return res.toString();
-}

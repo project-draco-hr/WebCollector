@@ -1,0 +1,43 @@
+{
+  String url=crawlDatum.getUrl();
+  if (page.getStatus() == Page.STATUS_FETCH_SUCCESS) {
+    crawlDatum.setStatus(CrawlDatum.STATUS_DB_FETCHED);
+    crawlDatum.setHttpCode(page.getResponse().getCode());
+    if (!page.getResponse().isNotFound()) {
+      try {
+        visitor.visit(page,next);
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception when visit URL: " + url,ex);
+        return false;
+      }
+    }
+ else {
+      try {
+        visitor.notFound(page,next);
+      }
+ catch (      Exception ex) {
+        LOG.info("Exception when not found URL: " + url,ex);
+        return false;
+      }
+    }
+    try {
+      visitor.afterVisit(page,next);
+    }
+ catch (    Exception ex) {
+      LOG.info("Exception after visit URL: " + url,ex);
+      return false;
+    }
+  }
+ else   if (page.getStatus() == Page.STATUS_FETCH_FAILED) {
+    crawlDatum.setStatus(CrawlDatum.STATUS_DB_UNFETCHED);
+    try {
+      visitor.fail(page,next);
+    }
+ catch (    Exception ex) {
+      LOG.info("Exception when execute failed URL: " + url,ex);
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,4 +1,0 @@
-{
-  this.urlsFile=urlsFile;
-  this.numThreads=numThreads;
-}

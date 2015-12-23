@@ -1,3 +1,0 @@
-{
-  return dummyCounters.getGroup("dummy").getCounterForName("dummy");
-}

@@ -1,8 +1,0 @@
-{
-  int count=0;
-  if (System.currentTimeMillis() >= timelimit && timelimit != -1) {
-    count=emptyQueues();
-    if (totalSize.get() != 0 && queues.size() == 0)     totalSize.set(0);
-  }
-  return count;
-}

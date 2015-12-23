@@ -1,5 +1,0 @@
-{
-  StringBuffer sb=new StringBuffer();
-  appendOutlinks(sb,o);
-  return sb.toString();
-}

@@ -1,8 +1,0 @@
-{
-  return new PathFilter(){
-    public boolean accept(    Path arg0){
-      return true;
-    }
-  }
-;
-}

@@ -1,0 +1,11 @@
+{
+  running=false;
+  while (this.isAlive()) {
+    try {
+      Thread.sleep(1000);
+      LOG.info("stopping feeder......");
+    }
+ catch (    InterruptedException ex) {
+    }
+  }
+}

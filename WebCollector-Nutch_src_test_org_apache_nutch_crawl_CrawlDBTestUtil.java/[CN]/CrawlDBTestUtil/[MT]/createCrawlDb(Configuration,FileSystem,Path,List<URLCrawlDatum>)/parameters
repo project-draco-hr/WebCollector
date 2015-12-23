@@ -1,4 +1,0 @@
-Configuration conf
-FileSystem fs
-Path crawldb
-List<URLCrawlDatum> init

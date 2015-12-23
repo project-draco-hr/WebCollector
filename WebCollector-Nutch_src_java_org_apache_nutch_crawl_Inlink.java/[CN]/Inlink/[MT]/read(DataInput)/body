@@ -1,5 +1,0 @@
-{
-  Inlink inlink=new Inlink();
-  inlink.readFields(in);
-  return inlink;
-}

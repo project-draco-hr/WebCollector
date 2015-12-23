@@ -1,7 +1,0 @@
-{
-  isCanonical=in.readBoolean();
-  text=new ParseText();
-  text.readFields(in);
-  data=new ParseData();
-  data.readFields(in);
-}

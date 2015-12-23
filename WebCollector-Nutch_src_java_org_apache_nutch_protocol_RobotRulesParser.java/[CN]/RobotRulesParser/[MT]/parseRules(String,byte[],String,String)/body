@@ -1,3 +1,0 @@
-{
-  return robotParser.parseContent(url,content,contentType,robotName);
-}

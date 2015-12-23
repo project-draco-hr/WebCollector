@@ -1,5 +1,0 @@
-{
-  ObjectWritable objWrite=new ObjectWritable();
-  objWrite.set(WritableUtils.clone(value,conf));
-  output.collect(key,objWrite);
-}

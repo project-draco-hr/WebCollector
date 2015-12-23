@@ -1,7 +1,0 @@
-{
-  TrieNode node=root;
-  if (s.length() > 0) {
-    for (int i=s.length() - 1; i > 0; i--)     node=node.getChildAddIfNotPresent(s.charAt(i),false);
-    node=node.getChildAddIfNotPresent(s.charAt(0),true);
-  }
-}

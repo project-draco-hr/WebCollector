@@ -1,4 +1,0 @@
-{
-  String[] parts=MoreIndexingFilter.getParts("text/html");
-  assertParts(parts,2,"text","html");
-}

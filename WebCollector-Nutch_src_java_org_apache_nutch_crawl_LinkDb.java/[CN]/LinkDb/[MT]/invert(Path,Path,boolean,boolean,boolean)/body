@@ -1,5 +1,0 @@
-{
-  final FileSystem fs=FileSystem.get(getConf());
-  FileStatus[] files=fs.listStatus(segmentsDir,HadoopFSUtil.getPassDirectoriesFilter(fs));
-  invert(linkDb,HadoopFSUtil.getPaths(files),normalize,filter,force);
-}

@@ -1,7 +1,0 @@
-String pId
-String pVersion
-String pName
-String pProviderName
-String pPluginclazz
-String pPath
-Configuration conf

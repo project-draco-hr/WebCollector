@@ -1,8 +1,0 @@
-Text key
-CrawlDatum generateData
-CrawlDatum fetchData
-CrawlDatum sigData
-Content content
-ParseData parseData
-ParseText parseText
-Collection<CrawlDatum> linked

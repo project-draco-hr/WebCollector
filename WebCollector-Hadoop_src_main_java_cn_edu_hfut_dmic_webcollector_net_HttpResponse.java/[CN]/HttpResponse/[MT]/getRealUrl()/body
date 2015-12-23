@@ -1,0 +1,6 @@
+{
+  if (realUrl == null) {
+    return url;
+  }
+  return realUrl;
+}

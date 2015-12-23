@@ -1,7 +1,0 @@
-{
-  String[] values=metadata.get(name);
-  if (values == null) {
-    values=new String[0];
-  }
-  return values;
-}

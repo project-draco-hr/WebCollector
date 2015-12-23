@@ -1,4 +1,0 @@
-String url
-byte[] bytes
-String contentType
-boolean useMagic

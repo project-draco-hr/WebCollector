@@ -1,0 +1,14 @@
+{
+  key=di.readUTF();
+  url=di.readUTF();
+  status=di.readInt();
+  fetchTime=di.readLong();
+  httpCode=di.readInt();
+  retry=di.readInt();
+  int metaLen=di.readInt();
+  for (int i=0; i < metaLen; i++) {
+    String key=di.readUTF();
+    String value=di.readUTF();
+    metaData.put(key,value);
+  }
+}

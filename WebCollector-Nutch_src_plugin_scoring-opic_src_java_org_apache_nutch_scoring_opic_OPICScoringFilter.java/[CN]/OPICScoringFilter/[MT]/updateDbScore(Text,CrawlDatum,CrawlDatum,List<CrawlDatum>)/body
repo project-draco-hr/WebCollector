@@ -1,9 +1,0 @@
-{
-  float adjust=0.0f;
-  for (int i=0; i < inlinked.size(); i++) {
-    CrawlDatum linked=inlinked.get(i);
-    adjust+=linked.getScore();
-  }
-  if (old == null)   old=datum;
-  datum.setScore(old.getScore() + adjust);
-}

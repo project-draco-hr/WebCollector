@@ -1,3 +1,0 @@
-{
-  delete=job.getBoolean(IndexerMapReduce.INDEXER_DELETE,false);
-}

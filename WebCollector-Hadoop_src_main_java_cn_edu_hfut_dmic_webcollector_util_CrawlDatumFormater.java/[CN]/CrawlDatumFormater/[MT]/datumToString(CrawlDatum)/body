@@ -1,0 +1,26 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("\nKEY: ").append(datum.getKey()).append("\nURL: ").append(datum.getUrl()).append("\nFetchTime:").append(sdf.format(new Date(datum.getFetchTime()))).append("\nHttpCode:").append(datum.getHttpCode()).append("\nRETRY:").append(datum.getRetry()).append("\nSTATUS???");
+switch (datum.getStatus()) {
+case CrawlDatum.STATUS_DB_FETCHED:
+    sb.append("fetched");
+  break;
+case CrawlDatum.STATUS_DB_UNFETCHED:
+sb.append("unfetched");
+break;
+case CrawlDatum.STATUS_DB_INJECT:
+sb.append("inject");
+break;
+case CrawlDatum.STATUS_DB_FORCED_INJECT:
+sb.append("forced_inject");
+break;
+default :
+break;
+}
+int metaIndex=0;
+for (Entry<String,String> entry : datum.getMetaData().entrySet()) {
+sb.append("\nMETA").append("[").append(metaIndex++).append("]:(").append(entry.getKey()).append(",").append(entry.getValue()).append(")");
+}
+sb.append("\n");
+return sb.toString();
+}

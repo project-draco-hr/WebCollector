@@ -1,0 +1,3 @@
+{
+  conf.setBoolean("fetcher.store.content",storeContent);
+}

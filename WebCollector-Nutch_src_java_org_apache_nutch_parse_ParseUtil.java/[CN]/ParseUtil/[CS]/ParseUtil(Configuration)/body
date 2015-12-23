@@ -1,5 +1,0 @@
-{
-  this.parserFactory=new ParserFactory(conf);
-  maxParseTime=conf.getInt("parser.timeout",30);
-  executorService=Executors.newCachedThreadPool(new ThreadFactoryBuilder().setNameFormat("parse-%d").setDaemon(true).build());
-}

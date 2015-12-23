@@ -1,7 +1,0 @@
-{
-  if (!(o instanceof CrawlDatum))   return false;
-  CrawlDatum other=(CrawlDatum)o;
-  boolean res=(this.status == other.status) && (this.fetchTime == other.fetchTime) && (this.modifiedTime == other.modifiedTime)&& (this.retries == other.retries)&& (this.fetchInterval == other.fetchInterval)&& (SignatureComparator._compare(this.signature,other.signature) == 0)&& (this.score == other.score);
-  if (!res)   return res;
-  return metadataEquals(other.metaData);
-}

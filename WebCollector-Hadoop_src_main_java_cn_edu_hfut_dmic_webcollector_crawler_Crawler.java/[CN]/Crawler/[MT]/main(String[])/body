@@ -1,0 +1,6 @@
+{
+  Crawler crawler=new Crawler(new Path("hdfs://localhost:9000/task1"),MyVisitor.class);
+  crawler.addSeed("http://www.people.com.cn/");
+  crawler.setTopN(5000);
+  crawler.start(80);
+}

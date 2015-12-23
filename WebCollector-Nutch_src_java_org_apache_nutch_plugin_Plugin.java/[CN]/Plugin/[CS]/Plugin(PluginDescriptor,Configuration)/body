@@ -1,4 +1,0 @@
-{
-  setDescriptor(pDescriptor);
-  this.conf=conf;
-}

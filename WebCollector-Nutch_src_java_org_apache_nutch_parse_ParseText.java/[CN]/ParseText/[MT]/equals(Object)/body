@@ -1,5 +1,0 @@
-{
-  if (!(o instanceof ParseText))   return false;
-  ParseText other=(ParseText)o;
-  return this.text.equals(other.text);
-}

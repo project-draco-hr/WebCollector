@@ -1,0 +1,7 @@
+{
+  d.writeUTF(key);
+  d.writeInt(content.length);
+  if (content.length > 0) {
+    d.write(content);
+  }
+}

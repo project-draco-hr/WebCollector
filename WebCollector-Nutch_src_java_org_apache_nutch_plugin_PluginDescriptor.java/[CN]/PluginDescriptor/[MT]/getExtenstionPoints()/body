@@ -1,3 +1,0 @@
-{
-  return fExtensionPoints.toArray(new ExtensionPoint[fExtensionPoints.size()]);
-}

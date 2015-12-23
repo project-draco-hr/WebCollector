@@ -1,4 +1,0 @@
-{
-  if (args.length != 1)   System.out.println("Usage: StringUtil <encoding name>");
- else   System.out.println(args[0] + " is resolved to " + EncodingDetector.resolveEncodingAlias(args[0]));
-}

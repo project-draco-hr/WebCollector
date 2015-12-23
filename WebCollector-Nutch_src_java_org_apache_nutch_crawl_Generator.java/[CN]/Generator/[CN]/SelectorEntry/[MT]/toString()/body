@@ -1,3 +1,0 @@
-{
-  return "url=" + url.toString() + ", datum="+ datum.toString()+ ", segnum="+ segnum.toString();
-}

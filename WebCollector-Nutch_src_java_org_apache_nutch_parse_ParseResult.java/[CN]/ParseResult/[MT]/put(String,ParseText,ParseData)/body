@@ -1,3 +1,0 @@
-{
-  parseMap.put(new Text(key),new ParseImpl(text,data,key.equals(originalUrl)));
-}
