@@ -1,0 +1,6 @@
+{
+  for (  CrawlDatum datum : dataList) {
+    datum.meta(key,value);
+  }
+  return this;
+}
