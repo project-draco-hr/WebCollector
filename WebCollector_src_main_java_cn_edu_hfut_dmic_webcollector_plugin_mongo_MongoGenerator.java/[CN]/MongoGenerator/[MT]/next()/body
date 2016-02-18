@@ -1,0 +1,22 @@
+{
+  if (topN >= 0) {
+    if (totalGenerate >= topN) {
+      return null;
+    }
+  }
+  while (cursor.hasNext()) {
+    Document doc=cursor.next();
+    CrawlDatum datum=CrawlDatumFormater.bsonToDatum(doc);
+    if (datum.getStatus() == CrawlDatum.STATUS_DB_SUCCESS) {
+      continue;
+    }
+ else {
+      if (datum.getExecuteCount() > maxExecuteCount) {
+        continue;
+      }
+      totalGenerate++;
+      return datum;
+    }
+  }
+  return null;
+}

@@ -1,3 +1,4 @@
 {
   this.ramDB=ramDB;
+  this.generator=new RamGenerator(ramDB);
 }

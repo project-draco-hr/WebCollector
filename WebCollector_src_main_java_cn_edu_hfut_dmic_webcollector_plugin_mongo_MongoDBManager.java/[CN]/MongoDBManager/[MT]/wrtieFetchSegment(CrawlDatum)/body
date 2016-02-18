@@ -1,0 +1,4 @@
+{
+  Document doc=CrawlDatumFormater.datumToBson(fetchDatum);
+  fetch.insertOne(doc);
+}

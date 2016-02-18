@@ -19,6 +19,14 @@
   if (!forcedSeeds.isEmpty()) {
     injectForcedSeeds();
   }
+  Generator generator=dbManager.getGenerator();
+  if (maxExecuteCount >= 0) {
+    generator.setMaxExecuteCount(maxExecuteCount);
+  }
+ else {
+    generator.setMaxExecuteCount(Config.MAX_EXECUTE_COUNT);
+  }
+  generator.setTopN(topN);
   status=RUNNING;
   for (int i=0; i < depth; i++) {
     if (status == STOPED) {
@@ -26,26 +34,15 @@
     }
     LOG.info("start depth " + (i + 1));
     long startTime=System.currentTimeMillis();
-    if (maxRetry >= 0) {
-      generator.setMaxRetry(maxRetry);
-    }
- else {
-      generator.setMaxRetry(Config.MAX_RETRY);
-    }
-    generator.setTopN(topN);
     fetcher=new Fetcher();
-    fetcher.setRetryInterval(retryInterval);
-    fetcher.setVisitInterval(visitInterval);
     fetcher.setDBManager(dbManager);
-    fetcher.setRequester(requester);
-    fetcher.setVisitor(visitor);
-    fetcher.setRetry(retry);
+    fetcher.setExecutor(executor);
     fetcher.setThreads(threads);
     fetcher.fetchAll(generator);
     long endTime=System.currentTimeMillis();
     long costTime=(endTime - startTime) / 1000;
     int totalGenerate=generator.getTotalGenerate();
-    LOG.info("depth " + (i + 1) + " finish: \n\tTOTAL urls:\t"+ totalGenerate+ "\n\tTOTAL time:\t"+ costTime+ " seconds");
+    LOG.info("depth " + (i + 1) + " finish: \n\ttotal urls:\t"+ totalGenerate+ "\n\ttotal time:\t"+ costTime+ " seconds");
     if (totalGenerate == 0) {
       break;
     }

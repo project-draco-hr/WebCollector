@@ -1,0 +1,5 @@
+{
+  this.crawlID=crawlID;
+  this.client=client;
+  this.generator=new MongoGenerator(crawlID,client);
+}

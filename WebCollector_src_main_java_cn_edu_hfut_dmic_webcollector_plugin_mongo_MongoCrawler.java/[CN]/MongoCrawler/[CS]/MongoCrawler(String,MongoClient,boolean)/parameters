@@ -1,0 +1,3 @@
+String crawlID
+MongoClient client
+boolean autoParse

@@ -1,0 +1,21 @@
+{
+  MongoCollection crawldb=database.getCollection("crawldb");
+  MongoCollection fetch=database.getCollection("fetch");
+  MongoCollection link=database.getCollection("link");
+  LOG.info("start merge");
+  LOG.info("merge fetch database");
+  FindIterable<Document> findIte=fetch.find();
+  for (  Document fetchDoc : findIte) {
+    MongoDBUtils.updateOrInsert(crawldb,fetchDoc);
+  }
+  LOG.info("merge link database");
+  findIte=link.find();
+  for (  Document linkDoc : findIte) {
+    MongoDBUtils.insertIfNotExists(crawldb,linkDoc);
+  }
+  LOG.info("end merge");
+  fetch.drop();
+  LOG.debug("remove fetch database");
+  link.drop();
+  LOG.debug("remove link database");
+}

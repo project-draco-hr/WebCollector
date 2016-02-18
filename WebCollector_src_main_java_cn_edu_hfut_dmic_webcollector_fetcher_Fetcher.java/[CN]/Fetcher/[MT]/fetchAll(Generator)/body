@@ -1,6 +1,6 @@
 {
-  if (visitor == null) {
-    LOG.info("Please Specify A Visitor!");
+  if (executor == null) {
+    LOG.info("Please Specify A Executor!");
     return;
   }
   try {

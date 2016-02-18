@@ -1,3 +1,4 @@
 {
   this.crawlPath=crawlPath;
+  this.generator=new BerkeleyGenerator(crawlPath);
 }

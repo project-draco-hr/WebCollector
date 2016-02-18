@@ -1,0 +1,4 @@
+{
+  this.crawlDatum=datum;
+  this.response=response;
+}

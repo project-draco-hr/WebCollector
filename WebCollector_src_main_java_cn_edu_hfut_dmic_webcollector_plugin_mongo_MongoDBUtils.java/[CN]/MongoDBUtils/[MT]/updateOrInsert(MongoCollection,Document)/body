@@ -1,0 +1,5 @@
+{
+  String key=doc.getString("_id");
+  Document idDoc=new Document("_id",key);
+  col.replaceOne(idDoc,doc,forcedUo);
+}

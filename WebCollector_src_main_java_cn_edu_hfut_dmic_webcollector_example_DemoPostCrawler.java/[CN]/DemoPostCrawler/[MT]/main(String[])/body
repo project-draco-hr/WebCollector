@@ -1,7 +1,7 @@
 {
   DemoPostCrawler crawler=new DemoPostCrawler("json_crawler",true);
-  crawler.addSeed(new CrawlDatum("http://www.A.com/index.php").putMetaData("method","POST").putMetaData("outputData","id=a"));
-  crawler.addSeed(new CrawlDatum("http://www.B.com/index.php").putMetaData("method","POST"));
-  crawler.addSeed(new CrawlDatum("http://www.C.com/index.php").putMetaData("method","GET"));
+  crawler.addSeed(new CrawlDatum("http://www.A.com/index.php").meta("method","POST").meta("outputData","id=a"));
+  crawler.addSeed(new CrawlDatum("http://www.B.com/index.php").meta("method","POST"));
+  crawler.addSeed(new CrawlDatum("http://www.C.com/index.php").meta("method","GET"));
   crawler.start(1);
 }

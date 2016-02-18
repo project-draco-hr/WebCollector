@@ -5,7 +5,7 @@
   }
  else {
     for (int i=0; i < metas.length; i+=2) {
-      putMetaData(metas[i * 2],metas[i * 2 + 1]);
+      meta(metas[i * 2],metas[i * 2 + 1]);
     }
   }
 }

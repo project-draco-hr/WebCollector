@@ -1,7 +1,7 @@
 {
   HttpRequest request=new HttpRequest(crawlDatum.getUrl());
-  request.setMethod(crawlDatum.getMetaData("method"));
-  String outputData=crawlDatum.getMetaData("outputData");
+  request.setMethod(crawlDatum.meta("method"));
+  String outputData=crawlDatum.meta("outputData");
   if (outputData != null) {
     request.setOutputData(outputData.getBytes("utf-8"));
   }

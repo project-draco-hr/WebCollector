@@ -1,0 +1,9 @@
+{
+  String key=datum.getKey();
+  Document idDoc=new Document("_id",key);
+  FindIterable findIte=col.find(idDoc);
+  if (findIte.first() == null) {
+    Document doc=CrawlDatumFormater.datumToBson(datum);
+    col.insertOne(doc);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  Executor executor=new Executor(){
+    @Override public void execute(    CrawlDatum datum,    CrawlDatums next) throws Exception {
+      HtmlUnitDriver driver=new HtmlUnitDriver();
+      driver.setJavascriptEnabled(true);
+      driver.get(datum.getUrl());
+      WebElement element=driver.findElementByCssSelector("span#outlink1");
+      System.out.println("?????????:" + element.getText());
+    }
+  }
+;
+  DBManager manager=new BerkeleyDBManager("crawl");
+  Crawler crawler=new Crawler(manager,executor);
+  crawler.addSeed("http://seo.chinaz.com/?host=www.tuicool.com");
+  crawler.start(1);
+}

@@ -1,4 +1,3 @@
 {
-  this.metaData.put(key,value);
-  return this;
+  return meta(key,value);
 }

@@ -7,10 +7,10 @@
   while (true) {
     if (iterator.hasNext()) {
       CrawlDatum datum=iterator.next().getValue();
-      if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED) {
+      if (datum.getStatus() == CrawlDatum.STATUS_DB_SUCCESS) {
         continue;
       }
- else       if (datum.getRetry() >= maxRetry) {
+ else       if (datum.getExecuteCount() > maxExecuteCount) {
         continue;
       }
  else {

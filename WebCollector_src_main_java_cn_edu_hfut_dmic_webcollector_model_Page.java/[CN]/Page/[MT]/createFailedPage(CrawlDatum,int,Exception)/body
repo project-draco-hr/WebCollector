@@ -1,3 +1,0 @@
-{
-  return new Page(crawlDatum,STATUS_FETCH_FAILED,retry,null,ex);
-}

@@ -1,0 +1,4 @@
+{
+  this.crawlID=crawlID;
+  this.client=client;
+}

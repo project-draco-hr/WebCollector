@@ -1,0 +1,6 @@
+{
+  database=client.getDatabase(crawlID);
+  crawldb=database.getCollection("crawldb");
+  totalGenerate=0;
+  cursor=crawldb.find().iterator();
+}

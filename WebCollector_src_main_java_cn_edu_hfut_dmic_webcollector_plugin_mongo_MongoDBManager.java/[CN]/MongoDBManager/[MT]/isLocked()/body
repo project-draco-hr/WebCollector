@@ -1,0 +1,12 @@
+{
+  MongoCollection lock=database.getCollection("lock");
+  Document idDoc=new Document("_id","lock");
+  FindIterable<Document> findIte=lock.find(idDoc);
+  Document lockDoc=findIte.first();
+  if (lockDoc != null && lockDoc.getString("lock").equals("locked")) {
+    return true;
+  }
+ else {
+    return false;
+  }
+}

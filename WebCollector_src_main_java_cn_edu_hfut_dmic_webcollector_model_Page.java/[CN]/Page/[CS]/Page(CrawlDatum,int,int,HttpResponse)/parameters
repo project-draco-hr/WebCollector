@@ -1,4 +1,0 @@
-CrawlDatum crawlDatum
-int status
-int retry
-HttpResponse response

@@ -1,5 +1,0 @@
-{
-  this.visitor=this;
-  this.requester=this;
-  this.autoParse=autoParse;
-}

@@ -1,0 +1,9 @@
+{
+  MongoCollection crawldb=database.getCollection("crawldb");
+  if (force) {
+    MongoDBUtils.updateOrInsert(crawldb,datum);
+  }
+ else {
+    MongoDBUtils.insertIfNotExists(crawldb,datum);
+  }
+}

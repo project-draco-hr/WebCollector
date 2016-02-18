@@ -1,0 +1,11 @@
+{
+  Document doc=new Document().append("_id",datum.getKey()).append("url",datum.getUrl()).append("status",datum.getStatus()).append("executeTime",datum.getExecuteTime()).append("executeCount",datum.getExecuteCount());
+  Document metaDoc=new Document();
+  if (!datum.getMetaData().isEmpty()) {
+    for (    Entry<String,String> entry : datum.getMetaData().entrySet()) {
+      metaDoc.put(entry.getKey(),entry.getValue());
+    }
+    doc.append("meta",metaDoc);
+  }
+  return doc;
+}

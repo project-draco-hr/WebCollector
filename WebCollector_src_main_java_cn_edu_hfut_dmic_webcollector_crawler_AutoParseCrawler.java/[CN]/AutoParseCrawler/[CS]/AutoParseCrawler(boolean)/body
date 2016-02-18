@@ -1,0 +1,6 @@
+{
+  this.autoParse=autoParse;
+  this.visitor=this;
+  this.requester=this;
+  this.executor=this;
+}

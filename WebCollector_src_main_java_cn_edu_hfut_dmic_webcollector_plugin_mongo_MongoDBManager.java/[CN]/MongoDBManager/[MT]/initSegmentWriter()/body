@@ -1,0 +1,5 @@
+{
+  fetch=database.getCollection("fetch");
+  link=database.getCollection("link");
+  redirect=database.getCollection("redirect");
+}

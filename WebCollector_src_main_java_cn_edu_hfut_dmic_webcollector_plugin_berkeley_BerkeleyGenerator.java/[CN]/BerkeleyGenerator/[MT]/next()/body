@@ -12,11 +12,11 @@
     if (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
       try {
         CrawlDatum datum=BerkeleyDBUtils.createCrawlDatum(key,value);
-        if (datum.getStatus() == CrawlDatum.STATUS_DB_FETCHED) {
+        if (datum.getStatus() == CrawlDatum.STATUS_DB_SUCCESS) {
           continue;
         }
  else {
-          if (datum.getRetry() >= maxRetry) {
+          if (datum.getExecuteCount() > maxExecuteCount) {
             continue;
           }
           totalGenerate++;

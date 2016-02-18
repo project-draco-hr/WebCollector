@@ -1,3 +1,3 @@
 {
-  return this.crawlDatum.getMetaData(key);
+  return meta(key);
 }

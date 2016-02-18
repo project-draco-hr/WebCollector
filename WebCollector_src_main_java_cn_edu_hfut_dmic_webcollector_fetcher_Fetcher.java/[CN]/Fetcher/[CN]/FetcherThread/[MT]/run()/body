@@ -22,36 +22,26 @@
         }
         lastRequestStart.set(System.currentTimeMillis());
         CrawlDatum crawlDatum=item.datum;
-        String url=crawlDatum.getUrl();
-        Page page=getPage(crawlDatum);
-        crawlDatum.incrRetry(page.getRetry());
-        crawlDatum.setFetchTime(System.currentTimeMillis());
         CrawlDatums next=new CrawlDatums();
-        if (visit(crawlDatum,page,next)) {
-          try {
-            dbManager.wrtieFetchSegment(crawlDatum);
-            if (page.getResponse() == null) {
-              continue;
-            }
-            if (page.getResponse().isRedirect()) {
-              if (page.getResponse().getRealUrl() != null) {
-                dbManager.writeRedirectSegment(crawlDatum,page.getResponse().getRealUrl().toString());
-              }
-            }
-            if (!next.isEmpty()) {
-              dbManager.wrtieParseSegment(next);
-            }
-          }
- catch (          Exception ex) {
-            LOG.info("Exception when updating db",ex);
+        try {
+          executor.execute(crawlDatum,next);
+          LOG.info("done: " + crawlDatum.getKey());
+          crawlDatum.setStatus(CrawlDatum.STATUS_DB_SUCCESS);
+        }
+ catch (        Exception ex) {
+          LOG.info("failed: " + crawlDatum.getKey(),ex);
+          crawlDatum.setStatus(CrawlDatum.STATUS_DB_FAILED);
+        }
+        crawlDatum.incrExecuteCount(1);
+        crawlDatum.setExecuteTime(System.currentTimeMillis());
+        try {
+          dbManager.wrtieFetchSegment(crawlDatum);
+          if (crawlDatum.getStatus() == CrawlDatum.STATUS_DB_SUCCESS && !next.isEmpty()) {
+            dbManager.wrtieParseSegment(next);
           }
         }
-        if (visitInterval > 0) {
-          try {
-            Thread.sleep(visitInterval);
-          }
- catch (          Exception sleepEx) {
-          }
+ catch (        Exception ex) {
+          LOG.info("Exception when updating db",ex);
         }
       }
  catch (      Exception ex) {

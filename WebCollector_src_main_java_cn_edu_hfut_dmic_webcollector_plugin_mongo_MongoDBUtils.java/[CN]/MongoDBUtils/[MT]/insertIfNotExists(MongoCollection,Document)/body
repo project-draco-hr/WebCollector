@@ -1,0 +1,8 @@
+{
+  String key=doc.getString("_id");
+  Document idDoc=new Document("_id",key);
+  FindIterable findIte=col.find(idDoc);
+  if (findIte.first() == null) {
+    col.insertOne(doc);
+  }
+}

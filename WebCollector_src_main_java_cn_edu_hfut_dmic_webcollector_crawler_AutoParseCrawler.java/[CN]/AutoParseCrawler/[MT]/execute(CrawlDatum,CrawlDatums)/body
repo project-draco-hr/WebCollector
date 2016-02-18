@@ -1,0 +1,8 @@
+{
+  HttpResponse response=requester.getResponse(datum);
+  Page page=new Page(datum,response);
+  visitor.visit(page,next);
+  if (autoParse && !regexRule.isEmpty()) {
+    parseLink(page,next);
+  }
+}

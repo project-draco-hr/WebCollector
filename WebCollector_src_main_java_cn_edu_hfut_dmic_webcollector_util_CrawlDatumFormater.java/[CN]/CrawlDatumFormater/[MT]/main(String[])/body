@@ -1,0 +1,5 @@
+{
+  CrawlDatum datum=new CrawlDatum("http://36kr.com").putMetaData("name","haha");
+  Document doc=datumToBson(datum);
+  System.out.println(bsonToDatum(doc));
+}

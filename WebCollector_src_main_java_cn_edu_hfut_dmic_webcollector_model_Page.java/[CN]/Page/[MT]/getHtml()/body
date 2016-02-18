@@ -9,7 +9,9 @@
   if (getContent() == null) {
     return null;
   }
-  String charset=CharsetDetector.guessEncoding(getContent());
+  if (charset == null) {
+    charset=CharsetDetector.guessEncoding(getContent());
+  }
   try {
     this.html=new String(getContent(),charset);
     return html;

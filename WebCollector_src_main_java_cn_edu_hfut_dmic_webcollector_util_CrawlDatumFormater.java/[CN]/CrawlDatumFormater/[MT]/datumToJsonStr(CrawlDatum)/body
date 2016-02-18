@@ -2,9 +2,8 @@
   JSONArray jsonArray=new JSONArray();
   jsonArray.put(datum.getUrl());
   jsonArray.put(datum.getStatus());
-  jsonArray.put(datum.getFetchTime());
-  jsonArray.put(datum.getRetry());
-  jsonArray.put(datum.getHttpCode());
+  jsonArray.put(datum.getExecuteTime());
+  jsonArray.put(datum.getExecuteCount());
   if (!datum.getMetaData().isEmpty()) {
     jsonArray.put(new JSONObject(datum.getMetaData()));
   }

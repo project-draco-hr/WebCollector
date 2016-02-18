@@ -1,0 +1,10 @@
+{
+  String conteType=page.getResponse().getContentType();
+  if (conteType != null && conteType.contains("text/html")) {
+    Document doc=page.getDoc();
+    if (doc != null) {
+      Links links=new Links().addByRegex(doc,regexRule);
+      next.add(links);
+    }
+  }
+}

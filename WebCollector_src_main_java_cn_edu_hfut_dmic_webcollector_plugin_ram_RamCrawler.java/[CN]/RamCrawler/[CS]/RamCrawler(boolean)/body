@@ -2,5 +2,4 @@
   super(autoParse);
   RamDB ramDB=new RamDB();
   this.dbManager=new RamDBManager(ramDB);
-  this.generator=new RamGenerator(ramDB);
 }

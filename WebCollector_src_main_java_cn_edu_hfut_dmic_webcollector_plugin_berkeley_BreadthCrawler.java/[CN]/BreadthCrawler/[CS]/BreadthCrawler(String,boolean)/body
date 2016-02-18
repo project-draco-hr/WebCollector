@@ -1,5 +1,4 @@
 {
   super(autoParse);
   this.dbManager=new BerkeleyDBManager(crawlPath);
-  this.generator=new BerkeleyGenerator(crawlPath);
 }

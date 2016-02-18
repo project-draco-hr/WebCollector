@@ -1,0 +1,20 @@
+{
+  if (env == null) {
+    open();
+  }
+  Cursor cursor=null;
+  Database crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+  cursor=crawldbDatabase.openCursor(null,CursorConfig.DEFAULT);
+  DatabaseEntry key=new DatabaseEntry();
+  DatabaseEntry value=new DatabaseEntry();
+  while (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+    try {
+      CrawlDatum datum=BerkeleyDBUtils.createCrawlDatum(key,value);
+      System.out.println(CrawlDatumFormater.datumToString(datum));
+    }
+ catch (    Exception ex) {
+      LOG.info("Exception when generating",ex);
+      continue;
+    }
+  }
+}

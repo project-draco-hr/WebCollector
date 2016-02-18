@@ -1,0 +1,5 @@
+{
+  MongoCollection lock=database.getCollection("lock");
+  Document lockDoc=new Document("_id","lock").append("lock","locked");
+  MongoDBUtils.updateOrInsert(lock,lockDoc);
+}

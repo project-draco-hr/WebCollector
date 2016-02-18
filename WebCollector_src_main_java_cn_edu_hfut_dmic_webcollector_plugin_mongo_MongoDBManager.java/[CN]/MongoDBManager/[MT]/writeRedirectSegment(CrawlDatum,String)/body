@@ -1,0 +1,5 @@
+{
+  String key=datum.getKey();
+  Document doc=new Document("_id",key).append("realUrl",realUrl);
+  MongoDBUtils.updateOrInsert(redirect,doc);
+}
