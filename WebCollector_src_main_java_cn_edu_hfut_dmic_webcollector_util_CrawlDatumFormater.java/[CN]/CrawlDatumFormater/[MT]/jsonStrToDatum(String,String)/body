@@ -6,8 +6,8 @@
   crawlDatum.setStatus(jsonArray.getInt(1));
   crawlDatum.setExecuteTime(jsonArray.getLong(2));
   crawlDatum.setExecuteCount(jsonArray.getInt(3));
-  if (jsonArray.length() == 6) {
-    JSONObject metaJSONObject=jsonArray.getJSONObject(5);
+  if (jsonArray.length() == 5) {
+    JSONObject metaJSONObject=jsonArray.getJSONObject(4);
     for (    Object keyObject : metaJSONObject.keySet()) {
       String key=keyObject.toString();
       String value=metaJSONObject.getString(key);
