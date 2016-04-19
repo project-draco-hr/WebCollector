@@ -5,4 +5,5 @@
   if (autoParse && !regexRule.isEmpty()) {
     parseLink(page,next);
   }
+  afterParse(page,next);
 }

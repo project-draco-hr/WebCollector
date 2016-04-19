@@ -21,6 +21,7 @@
     running=true;
     lastRequestStart=new AtomicLong(System.currentTimeMillis());
     activeThreads=new AtomicInteger(0);
+    startedThreads=new AtomicInteger(0);
     spinWaiting=new AtomicInteger(0);
     fetchQueue=new FetchQueue();
     feeder=new QueueFeeder(fetchQueue,generator,1000);
@@ -45,7 +46,7 @@
         break;
       }
     }
- while (activeThreads.get() > 0 && running);
+ while (running && (startedThreads.get() != threads || activeThreads.get() > 0));
     running=false;
     long waitThreadEndStartTime=System.currentTimeMillis();
     if (activeThreads.get() > 0) {

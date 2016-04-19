@@ -6,5 +6,6 @@
   crawler.addRegex("http://news.hfut.edu.cn/show-.*html");
   crawler.addRegex("-.*\\.(jpg|png|gif).*");
   crawler.addRegex("-.*#.*");
-  crawler.start(2);
+  crawler.setTopN(5);
+  crawler.start(3);
 }

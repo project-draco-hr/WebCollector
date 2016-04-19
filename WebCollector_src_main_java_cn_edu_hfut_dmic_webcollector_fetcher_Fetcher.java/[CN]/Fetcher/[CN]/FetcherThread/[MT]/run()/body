@@ -1,4 +1,5 @@
 {
+  startedThreads.incrementAndGet();
   activeThreads.incrementAndGet();
   FetchItem item=null;
   try {
@@ -42,6 +43,13 @@
         }
  catch (        Exception ex) {
           LOG.info("Exception when updating db",ex);
+        }
+        if (executeInterval > 0) {
+          try {
+            Thread.sleep(executeInterval);
+          }
+ catch (          Exception sleepEx) {
+          }
         }
       }
  catch (      Exception ex) {

@@ -38,6 +38,7 @@
     fetcher.setDBManager(dbManager);
     fetcher.setExecutor(executor);
     fetcher.setThreads(threads);
+    fetcher.setExecuteInterval(executeInterval);
     fetcher.fetchAll(generator);
     long endTime=System.currentTimeMillis();
     long costTime=(endTime - startTime) / 1000;

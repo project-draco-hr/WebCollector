@@ -1,14 +1,3 @@
 {
   System.out.println("visiting:" + page.getUrl() + "\tdepth="+ page.meta("depth"));
-  int depth;
-  if (page.meta("depth") == null) {
-    depth=1;
-  }
- else {
-    depth=Integer.valueOf(page.meta("depth"));
-  }
-  depth++;
-  for (  CrawlDatum datum : next) {
-    datum.meta("depth",depth + "");
-  }
 }
