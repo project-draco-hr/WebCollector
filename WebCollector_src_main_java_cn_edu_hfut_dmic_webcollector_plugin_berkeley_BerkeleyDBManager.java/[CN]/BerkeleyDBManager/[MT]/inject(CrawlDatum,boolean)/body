@@ -10,6 +10,5 @@
   }
   value=BerkeleyDBUtils.strToEntry(CrawlDatumFormater.datumToJsonStr(datum));
   database.put(null,key,value);
-  database.sync();
   database.close();
 }

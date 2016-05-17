@@ -67,25 +67,9 @@
     depth=confJson.getInt("depth");
     LOG.info("set depth=" + depth);
   }
-  if (confJson.has("visit_interval")) {
-    visitInterval=confJson.getLong("visit_interval");
-    LOG.info("set visit_interval=" + visitInterval);
-  }
-  if (confJson.has("retry_interval")) {
-    retryInterval=confJson.getLong("retry_interval");
-    LOG.info("set retry_interval=" + retryInterval);
-  }
   if (confJson.has("threads")) {
     threads=confJson.getInt("threads");
     LOG.info("set threads=" + threads);
-  }
-  if (confJson.has("retry")) {
-    retry=confJson.getInt("retry");
-    LOG.info("set retry=" + retry);
-  }
-  if (confJson.has("max_retry")) {
-    maxRetry=confJson.getInt("max_retry");
-    LOG.info("set max_retry=" + maxRetry);
   }
   if (confJson.has("max_receive_size")) {
     maxReceiveSize=confJson.getInt("max_receive_size");

@@ -1,5 +1,0 @@
-{
-  for (  CrawlDatum datum : datums) {
-    inject(datum,force);
-  }
-}

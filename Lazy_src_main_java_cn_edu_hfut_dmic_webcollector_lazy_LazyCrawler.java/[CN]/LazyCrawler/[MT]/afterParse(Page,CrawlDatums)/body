@@ -1,0 +1,4 @@
+{
+  super.afterParse(page,next);
+  next.meta("refer",page.getUrl());
+}

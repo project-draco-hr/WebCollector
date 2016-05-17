@@ -1,0 +1,9 @@
+{
+  this.crawlPath=crawlPath;
+  File dir=new File(crawlPath);
+  EnvironmentConfig environmentConfig=new EnvironmentConfig();
+  environmentConfig.setAllowCreate(true);
+  env=new Environment(dir,environmentConfig);
+  crawldbDatabase=env.openDatabase(null,"crawldb",BerkeleyDBUtils.defaultDBConfig);
+  cursor=crawldbDatabase.openCursor(null,CursorConfig.DEFAULT);
+}

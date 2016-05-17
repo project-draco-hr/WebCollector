@@ -1,0 +1,9 @@
+{
+  if (cursor.getNext(key,value,LockMode.DEFAULT) == OperationStatus.SUCCESS) {
+    CrawlDatum datum=BerkeleyDBUtils.createCrawlDatum(key,value);
+    return datum;
+  }
+ else {
+    return null;
+  }
+}
